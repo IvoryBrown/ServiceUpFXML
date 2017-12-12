@@ -1,0 +1,179 @@
+/*/////////////////////////////////////////////////////////////////////////////
+//                    Fõ panle beállítások                                   //
+//              - Alap szín átmenõ világosból sötétbe                        //
+//                     -Rádius beállítása                                    //
+/////////////////////////////////////////////////////////////////////////////*/
+.root{
+    -fx-background-color: white;
+    -fx-background-radius: 10.0;
+}
+/*/////////////////////////////////////////////////////////////////////////////
+//                    Split panle beállítások                                //
+//              - Alap szín átmenõ világosból sötétbe                        //
+//                     -Rádius beállítása                                    //
+/////////////////////////////////////////////////////////////////////////////*/
+.split-pane{
+    -fx-background-color:whitesmoke;
+    -fx-background-radius: 10.0;
+}
+/*/////////////////////////////////////////////////////////////////////////////
+//                    Split panle elválasztó                                 //
+//              - Alap szín átmenõ sötétbõl világosba                        //
+//                     -Rádius beállítása                                    //
+/////////////////////////////////////////////////////////////////////////////*/
+.split-pane:horizontal > .split-pane-divider {
+    -fx-background-color: white;
+    -fx-border-radius: 10.0;
+}
+/*/////////////////////////////////////////////////////////////////////////////
+//                    Tree panel beállítások                                 //
+//                    - Alap szín beállítása                                 //
+//                    -Betû szín beállítása                                  //
+//                   - Betû méret beállítása                                 //
+//                        -Betû formája                                      //  
+//                     -Rádius beállítása                                    //
+/////////////////////////////////////////////////////////////////////////////*/
+.tree-view, .tree-cell {
+    -fx-background-color: #4c0085;
+    -fx-text-fill: whitesmoke;
+    -fx-font-size: 16.0;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10.0;
+}
+/*/////////////////////////////////////////////////////////////////////////////
+//                    Tree panel kiválasztott beállítások                    //
+//                    -Betû szín beállítása                                  //
+//                   - Betû méret beállítása                                 //
+//                        -Betû formája                                      // 
+/////////////////////////////////////////////////////////////////////////////*/
+.tree-cell:selected {
+    -fx-background-color: 
+       linear-gradient(from 0.0% 93.0% to 0.0% 100.0%, #4c0085 0.0%, #9999ff 100.0%),
+        #4c0085,
+        #9999ff,
+        radial-gradient(center 50.0% 50.0%, radius 100.0%,#9999ff, #4c0085);
+    -fx-text-fill: white;
+    -fx-font-size: 20.0;
+    -fx-font-weight: bold;
+}
+.tree-cell:hover {
+    -fx-background-color: 
+       linear-gradient(from 0.0% 93.0% to 0.0% 100.0%, #4c0085 0.0%, #9999ff 100.0%),
+        #4c0085,
+        #9999ff,
+        radial-gradient(center 50.0% 50.0%, radius 100.0%,#9999ff, #4c0085);
+    -fx-text-fill: white;
+    -fx-font-size: 20.0;
+    -fx-font-weight: bold;
+}
+.button{
+    -fx-padding: 8.0 15.0 15.0 15.0;
+    -fx-background-insets: 0.0,0.0 0.0 5.0 0.0, 0.0 0.0 6.0 0.0, 0.0 0.0 7.0 0.0;
+    -fx-background-radius: 10.0;
+    -fx-background-color: 
+        linear-gradient(from 0.0% 93.0% to 0.0% 100.0%, #4c0085 0.0%, #4c0085 100.0%),
+        #4c0085,
+        #4c0085,
+        radial-gradient(center 50.0% 50.0%, radius 100.0%, #4c0085,#4c0085);
+    -fx-effect: dropshadow( gaussian , rgba(0.0,0.0,0.0,0.75) , 4.0,0.0,0.0,1.0 );
+    -fx-font-weight: bold;
+    -fx-font-size: 20.0;
+    -fx-text-fill: whitesmoke;
+}
+.button:hover {
+    -fx-background-color: 
+       linear-gradient(from 0.0% 93.0% to 0.0% 100.0%,#9999ff  0.0%, #4c0085 100.0%),
+        #4c0085,
+        #9999ff,
+        radial-gradient(center 50.0% 50.0%, radius 100.0%,#9999ff, #4c0085);
+    -fx-font-size: 24.0;
+}
+.label{
+    -fx-text-fill: #4c0085;
+    -fx-font-size: 18.0;
+    -fx-font-weight: bold;
+}
+/*Text beállítás */
+.text-field{
+    -fx-background-color: #4c0085 , #4c0085 , whitesmoke;
+    -fx-background-insets: 0.0 -1.0 -1.0 -1.0, 0.0 0.0 0.0 0.0, 0.0 -1.0 3.0 -1.0;
+    -fx-font-size: 16.0;
+    -fx-text-fill: #4c0085;
+}
+.text-field:focused {
+    -fx-background-color: #4c0085 , #fdfdfd , #fdfdfd;
+    -fx-background-insets: 0.0 -1.0 -1.0 -1.0, 0.0 0.0 0.0 0.0, 0.0 -1.0 3.0 -1.0;
+    -fx-font-size: 18.0;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4c0085;
+}
+.text-field:hover {
+    -fx-background-color: #4c0085 , #fdfdfd , #fdfdfd;
+    -fx-background-insets: 0.0 -1.0 -1.0 -1.0, 0.0 0.0 0.0 0.0, 0.0 -1.0 3.0 -1.0;
+    -fx-font-size: 18.0;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4c0085;
+}
+/*Text beáálítás */
+.text-area{
+    -fx-background-color: #4c0085 , #4c0085 , whitesmoke;
+    -fx-background-insets: 0.0 -1.0 -1.0 -1.0, 0.0 0.0 0.0 0.0, 0.0 -1.0 3.0 -1.0;
+    -fx-font-size: 16.0;
+    -fx-text-fill: #4c0085;
+}
+
+.text-area .content {
+   -fx-background-color: #4c0085 , #4c0085 , whitesmoke;
+    -fx-background-insets: 0.0 -1.0 -1.0 -1.0, 0.0 0.0 0.0 0.0, 0.0 -1.0 3.0 -1.0;
+    -fx-font-size: 16.0;
+    -fx-text-fill: #4c0085;
+}
+
+.text-area:focused .content {
+  -fx-background-color: #4c0085 , #fdfdfd , #fdfdfd;
+    -fx-background-insets: 0.0 -1.0 -1.0 -1.0, 0.0 0.0 0.0 0.0, 0.0 -1.0 3.0 -1.0;
+    -fx-font-size: 18.0;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4c0085;
+}
+.text-area:hover .content {
+  -fx-background-color: #4c0085 , #fdfdfd , #fdfdfd;
+    -fx-background-insets: 0.0 -1.0 -1.0 -1.0, 0.0 0.0 0.0 0.0, 0.0 -1.0 3.0 -1.0;
+    -fx-font-size: 18.0;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4c0085;
+}
+
+
+/*Combox alap kinézet */
+.combo-box{
+    -fx-background-color: #4c0085 , #4c0085 , whitesmoke;
+    -fx-background-insets: 0.0 -1.0 -1.0 -1.0, 0.0 0.0 0.0 0.0, 0.0 -1.0 3.0 -1.0;
+}
+.combo-box:hover {
+    -fx-background-color: #4c0085 , #fdfdfd , #fdfdfd;
+    -fx-background-insets: 0.0 -1.0 -1.0 -1.0, 0.0 0.0 0.0 0.0, 0.0 -1.0 3.0 -1.0;
+    -fx-font-size: 20.0;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4c0085;
+}
+ .combo-box-popup .list-view .list-cell:filled:hover  {
+	-fx-background-color: 
+       linear-gradient(from 0.0% 93.0% to 0.0% 100.0%,#9999ff  0.0%, #4c0085 100.0%),
+        #4c0085,
+        #9999ff,
+        radial-gradient(center 50.0% 50.0%, radius 100.0%,#9999ff, #4c0085);
+    -fx-font-size: 18.0;
+    -fx-font-weight: bold;
+}
+.combo-box .list-cell{
+    -fx-text-fill: #4c0085;
+    -fx-font-size: 18.0;
+}
+.combo-box-popup .list-view .list-cell {
+    -fx-text-fill: whitesmoke;
+    -fx-font-size: 16.0;
+
+    -fx-background-color: #4c0085;
+}
+
