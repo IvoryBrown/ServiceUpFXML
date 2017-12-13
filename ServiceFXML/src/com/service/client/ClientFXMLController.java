@@ -11,8 +11,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -57,7 +55,7 @@ public class ClientFXMLController extends ServiceController implements Initializ
 		if (clientInput()) {
 			txtClientInputNumber.setText(ClientIdentficationGenerator.random());
 		}else {
-			ShowInfo.showInfo("Nem megfelelõ");
+			ShowInfo.showInfo("Nem megfelelõ", "Bakker");
 		}
 	}
 
