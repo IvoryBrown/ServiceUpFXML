@@ -1,4 +1,4 @@
-package com.service.main;
+package com.service.setting.menutreeitem;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -8,7 +8,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
-public class ServiceController {
+public class MenuTreeItemController {
 	@FXML
 	StackPane menuPane;
 	@FXML

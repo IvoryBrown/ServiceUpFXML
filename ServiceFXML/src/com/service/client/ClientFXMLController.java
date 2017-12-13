@@ -3,8 +3,8 @@ package com.service.client;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.service.main.ServiceController;
 import com.service.setting.identification.ClientIdentficationGenerator;
+import com.service.setting.menutreeitem.MenuTreeItemController;
 import com.service.setting.showinfo.ShowInfo;
 
 import javafx.event.ActionEvent;
@@ -16,7 +16,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class ClientFXMLController extends ServiceController implements Initializable {
+public class ClientFXMLController extends MenuTreeItemController implements Initializable {
 
 	@FXML
 	private ComboBox<String> cmbClientInputCounty; 
