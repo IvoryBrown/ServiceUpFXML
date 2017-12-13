@@ -10,7 +10,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/com/service/main/ServiceFX.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/com/service/setting/fxmlsetting/ServiceFX.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setWidth(1350);
 			primaryStage.setHeight(710);
