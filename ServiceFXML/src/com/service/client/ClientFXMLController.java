@@ -1,14 +1,18 @@
 package com.service.client;
 
-import java.net.URL; 
+import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.service.main.ServiceController;
+import com.service.setting.identification.ClientIdentficationGenerator;
+import com.service.setting.showinfo.ShowInfo;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -51,7 +55,9 @@ public class ClientFXMLController extends ServiceController implements Initializ
 	
 	private void btnClientNewclient(){
 		if (clientInput()) {
-			txtClientInputID.setText("Yes");
+			txtClientInputNumber.setText(ClientIdentficationGenerator.random());
+		}else {
+			ShowInfo.showInfo("Nem megfelelõ");
 		}
 	}
 
