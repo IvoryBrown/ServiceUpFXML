@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="710.0" prefWidth="1350.0"  xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.service.client.ClientFXMLController">
+<AnchorPane id="AnchorPane" prefHeight="710.0" prefWidth="1350.0" stylesheets="@../desing/desing.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.service.client.ClientFXMLController">
 	<children>
 		<SplitPane dividerPositions="0.5" layoutX="247.0" layoutY="231.0" prefHeight="710.0" prefWidth="1350.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
 			<items>
@@ -157,7 +157,7 @@
 												<Insets />
 											</opaqueInsets>
 										</ComboBox>
-										<TextField prefHeight="40.0" prefWidth="316.0" promptText="6767">
+										<TextField id="txtClientInputZipCode" fx:id="txtClientInputZipCode" prefHeight="40.0" prefWidth="316.0" promptText="6767">
 											<VBox.margin>
 												<Insets top="5.0" />
 											</VBox.margin>
@@ -165,7 +165,7 @@
 												<Insets />
 											</opaqueInsets>
 										</TextField>
-										<TextField prefHeight="40.0" prefWidth="316.0" promptText="Aprajafalva">
+										<TextField id="txtClientInputSettlement" fx:id="txtClientInputSettlement" prefHeight="40.0" prefWidth="316.0" promptText="Aprajafalva">
 											<VBox.margin>
 												<Insets top="5.0" />
 											</VBox.margin>
@@ -173,7 +173,7 @@
 												<Insets />
 											</opaqueInsets>
 										</TextField>
-										<TextField prefHeight="40.0" prefWidth="316.0" promptText="Futrinka útca 15 6/b">
+										<TextField id="txtClientInputAddress" fx:id="txtClientInputAddress" prefHeight="40.0" prefWidth="316.0" promptText="Futrinka útca 15 6/b">
 											<VBox.margin>
 												<Insets top="5.0" />
 											</VBox.margin>
@@ -181,7 +181,7 @@
 												<Insets />
 											</opaqueInsets>
 										</TextField>
-										<TextField prefHeight="40.0" prefWidth="316.0" promptText="senkibela@senki.hu">
+										<TextField id="txtClientInputEmail" fx:id="txtClientInputEmail" prefHeight="40.0" prefWidth="316.0" promptText="senkibela@senki.hu">
 											<VBox.margin>
 												<Insets top="5.0" />
 											</VBox.margin>
@@ -189,7 +189,7 @@
 												<Insets />
 											</opaqueInsets>
 										</TextField>
-										<TextField prefHeight="40.0" prefWidth="316.0" promptText="+36 90 999 9999">
+										<TextField id="txtClientInputMobil" fx:id="txtClientInputMobil" prefHeight="40.0" prefWidth="316.0" promptText="+36 90 999 9999">
 											<VBox.margin>
 												<Insets top="5.0" />
 											</VBox.margin>
@@ -197,7 +197,7 @@
 												<Insets />
 											</opaqueInsets>
 										</TextField>
-										<TextField prefHeight="40.0" prefWidth="316.0" promptText="Béla Bácsi">
+										<TextField id="txtClientInputAdministrator" fx:id="txtClientInputAdministrator" prefHeight="40.0" prefWidth="316.0" promptText="Béla Bácsi">
 											<opaqueInsets>
 												<Insets />
 											</opaqueInsets>
@@ -205,7 +205,7 @@
 												<Insets top="5.0" />
 											</VBox.margin>
 										</TextField>
-                              <TextArea prefHeight="102.0" prefWidth="307.0" promptText="Komment">
+                              <TextArea id="txtClientInputComment" fx:id="txtClientInputComment" prefHeight="102.0" prefWidth="307.0" promptText="Komment">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
