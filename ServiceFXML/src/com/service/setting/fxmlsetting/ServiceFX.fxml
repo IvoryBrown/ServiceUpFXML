@@ -119,7 +119,7 @@
 								</VBox>
 								<VBox layoutX="238.0" layoutY="-1.0" prefHeight="580.0" prefWidth="451.0">
 									<children>
-										<Label id="txtClientInputID" fx:id="txtClientInputID" prefHeight="40.0" prefWidth="315.0" text="ID:">
+										<Label id="txtClientInputID" fx:id="txtClientInputID" prefHeight="40.0" prefWidth="315.0">
 											<font>
 												<Font size="14.0" />
 											</font>
@@ -130,7 +130,7 @@
 												<Insets />
 											</opaqueInsets>
 										</Label>
-										<Label id="txtClientInputNumber" fx:id="txtClientInputNumber" prefHeight="40.0" prefWidth="315.0" text="azon">
+										<Label id="txtClientInputNumber" fx:id="txtClientInputNumber" prefHeight="40.0" prefWidth="315.0">
 											<font>
 												<Font size="14.0" />
 											</font>

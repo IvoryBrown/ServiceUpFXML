@@ -52,7 +52,15 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 	}
 
 	private boolean clientInput() {
-		if (cmbClientInputCounty.getValue() == null) {
+		if (txtClientInputClientName.getText().trim().isEmpty()) {
+			txtClientInputClientName.setPromptText("*");
+			txtClientInputClientName.setStyle("-fx-prompt-text-fill: red;");
+		}
+		if (cmbClientInputCounty.getValue() == null || txtClientInputClientName.getText().trim().isEmpty()
+				|| txtClientInputSettlement.getText().trim().isEmpty()
+				|| txtClientInputZipCode.getText().trim().isEmpty() || txtClientInputAddress.getText().trim().isEmpty()
+				|| txtClientInputMobil.getText().trim().isEmpty()
+				|| txtClientInputAdministrator.getText().trim().isEmpty()) {
 			return false;
 		}
 		return true;
@@ -63,27 +71,28 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 			try {
 				Connection con = DataBaseConnect.getConnection();
 				PreparedStatement insertClient = con
-						.prepareStatement("INSERT INTO megrendelo(ugyfel_azonosito, ugyfel_nev, megye,"
+						.prepareStatement("INSERT INTO ugyfel_adatok(ugyfel_azonosito, ugyfel_nev, megye,"
 								+ "telepules, iranyitoszam, cim,ugyfel_email,ugyfel_telefon,ugyintezo,ugyfel_megjegyzes)"
 								+ "values(?,?,?,?,?,?,?,?,?,?) ");
 				txtClientInputNumber.setText(ClientIdentficationGenerator.random());
 				insertClient.setString(1, txtClientInputNumber.getText());
 				insertClient.setString(2, txtClientInputClientName.getText());
 				insertClient.setString(3, cmbClientInputCounty.getSelectionModel().getSelectedItem());
-				insertClient.setString(4, txtClientInputZipCode.getText());
-				insertClient.setString(5, txtClientInputSettlement.getText());
+				insertClient.setString(4, txtClientInputSettlement.getText());
+				insertClient.setInt(5, Integer.parseInt(txtClientInputZipCode.getText()));
 				insertClient.setString(6, txtClientInputAddress.getText());
 				insertClient.setString(7, txtClientInputEmail.getText());
 				insertClient.setString(8, txtClientInputMobil.getText());
 				insertClient.setString(9, txtClientInputAdministrator.getText());
 				insertClient.setString(10, txtClientInputComment.getText());
 				insertClient.executeUpdate();
+				ShowInfo.showInfo("Sikeres Frissítés ", "Remek! ");
 			} catch (SQLException ex) {
-				// TODO: handle exception
+				ShowInfo.showInfo(ex + " ", "Hiba ");
 			}
 
 		} else {
-			ShowInfo.showInfo("Nem megfelelõ", "Bakker");
+			ShowInfo.showInfo("Egy vagy több mezõ üres vagy rossz", "Hiba");
 		}
 	}
 
