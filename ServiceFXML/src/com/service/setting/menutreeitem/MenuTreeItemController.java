@@ -12,7 +12,7 @@ public class MenuTreeItemController {
 	@FXML
 	StackPane menuPane;
 	@FXML
-	Pane homePane, clientPane, companyPane, devicePane;
+	protected Pane homePane, clientPane, companyPane, devicePane;
 
 	private final String MENU_HOME = "Kezdõlap";
 	private final String MENU_CONTACTS = "Ügyfelek";

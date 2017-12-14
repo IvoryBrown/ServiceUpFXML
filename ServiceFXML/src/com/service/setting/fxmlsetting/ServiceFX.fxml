@@ -149,7 +149,7 @@
 												<Insets />
 											</opaqueInsets>
 										</TextField>
-										<ComboBox id="cmbClientInputCounty" fx:id="cmbClientInputCounty" prefHeight="40.0" prefWidth="798.0">
+										<ComboBox id="cmbClientInputCounty" fx:id="cmbClientInputCounty" prefHeight="40.0" prefWidth="798.0" promptText="Megye">
 											<VBox.margin>
 												<Insets top="5.0" />
 											</VBox.margin>

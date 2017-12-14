@@ -53,8 +53,11 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 
 	private boolean clientInput() {
 		if (txtClientInputClientName.getText().trim().isEmpty()) {
-			txtClientInputClientName.setPromptText("*");
-			txtClientInputClientName.setStyle("-fx-prompt-text-fill: red;");
+			txtClientInputClientName.getStyleClass().add("errorTextField");
+		}
+		if (cmbClientInputCounty.getValue() == null) {
+			cmbClientInputCounty.setPromptText("Megye");
+			cmbClientInputCounty.setStyle("-fx-prompt-text-fill: red;");
 		}
 		if (cmbClientInputCounty.getValue() == null || txtClientInputClientName.getText().trim().isEmpty()
 				|| txtClientInputSettlement.getText().trim().isEmpty()
@@ -86,14 +89,16 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 				insertClient.setString(9, txtClientInputAdministrator.getText());
 				insertClient.setString(10, txtClientInputComment.getText());
 				insertClient.executeUpdate();
+
 				ShowInfo.showInfo("Sikeres Frissítés ", "Remek! ");
 			} catch (SQLException ex) {
 				ShowInfo.showInfo(ex + " ", "Hiba ");
 			}
-
 		} else {
+			clientPane.setOpacity(0.1);
 			ShowInfo.showInfo("Egy vagy több mezõ üres vagy rossz", "Hiba");
 		}
+		clientPane.setOpacity(1);
 	}
 
 	@Override

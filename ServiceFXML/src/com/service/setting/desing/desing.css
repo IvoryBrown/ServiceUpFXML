@@ -99,6 +99,7 @@
     -fx-background-insets: 0.0 -1.0 -1.0 -1.0, 0.0 0.0 0.0 0.0, 0.0 -1.0 3.0 -1.0;
     -fx-font-size: 16.0;
     -fx-text-fill: #4c0085;
+    
 }
 .text-field:focused {
     -fx-background-color: #4c0085 , #fdfdfd , #fdfdfd;
@@ -106,6 +107,7 @@
     -fx-font-size: 18.0;
     -fx-font-weight: bold;
     -fx-text-fill: #4c0085;
+    -fx-prompt-text-fill: transparent ;
 }
 .text-field:hover {
     -fx-background-color: #4c0085 , #fdfdfd , #fdfdfd;
@@ -113,6 +115,7 @@
     -fx-font-size: 18.0;
     -fx-font-weight: bold;
     -fx-text-fill: #4c0085;
+    -fx-prompt-text-fill: transparent ;
 }
 /*Text beáálítás */
 .text-area{
@@ -123,33 +126,35 @@
 }
 
 .text-area .content {
-   -fx-background-color: #4c0085 , #4c0085 , whitesmoke;
+    -fx-background-color: #4c0085 , #4c0085 , whitesmoke;
     -fx-background-insets: 0.0 -1.0 -1.0 -1.0, 0.0 0.0 0.0 0.0, 0.0 -1.0 3.0 -1.0;
     -fx-font-size: 16.0;
     -fx-text-fill: #4c0085;
 }
 
 .text-area:focused .content {
-  -fx-background-color: #4c0085 , #fdfdfd , #fdfdfd;
+    -fx-background-color: #4c0085 , #fdfdfd , #fdfdfd;
     -fx-background-insets: 0.0 -1.0 -1.0 -1.0, 0.0 0.0 0.0 0.0, 0.0 -1.0 3.0 -1.0;
     -fx-font-size: 18.0;
     -fx-font-weight: bold;
     -fx-text-fill: #4c0085;
 }
 .text-area:hover .content {
-  -fx-background-color: #4c0085 , #fdfdfd , #fdfdfd;
+    -fx-background-color: #4c0085 , #fdfdfd , #fdfdfd;
     -fx-background-insets: 0.0 -1.0 -1.0 -1.0, 0.0 0.0 0.0 0.0, 0.0 -1.0 3.0 -1.0;
     -fx-font-size: 18.0;
     -fx-font-weight: bold;
     -fx-text-fill: #4c0085;
 }
-
+.errorTextField {
+    -fx-prompt-text-fill: red;
+}
 
 /*Combox alap kinézet */
 .combo-box{
     -fx-background-color: #4c0085 , #4c0085 , whitesmoke;
     -fx-background-insets: 0.0 -1.0 -1.0 -1.0, 0.0 0.0 0.0 0.0, 0.0 -1.0 3.0 -1.0;
-}
+ }
 .combo-box:hover {
     -fx-background-color: #4c0085 , #fdfdfd , #fdfdfd;
     -fx-background-insets: 0.0 -1.0 -1.0 -1.0, 0.0 0.0 0.0 0.0, 0.0 -1.0 3.0 -1.0;
@@ -175,3 +180,4 @@
     -fx-font-size: 16.0;
     -fx-background-color: #4c0085;
 }
+
