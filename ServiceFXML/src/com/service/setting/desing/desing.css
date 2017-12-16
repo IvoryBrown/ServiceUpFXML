@@ -147,7 +147,7 @@
     -fx-text-fill: #4c0085;
 }
 .errorTextField {
-    -fx-prompt-text-fill: red;
+    -fx-prompt-text-fill: red; 
 }
 
 /*Combox alap kinézet */

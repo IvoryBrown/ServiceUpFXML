@@ -59,6 +59,21 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 			cmbClientInputCounty.setPromptText("Megye");
 			cmbClientInputCounty.setStyle("-fx-prompt-text-fill: red;");
 		}
+		if (txtClientInputSettlement.getText().trim().isEmpty()) {
+			txtClientInputSettlement.getStyleClass().add("errorTextField");
+		}
+		if (txtClientInputZipCode.getText().trim().isEmpty()) {
+			txtClientInputZipCode.getStyleClass().add("errorTextField");
+		}
+		if (txtClientInputMobil.getText().trim().isEmpty()) {
+			txtClientInputMobil.getStyleClass().add("errorTextField");
+		}
+		if (txtClientInputAdministrator.getText().trim().isEmpty()) {
+			txtClientInputAdministrator.getStyleClass().add("errorTextField");
+		}
+		if (txtClientInputAddress.getText().trim().isEmpty()) {
+			txtClientInputAddress.getStyleClass().add("errorTextField");
+		}
 		if (cmbClientInputCounty.getValue() == null || txtClientInputClientName.getText().trim().isEmpty()
 				|| txtClientInputSettlement.getText().trim().isEmpty()
 				|| txtClientInputZipCode.getText().trim().isEmpty() || txtClientInputAddress.getText().trim().isEmpty()
@@ -67,6 +82,7 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 			return false;
 		}
 		return true;
+
 	}
 
 	private void btnClientNewclient() {
