@@ -150,20 +150,26 @@
     -fx-prompt-text-fill: red; 
 }
 
-/*Combox alap kinézet */
-.combo-box{
-    -fx-background-color: #4c0085 , #4c0085 , whitesmoke;
-    -fx-background-insets: 0.0 -1.0 -1.0 -1.0, 0.0 0.0 0.0 0.0, 0.0 -1.0 3.0 -1.0;
- }
-.combo-box:hover {
+/*Combox alap kinézet  */
+ .combo-box:hover {
     -fx-background-color: #4c0085 , #fdfdfd , #fdfdfd;
     -fx-background-insets: 0.0 -1.0 -1.0 -1.0, 0.0 0.0 0.0 0.0, 0.0 -1.0 3.0 -1.0;
     -fx-font-size: 20.0;
     -fx-font-weight: bold;
     -fx-text-fill: #4c0085;
 }
- .combo-box-popup .list-view .list-cell:filled:hover  {
-	-fx-background-color: 
+.combo-box{
+    -fx-background-color: #4c0085 , #4c0085 , whitesmoke;
+    -fx-background-insets: 0.0 -1.0 -1.0 -1.0, 0.0 0.0 0.0 0.0, 0.0 -1.0 3.0 -1.0;
+ }
+.combo-box-popup .list-view .list-cell {
+    -fx-text-fill: whitesmoke;
+    -fx-font-size: 16.0;
+    -fx-background-color: #4c0085;
+}
+
+.combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: 
        linear-gradient(from 0.0% 93.0% to 0.0% 100.0%,#9999ff  0.0%, #4c0085 100.0%),
         #4c0085,
         #9999ff,
@@ -171,13 +177,7 @@
     -fx-font-size: 18.0;
     -fx-font-weight: bold;
 }
-.combo-box .list-cell{
+.combo-box .cell:selected {
     -fx-text-fill: #4c0085;
     -fx-font-size: 18.0;
 }
-.combo-box-popup .list-view .list-cell {
-    -fx-text-fill: whitesmoke;
-    -fx-font-size: 16.0;
-    -fx-background-color: #4c0085;
-}
-

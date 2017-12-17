@@ -40,6 +40,7 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 			"Pest", "Somogy", "Szabolcs-Szatmár-Bereg", "Tolna", "Vas", "Veszprém", "Zala" };
 
 	private void setComboxAll() {
+		txtClientInputComment.setWrapText(true);
 		cmbClientInputCounty.getItems().addAll(COUNTRYCOUNTIES);
 		btnClientNewClient.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -57,7 +58,6 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 		}
 		if (cmbClientInputCounty.getValue() == null) {
 			cmbClientInputCounty.setPromptText("Megye");
-			cmbClientInputCounty.setStyle("-fx-prompt-text-fill: red;");
 		}
 		if (txtClientInputSettlement.getText().trim().isEmpty()) {
 			txtClientInputSettlement.getStyleClass().add("errorTextField");
@@ -113,6 +113,7 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 		} else {
 			clientPane.setOpacity(0.1);
 			ShowInfo.showInfo("Egy vagy több mezõ üres vagy rossz", "Hiba");
+			
 		}
 		clientPane.setOpacity(1);
 	}
