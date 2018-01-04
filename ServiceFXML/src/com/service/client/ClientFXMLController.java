@@ -39,7 +39,7 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 			"Fejér", "Gyõr-Moson-Sopron", "Hajdú-Bihar", "Heves", "Jász-Nagykun-Szolnok", "Komárom-Esztergom", "Nógrád",
 			"Pest", "Somogy", "Szabolcs-Szatmár-Bereg", "Tolna", "Vas", "Veszprém", "Zala" };
 
-	private void setComboxAll() {
+	private void setComponentAll() {
 		txtClientInputComment.setWrapText(true);
 		cmbClientInputCounty.getItems().addAll(COUNTRYCOUNTIES);
 		btnClientNewClient.setOnAction(new EventHandler<ActionEvent>() {
@@ -57,7 +57,7 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 			txtClientInputClientName.getStyleClass().add("errorTextField");
 		}
 		if (cmbClientInputCounty.getValue() == null) {
-			cmbClientInputCounty.setPromptText("Megye");
+			cmbClientInputCounty.setPromptText("Kérlek válasz!");
 		}
 		if (txtClientInputSettlement.getText().trim().isEmpty()) {
 			txtClientInputSettlement.getStyleClass().add("errorTextField");
@@ -82,7 +82,6 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 			return false;
 		}
 		return true;
-
 	}
 
 	private void btnClientNewclient() {
@@ -91,7 +90,7 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 				Connection con = DataBaseConnect.getConnection();
 				PreparedStatement insertClient = con
 						.prepareStatement("INSERT INTO ugyfel_adatok(ugyfel_azonosito, ugyfel_nev, megye,"
-								+ "telepules, iranyitoszam, cim,ugyfel_email,ugyfel_telefon,ugyintezo,ugyfel_megjegyzes)"
+								+ "telepules, iranyitoszam, cim,ugyfel_email,ugyfel_telefon,ugyintezo,ugyfel_megjegyze)"
 								+ "values(?,?,?,?,?,?,?,?,?,?) ");
 				txtClientInputNumber.setText(ClientIdentficationGenerator.random());
 				insertClient.setString(1, txtClientInputNumber.getText());
@@ -105,15 +104,16 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 				insertClient.setString(9, txtClientInputAdministrator.getText());
 				insertClient.setString(10, txtClientInputComment.getText());
 				insertClient.executeUpdate();
-
-				ShowInfo.showInfo("Sikeres Frissítés ", "Remek! ");
+				clientPane.setOpacity(0.1);
+				ShowInfo.showInfoMessenge("Sikeres Frissítés ", "Remek! ");
 			} catch (SQLException ex) {
-				ShowInfo.showInfo(ex + " ", "Hiba ");
+
+				ShowInfo.errorInfoMessengeSQL("Adatbázis Hiba", "SQL: " + ex.getMessage());
 			}
 		} else {
 			clientPane.setOpacity(0.1);
-			ShowInfo.showInfo("Egy vagy több mezõ üres vagy rossz", "Hiba");
-			
+			ShowInfo.errorInfoMessenge("HIBA", "Nincs minden mezõ kitõltve");
+
 		}
 		clientPane.setOpacity(1);
 	}
@@ -121,6 +121,6 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		setMenuData();
-		setComboxAll();
+		setComponentAll();
 	}
 }
