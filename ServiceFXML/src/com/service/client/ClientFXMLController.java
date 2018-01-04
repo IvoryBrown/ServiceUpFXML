@@ -22,7 +22,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class ClientFXMLController extends MenuTreeItemController implements Initializable {
-
+	ShowInfo showInfo = new ShowInfo();
 	@FXML
 	private ComboBox<String> cmbClientInputCounty;
 	@FXML
@@ -90,14 +90,19 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 				Connection con = DataBaseConnect.getConnection();
 				PreparedStatement insertClient = con
 						.prepareStatement("INSERT INTO ugyfel_adatok(ugyfel_azonosito, ugyfel_nev, megye,"
-								+ "telepules, iranyitoszam, cim,ugyfel_email,ugyfel_telefon,ugyintezo,ugyfel_megjegyze)"
+								+ "telepules, iranyitoszam, cim,ugyfel_email,ugyfel_telefon,ugyintezo,ugyfel_megjegyzes)"
 								+ "values(?,?,?,?,?,?,?,?,?,?) ");
 				txtClientInputNumber.setText(ClientIdentficationGenerator.random());
 				insertClient.setString(1, txtClientInputNumber.getText());
 				insertClient.setString(2, txtClientInputClientName.getText());
 				insertClient.setString(3, cmbClientInputCounty.getSelectionModel().getSelectedItem());
 				insertClient.setString(4, txtClientInputSettlement.getText());
-				insertClient.setInt(5, Integer.parseInt(txtClientInputZipCode.getText()));
+				try {
+					insertClient.setInt(5, Integer.parseInt(txtClientInputZipCode.getText()));
+				} catch (NumberFormatException e) {
+					clientPane.setOpacity(0.1);
+					ShowInfo.errorInfoMessengeException("HIBA", "Nem megfelelõ írányítószám!", e.getMessage());
+				}
 				insertClient.setString(6, txtClientInputAddress.getText());
 				insertClient.setString(7, txtClientInputEmail.getText());
 				insertClient.setString(8, txtClientInputMobil.getText());
@@ -105,10 +110,10 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 				insertClient.setString(10, txtClientInputComment.getText());
 				insertClient.executeUpdate();
 				clientPane.setOpacity(0.1);
-				ShowInfo.showInfoMessenge("Sikeres Frissítés ", "Remek! ");
+				showInfo.showInfoMessenge("Sikeres Frissítés ", "Remek! ");
 			} catch (SQLException ex) {
-
-				ShowInfo.errorInfoMessengeSQL("Adatbázis Hiba", "SQL: " + ex.getMessage());
+				clientPane.setOpacity(0.1);
+				ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", ex.getMessage());
 			}
 		} else {
 			clientPane.setOpacity(0.1);
