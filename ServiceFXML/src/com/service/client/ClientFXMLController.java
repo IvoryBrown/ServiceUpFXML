@@ -20,6 +20,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 
 public class ClientFXMLController extends MenuTreeItemController implements Initializable {
 	ShowInfo showInfo = new ShowInfo();
@@ -42,6 +43,8 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 	private void setComponentAll() {
 		txtClientInputComment.setWrapText(true);
 		cmbClientInputCounty.getItems().addAll(COUNTRYCOUNTIES);
+		btnClientNewClient.setTooltip(new Tooltip(" :O "));
+		txtClientInputSettlement.setTooltip(new Tooltip(" :) "));
 		btnClientNewClient.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -90,7 +93,7 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 				Connection con = DataBaseConnect.getConnection();
 				PreparedStatement insertClient = con
 						.prepareStatement("INSERT INTO ugyfel_adatok(ugyfel_azonosito, ugyfel_nev, megye,"
-								+ "telepules, iranyitoszam, cim,ugyfel_email,ugyfel_telefon,ugyintezo,ugyfel_megjegyzes)"
+								+ "telepules, iranyitoszam, cim,ugyfel_email,ugyfel_telefon,ugyintezo,ugyfel_megjegyze)"
 								+ "values(?,?,?,?,?,?,?,?,?,?) ");
 				txtClientInputNumber.setText(ClientIdentficationGenerator.random());
 				insertClient.setString(1, txtClientInputNumber.getText());
@@ -117,7 +120,7 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 			}
 		} else {
 			clientPane.setOpacity(0.1);
-			ShowInfo.errorInfoMessenge("HIBA", "Nincs minden mezõ kitõltve");
+			showInfo.errorInfoMessenge("HIBA", "Nincs minden mezõ kitõltve");
 
 		}
 		clientPane.setOpacity(1);
