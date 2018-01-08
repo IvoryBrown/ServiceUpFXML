@@ -173,7 +173,7 @@
 												<Insets />
 											</opaqueInsets>
 										</TextField>
-										<TextField id="txtClientInputAddress" fx:id="txtClientInputAddress" prefHeight="40.0" prefWidth="316.0" promptText="Futrinka útca 15 6/b">
+										<TextField id="txtClientInputAddress" fx:id="txtClientInputAddress" prefHeight="40.0" prefWidth="316.0" promptText="Futrinka utca 15 6/b">
 											<VBox.margin>
 												<Insets top="5.0" />
 											</VBox.margin>

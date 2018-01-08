@@ -43,10 +43,10 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 	private void setComponentAll() {
 		txtClientInputComment.setWrapText(true);
 		cmbClientInputCounty.getItems().addAll(COUNTRYCOUNTIES);
-		btnClientNewClient.setTooltip(new Tooltip(" :O "));
-		txtClientInputSettlement.setTooltip(new Tooltip(" :) "));
+		btnClientNewClient.setTooltip(new Tooltip(" "));
+		txtClientInputSettlement.setTooltip(new Tooltip(" EZT NÉZD WAZZEG"));
 		btnClientNewClient.setOnAction(new EventHandler<ActionEvent>() {
-
+			
 			@Override
 			public void handle(ActionEvent event) {
 				btnClientNewclient();
@@ -93,7 +93,7 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 				Connection con = DataBaseConnect.getConnection();
 				PreparedStatement insertClient = con
 						.prepareStatement("INSERT INTO ugyfel_adatok(ugyfel_azonosito, ugyfel_nev, megye,"
-								+ "telepules, iranyitoszam, cim,ugyfel_email,ugyfel_telefon,ugyintezo,ugyfel_megjegyze)"
+								+ "telepules, iranyitoszam, cim,ugyfel_email,ugyfel_telefon,ugyintezo,ugyfel_megjegyzes)"
 								+ "values(?,?,?,?,?,?,?,?,?,?) ");
 				txtClientInputNumber.setText(ClientIdentficationGenerator.random());
 				insertClient.setString(1, txtClientInputNumber.getText());
@@ -113,15 +113,17 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 				insertClient.setString(10, txtClientInputComment.getText());
 				insertClient.executeUpdate();
 				clientPane.setOpacity(0.1);
-				showInfo.showInfoMessenge("Sikeres Frissítés ", "Remek! ");
+				ShowInfo.showInfoMessenge("Sikeres Frissítés ", "Remek! ");
+				
 			} catch (SQLException ex) {
 				clientPane.setOpacity(0.1);
 				ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", ex.getMessage());
 			}
 		} else {
 			clientPane.setOpacity(0.1);
-			showInfo.errorInfoMessenge("HIBA", "Nincs minden mezõ kitõltve");
-
+			ShowInfo.errorInfoMessenge("HIBA", "Nincs minden mezõ kitõltve");
+		
+			
 		}
 		clientPane.setOpacity(1);
 	}
