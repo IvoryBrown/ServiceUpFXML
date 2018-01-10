@@ -46,7 +46,7 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 		btnClientNewClient.setTooltip(new Tooltip(" "));
 		txtClientInputSettlement.setTooltip(new Tooltip(" EZT NÉZD WAZZEG"));
 		btnClientNewClient.setOnAction(new EventHandler<ActionEvent>() {
-			
+
 			@Override
 			public void handle(ActionEvent event) {
 				btnClientNewclient();
@@ -55,7 +55,7 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 		});
 	}
 
-	private boolean clientInput() {
+	private boolean clientInputBoolen() {
 		if (txtClientInputClientName.getText().trim().isEmpty()) {
 			txtClientInputClientName.getStyleClass().add("errorTextField");
 		}
@@ -87,8 +87,21 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 		return true;
 	}
 
+	private void setClientInputText() {
+		txtClientInputNumber.setText(null);
+		txtClientInputClientName.clear();
+		cmbClientInputCounty.setSelectionModel(null);
+		txtClientInputSettlement.clear();
+		txtClientInputZipCode.clear();
+		txtClientInputAddress.clear();
+		txtClientInputEmail.clear();
+		txtClientInputMobil.clear();
+		txtClientInputAdministrator.clear();
+		txtClientInputComment.clear();
+	}
+
 	private void btnClientNewclient() {
-		if (clientInput()) {
+		if (clientInputBoolen()) {
 			try {
 				Connection con = DataBaseConnect.getConnection();
 				PreparedStatement insertClient = con
@@ -112,9 +125,10 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 				insertClient.setString(9, txtClientInputAdministrator.getText());
 				insertClient.setString(10, txtClientInputComment.getText());
 				insertClient.executeUpdate();
+				setClientInputText();
 				clientPane.setOpacity(0.1);
 				ShowInfo.showInfoMessenge("Sikeres Frissítés ", "Remek! ");
-				
+
 			} catch (SQLException ex) {
 				clientPane.setOpacity(0.1);
 				ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", ex.getMessage());
@@ -122,8 +136,7 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 		} else {
 			clientPane.setOpacity(0.1);
 			ShowInfo.errorInfoMessenge("HIBA", "Nincs minden mezõ kitõltve");
-		
-			
+
 		}
 		clientPane.setOpacity(1);
 	}
