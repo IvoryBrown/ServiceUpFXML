@@ -90,7 +90,7 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 	private void setClientInputText() {
 		txtClientInputNumber.setText(null);
 		txtClientInputClientName.clear();
-		cmbClientInputCounty.setSelectionModel(null);
+		cmbClientInputCounty.getSelectionModel().clearSelection();
 		txtClientInputSettlement.clear();
 		txtClientInputZipCode.clear();
 		txtClientInputAddress.clear();
