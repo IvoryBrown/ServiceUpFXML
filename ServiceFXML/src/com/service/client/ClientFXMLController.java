@@ -1,10 +1,8 @@
 package com.service.client;
 
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
 
 import com.service.setting.database.DataBaseConnect;
 import com.service.setting.identification.ClientIdentficationGenerator;
@@ -14,7 +12,6 @@ import com.service.setting.showinfo.ShowInfo;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -22,7 +19,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 
-public class ClientFXMLController extends MenuTreeItemController implements Initializable {
+public class ClientFXMLController extends MenuTreeItemController {
 	ShowInfo showInfo = new ShowInfo();
 	@FXML
 	private ComboBox<String> cmbClientInputCounty;
@@ -40,7 +37,7 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 			"Fejér", "Gyõr-Moson-Sopron", "Hajdú-Bihar", "Heves", "Jász-Nagykun-Szolnok", "Komárom-Esztergom", "Nógrád",
 			"Pest", "Somogy", "Szabolcs-Szatmár-Bereg", "Tolna", "Vas", "Veszprém", "Zala" };
 
-	private void setComponentAll() {
+	protected void setComponentAll() {
 		txtClientInputComment.setWrapText(true);
 		cmbClientInputCounty.getItems().addAll(COUNTRYCOUNTIES);
 		btnClientNewClient.setTooltip(new Tooltip(" "));
@@ -141,9 +138,4 @@ public class ClientFXMLController extends MenuTreeItemController implements Init
 		clientPane.setOpacity(1);
 	}
 
-	@Override
-	public void initialize(URL url, ResourceBundle rb) {
-		setMenuData();
-		setComponentAll();
-	}
 }

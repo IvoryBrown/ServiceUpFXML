@@ -6,6 +6,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="710.0" prefWidth="1350.0" stylesheets="@../desing/desing.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.service.client.ClientFXMLController">
+<AnchorPane id="AnchorPane" prefHeight="710.0" prefWidth="1350.0" stylesheets="@../desing/desing.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.service.stock.StockFXMLController">
 	<children>
 		<SplitPane dividerPositions="0.5" layoutX="247.0" layoutY="231.0" prefHeight="710.0" prefWidth="1350.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
 			<items>
@@ -25,7 +27,7 @@
 				</AnchorPane>
 				<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
 					<children>
-						<Pane id="homePane" fx:id="homePane" layoutX="181.0" layoutY="256.0" prefHeight="698.0" prefWidth="1132.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+						<Pane id="homePane" fx:id="homePane" layoutX="181.0" layoutY="256.0" prefHeight="698.0" prefWidth="1132.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 						<Pane id="clientPane" fx:id="clientPane" prefHeight="698.0" prefWidth="1132.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 							<children>
 								<VBox layoutY="-1.0" prefHeight="503.0" prefWidth="224.0">
@@ -205,11 +207,11 @@
 												<Insets top="5.0" />
 											</VBox.margin>
 										</TextField>
-                              <TextArea id="txtClientInputComment" fx:id="txtClientInputComment" prefHeight="102.0" prefWidth="307.0" promptText="Komment">
-                                 <VBox.margin>
-                                    <Insets top="5.0" />
-                                 </VBox.margin>
-                              </TextArea>
+										<TextArea id="txtClientInputComment" fx:id="txtClientInputComment" prefHeight="102.0" prefWidth="307.0" promptText="Komment">
+											<VBox.margin>
+												<Insets top="5.0" />
+											</VBox.margin>
+										</TextArea>
 									</children>
 								</VBox>
 								<Button id="btnClientNewClient" fx:id="btnClientNewClient" layoutX="112.0" layoutY="592.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="466.0" text="Új Ügyfél" />
@@ -344,7 +346,16 @@
 								<PasswordField layoutX="97.0" layoutY="264.0" />
 							</children>
 						</Pane>
-                  <Pane id="stockPane" fx:id="stockPane" prefHeight="698.0" prefWidth="1132.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+						<Pane id="stockPane" fx:id="stockPane" prefHeight="698.0" prefWidth="1132.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+							<children>
+								<TableView id="stockTable" fx:id="stockTable" layoutY="51.0" prefHeight="649.0" prefWidth="1132.0">
+									<columns>
+										<TableColumn prefWidth="135.0" text="Valami" />
+										<TableColumn prefWidth="102.0" text="C2" />
+									</columns>
+								</TableView>
+							</children>
+						</Pane>
 					</children>
 				</AnchorPane>
 			</items>
