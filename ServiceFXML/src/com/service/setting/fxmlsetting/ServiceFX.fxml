@@ -349,9 +349,11 @@
 						<Pane id="stockPane" fx:id="stockPane" prefHeight="698.0" prefWidth="1132.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 							<children>
 								<TableView id="stockTable" fx:id="stockTable" layoutY="51.0" prefHeight="649.0" prefWidth="1132.0">
+								<placeholder>
+								<Label text="Nincs adat."/>
+								</placeholder>
 									<columns>
-										<TableColumn prefWidth="135.0" text="Valami" />
-										<TableColumn prefWidth="102.0" text="C2" />
+										
 									</columns>
 								</TableView>
 							</children>
