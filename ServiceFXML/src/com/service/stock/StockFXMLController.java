@@ -18,16 +18,31 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 	@FXML
 	private TableView stockTable;
 	private final ObservableList<Stock> data = FXCollections.observableArrayList(
-			
-			);
-	
+
+	);
 
 	protected void setStockTableData() {
 		TableColumn deviceId = new TableColumn("ID");
 		deviceId.setMinWidth(50);
 		deviceId.setCellFactory(TextFieldTableCell.forTableColumn());
-		deviceId.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockId"));
-		stockTable.getColumns().addAll(deviceId);
+		deviceId.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceId"));
+
+		TableColumn deviceName = new TableColumn("Termék");
+		deviceName.setMinWidth(250);
+		deviceName.setCellFactory(TextFieldTableCell.forTableColumn());
+		deviceName.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceName"));
+
+		TableColumn deviceQuantity = new TableColumn("Mennyiség");
+		deviceQuantity.setMinWidth(150);
+		deviceQuantity.setCellFactory(TextFieldTableCell.forTableColumn());
+		deviceQuantity.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceQuantity"));
+
+		TableColumn deviceDescription = new TableColumn("Leírás");
+		deviceDescription.setMinWidth(750);
+		deviceDescription.setCellFactory(TextFieldTableCell.forTableColumn());
+		deviceDescription.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceDescription"));
+
+		stockTable.getColumns().addAll(deviceId, deviceName, deviceQuantity, deviceDescription);
 		stockTable.setItems(data);
 	}
 
