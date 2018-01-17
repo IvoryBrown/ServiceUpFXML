@@ -9,13 +9,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableView;
 
-public class StockFXMLController extends ClientFXMLController implements Initializable{
+public class StockFXMLController extends ClientFXMLController implements Initializable {
 	@FXML
-    TableView stockTable;
+	private TableView stockTable;
 
 	protected void setStockTableData() {
-		
+
 	}
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		setMenuData();
