@@ -15,12 +15,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 
 public class StockFXMLController extends ClientFXMLController implements Initializable {
+	@SuppressWarnings("rawtypes")
 	@FXML
 	private TableView stockTable;
 	private final ObservableList<Stock> data = FXCollections.observableArrayList(
+			);
 
-	);
-
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected void setStockTableData() {
 		TableColumn deviceId = new TableColumn("ID");
 		deviceId.setMinWidth(50);
