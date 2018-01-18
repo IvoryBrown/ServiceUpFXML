@@ -9,7 +9,6 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -340,20 +339,20 @@
 								</VBox>
 							</children>
 						</Pane>
-						<Pane id="devicePane" fx:id="devicePane" layoutX="64.0" layoutY="166.0" prefHeight="698.0" prefWidth="1132.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-						<Pane id="stockPane" fx:id="stockPane" prefHeight="698.0" prefWidth="1132.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <TableView id="stockTable" fx:id="stockTable" layoutX="84.0" layoutY="143.0" prefHeight="200.0" prefWidth="990.0">
-                        <placeholder>
-                            <Label text="Nincs adat." />
-                          </placeholder>
-                          <columns>
-                          </columns>
-                            <columns>
-                          </columns>
-                        </TableView>
-                        <BorderPane layoutX="96.0" layoutY="410.0" prefHeight="200.0" prefWidth="200.0" />
-                     </children></Pane>
+						<Pane id="devicePane" fx:id="devicePane" layoutX="64.0" layoutY="166.0" prefHeight="698.0" prefWidth="1132.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+						<AnchorPane id="stockPane" fx:id="stockPane" prefHeight="698.0" prefWidth="1132.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+							<children>
+								<TableView id="stockTable" fx:id="stockTable" prefHeight="698.0" prefWidth="1132.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+									<placeholder>
+										<Label text="Nincs adat." />
+									</placeholder>
+									<columns>
+									</columns>
+									<columns>
+									</columns>
+								</TableView>
+							</children>
+						</AnchorPane>
 					</children>
 				</AnchorPane>
 			</items>
