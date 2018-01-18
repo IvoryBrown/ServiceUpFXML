@@ -5,14 +5,17 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 public class MenuTreeItemController {
 	@FXML
-	StackPane menuPane;
+	protected StackPane menuPane;
 	@FXML
-	protected Pane homePane, clientPane, companyPane, devicePane, stockPane;
+	protected Pane homePane, clientPane, companyPane, devicePane;
+	@FXML
+	protected AnchorPane stockPane;
 
 	private final String MENU_HOME = "Kezdõlap";
 	private final String MENU_CONTACTS = "Ügyfelek";
