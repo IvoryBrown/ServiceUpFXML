@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="710.0" prefWidth="1350.0" stylesheets="@../desing/desing.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.service.stock.StockFXMLController">
+<AnchorPane id="AnchorPane" prefHeight="710.0" prefWidth="1350.0" stylesheets="@../desing/desing.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.service.stock.controller.StockFXMLController">
 	<children>
 		<SplitPane dividerPositions="0.5" layoutX="247.0" layoutY="231.0" prefHeight="710.0" prefWidth="1350.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
 			<items>

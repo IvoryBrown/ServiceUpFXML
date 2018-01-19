@@ -1,41 +1,40 @@
 package com.service.stock;
 
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Stock {
 
-	private final SimpleIntegerProperty stockDeviceId;
+	private final SimpleStringProperty stockDeviceId;
 	private final SimpleStringProperty stockDeviceName;
 	private final SimpleStringProperty stockDeviceDate;
 	private final SimpleStringProperty stockDeviceSalesDate;
-	private final SimpleIntegerProperty stockDeviceQuantity;
+	private final SimpleStringProperty stockDeviceQuantity;
 	private final SimpleStringProperty stockDeviceDescription;
 
 	public Stock() {
-		this.stockDeviceId = new SimpleIntegerProperty();
+		this.stockDeviceId = new SimpleStringProperty("");
 		this.stockDeviceName = new SimpleStringProperty("");
 		this.stockDeviceDate = new SimpleStringProperty("");
 		this.stockDeviceSalesDate = new SimpleStringProperty("");
-		this.stockDeviceQuantity = new SimpleIntegerProperty();
+		this.stockDeviceQuantity = new SimpleStringProperty("");
 		this.stockDeviceDescription = new SimpleStringProperty("");
 	}
 
 	public Stock(Integer sDeviceId, String sDeviceName, String sDeviceDate, String sDeviceSalesDate,
 			Integer sDeviceQuantity, String sDeviceDescription) {
-		this.stockDeviceId = new SimpleIntegerProperty(sDeviceId);
+		this.stockDeviceId = new SimpleStringProperty(String.valueOf(sDeviceId));
 		this.stockDeviceName = new SimpleStringProperty(sDeviceName);
 		this.stockDeviceDate = new SimpleStringProperty(sDeviceDate);
 		this.stockDeviceSalesDate = new SimpleStringProperty(sDeviceSalesDate);
-		this.stockDeviceQuantity = new SimpleIntegerProperty(sDeviceQuantity);
+		this.stockDeviceQuantity = new SimpleStringProperty(String.valueOf(sDeviceQuantity));
 		this.stockDeviceDescription = new SimpleStringProperty(sDeviceDescription);
 	}
 
-	public Integer getStockDeviceId() {
+	public String getStockDeviceId() {
 		return stockDeviceId.get();
 	}
 
-	public void setStockDeviceId(Integer sDeviceId) {
+	public void setStockDeviceId(String sDeviceId) {
 		stockDeviceId.set(sDeviceId);
 	}
 
@@ -63,11 +62,11 @@ public class Stock {
 		stockDeviceSalesDate.set(sDeviceSalesDate);
 	}
 
-	public Integer getStockDeviceQuantity() {
+	public String getStockDeviceQuantity() {
 		return stockDeviceQuantity.get();
 	}
 
-	public void setStockDeviceQuantity(Integer sDeviceQuantity) {
+	public void setStockDeviceQuantity(String sDeviceQuantity) {
 		stockDeviceQuantity.set(sDeviceQuantity);
 	}
 
