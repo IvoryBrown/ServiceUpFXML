@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import com.service.client.ClientFXMLController;
 import com.service.stock.Stock;
+import com.service.stock.db.StockDataBase;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,16 +22,15 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 	@FXML
 	private TableView stockTable;
 	private final ObservableList<Stock> data = FXCollections.observableArrayList();
+	StockDataBase sDataBase = new StockDataBase();
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected void setStockTableData() {
-		
+
 		TableColumn stockDeviceId = new TableColumn("ID");
 		stockDeviceId.setMinWidth(50);
 		stockDeviceId.setCellFactory(TextFieldTableCell.forTableColumn());
 		stockDeviceId.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceId"));
-
-		
 
 		TableColumn stockDeviceName = new TableColumn("Termék");
 		stockDeviceName.setMinWidth(250);
@@ -59,6 +59,7 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 
 		stockTable.getColumns().addAll(stockDeviceId, stockDeviceName, stockDeviceDate, stockDeviceSalesDate,
 				stockDeviceQuantity, stockDeviceDescription);
+		data.addAll(sDataBase.getAllStock());
 		stockTable.setItems(data);
 	}
 

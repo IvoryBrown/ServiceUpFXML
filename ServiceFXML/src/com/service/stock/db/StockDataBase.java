@@ -1,43 +1,25 @@
 package com.service.stock.db;
 
-import java.sql.DriverManager;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.Statement;
+import com.service.setting.database.DataBaseConnect;
 import com.service.stock.Stock;
 
 public class StockDataBase {
-	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://localhost/szerviz_up";
-	static final String USER = "root";
-	static final String PASS = "12345";
-
-	Connection conn = null;
 	Statement createStatement = null;
+	ResultSet rs = null;
 
-	public StockDataBase() {
-		try {
-			conn = (Connection) DriverManager.getConnection(DB_URL);
-		} catch (SQLException e) {
-			// TODO: handle exception
-		}
-		if (conn != null) {
-			try {
-				createStatement = (Statement) conn.createStatement();
-			} catch (SQLException e) {
-				// TODO: handle exception
-			}
-		}
-	}
-
-	protected ArrayList<Stock> getAllStock() {
-		String sql = "select * from raktar";
+	public ArrayList<Stock> getAllStock() {
+		String sql = "SELECT * FROM raktar";
 		ArrayList<Stock> device = null;
+		Connection con = DataBaseConnect.getConnection();
 		try {
-			ResultSet rs = createStatement.executeQuery(sql);
+			createStatement = con.createStatement();
+			rs = createStatement.executeQuery(sql);
 			device = new ArrayList<>();
 			while (rs.next()) {
 				Stock actualStock = new Stock(rs.getInt("category_id"), rs.getString("eszkoznev"),
@@ -47,6 +29,20 @@ public class StockDataBase {
 			}
 		} catch (SQLException e) {
 			// TODO: handle exception
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (createStatement != null) {
+					createStatement.close();
+				}
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				// TODO: handle exception
+			}
 		}
 		return device;
 
