@@ -149,6 +149,9 @@
 .errorTextField {
     -fx-prompt-text-fill: red; 
 }
+.searchTextField{
+	-fx-font-size: 13.0;
+}
 
 /*Combox alap kinézet  */
  .combo-box:hover {

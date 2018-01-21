@@ -38,17 +38,17 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 		stockDeviceName.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceName"));
 
 		TableColumn stockDeviceDate = new TableColumn("Kelte");
-		stockDeviceDate.setMinWidth(250);
+		stockDeviceDate.setMinWidth(80);
 		stockDeviceDate.setCellFactory(TextFieldTableCell.forTableColumn());
 		stockDeviceDate.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceDate"));
 
 		TableColumn stockDeviceSalesDate = new TableColumn("Eladás");
-		stockDeviceSalesDate.setMinWidth(250);
+		stockDeviceSalesDate.setMinWidth(80);
 		stockDeviceSalesDate.setCellFactory(TextFieldTableCell.forTableColumn());
 		stockDeviceSalesDate.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceSalesDate"));
 
-		TableColumn stockDeviceQuantity = new TableColumn("Mennyiség");
-		stockDeviceQuantity.setMinWidth(150);
+		TableColumn stockDeviceQuantity = new TableColumn("Darab");
+		stockDeviceQuantity.setMinWidth(80);
 		stockDeviceQuantity.setCellFactory(TextFieldTableCell.forTableColumn());
 		stockDeviceQuantity.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceQuantity"));
 
