@@ -15,7 +15,7 @@ public class Main extends Application {
 			Scene scene = new Scene(root);
 			primaryStage.setWidth(1350);
 			primaryStage.setHeight(710);
-			primaryStage.initStyle(StageStyle.TRANSPARENT);
+			//primaryStage.initStyle(StageStyle.TRANSPARENT);
 			primaryStage.setTitle("Szerviz1");
 			primaryStage.setScene(scene);
 			primaryStage.show();
