@@ -10,12 +10,13 @@ import com.service.setting.database.DataBaseConnect;
 import com.service.stock.Stock;
 
 public class StockDataBase {
-	Statement createStatement = null;
-	ResultSet rs = null;
+	
 
 	public ArrayList<Stock> getAllStock() {
 		String sql = "SELECT * FROM raktar";
 		ArrayList<Stock> device = null;
+		Statement createStatement = null;
+		ResultSet rs = null;
 		Connection con = DataBaseConnect.getConnection();
 		try {
 			createStatement = con.createStatement();
