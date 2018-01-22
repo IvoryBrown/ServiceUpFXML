@@ -13,7 +13,7 @@ public class StockDataBase {
 	
 
 	public ArrayList<Stock> getAllStock() {
-		String sql = "SELECT * FROM raktar";
+		String sql = "SELECT * FROM `raktar`";
 		ArrayList<Stock> device = null;
 		Statement createStatement = null;
 		ResultSet rs = null;
