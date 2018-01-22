@@ -18,7 +18,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -37,9 +36,6 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 	private Button stockDeviceFilteringBtn;
 	@FXML
 	private TextField stockDeviceNameFilteringTxt;
-	@FXML
-	private ComboBox<String> stockDeviceFilteringCmb;
-	private final String COUNTRYCOUNTIES[] = {"eszkoznev"};
 
 	private final ObservableList<Stock> data = FXCollections.observableArrayList();
 

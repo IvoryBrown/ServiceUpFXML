@@ -353,26 +353,17 @@
 								</TableView>
 								<VBox layoutX="4.0" layoutY="3.0" prefHeight="89.0" prefWidth="206.0">
 									<children>
-                              <ComboBox id="stockDeviceFilteringCmb" fx:id="stockDeviceFilteringCmb" prefHeight="36.0" prefWidth="208.0">
-                                 <VBox.margin>
-                                    <Insets top="5.0" />
-                                 </VBox.margin>
-                              </ComboBox>
-										<TextField id="stockDeviceNameFilteringTxt" fx:id="stockDeviceNameFilteringTxt" prefHeight="36.0" prefWidth="206.0" promptText="Termék, Kelte, Eladás">
+										<TextField id="stockDeviceNameFilteringTxt" fx:id="stockDeviceNameFilteringTxt" prefHeight="36.0" prefWidth="206.0" promptText="Termék">
 											<VBox.margin>
 												<Insets top="5.0" />
 											</VBox.margin>
 										</TextField>
-									</children>
-								</VBox>
-								<VBox layoutX="226.0" layoutY="3.0" prefHeight="89.0" prefWidth="206.0">
-                           <children>
       								<Button id="stockDeviceFilteringBtn" fx:id="stockDeviceFilteringBtn" mnemonicParsing="false" onAction="#searchAdd" prefHeight="36.0" prefWidth="206.0" text="Keresés">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </Button>
-                           </children>
+									</children>
 								</VBox>
 							</children>
 						</AnchorPane>
