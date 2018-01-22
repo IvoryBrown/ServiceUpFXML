@@ -9,7 +9,6 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
@@ -353,13 +352,35 @@
 									<columns>
 									</columns>
 								</TableView>
-                        <DatePicker layoutX="14.0" layoutY="14.0" prefHeight="9.0" prefWidth="200.0" promptText="Kelte" styleClass="searchTextField" />
+                        <VBox layoutX="4.0" layoutY="3.0" prefHeight="89.0" prefWidth="206.0">
+                           <children>
+                              <DatePicker id="stockDate" fx:id="stockDate" prefHeight="36.0" prefWidth="206.0" promptText="Kelte">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </DatePicker>
+                              <TextField id="stockDeviceName" fx:id="stockDeviceName" prefHeight="36.0" prefWidth="206.0" promptText="Termék">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="226.0" layoutY="3.0" prefHeight="89.0" prefWidth="206.0">
+                           <children>
+                              <DatePicker id="stockSale" fx:id="stockSale" prefHeight="36.0" prefWidth="206.0" promptText="Eladás">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </DatePicker>
+                           </children>
+                        </VBox>
+                        <Button id="stockBtnSearch" fx:id="stockBtnSearch" layoutX="553.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="127.0" text="Button" />
 							</children>
 						</AnchorPane>
 					</children>
 				</AnchorPane>
 			</items>
 		</SplitPane>
-      <ToggleButton id="fullScrene" fx:id="fullScrene" layoutX="1280.0" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="ToggleButton" />
 	</children>
 </AnchorPane>
