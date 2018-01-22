@@ -9,8 +9,11 @@ import com.service.stock.db.StockDataBase;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -21,6 +24,11 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 	@SuppressWarnings("rawtypes")
 	@FXML
 	private TableView stockTable;
+	@FXML
+	private DatePicker stockDate;
+	@FXML
+	private Button stockBtnSearch;
+	
 	private final ObservableList<Stock> data = FXCollections.observableArrayList();
 	StockDataBase sDataBase = new StockDataBase();
 
@@ -61,8 +69,17 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 				stockDeviceQuantity, stockDeviceDescription);
 		data.addAll(sDataBase.getAllStock());
 		stockTable.setItems(data);
+		stockBtnSearch.setOnAction(e ->{
+			System.out.println("df");
+		});
 	}
 
+//	@FXML
+//	private void searchADD(ActionEvent event) {
+//		stockBtnSearch.setOnAction(e ->{
+//			System.out.println("df");
+//		});
+//	}
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		setMenuData();
