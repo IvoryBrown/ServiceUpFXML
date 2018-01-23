@@ -17,7 +17,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
@@ -25,6 +28,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.Stage;
 
 public class StockFXMLController extends ClientFXMLController implements Initializable {
 
@@ -131,7 +135,16 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 
 	@FXML
 	private void newDevieceBtn() {
-		
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("/com/service/setting/fxmlnewstock/FxmlNewStock.fxml"));
+			Stage stage = new Stage();
+            stage.setTitle("Új Eszköz");
+            stage.setScene(new Scene(root, 450, 450));
+            stage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
 	}
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {

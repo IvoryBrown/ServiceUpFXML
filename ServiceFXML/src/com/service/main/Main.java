@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class Main extends Application {
 	@Override
@@ -16,7 +15,7 @@ public class Main extends Application {
 			primaryStage.setWidth(1350);
 			primaryStage.setHeight(710);
 			//primaryStage.initStyle(StageStyle.TRANSPARENT);
-			primaryStage.setTitle("Szerviz1");
+			primaryStage.setTitle("Szerviz");
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (Exception e) {
