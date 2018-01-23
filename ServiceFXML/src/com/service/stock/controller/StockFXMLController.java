@@ -139,7 +139,7 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 			Parent root = FXMLLoader.load(getClass().getResource("/com/service/setting/fxmlnewstock/FxmlNewStock.fxml"));
 			Stage stage = new Stage();
             stage.setTitle("Új Eszköz");
-            stage.setScene(new Scene(root, 450, 450));
+            stage.setScene(new Scene(root, 1000, 650));
             stage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
