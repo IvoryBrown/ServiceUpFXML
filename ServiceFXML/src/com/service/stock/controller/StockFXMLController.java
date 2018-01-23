@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 
 import com.service.client.ClientFXMLController;
 import com.service.setting.database.DataBaseConnect;
+import com.service.setting.showinfo.ShowInfo;
 import com.service.stock.Stock;
 
 import javafx.collections.FXCollections;
@@ -33,16 +34,14 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 	@FXML
 	private DatePicker stockDate;
 	@FXML
-	private Button stockDeviceFilteringBtn;
+	private Button stockDeviceFilteringBtn, newStockDeviceBtn;
 	@FXML
 	private TextField stockDeviceNameFilteringTxt;
 
 	private final ObservableList<Stock> data = FXCollections.observableArrayList();
 
 	public ArrayList<Stock> getAllStock() {
-		// String sql = "SELECT * FROM `raktar`";
-		String sql = "SELECT * FROM `raktar` WHERE CONCAT (`"
-				+ "eszkoznev" + "`) LIKE '%"
+		String sql = "SELECT * FROM `raktar` WHERE CONCAT (`" + "eszkoznev" + "`) LIKE '%"
 				+ stockDeviceNameFilteringTxt.getText() + "%'";
 		ArrayList<Stock> device = null;
 
@@ -60,7 +59,7 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 				device.add(actualStock);
 			}
 		} catch (SQLException e) {
-			// TODO: handle exception
+			ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
 		} finally {
 			try {
 				if (rs != null) {
@@ -73,11 +72,10 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 					con.close();
 				}
 			} catch (SQLException e) {
-				// TODO: handle exception
+				ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
 			}
 		}
 		return device;
-
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -120,11 +118,21 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 	}
 
 	@FXML
-	private void searchAdd(ActionEvent event) {
+	private void filteringBtn(ActionEvent event) {
 		data.clear();
 		setStockTableData();
 	}
 
+	@FXML
+	private void filteringTxt() {
+		data.clear();
+		setStockTableData();
+	}
+
+	@FXML
+	private void newDevieceBtn() {
+		
+	}
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		setMenuData();

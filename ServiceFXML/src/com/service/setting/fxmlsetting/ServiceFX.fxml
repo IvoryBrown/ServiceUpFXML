@@ -353,18 +353,19 @@
 								</TableView>
 								<VBox layoutX="4.0" layoutY="3.0" prefHeight="89.0" prefWidth="206.0">
 									<children>
-										<TextField id="stockDeviceNameFilteringTxt" fx:id="stockDeviceNameFilteringTxt" prefHeight="36.0" prefWidth="206.0" promptText="Termék">
+										<TextField id="stockDeviceNameFilteringTxt" fx:id="stockDeviceNameFilteringTxt" onAction="#filteringTxt" prefHeight="36.0" prefWidth="206.0" promptText="Termék">
 											<VBox.margin>
 												<Insets top="5.0" />
 											</VBox.margin>
 										</TextField>
-      								<Button id="stockDeviceFilteringBtn" fx:id="stockDeviceFilteringBtn" mnemonicParsing="false" onAction="#searchAdd" prefHeight="36.0" prefWidth="206.0" text="Keresés">
+      								<Button id="stockDeviceFilteringBtn" fx:id="stockDeviceFilteringBtn" mnemonicParsing="false" onAction="#filteringBtn" prefHeight="36.0" prefWidth="206.0" text="Keresés">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </Button>
 									</children>
 								</VBox>
+                        <Button id="newStockDeviceBtn" fx:id="newStockDeviceBtn" layoutX="237.0" layoutY="50.0" mnemonicParsing="false" onAction="#newDevieceBtn" prefHeight="36.0" prefWidth="206.0" text="Új Termék" />
 							</children>
 						</AnchorPane>
 					</children>
