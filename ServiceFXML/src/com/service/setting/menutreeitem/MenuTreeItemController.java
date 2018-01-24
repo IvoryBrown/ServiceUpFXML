@@ -22,18 +22,18 @@ public class MenuTreeItemController {
 	@FXML
 	protected ToggleButton fullSctene;
 
-	private final String MENU_HOME = "Kezdılap";
-	private final String MENU_CONTACTS = "‹gyfelek";
-	private final String MENU_CLIENT = "Mag·nszemÈly";
-	private final String MENU_COMPANY = "CÈg";
-	private final String MENU_DEVICE = "Eszkˆz";
-	private final String MENU_STOCK = "Rakt·r";
-	private final String MENU_EXIT = "KilÈpÈs";
+	private final String MENU_HOME = "Kezd≈ëlap";
+	private final String MENU_CONTACTS = "√úgyfelek";
+	private final String MENU_CLIENT = "Mag√°nszem√©ly";
+	private final String MENU_COMPANY = "C√©g";
+	private final String MENU_DEVICE = "Eszk√∂z";
+	private final String MENU_STOCK = "Rakt√°r";
+	private final String MENU_EXIT = "Kil√©p√©s";
 
 	@SuppressWarnings("unchecked")
 	protected void setMenuData() {
 
-		TreeItem<String> treeItemRoot1 = new TreeItem<>("Men¸");
+		TreeItem<String> treeItemRoot1 = new TreeItem<>("Men√º");
 		TreeView<String> treeView = new TreeView<>(treeItemRoot1);
 		treeView.setShowRoot(false);
 
@@ -101,15 +101,16 @@ public class MenuTreeItemController {
 				}
 			}
 		});
-		
+
 	}
+
 	@FXML
-    private void addContact(ActionEvent event) {
+	private void addContact(ActionEvent event) {
 		fullSctene.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                
-            }
-        });
+			@Override
+			public void handle(ActionEvent e) {
+
+			}
+		});
 	}
 }

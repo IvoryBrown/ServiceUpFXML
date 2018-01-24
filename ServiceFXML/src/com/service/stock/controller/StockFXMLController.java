@@ -21,8 +21,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -35,10 +33,6 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 	@SuppressWarnings("rawtypes")
 	@FXML
 	private TableView stockTable;
-	@FXML
-	private DatePicker stockDate;
-	@FXML
-	private Button stockDeviceFilteringBtn, newStockDeviceBtn;
 	@FXML
 	private TextField stockDeviceNameFilteringTxt;
 
@@ -63,7 +57,7 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 				device.add(actualStock);
 			}
 		} catch (SQLException e) {
-			ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
+			ShowInfo.errorInfoMessengeException("AdatbÃ¡zis Hiba", "Szerver vÃ¡lasza: ", e.getMessage());
 		} finally {
 			try {
 				if (rs != null) {
@@ -76,7 +70,7 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 					con.close();
 				}
 			} catch (SQLException e) {
-				ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
+				ShowInfo.errorInfoMessengeException("AdatbÃ¡zis Hiba", "Szerver vÃ¡lasza: ", e.getMessage());
 			}
 		}
 		return device;
@@ -89,7 +83,7 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 		stockDeviceId.setCellFactory(TextFieldTableCell.forTableColumn());
 		stockDeviceId.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceId"));
 
-		TableColumn stockDeviceName = new TableColumn("Termék");
+		TableColumn stockDeviceName = new TableColumn("TermÃ©k");
 		stockDeviceName.setMinWidth(250);
 		stockDeviceName.setCellFactory(TextFieldTableCell.forTableColumn());
 		stockDeviceName.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceName"));
@@ -99,7 +93,7 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 		stockDeviceDate.setCellFactory(TextFieldTableCell.forTableColumn());
 		stockDeviceDate.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceDate"));
 
-		TableColumn stockDeviceSalesDate = new TableColumn("Eladás");
+		TableColumn stockDeviceSalesDate = new TableColumn("EladÃ¡s");
 		stockDeviceSalesDate.setMinWidth(80);
 		stockDeviceSalesDate.setCellFactory(TextFieldTableCell.forTableColumn());
 		stockDeviceSalesDate.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceSalesDate"));
@@ -109,7 +103,7 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 		stockDeviceQuantity.setCellFactory(TextFieldTableCell.forTableColumn());
 		stockDeviceQuantity.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceQuantity"));
 
-		TableColumn stockDeviceDescription = new TableColumn("Leírás");
+		TableColumn stockDeviceDescription = new TableColumn("LeÃ­rÃ¡s");
 		stockDeviceDescription.setMinWidth(750);
 		stockDeviceDescription.setCellFactory(TextFieldTableCell.forTableColumn());
 		stockDeviceDescription.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceDescription"));
@@ -136,16 +130,20 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 	@FXML
 	private void newDevieceBtn() {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/com/service/setting/fxmlnewstock/FxmlNewStock.fxml"));
+			Parent root = FXMLLoader
+					.load(getClass().getResource("/com/service/setting/fxmlnewstock/FxmlNewStock.fxml"));
 			Stage stage = new Stage();
-            stage.setTitle("Új Eszköz");
-            stage.setScene(new Scene(root, 1000, 650));
-            stage.show();
+			stage.setTitle("EszkÃ¶z");
+			//stage.initStyle(StageStyle.TRANSPARENT);
+			stage.setScene(new Scene(root, 1000, 650));
+			stage.show();
+			stockPane.setOpacity(0.1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	
+		
 	}
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		setMenuData();

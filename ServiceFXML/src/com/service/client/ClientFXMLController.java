@@ -33,15 +33,15 @@ public class ClientFXMLController extends MenuTreeItemController {
 	@FXML
 	private Button btnClientNewClient;
 
-	private final String COUNTRYCOUNTIES[] = { "B·cs-Kiskun", "Baranya", "BÈkÈs", "Borsod-Aba˙j-ZemplÈn", "Csongr·d",
-			"FejÈr", "Gyır-Moson-Sopron", "Hajd˙-Bihar", "Heves", "J·sz-Nagykun-Szolnok", "Kom·rom-Esztergom", "NÛgr·d",
-			"Pest", "Somogy", "Szabolcs-Szatm·r-Bereg", "Tolna", "Vas", "VeszprÈm", "Zala" };
+	private final String COUNTRYCOUNTIES[] = { "B√°cs-Kiskun", "Baranya", "B√©k√©s", " Borsod-Aba√∫j-Zempl√©n", "Csongr√°d",
+			" Fej√©r", " Gy≈ër-Moson-Sopron", "Hajd√∫-Bihar", "Heves", "J√°sz-Nagykun-Szolnok", " Kom√°rom-Esztergom ", "N√≥gr√°d",
+			"Pest", "Somogy", "Szabolcs-Szatm√°r-Bereg", "Tolna", "Vas", " Veszpr√©m", "Zala" };
 
 	protected void setComponentAll() {
 		txtClientInputComment.setWrapText(true);
 		cmbClientInputCounty.getItems().addAll(COUNTRYCOUNTIES);
 		btnClientNewClient.setTooltip(new Tooltip(" "));
-		txtClientInputSettlement.setTooltip(new Tooltip(" EZT N…ZD WAZZEG"));
+		txtClientInputSettlement.setTooltip(new Tooltip(" EZT NÔøΩZD WAZZEG"));
 		btnClientNewClient.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -57,7 +57,7 @@ public class ClientFXMLController extends MenuTreeItemController {
 			txtClientInputClientName.getStyleClass().add("errorTextField");
 		}
 		if (cmbClientInputCounty.getValue() == null) {
-			cmbClientInputCounty.setPromptText("KÈrlek v·lasz!");
+			cmbClientInputCounty.setPromptText("KÔøΩrlek vÔøΩlasz!");
 		}
 		if (txtClientInputSettlement.getText().trim().isEmpty()) {
 			txtClientInputSettlement.getStyleClass().add("errorTextField");
@@ -114,7 +114,7 @@ public class ClientFXMLController extends MenuTreeItemController {
 					insertClient.setInt(5, Integer.parseInt(txtClientInputZipCode.getText()));
 				} catch (NumberFormatException e) {
 					clientPane.setOpacity(0.1);
-					ShowInfo.errorInfoMessengeException("HIBA", "Nem megfelelı Ìr·nyÌtÛsz·m!", e.getMessage());
+					ShowInfo.errorInfoMessengeException("HIBA", "Nem megfelel≈ë Ir√°ny√≠t√≥sz√°m!", e.getMessage());
 				}
 				insertClient.setString(6, txtClientInputAddress.getText());
 				insertClient.setString(7, txtClientInputEmail.getText());
@@ -124,15 +124,15 @@ public class ClientFXMLController extends MenuTreeItemController {
 				insertClient.executeUpdate();
 				setClientInputText();
 				clientPane.setOpacity(0.1);
-				ShowInfo.showInfoMessenge("Sikeres FrissÌtÈs ", "Remek! ");
+				ShowInfo.showInfoMessenge("Sikeres Friss√≠t√©s ", "Remek! ");
 
 			} catch (SQLException ex) {
 				clientPane.setOpacity(0.1);
-				ShowInfo.errorInfoMessengeException("Adatb·zis Hiba", "Szerver v·lasza: ", ex.getMessage());
+				ShowInfo.errorInfoMessengeException("Adatb√°zis Hiba", "Szerver v√°lasza: ", ex.getMessage());
 			}
 		} else {
 			clientPane.setOpacity(0.1);
-			ShowInfo.errorInfoMessenge("HIBA", "Nincs minden mezı kitıltve");
+			ShowInfo.errorInfoMessenge("HIBA", "Nincs minden mez≈ë kit√∂ltve");
 
 		}
 		clientPane.setOpacity(1);
