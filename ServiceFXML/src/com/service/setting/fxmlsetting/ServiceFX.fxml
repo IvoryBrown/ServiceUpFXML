@@ -358,14 +358,14 @@
 												<Insets top="5.0" />
 											</VBox.margin>
 										</TextField>
-      								<Button id="stockDeviceFilteringBtn" fx:id="stockDeviceFilteringBtn" mnemonicParsing="false" onAction="#filteringBtn" prefHeight="36.0" prefWidth="206.0" text="Keresés">
+      								<Button mnemonicParsing="false" onAction="#filteringBtn" prefHeight="36.0" prefWidth="206.0" text="Keresés">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </Button>
 									</children>
 								</VBox>
-                        <Button id="newStockDeviceBtn" fx:id="newStockDeviceBtn" layoutX="237.0" layoutY="50.0" mnemonicParsing="false" onAction="#newDevieceBtn" prefHeight="36.0" prefWidth="206.0" text="Új Termék" />
+                        <Button layoutX="237.0" layoutY="50.0" mnemonicParsing="false" onAction="#newDevieceBtn" prefHeight="36.0" prefWidth="206.0" text="Új Termék" />
 							</children>
 						</AnchorPane>
 					</children>

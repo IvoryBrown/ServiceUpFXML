@@ -122,26 +122,26 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 	}
 
 	@FXML
-	private void filteringTxt() {
+	private void filteringTxt(ActionEvent event) {
 		data.clear();
 		setStockTableData();
 	}
 
 	@FXML
-	private void newDevieceBtn() {
+	private void newDevieceBtn(ActionEvent event) {
 		try {
 			Parent root = FXMLLoader
 					.load(getClass().getResource("/com/service/setting/fxmlnewstock/FxmlNewStock.fxml"));
 			Stage stage = new Stage();
 			stage.setTitle("Eszköz");
-			//stage.initStyle(StageStyle.TRANSPARENT);
+			// stage.initStyle(StageStyle.TRANSPARENT);
 			stage.setScene(new Scene(root, 1000, 650));
 			stage.show();
-			stockPane.setOpacity(0.1);
+			// stockPane.setOpacity(0.1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override

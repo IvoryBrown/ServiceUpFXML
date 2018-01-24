@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -9,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane minHeight="500.0" prefHeight="650.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.service.stock.newcontroller.NewStock">
+<AnchorPane prefHeight="650.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.service.stock.newcontroller.NewStock">
    <children>
       <VBox layoutX="14.0" prefHeight="361.0" prefWidth="300.0">
          <children>
@@ -57,7 +58,7 @@
       </VBox>
       <VBox layoutX="332.0" prefHeight="650.0" prefWidth="542.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="332.0" AnchorPane.rightAnchor="126.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TextField id="stockDeviceName" fx:id="stockDeviceName" maxWidth="860.0" minWidth="300.0" prefHeight="44.0">
+            <TextField id="stockDeviceName" fx:id="stockDeviceName" maxWidth="860.0" minWidth="300.0" prefHeight="44.0" promptText="Termék">
                <font>
                   <Font size="15.0" />
                </font>
@@ -65,17 +66,17 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </TextField>
-            <DatePicker id="stockDeviceDate" fx:id="stockDeviceDate" maxWidth="860.0" minWidth="300.0" prefHeight="44.0" prefWidth="860.0">
+            <DatePicker id="stockDeviceDate" fx:id="stockDeviceDate" maxWidth="860.0" minWidth="300.0" prefHeight="44.0" prefWidth="860.0" promptText="2017.01.01">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </DatePicker>
-            <DatePicker id="stockDeviceSalesDate" fx:id="stockDeviceSalesDate" maxWidth="860.0" minWidth="300.0" prefHeight="44.0" prefWidth="860.0">
+            <DatePicker id="stockDeviceSalesDate" fx:id="stockDeviceSalesDate" maxWidth="860.0" minWidth="300.0" prefHeight="44.0" prefWidth="860.0" promptText="2017.01.01">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </DatePicker>
-            <TextField id="stockDeviceQuantity" fx:id="stockDeviceQuantity" maxWidth="860.0" minWidth="300.0" prefHeight="44.0">
+            <TextField id="stockDeviceQuantity" fx:id="stockDeviceQuantity" maxWidth="860.0" minWidth="300.0" prefHeight="44.0" promptText="Darab">
                <font>
                   <Font size="15.0" />
                </font>
@@ -83,7 +84,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </TextField>
-            <TextField id="stockDeviceDescription" fx:id="stockDeviceDescription" maxWidth="860.0" minWidth="300.0" prefHeight="44.0">
+            <TextField id="stockDeviceDescription" fx:id="stockDeviceDescription" maxWidth="860.0" minWidth="300.0" prefHeight="44.0" promptText="Leírás">
                <font>
                   <Font size="15.0" />
                </font>
@@ -93,5 +94,6 @@
             </TextField>
          </children>
       </VBox>
+      <Button layoutX="57.0" layoutY="386.0" mnemonicParsing="false" onAction="#newDev" prefHeight="25.0" prefWidth="205.0" text="Button" />
    </children>
 </AnchorPane>
