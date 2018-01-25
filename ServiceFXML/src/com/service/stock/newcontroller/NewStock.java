@@ -4,11 +4,11 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import com.service.setting.database.DataBaseConnect;
 import com.service.setting.showinfo.ShowInfo;
+import com.service.stock.controller.StockFXMLController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,6 +21,7 @@ public class NewStock implements Initializable {
 	private TextField stockDeviceName, stockDeviceQuantity, stockDeviceDescription;
 	@FXML
 	private DatePicker stockDeviceDate, stockDeviceSalesDate;
+	StockFXMLController stockFXMLController = new StockFXMLController();
 
 	private boolean setStockCheckTxt() {
 		if (stockDeviceName.getText().trim().isEmpty()) {
@@ -60,6 +61,7 @@ public class NewStock implements Initializable {
 				insertStock.setString(4, stockDeviceQuantity.getText());
 				insertStock.setString(5, stockDeviceDescription.getText());
 				insertStock.executeUpdate();
+				stockFXMLController.setStockTableData();
 			} catch (SQLException e) {
 				ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
 			}

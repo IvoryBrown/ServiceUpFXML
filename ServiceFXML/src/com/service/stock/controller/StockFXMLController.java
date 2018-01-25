@@ -77,7 +77,7 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	protected void setStockTableData() {
+	public void setStockTableData() {
 		TableColumn stockDeviceId = new TableColumn("ID");
 		stockDeviceId.setMinWidth(50);
 		stockDeviceId.setCellFactory(TextFieldTableCell.forTableColumn());
