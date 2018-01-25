@@ -76,12 +76,13 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 		return device;
 	}
 
+	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void setStockTableData() {
 		TableColumn stockDeviceId = new TableColumn("ID");
 		stockDeviceId.setMinWidth(50);
 		stockDeviceId.setCellFactory(TextFieldTableCell.forTableColumn());
-		stockDeviceId.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceId"));
+		stockDeviceId.setCellValueFactory(new PropertyValueFactory<Stock, Integer>("stockDeviceId"));
 
 		TableColumn stockDeviceName = new TableColumn("Termék");
 		stockDeviceName.setMinWidth(250);
