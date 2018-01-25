@@ -103,7 +103,7 @@ public class ClientFXMLController extends MenuTreeItemController {
 				Connection con = DataBaseConnect.getConnection();
 				PreparedStatement insertClient = con
 						.prepareStatement("INSERT INTO ugyfel_adatok(ugyfel_azonosito, ugyfel_nev, megye,"
-								+ "telepules, iranyitoszam, cim,ugyfel_email,ugyfel_telefon,ugyintezo,ugyfel_megjegyzes)"
+								+ "telepules, iranyitoszam, cim,ugyfel_email, ugyfel_telefon, ugyintezo, ugyfel_megjegyzes)"
 								+ "values(?,?,?,?,?,?,?,?,?,?) ");
 				txtClientInputNumber.setText(ClientIdentficationGenerator.random());
 				insertClient.setString(1, txtClientInputNumber.getText());
