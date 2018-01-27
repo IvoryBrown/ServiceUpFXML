@@ -21,10 +21,10 @@ public class ShowInfo {
 		alert.showAndWait();
 	}
 
-	public static void errorInfoMessengeException(final String info, final String messengs, final String sqlMessage) {
+	public static void errorInfoMessengeException(final String info, final String messengs, final String exceptionMessage) {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle(info);
-		alert.setHeaderText(sqlMessage);
+		alert.setHeaderText(exceptionMessage);
 		alert.setContentText(messengs);
 		alert.showAndWait();
 	}
