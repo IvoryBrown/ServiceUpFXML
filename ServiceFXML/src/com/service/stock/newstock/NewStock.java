@@ -1,4 +1,4 @@
-package com.service.stock.newcontroller;
+package com.service.stock.newstock;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -14,11 +14,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class NewStock implements Initializable {
 	@FXML
-	private TextField stockDeviceName, stockDeviceQuantity, stockDeviceDescription;
+	private TextField stockDeviceName, stockDeviceQuantity;
+	@FXML
+	private TextArea stockDeviceDescription;
 	@FXML
 	private DatePicker stockDeviceDate, stockDeviceSalesDate;
 	StockFXMLController stockFXMLController = new StockFXMLController();
@@ -46,7 +49,6 @@ public class NewStock implements Initializable {
 
 	@FXML
 	private void newDev(ActionEvent event) {
-		
 		if (setStockCheckTxt()) {
 			try {
 				Connection con = DataBaseConnect.getConnection();
@@ -70,7 +72,6 @@ public class NewStock implements Initializable {
 				ShowInfo.showInfoMessenge("Sikeres Frissítés ", "Remek! ");
 			} catch (SQLException e) {
 				ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
-				
 			}
 		}else {
 			ShowInfo.errorInfoMessenge("HIBA", "Nincs minden mező kitöltve");
@@ -79,7 +80,7 @@ public class NewStock implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		stockDeviceDescription.setWrapText(true);
 	}
 
 }
