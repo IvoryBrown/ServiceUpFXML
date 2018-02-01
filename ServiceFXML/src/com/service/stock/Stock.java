@@ -1,10 +1,11 @@
 package com.service.stock;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Stock {
 
-	private final SimpleStringProperty stockDeviceId;
+	private final SimpleIntegerProperty stockDeviceId;
 	private final SimpleStringProperty stockDeviceName;
 	private final SimpleStringProperty stockDeviceDate;
 	private final SimpleStringProperty stockDeviceSalesDate;
@@ -12,7 +13,7 @@ public class Stock {
 	private final SimpleStringProperty stockDeviceDescription;
 
 	public Stock() {
-		this.stockDeviceId = new SimpleStringProperty("");
+		this.stockDeviceId = new SimpleIntegerProperty();
 		this.stockDeviceName = new SimpleStringProperty("");
 		this.stockDeviceDate = new SimpleStringProperty("");
 		this.stockDeviceSalesDate = new SimpleStringProperty("");
@@ -22,7 +23,7 @@ public class Stock {
 
 	public Stock(Integer sDeviceId, String sDeviceName, String sDeviceDate, String sDeviceSalesDate,
 			Integer sDeviceQuantity, String sDeviceDescription) {
-		this.stockDeviceId = new SimpleStringProperty(String.valueOf(sDeviceId));
+		this.stockDeviceId = new SimpleIntegerProperty(sDeviceId);
 		this.stockDeviceName = new SimpleStringProperty(sDeviceName);
 		this.stockDeviceDate = new SimpleStringProperty(sDeviceDate);
 		this.stockDeviceSalesDate = new SimpleStringProperty(sDeviceSalesDate);
@@ -30,11 +31,11 @@ public class Stock {
 		this.stockDeviceDescription = new SimpleStringProperty(sDeviceDescription);
 	}
 
-	public String getStockDeviceId() {
+	public Integer getStockDeviceId() {
 		return stockDeviceId.get();
 	}
 
-	public void setStockDeviceId(String sDeviceId) {
+	public void setStockDeviceId(Integer sDeviceId) {
 		stockDeviceId.set(sDeviceId);
 	}
 
