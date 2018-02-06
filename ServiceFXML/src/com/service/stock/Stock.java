@@ -1,32 +1,27 @@
 package com.service.stock;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Stock {
 
 	private final SimpleIntegerProperty stockDeviceId;
 	private final SimpleStringProperty stockDeviceName;
-	private final SimpleStringProperty stockDeviceDate;
-	private final SimpleStringProperty stockDeviceSalesDate;
+	private final SimpleObjectProperty<Date> stockDeviceDate;
+	private final SimpleObjectProperty<Date> stockDeviceSalesDate;
 	private final SimpleStringProperty stockDeviceQuantity;
 	private final SimpleStringProperty stockDeviceDescription;
 
-	public Stock() {
-		this.stockDeviceId = new SimpleIntegerProperty();
-		this.stockDeviceName = new SimpleStringProperty("");
-		this.stockDeviceDate = new SimpleStringProperty("");
-		this.stockDeviceSalesDate = new SimpleStringProperty("");
-		this.stockDeviceQuantity = new SimpleStringProperty("");
-		this.stockDeviceDescription = new SimpleStringProperty("");
-	}
-
-	public Stock(Integer sDeviceId, String sDeviceName, String sDeviceDate, String sDeviceSalesDate,
+	public Stock(Integer sDeviceId, String sDeviceName, Date sDeviceDate, Date sDeviceSalesDate,
 			Integer sDeviceQuantity, String sDeviceDescription) {
 		this.stockDeviceId = new SimpleIntegerProperty(sDeviceId);
 		this.stockDeviceName = new SimpleStringProperty(sDeviceName);
-		this.stockDeviceDate = new SimpleStringProperty(sDeviceDate);
-		this.stockDeviceSalesDate = new SimpleStringProperty(sDeviceSalesDate);
+		this.stockDeviceDate = new SimpleObjectProperty<Date>(sDeviceDate);
+		this.stockDeviceSalesDate = new SimpleObjectProperty<Date>(sDeviceSalesDate);
 		this.stockDeviceQuantity = new SimpleStringProperty(String.valueOf(sDeviceQuantity));
 		this.stockDeviceDescription = new SimpleStringProperty(sDeviceDescription);
 	}
@@ -48,18 +43,24 @@ public class Stock {
 	}
 
 	public String getStockDeviceDate() {
-		return stockDeviceDate.get();
+		SimpleDateFormat smp = new SimpleDateFormat("yyyy MMMMM dd");
+		String strDate = (null == stockDeviceDate || null == stockDeviceDate.get()) ? ""
+				: smp.format(stockDeviceDate.get());
+		return strDate;
 	}
 
-	public void getStockDeviceDate(String sDeviceDate) {
+	public void getStockDeviceDate(Date sDeviceDate) {
 		stockDeviceDate.set(sDeviceDate);
 	}
 
 	public String getStockDeviceSalesDate() {
-		return stockDeviceSalesDate.get();
+		SimpleDateFormat smp = new SimpleDateFormat("yyyy MMMMM dd");
+		String strDate = (null == stockDeviceSalesDate || null == stockDeviceSalesDate.get()) ? ""
+				: smp.format(stockDeviceSalesDate.get());
+		return strDate;
 	}
 
-	public void setStockDeviceSalesDate(String sDeviceSalesDate) {
+	public void setStockDeviceSalesDate(Date sDeviceSalesDate) {
 		stockDeviceSalesDate.set(sDeviceSalesDate);
 	}
 
