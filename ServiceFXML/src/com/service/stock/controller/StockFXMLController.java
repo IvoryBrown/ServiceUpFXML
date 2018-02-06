@@ -1,6 +1,7 @@
 package com.service.stock.controller;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import com.service.client.ClientFXMLController;
@@ -10,6 +11,7 @@ import com.service.stock.filteringdb.StockFillteringDB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
@@ -31,6 +34,7 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 	private TextField stockDeviceNameFilteringTxt;
 
 	private final ObservableList<Stock> data = FXCollections.observableArrayList();
+	StockFillteringDB db = new StockFillteringDB();
 
 	public void setStockTableData() {
 		TableColumn<Stock, Integer> stockDeviceId = new TableColumn<>("ID");
@@ -48,11 +52,19 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 		stockDeviceDate.setCellFactory(TextFieldTableCell.forTableColumn());
 		stockDeviceDate.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceDate"));
 
-		TableColumn<Stock, String> stockDeviceSalesDate = new TableColumn<>("Eladás");
+		TableColumn<Stock, Date> stockDeviceSalesDate = new TableColumn<>("Eladás");
 		stockDeviceSalesDate.setMinWidth(80);
-		stockDeviceSalesDate.setCellFactory(TextFieldTableCell.forTableColumn());
-		stockDeviceSalesDate.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceSalesDate"));
-
+		stockDeviceSalesDate.setCellValueFactory(new PropertyValueFactory<Stock, Date>("stockDeviceSalesDate"));
+		stockDeviceSalesDate.setOnEditCancel(new EventHandler<TableColumn.CellEditEvent<Stock,Date>>() {
+			
+			@Override
+			public void handle(CellEditEvent<Stock, Date> d) {
+				Stock actualStock =(Stock) d.getTableView().getItems().get(d.getTablePosition().getRow());
+				actualStock.setStockDeviceSalesDate(d.getNewValue());
+				db.updateStock(actualStock);
+			}
+		});
+		
 		TableColumn<Stock, String> stockDeviceQuantity = new TableColumn<>("Darab");
 		stockDeviceQuantity.setMinWidth(80);
 		stockDeviceQuantity.setCellFactory(TextFieldTableCell.forTableColumn());
