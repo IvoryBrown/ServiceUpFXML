@@ -11,6 +11,8 @@ import com.service.setting.showinfo.ShowInfo;
 import com.service.stock.Stock;
 
 public class StockFillteringDB {
+	static Connection con = DataBaseConnect.getConnection();
+	Connection conn = DataBaseConnect.getConnection();
 
 	public static ArrayList<Stock> getAllStock() {
 		String sql = "SELECT * FROM `raktar`";
@@ -18,15 +20,13 @@ public class StockFillteringDB {
 
 		Statement createStatement = null;
 		ResultSet rs = null;
-		Connection con = DataBaseConnect.getConnection();
 		try {
 			createStatement = con.createStatement();
 			rs = createStatement.executeQuery(sql);
 			device = new ArrayList<>();
 			while (rs.next()) {
-				Stock actualStock = new Stock(rs.getInt("category_id"), rs.getString("eszkoznev"),
-						rs.getString("kelte"), rs.getString("eladas_kelte"), rs.getInt("mennyiseg"),
-						rs.getString("leiras"));
+				Stock actualStock = new Stock(rs.getInt("category_id"), rs.getString("eszkoznev"), rs.getDate("kelte"),
+						rs.getDate("eladas_kelte"), rs.getInt("mennyiseg"), rs.getString("leiras"));
 				device.add(actualStock);
 			}
 		} catch (SQLException e) {
@@ -50,6 +50,7 @@ public class StockFillteringDB {
 	}
 
 	public static ArrayList<Stock> getStockNameFiltering(String stockDeviceNameFilteringTxt) {
+
 		String sql = "SELECT * FROM `raktar` WHERE CONCAT (`" + "eszkoznev" + "`) LIKE '%" + stockDeviceNameFilteringTxt
 				+ "%'";
 		ArrayList<Stock> device = null;
@@ -62,9 +63,8 @@ public class StockFillteringDB {
 			rs = createStatement.executeQuery(sql);
 			device = new ArrayList<>();
 			while (rs.next()) {
-				Stock actualStock = new Stock(rs.getInt("category_id"), rs.getString("eszkoznev"),
-						rs.getString("kelte"), rs.getString("eladas_kelte"), rs.getInt("mennyiseg"),
-						rs.getString("leiras"));
+				Stock actualStock = new Stock(rs.getInt("category_id"), rs.getString("eszkoznev"), rs.getDate("kelte"),
+						rs.getDate("eladas_kelte"), rs.getInt("mennyiseg"), rs.getString("leiras"));
 				device.add(actualStock);
 			}
 		} catch (SQLException e) {
@@ -85,5 +85,21 @@ public class StockFillteringDB {
 			}
 		}
 		return device;
+	}
+
+	public void updateStock(Stock stock) {
+		String sqlStock = "UPDATE `raktar` set eszkoznev = ?, kelte = ?, eladas_kelte = ?, mennyiseg = ?, leiras = ? WHERE category_id = ?";
+		try {
+			java.sql.PreparedStatement pr = conn.prepareStatement(sqlStock);
+			pr.setString(1, stock.getStockDeviceName());
+			pr.setString(2, stock.getStockDeviceDate());
+			pr.setDate(3, stock.
+			pr.setString(4, stock.getStockDeviceQuantity());
+			pr.setString(5, stock.getStockDeviceDescription());
+			pr.setInt(6, stock.getStockDeviceId());
+		} catch (SQLException e) {
+			System.out.println(e);
+			e.printStackTrace();
+		}
 	}
 }
