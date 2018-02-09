@@ -25,8 +25,9 @@ public class StockFillteringDB {
 			rs = createStatement.executeQuery(sql);
 			device = new ArrayList<>();
 			while (rs.next()) {
-				Stock actualStock = new Stock(rs.getInt("category_id"), rs.getString("eszkoznev"), rs.getDate("kelte"),
-						rs.getDate("eladas_kelte"), rs.getInt("mennyiseg"), rs.getString("leiras"));
+				Stock actualStock = new Stock(rs.getInt("category_id"), rs.getString("eszkoznev"),
+						rs.getString("kelte"), rs.getString("eladas_kelte"), rs.getInt("mennyiseg"),
+						rs.getString("leiras"));
 				device.add(actualStock);
 			}
 		} catch (SQLException e) {
@@ -63,8 +64,9 @@ public class StockFillteringDB {
 			rs = createStatement.executeQuery(sql);
 			device = new ArrayList<>();
 			while (rs.next()) {
-				Stock actualStock = new Stock(rs.getInt("category_id"), rs.getString("eszkoznev"), rs.getDate("kelte"),
-						rs.getDate("eladas_kelte"), rs.getInt("mennyiseg"), rs.getString("leiras"));
+				Stock actualStock = new Stock(rs.getInt("category_id"), rs.getString("eszkoznev"),
+						rs.getString("kelte"), rs.getString("eladas_kelte"), rs.getInt("mennyiseg"),
+						rs.getString("leiras"));
 				device.add(actualStock);
 			}
 		} catch (SQLException e) {
@@ -88,15 +90,16 @@ public class StockFillteringDB {
 	}
 
 	public void updateStock(Stock stock) {
-		String sqlStock = "UPDATE `raktar` set eszkoznev = ?, kelte = ?, eladas_kelte = ?, mennyiseg = ?, leiras = ? WHERE category_id = ?";
 		try {
+			String sqlStock = "UPDATE `raktar` set eszkoznev = ?, kelte = ?, eladas_kelte = ?, mennyiseg = ?, leiras = ? WHERE category_id = ?";
 			java.sql.PreparedStatement pr = conn.prepareStatement(sqlStock);
 			pr.setString(1, stock.getStockDeviceName());
 			pr.setString(2, stock.getStockDeviceDate());
-			pr.setDate(3, stock.
+			pr.setString(3, stock.getStockDeviceSalesDate());
 			pr.setString(4, stock.getStockDeviceQuantity());
 			pr.setString(5, stock.getStockDeviceDescription());
 			pr.setInt(6, stock.getStockDeviceId());
+			pr.execute();
 		} catch (SQLException e) {
 			System.out.println(e);
 			e.printStackTrace();

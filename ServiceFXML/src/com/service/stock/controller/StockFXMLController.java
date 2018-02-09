@@ -20,7 +20,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
@@ -46,29 +45,48 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 		stockDeviceName.setMinWidth(250);
 		stockDeviceName.setCellFactory(TextFieldTableCell.forTableColumn());
 		stockDeviceName.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceName"));
+		stockDeviceName.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Stock, String>>() {
+			@Override
+			public void handle(TableColumn.CellEditEvent<Stock, String> d) {
+				Stock actualStock = (Stock) d.getTableView().getItems().get(d.getTablePosition().getRow());
+				actualStock.setStockDeviceName(d.getNewValue());
+				db.updateStock(actualStock);
+				System.out.println("ok");
+			}
+		});
 
 		TableColumn<Stock, String> stockDeviceDate = new TableColumn<>("Kelte");
 		stockDeviceDate.setMinWidth(80);
 		stockDeviceDate.setCellFactory(TextFieldTableCell.forTableColumn());
 		stockDeviceDate.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceDate"));
 
-		TableColumn<Stock, Date> stockDeviceSalesDate = new TableColumn<>("Eladás");
+		TableColumn<Stock, String> stockDeviceSalesDate = new TableColumn<>("Eladás");
 		stockDeviceSalesDate.setMinWidth(80);
-		stockDeviceSalesDate.setCellValueFactory(new PropertyValueFactory<Stock, Date>("stockDeviceSalesDate"));
-		stockDeviceSalesDate.setOnEditCancel(new EventHandler<TableColumn.CellEditEvent<Stock,Date>>() {
-			
+		stockDeviceSalesDate.setCellFactory(TextFieldTableCell.forTableColumn());
+		stockDeviceSalesDate.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceSalesDate"));
+		stockDeviceSalesDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Stock, String>>() {
 			@Override
-			public void handle(CellEditEvent<Stock, Date> d) {
-				Stock actualStock =(Stock) d.getTableView().getItems().get(d.getTablePosition().getRow());
+			public void handle(TableColumn.CellEditEvent<Stock, String> d) {
+				Stock actualStock = (Stock) d.getTableView().getItems().get(d.getTablePosition().getRow());
 				actualStock.setStockDeviceSalesDate(d.getNewValue());
 				db.updateStock(actualStock);
+				System.out.println("ok");
 			}
 		});
-		
+
 		TableColumn<Stock, String> stockDeviceQuantity = new TableColumn<>("Darab");
 		stockDeviceQuantity.setMinWidth(80);
 		stockDeviceQuantity.setCellFactory(TextFieldTableCell.forTableColumn());
 		stockDeviceQuantity.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceQuantity"));
+		stockDeviceQuantity.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Stock, String>>() {
+			@Override
+			public void handle(TableColumn.CellEditEvent<Stock, String> d) {
+				Stock actualStock = (Stock) d.getTableView().getItems().get(d.getTablePosition().getRow());
+				actualStock.setStockDeviceQuantity(d.getNewValue());
+				db.updateStock(actualStock);
+				System.out.println("ok");
+			}
+		});
 
 		TableColumn<Stock, String> stockDeviceDescription = new TableColumn<>("Leírás");
 		stockDeviceDescription.setMinWidth(750);
