@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.service.client.ClientFXMLController;
+import com.service.setting.showinfo.ShowInfo;
 import com.service.stock.Stock;
 import com.service.stock.filteringdb.StockFillteringDB;
 
@@ -30,36 +31,31 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 	private TableView<Stock> stockTable;
 	@FXML
 	private TextField stockDeviceNameFilteringTxt;
+	TableColumn<Stock, Integer> stockDeviceId, stockDeviceQuantity;
+	TableColumn<Stock, String> stockDeviceName, stockDeviceDate, stockDeviceSalesDate, stockDeviceDescription,
+			stockDeviceAccountIdentity, stockDeviceInStock;
 
 	private final ObservableList<Stock> data = FXCollections.observableArrayList();
 	StockFillteringDB db = new StockFillteringDB();
 
+	@SuppressWarnings("unchecked")
 	public void setStockTableData() {
-		TableColumn<Stock, Integer> stockDeviceId = new TableColumn<>("ID");
+		stockDeviceId = new TableColumn<>("ID");
 		stockDeviceId.setMinWidth(50);
 		stockDeviceId.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 		stockDeviceId.setCellValueFactory(new PropertyValueFactory<Stock, Integer>("stockDeviceId"));
 
-		TableColumn<Stock, String> stockDeviceName = new TableColumn<>("Termék");
+		stockDeviceName = new TableColumn<>("Termék");
 		stockDeviceName.setMinWidth(250);
 		stockDeviceName.setCellFactory(TextFieldTableCell.forTableColumn());
 		stockDeviceName.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceName"));
-		stockDeviceName.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Stock, String>>() {
-			@Override
-			public void handle(TableColumn.CellEditEvent<Stock, String> d) {
-				Stock actualStock = (Stock) d.getTableView().getItems().get(d.getTablePosition().getRow());
-				actualStock.setStockDeviceName(d.getNewValue());
-				db.updateStock(actualStock);
-				System.out.println("ok");
-			}
-		});
 
-		TableColumn<Stock, String> stockDeviceDate = new TableColumn<>("Kelte");
+		stockDeviceDate = new TableColumn<>("Kelte");
 		stockDeviceDate.setMinWidth(80);
 		stockDeviceDate.setCellFactory(TextFieldTableCell.forTableColumn());
 		stockDeviceDate.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceDate"));
 
-		TableColumn<Stock, String> stockDeviceSalesDate = new TableColumn<>("Eladás");
+		stockDeviceSalesDate = new TableColumn<>("Eladás");
 		stockDeviceSalesDate.setMinWidth(80);
 		stockDeviceSalesDate.setCellFactory(TextFieldTableCell.forTableColumn());
 		stockDeviceSalesDate.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceSalesDate"));
@@ -73,28 +69,53 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 			}
 		});
 
-		TableColumn<Stock, Integer> stockDeviceQuantity = new TableColumn<>("Darab");
-		stockDeviceQuantity.setMinWidth(80);
+		stockDeviceQuantity = new TableColumn<>("Darab");
+		stockDeviceQuantity.setMinWidth(50);
 		stockDeviceQuantity.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 		stockDeviceQuantity.setCellValueFactory(new PropertyValueFactory<Stock, Integer>("stockDeviceQuantity"));
-		stockDeviceQuantity.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Stock, Integer>>() {
+
+		stockDeviceInStock = new TableColumn<>("Raktáron");
+		stockDeviceInStock.setMinWidth(50);
+		stockDeviceInStock.setCellFactory(TextFieldTableCell.forTableColumn());
+		stockDeviceInStock.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceInStock"));
+		stockDeviceInStock.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Stock, String>>() {
 			@Override
-			public void handle(TableColumn.CellEditEvent<Stock, Integer> d) {
+			public void handle(TableColumn.CellEditEvent<Stock, String> d) {
+				try {
+					Stock actualStock = (Stock) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualStock.setStockDeviceInStock(d.getNewValue());
+					db.updateStock(actualStock);
+					System.out.println("ok");
+				} catch (NumberFormatException numberFormatException) {
+					stockDeviceInStock.getText();
+					ShowInfo.errorInfoMessengeException("HIBA", "Szám legyen!", numberFormatException.getMessage());
+				}
+			}
+		});
+
+		stockDeviceDescription = new TableColumn<>("Leírás");
+		stockDeviceDescription.setMinWidth(750);
+		stockDeviceDescription.setCellFactory(TextFieldTableCell.forTableColumn());
+		stockDeviceDescription.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceDescription"));
+
+		stockDeviceAccountIdentity = new TableColumn<>("Számla azonosító");
+		stockDeviceAccountIdentity.setMinWidth(150);
+		stockDeviceAccountIdentity.setCellFactory(TextFieldTableCell.forTableColumn());
+		stockDeviceAccountIdentity
+				.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceAccountIdentity"));
+		stockDeviceAccountIdentity.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Stock, String>>() {
+			@Override
+			public void handle(TableColumn.CellEditEvent<Stock, String> d) {
 				Stock actualStock = (Stock) d.getTableView().getItems().get(d.getTablePosition().getRow());
-				actualStock.setStockDeviceQuantity(d.getNewValue());
+				actualStock.setStockDeviceAccountIdentity(d.getNewValue());
 				db.updateStock(actualStock);
 				System.out.println("ok");
 			}
 		});
 
-		TableColumn<Stock, String> stockDeviceDescription = new TableColumn<>("Leírás");
-		stockDeviceDescription.setMinWidth(750);
-		stockDeviceDescription.setCellFactory(TextFieldTableCell.forTableColumn());
-		stockDeviceDescription.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceDescription"));
-
 		stockTable.setItems(data);
 		stockTable.getColumns().addAll(stockDeviceId, stockDeviceName, stockDeviceDate, stockDeviceSalesDate,
-				stockDeviceQuantity, stockDeviceDescription);
+				stockDeviceQuantity, stockDeviceInStock, stockDeviceDescription, stockDeviceAccountIdentity);
 		data.addAll(StockFillteringDB.getAllStock());
 
 	}
