@@ -73,13 +73,13 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 			}
 		});
 
-		TableColumn<Stock, String> stockDeviceQuantity = new TableColumn<>("Darab");
+		TableColumn<Stock, Integer> stockDeviceQuantity = new TableColumn<>("Darab");
 		stockDeviceQuantity.setMinWidth(80);
-		stockDeviceQuantity.setCellFactory(TextFieldTableCell.forTableColumn());
-		stockDeviceQuantity.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceQuantity"));
-		stockDeviceQuantity.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Stock, String>>() {
+		stockDeviceQuantity.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+		stockDeviceQuantity.setCellValueFactory(new PropertyValueFactory<Stock, Integer>("stockDeviceQuantity"));
+		stockDeviceQuantity.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Stock, Integer>>() {
 			@Override
-			public void handle(TableColumn.CellEditEvent<Stock, String> d) {
+			public void handle(TableColumn.CellEditEvent<Stock, Integer> d) {
 				Stock actualStock = (Stock) d.getTableView().getItems().get(d.getTablePosition().getRow());
 				actualStock.setStockDeviceQuantity(d.getNewValue());
 				db.updateStock(actualStock);
