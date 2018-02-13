@@ -87,7 +87,6 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 					db.updateStock(actualStock);
 					System.out.println("ok");
 				} catch (NumberFormatException numberFormatException) {
-					stockDeviceInStock.getText();
 					ShowInfo.errorInfoMessengeException("HIBA", "Szám legyen!", numberFormatException.getMessage());
 				}
 			}
@@ -122,15 +121,9 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 
 	@FXML
 	private void filteringBtn(ActionEvent event) {
-		if (stockDeviceNameFilteringTxt.getText() != null) {
 			data.clear();
 			data.addAll(StockFillteringDB.getStockNameFiltering(stockDeviceNameFilteringTxt.getText()));
-		} else {
-			data.clear();
-			data.addAll(StockFillteringDB.getAllStock());
 		}
-
-	}
 
 	@FXML
 	private void filteringTxt(ActionEvent event) {
