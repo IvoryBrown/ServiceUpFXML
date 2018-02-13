@@ -27,7 +27,7 @@ public class StockFillteringDB {
 			while (rs.next()) {
 				Stock actualStock = new Stock(rs.getInt("category_id"), rs.getString("eszkoznev"),
 						rs.getString("kelte"), rs.getString("eladas_kelte"), rs.getInt("mennyiseg"),
-						rs.getString("leiras"));
+						rs.getString("raktaron"), rs.getString("leiras"), rs.getString("szamla_azonosito"));
 				device.add(actualStock);
 			}
 		} catch (SQLException e) {
@@ -66,7 +66,7 @@ public class StockFillteringDB {
 			while (rs.next()) {
 				Stock actualStock = new Stock(rs.getInt("category_id"), rs.getString("eszkoznev"),
 						rs.getString("kelte"), rs.getString("eladas_kelte"), rs.getInt("mennyiseg"),
-						rs.getString("leiras"));
+						rs.getString("raktaron"), rs.getString("leiras"), rs.getString("szamla_azonosito"));
 				device.add(actualStock);
 			}
 		} catch (SQLException e) {
@@ -91,14 +91,17 @@ public class StockFillteringDB {
 
 	public void updateStock(Stock stock) {
 		try {
-			String sqlStock = "UPDATE `raktar` set eszkoznev = ?, kelte = ?, eladas_kelte = ?, mennyiseg = ?, leiras = ? WHERE category_id = ?";
+			String sqlStock = "UPDATE `raktar` set eszkoznev = ?, kelte = ?, eladas_kelte = ?, mennyiseg = ?,"
+					+ "raktaron = ?, leiras = ?, szamla_azonosito = ? WHERE category_id = ?";
 			java.sql.PreparedStatement pr = conn.prepareStatement(sqlStock);
 			pr.setString(1, stock.getStockDeviceName());
 			pr.setString(2, stock.getStockDeviceDate());
 			pr.setString(3, stock.getStockDeviceSalesDate());
 			pr.setInt(4, stock.getStockDeviceQuantity());
-			pr.setString(5, stock.getStockDeviceDescription());
-			pr.setInt(6, stock.getStockDeviceId());
+			pr.setInt(5, Integer.parseInt(stock.getStockDeviceInStock()));
+			pr.setString(6, stock.getStockDeviceDescription());
+			pr.setString(7, stock.getStockDeviceAccountIdentity());
+			pr.setInt(8, stock.getStockDeviceId());
 			pr.execute();
 		} catch (SQLException e) {
 			System.out.println(e);
