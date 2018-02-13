@@ -9,17 +9,19 @@ public class Stock {
 	private final SimpleStringProperty stockDeviceName;
 	private final SimpleStringProperty stockDeviceDate;
 	private final SimpleStringProperty stockDeviceSalesDate;
-	private final SimpleStringProperty stockDeviceQuantity;
+	private final SimpleIntegerProperty stockDeviceQuantity;
 	private final SimpleStringProperty stockDeviceDescription;
+	private final SimpleStringProperty stockDeviceAccountIdentity;
 
 	public Stock(Integer sDeviceId, String sDeviceName, String sDeviceDate, String sDeviceSalesDate,
-			Integer sDeviceQuantity, String sDeviceDescription) {
+			Integer sDeviceQuantity, String sDeviceDescription, String sDeviceAccountIdentity) {
 		this.stockDeviceId = new SimpleIntegerProperty(sDeviceId);
 		this.stockDeviceName = new SimpleStringProperty(sDeviceName);
 		this.stockDeviceDate = new SimpleStringProperty(sDeviceDate);
 		this.stockDeviceSalesDate = new SimpleStringProperty(sDeviceSalesDate);
-		this.stockDeviceQuantity = new SimpleStringProperty(String.valueOf(sDeviceQuantity));
+		this.stockDeviceQuantity = new SimpleIntegerProperty(sDeviceQuantity);
 		this.stockDeviceDescription = new SimpleStringProperty(sDeviceDescription);
+		this.stockDeviceAccountIdentity = new SimpleStringProperty(sDeviceAccountIdentity);
 	}
 
 	public Integer getStockDeviceId() {
@@ -54,11 +56,11 @@ public class Stock {
 		stockDeviceSalesDate.set(sDeviceSalesDate);
 	}
 
-	public String getStockDeviceQuantity() {
+	public Integer getStockDeviceQuantity() {
 		return stockDeviceQuantity.get();
 	}
 
-	public void setStockDeviceQuantity(String sDeviceQuantity) {
+	public void setStockDeviceQuantity(Integer sDeviceQuantity) {
 		stockDeviceQuantity.set(sDeviceQuantity);
 	}
 
@@ -68,5 +70,13 @@ public class Stock {
 
 	public void setStockDeviceDescription(String sDeviceDescription) {
 		stockDeviceDescription.set(sDeviceDescription);
+	}
+
+	public String getStockDeviceAccountIdentity() {
+		return stockDeviceAccountIdentity.get();
+	}
+
+	public void setStockDeviceAccountIdentity(String sDeviceAccountIdentity) {
+		stockDeviceAccountIdentity.set(sDeviceAccountIdentity);
 	}
 }
