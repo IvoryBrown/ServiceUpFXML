@@ -96,7 +96,7 @@ public class StockFillteringDB {
 			pr.setString(1, stock.getStockDeviceName());
 			pr.setString(2, stock.getStockDeviceDate());
 			pr.setString(3, stock.getStockDeviceSalesDate());
-			pr.setString(4, stock.getStockDeviceQuantity());
+			pr.setInt(4, stock.getStockDeviceQuantity());
 			pr.setString(5, stock.getStockDeviceDescription());
 			pr.setInt(6, stock.getStockDeviceId());
 			pr.execute();
