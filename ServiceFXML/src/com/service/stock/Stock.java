@@ -1,6 +1,10 @@
 package com.service.stock;
 
+import java.util.Date;
+
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Stock {
@@ -8,18 +12,18 @@ public class Stock {
 	private final SimpleIntegerProperty stockDeviceId;
 	private final SimpleStringProperty stockDeviceName;
 	private final SimpleStringProperty stockDeviceDate;
-	private final SimpleStringProperty stockDeviceSalesDate;
+	private final ObjectProperty<Date> stockDeviceSalesDate;
 	private final SimpleIntegerProperty stockDeviceQuantity;
 	private final SimpleStringProperty stockDeviceInStock;
 	private final SimpleStringProperty stockDeviceDescription;
 	private final SimpleStringProperty stockDeviceAccountIdentity;
 
-	public Stock(Integer sDeviceId, String sDeviceName, String sDeviceDate, String sDeviceSalesDate,
-			Integer sDeviceQuantity,String sDeviceInStock, String sDeviceDescription, String sDeviceAccountIdentity) {
+	public Stock(Integer sDeviceId, String sDeviceName, String sDeviceDate, Date sDeviceSalesDate,
+			Integer sDeviceQuantity, String sDeviceInStock, String sDeviceDescription, String sDeviceAccountIdentity) {
 		this.stockDeviceId = new SimpleIntegerProperty(sDeviceId);
 		this.stockDeviceName = new SimpleStringProperty(sDeviceName);
 		this.stockDeviceDate = new SimpleStringProperty(sDeviceDate);
-		this.stockDeviceSalesDate = new SimpleStringProperty(sDeviceSalesDate);
+		this.stockDeviceSalesDate = new SimpleObjectProperty<>(sDeviceSalesDate);
 		this.stockDeviceQuantity = new SimpleIntegerProperty(sDeviceQuantity);
 		this.stockDeviceInStock = new SimpleStringProperty(String.valueOf(sDeviceInStock));
 		this.stockDeviceDescription = new SimpleStringProperty(sDeviceDescription);
@@ -33,11 +37,19 @@ public class Stock {
 	public void setStockDeviceId(Integer sDeviceId) {
 		stockDeviceId.set(sDeviceId);
 	}
-	
+
 	public String getStockDeviceInStock() {
 		return stockDeviceInStock.get();
 	}
-	
+
+	public void setStockDeviceSalesDate(Date value) {
+		stockDeviceSalesDate.set(value);
+	}
+
+	public Date getStockDeviceSalesDate() {
+		return stockDeviceSalesDate.get();
+	}
+
 	public void setStockDeviceInStock(String sDeviceInStock) {
 		stockDeviceInStock.set(sDeviceInStock);
 	}
@@ -56,14 +68,6 @@ public class Stock {
 
 	public void getStockDeviceDate(String sDeviceDate) {
 		stockDeviceDate.set(sDeviceDate);
-	}
-
-	public String getStockDeviceSalesDate() {
-		return stockDeviceSalesDate.get();
-	}
-
-	public void setStockDeviceSalesDate(String sDeviceSalesDate) {
-		stockDeviceSalesDate.set(sDeviceSalesDate);
 	}
 
 	public Integer getStockDeviceQuantity() {
