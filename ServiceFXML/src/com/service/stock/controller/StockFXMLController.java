@@ -1,8 +1,6 @@
 package com.service.stock.controller;
 
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -20,13 +18,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
+import javafx.util.Callback;
+import javafx.util.converter.DateStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 
 public class StockFXMLController extends ClientFXMLController implements Initializable {
@@ -57,22 +57,20 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 		stockDeviceDate.setMinWidth(80);
 		stockDeviceDate.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceDate"));
 
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		Callback<TableColumn<Stock, Date>, TableCell<Stock, Date>> defaultTextFieldCellFactory = TextFieldTableCell
+				.<Stock, Date>forTableColumn(new DateStringConverter());
+		
 		stockDeviceSalesDate = new TableColumn<>("Eladás");
 		stockDeviceSalesDate.setMinWidth(80);
-//		stockDeviceSalesDate.setCellFactory(TextFieldTableCell.<Stock, Date>forTableColumn(new StringConverter<Date>() {
-//			@Override
-//			public String toString(Date value) {
-//				return dateFormat.format(value);
-//			}
-//
-//			@Override
-		
-//			public Date fromString(String string) {
-//				return null;
-//			}
-//		}));
 		stockDeviceSalesDate.setCellValueFactory(new PropertyValueFactory<Stock, Date>("stockDeviceSalesDate"));
+		
+		stockDeviceSalesDate.setCellFactory(col -> {
+            TableCell<Stock, Date> cell = defaultTextFieldCellFactory.call(col);
+            cell.setStyle("-fx-background-color: red;");
+            return cell;
+    });
+		
+		
 		stockDeviceSalesDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Stock, Date>>() {
 			@Override
 			public void handle(TableColumn.CellEditEvent<Stock, Date> d) {
