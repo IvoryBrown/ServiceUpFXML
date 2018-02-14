@@ -1,6 +1,9 @@
 package com.service.stock.controller;
 
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import com.service.client.ClientFXMLController;
@@ -23,6 +26,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import javafx.util.converter.IntegerStringConverter;
 
 public class StockFXMLController extends ClientFXMLController implements Initializable {
@@ -32,36 +36,46 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 	@FXML
 	private TextField stockDeviceNameFilteringTxt;
 	TableColumn<Stock, Integer> stockDeviceId, stockDeviceQuantity;
-	TableColumn<Stock, String> stockDeviceName, stockDeviceDate, stockDeviceSalesDate, stockDeviceDescription,
-			stockDeviceAccountIdentity, stockDeviceInStock;
-
+	TableColumn<Stock, String> stockDeviceName, stockDeviceDate, stockDeviceDescription, stockDeviceAccountIdentity,
+			stockDeviceInStock;
+	TableColumn<Stock, Date> stockDeviceSalesDate;
 	private final ObservableList<Stock> data = FXCollections.observableArrayList();
 	StockFillteringDB db = new StockFillteringDB();
 
 	@SuppressWarnings("unchecked")
 	public void setStockTableData() {
+
 		stockDeviceId = new TableColumn<>("ID");
 		stockDeviceId.setMinWidth(50);
-		stockDeviceId.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 		stockDeviceId.setCellValueFactory(new PropertyValueFactory<Stock, Integer>("stockDeviceId"));
 
 		stockDeviceName = new TableColumn<>("Termék");
 		stockDeviceName.setMinWidth(250);
-		stockDeviceName.setCellFactory(TextFieldTableCell.forTableColumn());
 		stockDeviceName.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceName"));
 
 		stockDeviceDate = new TableColumn<>("Kelte");
 		stockDeviceDate.setMinWidth(80);
-		stockDeviceDate.setCellFactory(TextFieldTableCell.forTableColumn());
 		stockDeviceDate.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceDate"));
 
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		stockDeviceSalesDate = new TableColumn<>("Eladás");
 		stockDeviceSalesDate.setMinWidth(80);
-		stockDeviceSalesDate.setCellFactory(TextFieldTableCell.forTableColumn());
-		stockDeviceSalesDate.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceSalesDate"));
-		stockDeviceSalesDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Stock, String>>() {
+//		stockDeviceSalesDate.setCellFactory(TextFieldTableCell.<Stock, Date>forTableColumn(new StringConverter<Date>() {
+//			@Override
+//			public String toString(Date value) {
+//				return dateFormat.format(value);
+//			}
+//
+//			@Override
+		
+//			public Date fromString(String string) {
+//				return null;
+//			}
+//		}));
+		stockDeviceSalesDate.setCellValueFactory(new PropertyValueFactory<Stock, Date>("stockDeviceSalesDate"));
+		stockDeviceSalesDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Stock, Date>>() {
 			@Override
-			public void handle(TableColumn.CellEditEvent<Stock, String> d) {
+			public void handle(TableColumn.CellEditEvent<Stock, Date> d) {
 				Stock actualStock = (Stock) d.getTableView().getItems().get(d.getTablePosition().getRow());
 				actualStock.setStockDeviceSalesDate(d.getNewValue());
 				db.updateStock(actualStock);
@@ -71,6 +85,7 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 
 		stockDeviceQuantity = new TableColumn<>("Darab");
 		stockDeviceQuantity.setMinWidth(50);
+		stockDeviceQuantity.setEditable(false);
 		stockDeviceQuantity.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 		stockDeviceQuantity.setCellValueFactory(new PropertyValueFactory<Stock, Integer>("stockDeviceQuantity"));
 
@@ -94,6 +109,7 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 
 		stockDeviceDescription = new TableColumn<>("Leírás");
 		stockDeviceDescription.setMinWidth(750);
+		stockDeviceDescription.setEditable(false);
 		stockDeviceDescription.setCellFactory(TextFieldTableCell.forTableColumn());
 		stockDeviceDescription.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceDescription"));
 
@@ -121,9 +137,9 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 
 	@FXML
 	private void filteringBtn(ActionEvent event) {
-			data.clear();
-			data.addAll(StockFillteringDB.getStockNameFiltering(stockDeviceNameFilteringTxt.getText()));
-		}
+		data.clear();
+		data.addAll(StockFillteringDB.getStockNameFiltering(stockDeviceNameFilteringTxt.getText()));
+	}
 
 	@FXML
 	private void filteringTxt(ActionEvent event) {
