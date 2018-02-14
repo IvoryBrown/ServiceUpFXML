@@ -1,6 +1,7 @@
 package com.service.stock.filteringdb;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -26,7 +27,7 @@ public class StockFillteringDB {
 			device = new ArrayList<>();
 			while (rs.next()) {
 				Stock actualStock = new Stock(rs.getInt("category_id"), rs.getString("eszkoznev"),
-						rs.getString("kelte"), rs.getString("eladas_kelte"), rs.getInt("mennyiseg"),
+						rs.getString("kelte"), rs.getDate("eladas_kelte"), rs.getInt("mennyiseg"),
 						rs.getString("raktaron"), rs.getString("leiras"), rs.getString("szamla_azonosito"));
 				device.add(actualStock);
 			}
@@ -65,7 +66,7 @@ public class StockFillteringDB {
 			device = new ArrayList<>();
 			while (rs.next()) {
 				Stock actualStock = new Stock(rs.getInt("category_id"), rs.getString("eszkoznev"),
-						rs.getString("kelte"), rs.getString("eladas_kelte"), rs.getInt("mennyiseg"),
+						rs.getString("kelte"), rs.getDate("eladas_kelte"), rs.getInt("mennyiseg"),
 						rs.getString("raktaron"), rs.getString("leiras"), rs.getString("szamla_azonosito"));
 				device.add(actualStock);
 			}
@@ -96,7 +97,7 @@ public class StockFillteringDB {
 			java.sql.PreparedStatement pr = conn.prepareStatement(sqlStock);
 			pr.setString(1, stock.getStockDeviceName());
 			pr.setString(2, stock.getStockDeviceDate());
-			pr.setString(3, stock.getStockDeviceSalesDate());
+			pr.setDate(3, (Date) stock.getStockDeviceSalesDate());
 			pr.setInt(4, stock.getStockDeviceQuantity());
 			pr.setInt(5, Integer.parseInt(stock.getStockDeviceInStock()));
 			pr.setString(6, stock.getStockDeviceDescription());
