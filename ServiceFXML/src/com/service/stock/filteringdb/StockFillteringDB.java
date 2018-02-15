@@ -1,7 +1,7 @@
 package com.service.stock.filteringdb;
 
 import java.sql.Connection;
-import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -94,12 +94,12 @@ public class StockFillteringDB {
 		try {
 			String sqlStock = "UPDATE `raktar` set eszkoznev = ?, kelte = ?, eladas_kelte = ?, mennyiseg = ?,"
 					+ "raktaron = ?, leiras = ?, szamla_azonosito = ? WHERE category_id = ?";
-			java.sql.PreparedStatement pr = conn.prepareStatement(sqlStock);
+			PreparedStatement pr = conn.prepareStatement(sqlStock);
 			pr.setString(1, stock.getStockDeviceName());
 			pr.setString(2, stock.getStockDeviceDate());
-			pr.setDate(3, (Date) stock.getStockDeviceSalesDate());
+			pr.setObject(3, stock.getStockDeviceSalesDate());
 			pr.setInt(4, stock.getStockDeviceQuantity());
-			pr.setInt(5, Integer.parseInt(stock.getStockDeviceInStock()));
+			pr.setInt(5,Integer.parseInt( stock.getStockDeviceInStock()));
 			pr.setString(6, stock.getStockDeviceDescription());
 			pr.setString(7, stock.getStockDeviceAccountIdentity());
 			pr.setInt(8, stock.getStockDeviceId());
