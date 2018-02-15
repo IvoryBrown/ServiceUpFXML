@@ -12,7 +12,7 @@ public class Stock {
 	private final SimpleIntegerProperty stockDeviceId;
 	private final SimpleStringProperty stockDeviceName;
 	private final SimpleStringProperty stockDeviceDate;
-	private final ObjectProperty<Date> stockDeviceSalesDate;
+	private final SimpleObjectProperty<Date> stockDeviceSalesDate;
 	private final SimpleIntegerProperty stockDeviceQuantity;
 	private final SimpleStringProperty stockDeviceInStock;
 	private final SimpleStringProperty stockDeviceDescription;
@@ -29,7 +29,7 @@ public class Stock {
 		this.stockDeviceDescription = new SimpleStringProperty(sDeviceDescription);
 		this.stockDeviceAccountIdentity = new SimpleStringProperty(sDeviceAccountIdentity);
 	}
-
+	
 	public Integer getStockDeviceId() {
 		return stockDeviceId.get();
 	}
@@ -42,8 +42,12 @@ public class Stock {
 		return stockDeviceInStock.get();
 	}
 
+	public ObjectProperty<Date> stockDeviceSalesDateProperty() {
+		return this.stockDeviceSalesDate;
+	}
+
 	public void setStockDeviceSalesDate(Date value) {
-		stockDeviceSalesDate.set(value);
+		this.stockDeviceSalesDate.set(value);
 	}
 
 	public Date getStockDeviceSalesDate() {
