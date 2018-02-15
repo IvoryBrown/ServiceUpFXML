@@ -53,7 +53,7 @@ public class NewStock implements Initializable {
 			try {
 				Connection con = DataBaseConnect.getConnection();
 				PreparedStatement insertStock = con
-						.prepareStatement("INSERT INTO raktar(eszkoznev, kelte, mennyiseg, leiras)"
+						.prepareStatement("INSERT INTO raktar(eszkoznev, kelte, mennyiseg, raktaron, leiras)"
 								+ "values(?,?,?,?,?) ");
 				insertStock.setString(1, stockDeviceName.getText());
 				insertStock.setString(2, ((TextField) stockDeviceDate.getEditor()).getText());
@@ -62,7 +62,8 @@ public class NewStock implements Initializable {
 				} catch (NumberFormatException e) {
 					ShowInfo.errorInfoMessengeException("HIBA", "Nem megfelelő Egység!", e.getMessage());
 				}
-				insertStock.setString(4, stockDeviceDescription.getText());
+				insertStock.setString(4, stockDeviceQuantity.getText());
+				insertStock.setString(5, stockDeviceDescription.getText());
 				insertStock.executeUpdate();
 				ShowInfo.showInfoMessenge("Sikeres Frissítés ", "Remek! ");
 			} catch (SQLException e) {
