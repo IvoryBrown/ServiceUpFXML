@@ -29,7 +29,7 @@ public class Stock {
 		this.stockDeviceDescription = new SimpleStringProperty(sDeviceDescription);
 		this.stockDeviceAccountIdentity = new SimpleStringProperty(sDeviceAccountIdentity);
 	}
-	
+
 	public Integer getStockDeviceId() {
 		return stockDeviceId.get();
 	}
@@ -42,16 +42,16 @@ public class Stock {
 		return stockDeviceInStock.get();
 	}
 
-	public ObjectProperty<Date> stockDeviceSalesDateProperty() {
-		return this.stockDeviceSalesDate;
-	}
-
-	public void setStockDeviceSalesDate(Date value) {
-		this.stockDeviceSalesDate.set(value);
+	public void setStockDeviceSalesDate(Date date) {
+		this.stockDeviceSalesDate.set(date);
 	}
 
 	public Date getStockDeviceSalesDate() {
 		return stockDeviceSalesDate.get();
+	}
+
+	public ObjectProperty<Date> birthdayProperty() {
+		return this.stockDeviceSalesDate;
 	}
 
 	public void setStockDeviceInStock(String sDeviceInStock) {
