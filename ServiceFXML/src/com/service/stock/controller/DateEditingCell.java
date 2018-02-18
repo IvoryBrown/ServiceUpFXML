@@ -31,7 +31,6 @@ class DateEditingCell extends TableCell<Stock, Date> {
 	@Override
 	public void cancelEdit() {
 		super.cancelEdit();
-
 		setText(getDate().toString());
 		setGraphic(null);
 	}
@@ -47,12 +46,15 @@ class DateEditingCell extends TableCell<Stock, Date> {
 			if (isEditing()) {
 				if (datePicker != null) {
 					datePicker.setValue(getDate());
+				
 				}
 				setText(null);
-				setGraphic(datePicker);
+				setGraphic(this.datePicker);
+				
 			} else {
-				setText(getDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)));
 				setGraphic(null);
+				setText(getDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)));
+				System.out.println("datePicker != null");
 			}
 		}
 	}
@@ -73,7 +75,15 @@ class DateEditingCell extends TableCell<Stock, Date> {
 	}
 
 	private LocalDate getDate() {
-		
-		return getItem() == null ? LocalDate.now() : getItem().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		if (getText() == null) {
+			System.out.println("getItem() == null");
+			return LocalDate.now();
+		} else {
+			System.out.println("return getItem().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();");
+			return getItem().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			
+		}
+
 	}
+
 }
