@@ -1,8 +1,6 @@
 package com.service.stock.controller;
 
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -11,7 +9,6 @@ import com.service.setting.showinfo.ShowInfo;
 import com.service.stock.Stock;
 import com.service.stock.filteringdb.StockFillteringDB;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -61,12 +58,17 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 
 		Callback<TableColumn<Stock, Date>, TableCell<Stock, Date>> dateCellFactory = (
 				TableColumn<Stock, Date> param) -> new DateEditingCell();
+				
+				
 
 		stockDeviceSalesDate = new TableColumn<>("Eladás");
 		stockDeviceSalesDate.setMinWidth(120);
 
-//		stockDeviceSalesDate.setCellValueFactory(cellData -> cellData.getValue().birthdayProperty());
-		stockDeviceSalesDate.setCellFactory(dateCellFactory);
+		// stockDeviceSalesDate.setCellValueFactory(cellData ->
+		// cellData.getValue().birthdayProperty());
+		 stockDeviceSalesDate.setCellFactory(dateCellFactory);
+		
+		
 		stockDeviceSalesDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Stock, Date>>() {
 			@Override
 			public void handle(TableColumn.CellEditEvent<Stock, Date> d) {
