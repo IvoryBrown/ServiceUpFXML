@@ -5,16 +5,18 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
+import com.service.setting.showinfo.ShowInfo;
 import com.service.stock.Stock;
 
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 class DateEditingCell extends TableCell<Stock, Date> {
 
@@ -24,7 +26,25 @@ class DateEditingCell extends TableCell<Stock, Date> {
 		if (datePicker == null) {
 			createDatePicker();
 		}
+		datePicker.setDayCellFactory(picker -> {
+			DateCell cell = new DateCell();
+			cell.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
+				datePicker.setValue(cell.getItem());
+				if (event.getClickCount() == 2) {
+					datePicker.hide();
+					commitEdit(Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+				}
+				event.consume();
+			});
+			cell.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+				if (event.getCode() == KeyCode.ENTER) {
+					commitEdit(Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+				}
+			});
+			return cell;
+		});
 	}
+
 	@Override
 	public void startEdit() {
 		if (!isEmpty()) {
@@ -48,12 +68,10 @@ class DateEditingCell extends TableCell<Stock, Date> {
 		if (empty) {
 			setText(null);
 			setGraphic(null);
-			System.out.println("empty" + datePicker.getValue().toString());
 		} else {
 			if (isEditing()) {
 				if (datePicker != null) {
 					datePicker.setValue(getDate());
-					System.out.println("isEditing");
 				}
 				setText(null);
 				setGraphic(datePicker);
@@ -63,7 +81,6 @@ class DateEditingCell extends TableCell<Stock, Date> {
 					setText(smp.format(item));
 					setGraphic(this.datePicker);
 					setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-					System.out.println("getDate" + datePicker.getValue().toString());
 				}
 				setText(null);
 			}
@@ -71,10 +88,8 @@ class DateEditingCell extends TableCell<Stock, Date> {
 	}
 
 	private void setDatepikerDate(String dateAsStr) {
-
 		LocalDate ld = null;
 		int jour, mois, annee;
-
 		jour = mois = annee = 0;
 		try {
 			jour = Integer.parseInt(dateAsStr.substring(0, 2));
@@ -82,8 +97,8 @@ class DateEditingCell extends TableCell<Stock, Date> {
 			annee = Integer.parseInt(dateAsStr.substring(6, dateAsStr.length()));
 		} catch (NumberFormatException e) {
 			System.out.println("setDatepikerDate / unexpected error " + e);
+			ShowInfo.errorInfoMessengeException("Nem megfelelő dátum", "Szerver válasza: ", e.getMessage());
 		}
-
 		ld = LocalDate.of(annee, mois, jour);
 		datePicker.setValue(ld);
 	}
@@ -91,28 +106,17 @@ class DateEditingCell extends TableCell<Stock, Date> {
 	private void createDatePicker() {
 		datePicker = new DatePicker(getDate());
 		datePicker.setMinWidth(this.getWidth() - this.getGraphicTextGap() * 2);
-//		datePicker.setOnAction(new EventHandler<ActionEvent>() {
-//	        @Override
-//	        public void handle(ActionEvent event) {
-//	        	System.out.println("Committed: " + datePicker.getValue().toString());
-//				commitEdit(Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-//				System.out.println("Committed: " + datePicker.getValue().toString());
-//	        }            
-//	    }); 
 		datePicker.focusedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if (newValue) {
-                	System.out.println("newValue: " + datePicker.getValue().toString());
-                	getTableView().edit(getIndex(), getTableColumn());
-                } else {
-                	System.out.println("Committed: " + datePicker.getValue().toString());
-                	commitEdit(Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-                }
-            }
-        });
-		
-		
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				if (newValue) {
+					getTableView().edit(getIndex(), getTableColumn());
+				} else {
+					commitEdit(Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+				}
+			}
+		});
+
 	}
 
 	private LocalDate getDate() {
