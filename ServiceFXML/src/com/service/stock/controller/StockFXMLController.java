@@ -38,7 +38,7 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 	TableColumn<Stock, String> stockDeviceName, stockDeviceDate, stockDeviceDescription, stockDeviceAccountIdentity,
 			stockDeviceInStock;
 	TableColumn<Stock, Date> stockDeviceSalesDate;
-	private final ObservableList<Stock> data = FXCollections.observableArrayList();
+	ObservableList<Stock> data = FXCollections.observableArrayList();
 	StockFillteringDB db = new StockFillteringDB();
 
 	@SuppressWarnings("unchecked")
@@ -56,19 +56,14 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 		stockDeviceDate.setMinWidth(80);
 		stockDeviceDate.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceDate"));
 
-		Callback<TableColumn<Stock, Date>, TableCell<Stock, Date>> dateCellFactory = (
-				TableColumn<Stock, Date> param) -> new DateEditingCell();
-				
-				
-
 		stockDeviceSalesDate = new TableColumn<>("Eladás");
 		stockDeviceSalesDate.setMinWidth(120);
 
-		// stockDeviceSalesDate.setCellValueFactory(cellData ->
-		// cellData.getValue().birthdayProperty());
-		 stockDeviceSalesDate.setCellFactory(dateCellFactory);
-		
-		
+		Callback<TableColumn<Stock, Date>, TableCell<Stock, Date>> dateCellFactory = (
+				TableColumn<Stock, Date> param) -> new DateEditingCell();
+
+		stockDeviceSalesDate.setCellValueFactory(cellData -> cellData.getValue().birthdayProperty());
+		stockDeviceSalesDate.setCellFactory(dateCellFactory);
 		stockDeviceSalesDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Stock, Date>>() {
 			@Override
 			public void handle(TableColumn.CellEditEvent<Stock, Date> d) {
