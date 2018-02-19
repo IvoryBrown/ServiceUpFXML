@@ -34,34 +34,33 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 	private TableView<Stock> stockTable;
 	@FXML
 	private TextField stockDeviceNameFilteringTxt;
-	TableColumn<Stock, Integer> stockDeviceId, stockDeviceQuantity;
-	TableColumn<Stock, String> stockDeviceName, stockDeviceDate, stockDeviceDescription, stockDeviceAccountIdentity,
-			stockDeviceInStock;
-	TableColumn<Stock, Date> stockDeviceSalesDate;
-	ObservableList<Stock> data = FXCollections.observableArrayList();
-	StockFillteringDB db = new StockFillteringDB();
+
+	private TableColumn<Stock, Integer> stockDeviceId, stockDeviceQuantity;
+	private TableColumn<Stock, String> stockDeviceName, stockDeviceDate, stockDeviceDescription,
+			stockDeviceAccountIdentity, stockDeviceInStock;
+	private TableColumn<Stock, Date> stockDeviceSalesDate;
+	private final ObservableList<Stock> data = FXCollections.observableArrayList();
+	private StockFillteringDB db = new StockFillteringDB();
 
 	@SuppressWarnings("unchecked")
 	public void setStockTableData() {
+		Callback<TableColumn<Stock, Date>, TableCell<Stock, Date>> dateCellFactory = (
+				TableColumn<Stock, Date> param) -> new DateEditingCell();
 
 		stockDeviceId = new TableColumn<>("ID");
 		stockDeviceId.setMinWidth(50);
 		stockDeviceId.setCellValueFactory(new PropertyValueFactory<Stock, Integer>("stockDeviceId"));
 
 		stockDeviceName = new TableColumn<>("Termék");
-		stockDeviceName.setMinWidth(250);
+		stockDeviceName.setMinWidth(200);
 		stockDeviceName.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceName"));
 
 		stockDeviceDate = new TableColumn<>("Kelte");
 		stockDeviceDate.setMinWidth(80);
 		stockDeviceDate.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceDate"));
 
-		stockDeviceSalesDate = new TableColumn<>("Eladás");
+		stockDeviceSalesDate = new TableColumn<>("Eladás*");
 		stockDeviceSalesDate.setMinWidth(120);
-
-		Callback<TableColumn<Stock, Date>, TableCell<Stock, Date>> dateCellFactory = (
-				TableColumn<Stock, Date> param) -> new DateEditingCell();
-
 		stockDeviceSalesDate.setCellValueFactory(cellData -> cellData.getValue().birthdayProperty());
 		stockDeviceSalesDate.setCellFactory(dateCellFactory);
 		stockDeviceSalesDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Stock, Date>>() {
@@ -71,7 +70,6 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 				actualStock.setStockDeviceSalesDate(d.getNewValue());
 				db.updateStock(actualStock);
 				System.out.println("ok");
-
 			}
 		});
 
@@ -81,7 +79,7 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 		stockDeviceQuantity.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 		stockDeviceQuantity.setCellValueFactory(new PropertyValueFactory<Stock, Integer>("stockDeviceQuantity"));
 
-		stockDeviceInStock = new TableColumn<>("Raktáron");
+		stockDeviceInStock = new TableColumn<>("Raktáron*");
 		stockDeviceInStock.setMinWidth(50);
 		stockDeviceInStock.setCellFactory(TextFieldTableCell.forTableColumn());
 		stockDeviceInStock.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceInStock"));
@@ -105,7 +103,7 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 		stockDeviceDescription.setCellFactory(TextFieldTableCell.forTableColumn());
 		stockDeviceDescription.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceDescription"));
 
-		stockDeviceAccountIdentity = new TableColumn<>("Számla azonosító");
+		stockDeviceAccountIdentity = new TableColumn<>("Számla azonosító*");
 		stockDeviceAccountIdentity.setMinWidth(150);
 		stockDeviceAccountIdentity.setCellFactory(TextFieldTableCell.forTableColumn());
 		stockDeviceAccountIdentity
@@ -131,11 +129,12 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 	private void filteringBtn(ActionEvent event) {
 		data.clear();
 		data.addAll(StockFillteringDB.getStockNameFiltering(stockDeviceNameFilteringTxt.getText()));
+
 	}
 
 	@FXML
 	private void filteringTxt(ActionEvent event) {
-
+		
 	}
 
 	@FXML
@@ -145,10 +144,8 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 					.load(getClass().getResource("/com/service/setting/fxmlnewstock/FxmlNewStock.fxml"));
 			Stage stage = new Stage();
 			stage.setTitle("Eszköz");
-			// stage.initStyle(StageStyle.TRANSPARENT);
 			stage.setScene(new Scene(root, 1000, 650));
 			stage.show();
-			// stockPane.setOpacity(0.1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
