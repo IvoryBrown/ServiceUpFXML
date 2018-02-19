@@ -49,17 +49,10 @@ public class Stock {
 	public Date getStockDeviceSalesDate() {
 		return (Date) stockDeviceSalesDate.get();
 	}
+
 	public ObjectProperty<Date> birthdayProperty() {
 		return this.stockDeviceSalesDate;
 	}
-
-//	  public String getDateAsString() {
-//	        SimpleDateFormat smp = new SimpleDateFormat("dd MMMMM yyyy");
-//	        String strDate = (null == stockDeviceSalesDate || null == stockDeviceSalesDate.get())
-//	                ? "" : smp.format(stockDeviceSalesDate.get());
-//	        
-//	        return strDate;
-//	    }
 
 	public void setStockDeviceInStock(String sDeviceInStock) {
 		stockDeviceInStock.set(sDeviceInStock);
