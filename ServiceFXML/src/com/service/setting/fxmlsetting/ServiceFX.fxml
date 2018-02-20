@@ -353,7 +353,7 @@
 								</TableView>
 								<VBox layoutX="4.0" layoutY="3.0" prefHeight="89.0" prefWidth="206.0">
 									<children>
-										<TextField id="stockDeviceNameFilteringTxt" fx:id="stockDeviceNameFilteringTxt" onAction="#filteringTxt" prefHeight="36.0" prefWidth="206.0" promptText="Termék">
+										<TextField id="stockDeviceNameFilteringTxt" fx:id="stockDeviceNameFilteringTxt" prefHeight="36.0" prefWidth="206.0" promptText="Keresés">
 											<VBox.margin>
 												<Insets top="5.0" />
 											</VBox.margin>
@@ -365,7 +365,23 @@
                               </Button>
 									</children>
 								</VBox>
-                        <Button layoutX="237.0" layoutY="50.0" mnemonicParsing="false" onAction="#newDevieceBtn" prefHeight="36.0" prefWidth="206.0" text="Új Termék" />
+                        <VBox layoutX="222.0" layoutY="3.0" prefHeight="89.0" prefWidth="206.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#updateBtn" prefHeight="36.0" prefWidth="206.0" text="Tábla Frissités">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#newDevieceBtn" prefHeight="36.0" prefWidth="206.0" text="Új Termék">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </VBox>
 							</children>
 						</AnchorPane>
 					</children>
