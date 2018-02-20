@@ -71,7 +71,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </TextField>
-            <TextArea id="stockDeviceDescription" fx:id="stockDeviceDescription" prefHeight="200.0" prefWidth="200.0" promptText="Leírás">
+            <TextArea id="stockDeviceDescription" fx:id="stockDeviceDescription" maxWidth="860.0" prefHeight="200.0" prefWidth="200.0" promptText="Leírás">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
@@ -81,6 +81,6 @@
             </TextArea>
          </children>
       </VBox>
-      <Button layoutX="57.0" layoutY="386.0" mnemonicParsing="false" onAction="#newDev" prefHeight="25.0" prefWidth="205.0" text="Button" />
+      <Button layoutX="178.0" layoutY="393.0" mnemonicParsing="false" onAction="#newDev" prefHeight="25.0" prefWidth="301.0" text="Új Termék" />
    </children>
 </AnchorPane>
