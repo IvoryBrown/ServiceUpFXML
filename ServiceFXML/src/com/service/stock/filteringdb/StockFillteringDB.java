@@ -12,10 +12,11 @@ import com.service.setting.showinfo.ShowInfo;
 import com.service.stock.Stock;
 
 public class StockFillteringDB {
-	static Connection con = DataBaseConnect.getConnection();
+	
 	Connection conn = DataBaseConnect.getConnection();
 
 	public static ArrayList<Stock> getAllStock() {
+		Connection con = DataBaseConnect.getConnection();
 		String sql = "SELECT * FROM `raktar`";
 		ArrayList<Stock> device = null;
 
