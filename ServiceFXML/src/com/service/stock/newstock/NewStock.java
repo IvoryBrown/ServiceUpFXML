@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 
 import com.service.setting.database.DataBaseConnect;
 import com.service.setting.showinfo.ShowInfo;
-import com.service.stock.controller.StockFXMLController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +15,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.util.Duration;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 public class NewStock implements Initializable {
 	@FXML
@@ -24,7 +26,8 @@ public class NewStock implements Initializable {
 	private TextArea stockDeviceDescription;
 	@FXML
 	private DatePicker stockDeviceDate, stockDeviceSalesDate;
-	StockFXMLController stockFXMLController = new StockFXMLController();
+
+	TrayNotification tray;
 
 	private boolean setStockCheckTxt() {
 		if (stockDeviceName.getText().trim().isEmpty()) {
@@ -52,25 +55,27 @@ public class NewStock implements Initializable {
 		if (setStockCheckTxt()) {
 			try {
 				Connection con = DataBaseConnect.getConnection();
-				PreparedStatement insertStock = con
-						.prepareStatement("INSERT INTO raktar(eszkoznev, kelte, mennyiseg, raktaron, leiras)"
-								+ "values(?,?,?,?,?) ");
+				PreparedStatement insertStock = con.prepareStatement(
+						"INSERT INTO raktar(eszkoznev, kelte, mennyiseg, raktaron, leiras)" + "values(?,?,?,?,?) ");
 				insertStock.setString(1, stockDeviceName.getText());
 				insertStock.setString(2, ((TextField) stockDeviceDate.getEditor()).getText());
 				try {
 					insertStock.setInt(3, Integer.parseInt(stockDeviceQuantity.getText()));
 				} catch (NumberFormatException e) {
-					ShowInfo.errorInfoMessengeException("HIBA", "Nem megfelelő Egység!", e.getMessage());
+					tray = new TrayNotification("HIBA", "Nem megfelelő Szám!", NotificationType.ERROR);
+					tray.showAndDismiss(Duration.seconds(2));
 				}
 				insertStock.setString(4, stockDeviceQuantity.getText());
 				insertStock.setString(5, stockDeviceDescription.getText());
 				insertStock.executeUpdate();
-				ShowInfo.showInfoMessenge("Sikeres Frissítés ", "Remek! ");
+				tray = new TrayNotification("Remek!", "Sikeres Felvétel", NotificationType.SUCCESS);
+				tray.showAndDismiss(Duration.seconds(1));
 			} catch (SQLException e) {
 				ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
 			}
-		}else {
-			ShowInfo.errorInfoMessenge("HIBA", "Nincs minden mező kitöltve");
+		} else {
+			tray = new TrayNotification("HIBA", "Nincs minden mező kitöltve", NotificationType.ERROR);
+			tray.showAndDismiss(Duration.seconds(2));
 		}
 	}
 
