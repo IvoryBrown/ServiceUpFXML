@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import com.service.client.ClientFXMLController;
-import com.service.setting.showinfo.ShowInfo;
 import com.service.stock.Stock;
 import com.service.stock.filteringdb.StockFillteringDB;
 
@@ -26,7 +25,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.Duration;
 import javafx.util.converter.IntegerStringConverter;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 public class StockFXMLController extends ClientFXMLController implements Initializable {
 
@@ -41,6 +43,7 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 	private TableColumn<Stock, Date> stockDeviceSalesDate;
 	private final ObservableList<Stock> data = FXCollections.observableArrayList();
 	private StockFillteringDB db = new StockFillteringDB();
+	private TrayNotification tray;
 
 	@SuppressWarnings("unchecked")
 	public void setStockTableData() {
@@ -69,7 +72,8 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 				Stock actualStock = (Stock) d.getTableView().getItems().get(d.getTablePosition().getRow());
 				actualStock.setStockDeviceSalesDate(d.getNewValue());
 				db.updateStock(actualStock);
-				System.out.println("ok");
+				tray = new TrayNotification("Remek!", "Sikeres Frissítés", NotificationType.SUCCESS);
+				tray.showAndDismiss(Duration.seconds(1));
 			}
 		});
 
@@ -87,12 +91,20 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 			@Override
 			public void handle(TableColumn.CellEditEvent<Stock, String> d) {
 				try {
-					Stock actualStock = (Stock) d.getTableView().getItems().get(d.getTablePosition().getRow());
-					actualStock.setStockDeviceInStock(d.getNewValue());
-					db.updateStock(actualStock);
-					System.out.println("ok");
+					if (Integer.valueOf(d.getNewValue()) >= 0) {
+						Stock actualStock = (Stock) d.getTableView().getItems().get(d.getTablePosition().getRow());
+						actualStock.setStockDeviceInStock(d.getNewValue());
+						db.updateStock(actualStock);
+						tray = new TrayNotification("Remek!", "Sikeres Frissítés", NotificationType.SUCCESS);
+						tray.showAndDismiss(Duration.seconds(1));
+					} else {
+						tray = new TrayNotification("HIBA", "Nem pozítiv Szám!", NotificationType.ERROR);
+						tray.showAndDismiss(Duration.seconds(2));
+					}
+
 				} catch (NumberFormatException numberFormatException) {
-					ShowInfo.errorInfoMessengeException("HIBA", "Szám legyen!", numberFormatException.getMessage());
+					tray = new TrayNotification("HIBA", "Nem megfelelő Szám!", NotificationType.ERROR);
+					tray.showAndDismiss(Duration.seconds(2));
 				}
 			}
 		});
@@ -114,7 +126,8 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 				Stock actualStock = (Stock) d.getTableView().getItems().get(d.getTablePosition().getRow());
 				actualStock.setStockDeviceAccountIdentity(d.getNewValue());
 				db.updateStock(actualStock);
-				System.out.println("ok");
+				tray = new TrayNotification("Remek!", "Sikeres Frissítés", NotificationType.SUCCESS);
+				tray.showAndDismiss(Duration.seconds(1));
 			}
 		});
 
@@ -127,14 +140,26 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 
 	@FXML
 	private void filteringBtn(ActionEvent event) {
-		data.clear();
-		data.addAll(StockFillteringDB.getStockNameFiltering(stockDeviceNameFilteringTxt.getText()));
-
+		if (setStockCheckTxt()) {
+			data.clear();
+			data.addAll(StockFillteringDB.getStockNameFiltering(stockDeviceNameFilteringTxt.getText()));
+			stockDeviceNameFilteringTxt.clear();
+			stockDeviceNameFilteringTxt.setStyle("-fx-prompt-text-fill: gray");
+			tray = new TrayNotification("Remek!", "Sikeres Frissítés", NotificationType.SUCCESS);
+			tray.showAndDismiss(Duration.seconds(1));
+		} else {
+			tray = new TrayNotification("HIBA", "Üres a kereső mező", NotificationType.ERROR);
+			tray.showAndDismiss(Duration.seconds(2));
+		}
 	}
-
+	
 	@FXML
-	private void filteringTxt(ActionEvent event) {
-		
+	 private void updateBtn(ActionEvent event) {
+		data.clear();
+		data.addAll(StockFillteringDB.getAllStock());
+		tray = new TrayNotification("Remek!", "Sikeres Frissítés", NotificationType.SUCCESS);
+		tray.showAndDismiss(Duration.seconds(1));
+		stockDeviceNameFilteringTxt.setStyle("-fx-prompt-text-fill: gray");
 	}
 
 	@FXML
@@ -150,6 +175,17 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 			e.printStackTrace();
 		}
 
+	}
+
+	private boolean setStockCheckTxt() {
+		if (stockDeviceNameFilteringTxt.getText().trim().isEmpty()) {
+			stockDeviceNameFilteringTxt.setStyle("-fx-prompt-text-fill: red");
+		}
+		if (stockDeviceNameFilteringTxt.getText().trim().isEmpty()) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	@Override
