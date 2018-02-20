@@ -14,8 +14,6 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 class DateEditingCell extends TableCell<Stock, Date> {
@@ -36,11 +34,6 @@ class DateEditingCell extends TableCell<Stock, Date> {
 				}
 				event.consume();
 			});
-			cell.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-				if (event.getCode() == KeyCode.ENTER) {
-					commitEdit(Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-				}
-			});
 			return cell;
 		});
 	}
@@ -57,7 +50,7 @@ class DateEditingCell extends TableCell<Stock, Date> {
 	@Override
 	public void cancelEdit() {
 		super.cancelEdit();
-		setText(getDate().toString());
+		setText(null);
 		setGraphic(null);
 	}
 
@@ -74,15 +67,19 @@ class DateEditingCell extends TableCell<Stock, Date> {
 					datePicker.setValue(getDate());
 				}
 				setText(null);
-				setGraphic(datePicker);
+				setGraphic(this.datePicker);
+	            setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
 			} else {
 				if (getItem() != null) {
 					setDatepikerDate(smp.format(item));
 					setText(smp.format(item));
-					setGraphic(this.datePicker);
+					setGraphic(datePicker);
 					setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+				}else {
+					setText(null);
+					setGraphic(null);
 				}
-				setText(null);
+				
 			}
 		}
 	}
@@ -96,7 +93,6 @@ class DateEditingCell extends TableCell<Stock, Date> {
 			mois = Integer.parseInt(dateAsStr.substring(3, 5));
 			annee = Integer.parseInt(dateAsStr.substring(6, dateAsStr.length()));
 		} catch (NumberFormatException e) {
-			System.out.println("setDatepikerDate / unexpected error " + e);
 			ShowInfo.errorInfoMessengeException("Nem megfelelő dátum", "Szerver válasza: ", e.getMessage());
 		}
 		ld = LocalDate.of(annee, mois, jour);
@@ -111,12 +107,9 @@ class DateEditingCell extends TableCell<Stock, Date> {
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				if (newValue) {
 					getTableView().edit(getIndex(), getTableColumn());
-				} else {
-					commitEdit(Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
 				}
 			}
 		});
-
 	}
 
 	private LocalDate getDate() {
