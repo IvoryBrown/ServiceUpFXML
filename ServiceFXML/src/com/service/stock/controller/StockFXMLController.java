@@ -17,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -36,7 +37,8 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 	private TableView<Stock> stockTable;
 	@FXML
 	private TextField stockDeviceNameFilteringTxt;
-
+	@FXML
+	Button butten;
 	private TableColumn<Stock, Integer> stockDeviceId, stockDeviceQuantity;
 	private TableColumn<Stock, String> stockDeviceName, stockDeviceDate, stockDeviceDescription,
 			stockDeviceAccountIdentity, stockDeviceInStock;
@@ -110,7 +112,7 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 		});
 
 		stockDeviceDescription = new TableColumn<>("Leírás");
-		stockDeviceDescription.setMinWidth(750);
+		stockDeviceDescription.setMinWidth(650);
 		stockDeviceDescription.setEditable(false);
 		stockDeviceDescription.setCellFactory(TextFieldTableCell.forTableColumn());
 		stockDeviceDescription.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceDescription"));
@@ -139,6 +141,11 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 	}
 
 	@FXML
+	private void print(ActionEvent e) {
+		
+	}
+
+	@FXML
 	private void filteringBtn(ActionEvent event) {
 		if (setStockCheckTxt()) {
 			data.clear();
@@ -152,9 +159,9 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 			tray.showAndDismiss(Duration.seconds(2));
 		}
 	}
-	
+
 	@FXML
-	 private void updateBtn(ActionEvent event) {
+	private void updateBtn(ActionEvent event) {
 		data.clear();
 		data.addAll(StockFillteringDB.getAllStock());
 		tray = new TrayNotification("Remek!", "Sikeres Frissítés", NotificationType.SUCCESS);
@@ -179,7 +186,7 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 
 	private boolean setStockCheckTxt() {
 		if (stockDeviceNameFilteringTxt.getText().trim().isEmpty()) {
-			stockDeviceNameFilteringTxt.setStyle("-fx-prompt-text-fill: red");
+			stockDeviceNameFilteringTxt.setStyle("-fx-prompt-text-fill: #CC0033");
 		}
 		if (stockDeviceNameFilteringTxt.getText().trim().isEmpty()) {
 			return false;
