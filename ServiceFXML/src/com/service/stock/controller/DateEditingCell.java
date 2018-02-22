@@ -51,7 +51,7 @@ class DateEditingCell extends TableCell<Stock, Date> {
 	public void cancelEdit() {
 		super.cancelEdit();
 		setText(null);
-		setGraphic(null);
+		setGraphic(datePicker);
 	}
 
 	@Override
