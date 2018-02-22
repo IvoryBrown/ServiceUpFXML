@@ -65,7 +65,7 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 		stockDeviceDate.setCellValueFactory(new PropertyValueFactory<Stock, String>("stockDeviceDate"));
 
 		stockDeviceSalesDate = new TableColumn<>("Eladás*");
-		stockDeviceSalesDate.setMinWidth(120);
+		stockDeviceSalesDate.setMinWidth(140);
 		stockDeviceSalesDate.setCellValueFactory(cellData -> cellData.getValue().birthdayProperty());
 		stockDeviceSalesDate.setCellFactory(dateCellFactory);
 		stockDeviceSalesDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Stock, Date>>() {
@@ -151,7 +151,7 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 			data.clear();
 			data.addAll(StockFillteringDB.getStockNameFiltering(stockDeviceNameFilteringTxt.getText()));
 			stockDeviceNameFilteringTxt.clear();
-			stockDeviceNameFilteringTxt.setStyle("-fx-prompt-text-fill: gray");
+			stockDeviceNameFilteringTxt.setStyle("-fx-prompt-text-fill: #61a2b1");
 			tray = new TrayNotification("Remek!", "Sikeres Frissítés", NotificationType.SUCCESS);
 			tray.showAndDismiss(Duration.seconds(1));
 		} else {
@@ -166,7 +166,7 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 		data.addAll(StockFillteringDB.getAllStock());
 		tray = new TrayNotification("Remek!", "Sikeres Frissítés", NotificationType.SUCCESS);
 		tray.showAndDismiss(Duration.seconds(1));
-		stockDeviceNameFilteringTxt.setStyle("-fx-prompt-text-fill: gray");
+		stockDeviceNameFilteringTxt.setStyle("-fx-prompt-text-fill: #61a2b1");
 	}
 
 	@FXML
