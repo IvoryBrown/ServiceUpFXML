@@ -103,7 +103,6 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 						tray = new TrayNotification("HIBA", "Nem pozítiv Szám!", NotificationType.ERROR);
 						tray.showAndDismiss(Duration.seconds(2));
 					}
-
 				} catch (NumberFormatException numberFormatException) {
 					tray = new TrayNotification("HIBA", "Nem megfelelő Szám!", NotificationType.ERROR);
 					tray.showAndDismiss(Duration.seconds(2));
@@ -139,7 +138,8 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 		data.addAll(StockFillteringDB.getAllStock());
 
 	}
-
+	
+	
 	@FXML
 	private void print(ActionEvent e) {
 		
