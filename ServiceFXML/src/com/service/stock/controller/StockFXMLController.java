@@ -40,7 +40,7 @@ public class StockFXMLController extends ClientFXMLController {
 	private TableColumn<Stock, String> stockDeviceName, stockDeviceDate, stockDeviceDescription,
 			stockDeviceAccountIdentity, stockDeviceInStock;
 	private TableColumn<Stock, Date> stockDeviceSalesDate;
-	private final ObservableList<Stock> data = FXCollections.observableArrayList();
+	private final ObservableList<Stock> dataStock = FXCollections.observableArrayList();
 	private StockFillteringDB db = new StockFillteringDB();
 	private TrayNotification tray;
 
@@ -129,10 +129,10 @@ public class StockFXMLController extends ClientFXMLController {
 			}
 		});
 
-		stockTable.setItems(data);
+		stockTable.setItems(dataStock);
 		stockTable.getColumns().addAll(stockDeviceId, stockDeviceName, stockDeviceDate, stockDeviceSalesDate,
 				stockDeviceQuantity, stockDeviceInStock, stockDeviceDescription, stockDeviceAccountIdentity);
-		data.addAll(StockFillteringDB.getAllStock());
+		dataStock.addAll(StockFillteringDB.getAllStock());
 
 	}
 	
@@ -145,8 +145,8 @@ public class StockFXMLController extends ClientFXMLController {
 	@FXML
 	private void filteringBtn(ActionEvent event) {
 		if (setStockCheckTxt()) {
-			data.clear();
-			data.addAll(StockFillteringDB.getStockNameFiltering(stockDeviceNameFilteringTxt.getText()));
+			dataStock.clear();
+			dataStock.addAll(StockFillteringDB.getStockNameFiltering(stockDeviceNameFilteringTxt.getText()));
 			stockDeviceNameFilteringTxt.clear();
 			stockDeviceNameFilteringTxt.setStyle("-fx-prompt-text-fill: #61a2b1");
 			tray = new TrayNotification("Remek!", "Sikeres Frissítés", NotificationType.SUCCESS);
@@ -159,8 +159,8 @@ public class StockFXMLController extends ClientFXMLController {
 
 	@FXML
 	private void updateBtn(ActionEvent event) {
-		data.clear();
-		data.addAll(StockFillteringDB.getAllStock());
+		dataStock.clear();
+		dataStock.addAll(StockFillteringDB.getAllStock());
 		tray = new TrayNotification("Remek!", "Sikeres Frissítés", NotificationType.SUCCESS);
 		tray.showAndDismiss(Duration.seconds(1));
 		stockDeviceNameFilteringTxt.setStyle("-fx-prompt-text-fill: #61a2b1");
