@@ -1,8 +1,6 @@
 package com.service.stock.controller;
 
-import java.net.URL;
 import java.util.Date;
-import java.util.ResourceBundle;
 
 import com.service.client.controller.ClientFXMLController;
 import com.service.stock.Stock;
@@ -14,7 +12,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -31,7 +28,7 @@ import javafx.util.converter.IntegerStringConverter;
 import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
 
-public class StockFXMLController extends ClientFXMLController implements Initializable {
+public class StockFXMLController extends ClientFXMLController {
 
 	@FXML
 	private TableView<Stock> stockTable;
@@ -48,7 +45,7 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 	private TrayNotification tray;
 
 	@SuppressWarnings("unchecked")
-	public void setStockTableData() {
+	protected void setStockTableData() {
 		Callback<TableColumn<Stock, Date>, TableCell<Stock, Date>> dateCellFactory = (
 				TableColumn<Stock, Date> param) -> new DateEditingCell();
 
@@ -195,11 +192,6 @@ public class StockFXMLController extends ClientFXMLController implements Initial
 		}
 	}
 
-	@Override
-	public void initialize(URL url, ResourceBundle rb) {
-		setMenuData();
-		setComponentAll();
-		setStockTableData();
-	}
+	
 
 }
