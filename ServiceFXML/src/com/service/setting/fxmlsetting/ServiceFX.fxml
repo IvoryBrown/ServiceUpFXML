@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -26,7 +27,7 @@
 				<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
 					<children>
 						<Pane id="homePane" fx:id="homePane" layoutX="181.0" layoutY="256.0" prefHeight="698.0" prefWidth="1132.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-						<Pane id="clientPane" fx:id="clientPane" prefHeight="698.0" prefWidth="1132.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+						<Pane id="clientPane" fx:id="clientPane" prefHeight="698.0" prefWidth="1132.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 							<children>
 								<VBox layoutY="-1.0" prefHeight="503.0" prefWidth="224.0">
 									<children>
@@ -212,7 +213,7 @@
 										</TextArea>
 									</children>
 								</VBox>
-								<Button id="btnClientNewClient" fx:id="btnClientNewClient" layoutX="112.0" layoutY="592.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="466.0" text="Új Ügyfél" />
+								<Button id="btnClientNewClient" fx:id="btnClientNewClient" layoutX="316.0" layoutY="574.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="206.0" text="Új Ügyfél" />
 							</children>
 						</Pane>
 						<Pane id="companyPane" fx:id="companyPane" prefHeight="698.0" prefWidth="1132.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -339,10 +340,9 @@
 								</VBox>
 							</children>
 						</Pane>
-						<Pane id="devicePane" fx:id="devicePane" layoutX="64.0" layoutY="166.0" prefHeight="698.0" prefWidth="1132.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-						<AnchorPane id="stockPane" fx:id="stockPane" prefHeight="698.0" prefWidth="1132.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+						<AnchorPane id="stockPane" fx:id="stockPane" prefHeight="698.0" prefWidth="1132.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 							<children>
-								<TableView id="stockTable" fx:id="stockTable" editable="true" prefHeight="698.0" prefWidth="1132.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+								<TableView id="stockTable" fx:id="stockTable" editable="true" layoutY="93.0" prefHeight="580.0" prefWidth="1132.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="93.0">
 									<placeholder>
 										<Label text="Nincs adat." />
 									</placeholder>
@@ -385,6 +385,16 @@
                         <Button id="butten" fx:id="butten" layoutX="555.0" layoutY="30.0" mnemonicParsing="false" onAction="#print" prefHeight="36.0" prefWidth="206.0" text="nyom" />
 							</children>
 						</AnchorPane>
+                  <StackPane id="clientTablePane" fx:id="clientTablePane" prefHeight="673.0" prefWidth="1132.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <TableView prefHeight="200.0" prefWidth="200.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="C1" />
+                            <TableColumn prefWidth="75.0" text="C2" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </StackPane>
 					</children>
 				</AnchorPane>
 			</items>
