@@ -1,61 +1,141 @@
 /*/////////////////////////////////////////////////////////////////////////////
-//                    Fõ panle beállítások                                   //
-//              - Alap szín átmenõ világosból sötétbe                        //
-//                     -Rádius beállítása                                    //
+//                    Fï¿½ panle beï¿½llï¿½tï¿½sok                                   //
+//              - Alap szï¿½n ï¿½tmenï¿½ vilï¿½gosbï¿½l sï¿½tï¿½tbe                        //
+//                     -Rï¿½dius beï¿½llï¿½tï¿½sa                                    //
 /////////////////////////////////////////////////////////////////////////////*/
 .root{
-    -fx-background-color: white;
-    -fx-background-radius: 10.0;
+	-fx-background-image: url("background.jpg");
+    -fx-font-size: 14.0;
 }
-/*/////////////////////////////////////////////////////////////////////////////
-//                    Split panle beállítások                                //
-//              - Alap szín átmenõ világosból sötétbe                        //
-//                     -Rádius beállítása                                    //
-/////////////////////////////////////////////////////////////////////////////*/
+
+
 .split-pane{
+	-fx-background-image: url("background.jpg");
     -fx-background-color:whitesmoke;
     -fx-background-radius: 10.0;
 }
-/*/////////////////////////////////////////////////////////////////////////////
-//                    Split panle elválasztó                                 //
-//              - Alap szín átmenõ sötétbõl világosba                        //
-//                     -Rádius beállítása                                    //
-/////////////////////////////////////////////////////////////////////////////*/
-.split-pane:horizontal > .split-pane-divider {
-    -fx-background-color: white;
-    -fx-border-radius: 10.0;
-}
-/*/////////////////////////////////////////////////////////////////////////////
-//                    Tree panel beállítások                                 //
-//                    - Alap szín beállítása                                 //
-//                    -Betû szín beállítása                                  //
-//                   - Betû méret beállítása                                 //
-//                        -Betû formája                                      //  
-//                     -Rádius beállítása                                    //
-/////////////////////////////////////////////////////////////////////////////*/
+
 .tree-view, .tree-cell {
-    -fx-background-color: #4c0085;
+        -fx-background-color:  #616161;
     -fx-text-fill: whitesmoke;
     -fx-font-size: 16.0;
     -fx-font-weight: bold;
     -fx-background-radius: 10.0;
 }
-/*/////////////////////////////////////////////////////////////////////////////
-//                    Tree panel kiválasztott beállítások                    //
-//                    -Betû szín beállítása                                  //
-//                   - Betû méret beállítása                                 //
-//                        -Betû formája                                      // 
-/////////////////////////////////////////////////////////////////////////////*/
+
 .tree-cell:selected {
-    -fx-background-color: 
-       linear-gradient(from 0.0% 93.0% to 0.0% 100.0%, #4c0085 0.0%, #9999ff 100.0%),
-        #4c0085,
-        #9999ff,
-        radial-gradient(center 50.0% 50.0%, radius 100.0%,#9999ff, #4c0085);
+   -fx-background-color: linear-gradient(#61a2b1, #2A5058)
+        radial-gradient(center 50.0% 50.0%, radius 100.0%,#61a2b1, #2A5058);
+    -fx-font-family: "Arial Narrow";
     -fx-text-fill: white;
     -fx-font-size: 20.0;
     -fx-font-weight: bold;
 }
+
+.button {
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+    -fx-effect: dropshadow( three-pass-box , rgba(0.0,0.0,0.0,0.6) , 5.0, 0.0 , 0.0 , 1.0 );
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(#2A5058, #61a2b1);
+}
+
+
+.label {
+    -fx-font-size: 15.0px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+  	-fx-font-family: "Arial Narrow";
+}
+
+.table-view{
+   -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+}
+
+.table-view .column-header-background .label{
+    -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+    -fx-text-fill: white;
+}
+.table-view .table-cell{
+    -fx-text-fill: white;
+}
+
+.table-view .column-header {
+    -fx-background-color: gray;
+     -fx-text-fill: white;
+}
+
+.table-view{
+   -fx-background-color: transparent;
+    
+}
+
+.table-view:focused{
+    -fx-background-color: transparent;
+    
+}
+
+.table-view .filler{
+	-fx-background-color: linear-gradient(#61a2b1, #2A5058);
+}
+
+.table-row-cell{
+    -fx-background-color: -fx-table-cell-border-color, #616161;
+    -fx-background-insets: 0.0, 0.0 0.0 1.0 0.0;
+    -fx-padding: 0.0em; /* 0 */
+}
+
+.table-row-cell:odd{
+    -fx-background-color: -fx-table-cell-border-color, #424242;
+    -fx-background-insets: 0.0, 0.0 0.0 1.0 0.0;
+    -fx-padding: 0.0em; /* 0 */  
+}
+
+.table-row-cell:selected {
+    -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+    -fx-background-insets: 0.0;
+    -fx-background-radius: 1.0;
+}
+
+.table-view > .virtual-flow > .scroll-bar:vertical,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track-background, 
+.table-view > .virtual-flow > .scroll-bar:horizontal,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track-background {
+    -fx-background-color: transparent;
+}
+
+.table-view > .virtual-flow > .scroll-bar > .increment-button, 
+.table-view > .virtual-flow > .scroll-bar > .decrement-button {
+    -fx-opacity: 0.0;
+}
+
+
+.text-field{
+    -fx-background-color:  #616161;
+    -fx-font-size: 14.0;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #61a2b1 ;
+}
+.date-picker .combo-box {
+-fx-background-insets:0px ;
+-fx-border-width: 0px;
+  }
+
+.date-picker .text-field{
+-fx-background-color:  #616161;
+}
+
+.spinner-label {
+-fx-text-fill: #616161;
+}
+
+/* 
 .tree-cell:hover {
     -fx-background-color: 
        linear-gradient(from 0.0% 93.0% to 0.0% 100.0%, #4c0085 0.0%, #9999ff 100.0%),
@@ -66,41 +146,9 @@
     -fx-font-size: 20.0;
     -fx-font-weight: bold;
 }
-.button{
-    -fx-padding: 8.0 15.0 15.0 15.0;
-    -fx-background-insets: 0.0,0.0 0.0 5.0 0.0, 0.0 0.0 6.0 0.0, 0.0 0.0 7.0 0.0;
-    -fx-background-radius: 10.0;
-    -fx-background-color: 
-        linear-gradient(from 0.0% 93.0% to 0.0% 100.0%, #4c0085 0.0%, #4c0085 100.0%),
-        #4c0085,
-        #4c0085,
-        radial-gradient(center 50.0% 50.0%, radius 100.0%, #4c0085,#4c0085);
-    -fx-effect: dropshadow( gaussian , rgba(0.0,0.0,0.0,0.75) , 4.0,0.0,0.0,1.0 );
-    -fx-font-weight: bold;
-    -fx-font-size: 20.0;
-    -fx-text-fill: whitesmoke;
-}
-.button:hover {
-    -fx-background-color: 
-       linear-gradient(from 0.0% 93.0% to 0.0% 100.0%,#9999ff  0.0%, #4c0085 100.0%),
-        #4c0085,
-        #9999ff,
-        radial-gradient(center 50.0% 50.0%, radius 100.0%,#9999ff, #4c0085);
-    -fx-font-size: 24.0;
-}
-.label{
-    -fx-text-fill: #4c0085;
-    -fx-font-size: 18.0;
-    -fx-font-weight: bold;
-}
-/*Text beállítás */
-.text-field{
-    -fx-background-color: #4c0085 , #4c0085 , whitesmoke;
-    -fx-background-insets: 0.0 -1.0 -1.0 -1.0, 0.0 0.0 0.0 0.0, 0.0 -1.0 3.0 -1.0;
-    -fx-font-size: 16.0;
-    -fx-text-fill: #4c0085;
-    
-}
+
+
+
 .text-field:focused {
     -fx-background-color: #4c0085 , #fdfdfd , #fdfdfd;
     -fx-background-insets: 0.0 -1.0 -1.0 -1.0, 0.0 0.0 0.0 0.0, 0.0 -1.0 3.0 -1.0;
@@ -109,15 +157,7 @@
     -fx-text-fill: #4c0085;
     -fx-prompt-text-fill: transparent ;
 }
-.text-field:hover {
-    -fx-background-color: #4c0085 , #fdfdfd , #fdfdfd;
-    -fx-background-insets: 0.0 -1.0 -1.0 -1.0, 0.0 0.0 0.0 0.0, 0.0 -1.0 3.0 -1.0;
-    -fx-font-size: 18.0;
-    -fx-font-weight: bold;
-    -fx-text-fill: #4c0085;
-    -fx-prompt-text-fill: transparent ;
-}
-/*Text beáálítás */
+
 .text-area{
     -fx-background-color: #4c0085 , #4c0085 , whitesmoke;
     -fx-background-insets: 0.0 -1.0 -1.0 -1.0, 0.0 0.0 0.0 0.0, 0.0 -1.0 3.0 -1.0;
@@ -153,7 +193,7 @@
 	-fx-font-size: 13.0;
 }
 
-/*Combox alap kinézet  */
+
  .combo-box:hover {
     -fx-background-color: #4c0085 , #fdfdfd , #fdfdfd;
     -fx-background-insets: 0.0 -1.0 -1.0 -1.0, 0.0 0.0 0.0 0.0, 0.0 -1.0 3.0 -1.0;
@@ -184,4 +224,4 @@
     -fx-text-fill: #4c0085;
     -fx-font-size: 18.0;
 }
- 
+*/
