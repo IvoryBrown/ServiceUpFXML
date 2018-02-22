@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-import com.service.client.ClientFXMLController;
+import com.service.client.controller.ClientFXMLController;
 import com.service.stock.Stock;
 import com.service.stock.filteringdb.StockFillteringDB;
 
