@@ -5,7 +5,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -385,13 +384,16 @@
                         <Button id="butten" fx:id="butten" layoutX="555.0" layoutY="30.0" mnemonicParsing="false" onAction="#print" prefHeight="36.0" prefWidth="206.0" text="nyom" />
 							</children>
 						</AnchorPane>
-                  <StackPane id="clientTablePane" fx:id="clientTablePane" prefHeight="673.0" prefWidth="1132.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <StackPane id="clientTablePane" fx:id="clientTablePane" prefHeight="673.0" prefWidth="1132.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="93.0">
                      <children>
                         <TableView id="clientTable" fx:id="clientTable" prefHeight="200.0" prefWidth="200.0">
-                          <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
-                          </columns>
+                         <placeholder>
+										<Label text="Nincs adat." />
+									</placeholder>
+									<columns>
+									</columns>
+									<columns>
+									</columns>
                         </TableView>
                      </children>
                   </StackPane>
