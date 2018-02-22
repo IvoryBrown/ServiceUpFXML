@@ -9,6 +9,7 @@ public class Client {
 	private final SimpleStringProperty clientCompanyName;
 	private final SimpleStringProperty clientName;
 	private final SimpleStringProperty clientCounty;
+	private final SimpleStringProperty clientSettlement;
 	private final SimpleIntegerProperty clientZipCode;
 	private final SimpleStringProperty clientAddress;
 	private final SimpleStringProperty clientCompanyPhone;
@@ -19,14 +20,15 @@ public class Client {
 	private final SimpleStringProperty clientComment;
 
 	public Client(Integer cClientId, String cClientNumber, String cClientCompanyName, String cClientName,
-			String cClientCounty, Integer cClientZipCode, String cClientAddress, String cClientCompanyPhone,
-			String cClientCompanyEmail, String cClientPhone, String cClientEmail, String cClientPackage,
-			String cClientComment) {
+			String cClientCounty, String cClientSettlement, Integer cClientZipCode, String cClientAddress,
+			String cClientCompanyPhone, String cClientCompanyEmail, String cClientPhone, String cClientEmail,
+			String cClientPackage, String cClientComment) {
 		this.clientId = new SimpleIntegerProperty(cClientId);
 		this.clientNumber = new SimpleStringProperty(cClientNumber);
 		this.clientCompanyName = new SimpleStringProperty(cClientCompanyName);
 		this.clientName = new SimpleStringProperty(cClientName);
 		this.clientCounty = new SimpleStringProperty(cClientCounty);
+		this.clientSettlement = new SimpleStringProperty(cClientSettlement);
 		this.clientZipCode = new SimpleIntegerProperty(cClientZipCode);
 		this.clientAddress = new SimpleStringProperty(cClientAddress);
 		this.clientCompanyPhone = new SimpleStringProperty(cClientCompanyPhone);
@@ -75,6 +77,14 @@ public class Client {
 
 	public void setClientCounty(String cClientCounty) {
 		clientCounty.set(cClientCounty);
+	}
+
+	public String getClientSettlement() {
+		return clientSettlement.get();
+	}
+
+	public void setClientSettlement(String cClientSettlement) {
+		clientSettlement.set(cClientSettlement);
 	}
 
 	public Integer getClientZipCode() {
