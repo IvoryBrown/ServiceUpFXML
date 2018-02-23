@@ -386,7 +386,7 @@
 						</AnchorPane>
                   <StackPane id="clientTablePane" fx:id="clientTablePane" prefHeight="673.0" prefWidth="1132.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="93.0">
                      <children>
-                        <TableView id="clientTable" fx:id="clientTable" prefHeight="200.0" prefWidth="200.0">
+                        <TableView id="clientTable" fx:id="clientTable" editable="true" prefHeight="200.0" prefWidth="200.0">
                          <placeholder>
 										<Label text="Nincs adat." />
 									</placeholder>
