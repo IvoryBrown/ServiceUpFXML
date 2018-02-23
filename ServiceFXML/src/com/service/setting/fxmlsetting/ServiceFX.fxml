@@ -384,19 +384,34 @@
                         <Button id="butten" fx:id="butten" layoutX="555.0" layoutY="30.0" mnemonicParsing="false" onAction="#print" prefHeight="36.0" prefWidth="206.0" text="nyom" />
 							</children>
 						</AnchorPane>
-                  <StackPane id="clientTablePane" fx:id="clientTablePane" prefHeight="673.0" prefWidth="1132.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="93.0">
+                  <AnchorPane id="clientTablePane" fx:id="clientTablePane" prefHeight="673.0" prefWidth="1130.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <TableView id="clientTable" fx:id="clientTable" editable="true" prefHeight="200.0" prefWidth="200.0">
+                        <TableView id="clientTable" fx:id="clientTable" editable="true" prefHeight="673.0" prefWidth="1130.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="93.0">
                          <placeholder>
-										<Label text="Nincs adat." />
-									</placeholder>
-									<columns>
-									</columns>
-									<columns>
-									</columns>
-                        </TableView>
+<Label text="Nincs adat." />
+</placeholder>
+<columns>
+</columns>
+<columns>
+</columns>
+</TableView>
+                        <VBox layoutX="4.0" layoutY="3.0" prefHeight="89.0" prefWidth="206.0">
+                           <children>
+                              <TextField id="clientNameFilteringTxt" fx:id="clientNameFilteringTxt" prefHeight="36.0" prefWidth="206.0" promptText="Keresés">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="206.0" text="Keresés">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                       
                      </children>
-                  </StackPane>
+                  </AnchorPane>
 					</children>
 				</AnchorPane>
 			</items>
