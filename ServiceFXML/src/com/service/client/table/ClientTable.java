@@ -9,22 +9,29 @@ import com.service.stock.controller.StockFXMLController;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.Duration;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 public class ClientTable extends StockFXMLController implements Initializable {
 	@FXML
 	private TableView<Client> clientTable;
 
-	private TableColumn<Client, Integer> clientId, clientZipCode;
+	private TableColumn<Client, Integer> clientId;
 	private TableColumn<Client, String> clientNumber, clientCompanyName, clientName, clientCounty, clientSettlement,
-			clientAddress, clientCompanyPhone, clientCompanyEmail, clientPhone, clientEmail, clientPackage,
-			clientComment;
+			clientAddress, clientCompanyPhone, clientCompanyEmail, clientPhone, clientZipCode, clientEmail,
+			clientPackage, clientComment;
 
 	private final ObservableList<Client> dataClient = FXCollections.observableArrayList();
+	private ClientFillteringDB clientDB = new ClientFillteringDB();
+	private TrayNotification tray;
 
 	@SuppressWarnings("unchecked")
 	protected void setClientTableData() {
@@ -54,7 +61,29 @@ public class ClientTable extends StockFXMLController implements Initializable {
 
 		clientZipCode = new TableColumn<>("Irányítószám");
 		clientZipCode.setMinWidth(40);
-		clientZipCode.setCellValueFactory(new PropertyValueFactory<Client, Integer>("clientZipCode"));
+		clientZipCode.setEditable(true);
+		clientZipCode.setCellFactory(TextFieldTableCell.forTableColumn());
+		clientZipCode.setCellValueFactory(new PropertyValueFactory<Client, String>("clientZipCode"));
+		clientZipCode.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Client, String>>() {
+			@Override
+			public void handle(TableColumn.CellEditEvent<Client, String> d) {
+				try {
+					if (Integer.valueOf(d.getNewValue()) >= 2000 && Integer.valueOf(d.getNewValue()) <= 9985) {
+						Client actualClient = (Client) d.getTableView().getItems().get(d.getTablePosition().getRow());
+						actualClient.setClientZipCode(d.getNewValue());
+						clientDB.updateClient(actualClient);
+						tray = new TrayNotification("Remek!", "Sikeres Frissítés", NotificationType.SUCCESS);
+						tray.showAndDismiss(Duration.seconds(1));
+					} else {
+						tray = new TrayNotification("HIBA", "Nem pozítiv Szám!", NotificationType.ERROR);
+						tray.showAndDismiss(Duration.seconds(2));
+					}
+				} catch (NumberFormatException numberFormatException) {
+					tray = new TrayNotification("HIBA", "Nem megfelelő Szám!", NotificationType.ERROR);
+					tray.showAndDismiss(Duration.seconds(2));
+				}
+			}
+		});
 
 		clientAddress = new TableColumn<>("Település");
 		clientAddress.setMinWidth(200);
@@ -86,7 +115,7 @@ public class ClientTable extends StockFXMLController implements Initializable {
 
 		clientTable.setItems(dataClient);
 		clientTable.getColumns().addAll(clientId, clientNumber, clientCompanyName, clientName, clientCounty,
-				clientZipCode,clientSettlement,  clientAddress, clientCompanyPhone, clientCompanyEmail, clientPhone,
+				clientZipCode, clientSettlement, clientAddress, clientCompanyPhone, clientCompanyEmail, clientPhone,
 				clientEmail, clientPackage, clientComment);
 		dataClient.addAll(ClientFillteringDB.getAllClient());
 	}
