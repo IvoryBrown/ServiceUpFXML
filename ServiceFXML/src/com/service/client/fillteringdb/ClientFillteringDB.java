@@ -25,7 +25,7 @@ public class ClientFillteringDB {
 			while (rs.next()) {
 				Client actualCLient = new Client(rs.getInt("id_ugyfel"), rs.getString("ugyfel_azonosito"),
 						rs.getString("cegnev"), rs.getString("ugyfel_nev"), rs.getString("megye"),
-						rs.getString("telepules"), rs.getInt("iranyitoszam"), rs.getString("cim"),
+						rs.getString("telepules"), rs.getString("iranyitoszam"), rs.getString("cim"),
 						rs.getString("ceg_telefon"), rs.getString("ceg_email"), rs.getString("ugyfel_telefon"),
 						rs.getString("ugyfel_email"), rs.getString("csomag_tipus"),
 						rs.getString("ugyfel_megjegyzes"));
@@ -49,5 +49,10 @@ public class ClientFillteringDB {
 			}
 		}
 		return client;
+	}
+
+	public void updateClient(Client client) {
+		// TODO Automatikusan előállított metóduscsonk
+		
 	}
 }
