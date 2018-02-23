@@ -15,12 +15,11 @@ import javafx.scene.layout.StackPane;
 public class MenuTreeItemController {
 	@FXML
 	protected StackPane menuPane;
-	@FXML
-	protected StackPane clientTablePane;
+	
 	@FXML
 	protected Pane homePane, clientPane, companyPane;
 	@FXML
-	protected AnchorPane stockPane;
+	protected AnchorPane stockPane,clientTablePane;
 	@FXML
 	protected ToggleButton fullSctene;
 
