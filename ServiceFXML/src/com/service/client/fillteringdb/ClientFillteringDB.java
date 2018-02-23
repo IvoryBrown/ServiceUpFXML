@@ -1,6 +1,7 @@
 package com.service.client.fillteringdb;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -27,8 +28,7 @@ public class ClientFillteringDB {
 						rs.getString("cegnev"), rs.getString("ugyfel_nev"), rs.getString("megye"),
 						rs.getString("telepules"), rs.getString("iranyitoszam"), rs.getString("cim"),
 						rs.getString("ceg_telefon"), rs.getString("ceg_email"), rs.getString("ugyfel_telefon"),
-						rs.getString("ugyfel_email"), rs.getString("csomag_tipus"),
-						rs.getString("ugyfel_megjegyzes"));
+						rs.getString("ugyfel_email"), rs.getString("csomag_tipus"), rs.getString("ugyfel_megjegyzes"));
 				client.add(actualCLient);
 			}
 		} catch (SQLException e) {
@@ -52,7 +52,29 @@ public class ClientFillteringDB {
 	}
 
 	public void updateClient(Client client) {
-		// TODO Automatikusan előállított metóduscsonk
-		
+		Connection conn = DataBaseConnect.getConnection();
+		try {
+			String sqlClient = "UPDATE `ugyfel_adatok` set cegnev = ?, ugyfel_nev = ?, megye = ?,"
+					+ "telepules = ?, iranyitoszam = ?, cim = ?, ceg_telefon = ?, ceg_email = ?, ugyfel_telefon = ?,"
+					+ " ugyfel_email = ?, csomag_tipus = ?, ugyfel_megjegyzes = ?" + " WHERE id_ugyfel = ?";
+			PreparedStatement pr = conn.prepareStatement(sqlClient);
+			pr.setString(1, client.getClientCompanyName());
+			pr.setString(2, client.getClientName());
+			pr.setString(3, client.getClientCounty());
+			pr.setString(4, client.getClientSettlement());
+			pr.setString(5, client.getClientZipCode());
+			pr.setString(6, client.getClientAddress());
+			pr.setString(7, client.getClientCompanyPhone());
+			pr.setString(8, client.getClientCompanyEmail());
+			pr.setString(9, client.getClientPhone());
+			pr.setString(10, client.getClientEmail());
+			pr.setString(11, client.getClientPackage());
+			pr.setString(12, client.getClientComment());
+			pr.setInt(13, client.getClientId());
+			pr.execute();
+		} catch (SQLException e) {
+			System.out.println(e);
+			e.printStackTrace();
+		}
 	}
 }
