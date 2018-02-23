@@ -4,13 +4,13 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Client {
-	private final SimpleIntegerProperty clientId;
+	private  final SimpleIntegerProperty clientId;
 	private final SimpleStringProperty clientNumber;
 	private final SimpleStringProperty clientCompanyName;
 	private final SimpleStringProperty clientName;
 	private final SimpleStringProperty clientCounty;
 	private final SimpleStringProperty clientSettlement;
-	private final SimpleIntegerProperty clientZipCode;
+	private final SimpleStringProperty clientZipCode;
 	private final SimpleStringProperty clientAddress;
 	private final SimpleStringProperty clientCompanyPhone;
 	private final SimpleStringProperty clientCompanyEmail;
@@ -20,7 +20,7 @@ public class Client {
 	private final SimpleStringProperty clientComment;
 
 	public Client(Integer cClientId, String cClientNumber, String cClientCompanyName, String cClientName,
-			String cClientCounty, String cClientSettlement, Integer cClientZipCode, String cClientAddress,
+			String cClientCounty, String cClientSettlement, String cClientZipCode, String cClientAddress,
 			String cClientCompanyPhone, String cClientCompanyEmail, String cClientPhone, String cClientEmail,
 			String cClientPackage, String cClientComment) {
 		this.clientId = new SimpleIntegerProperty(cClientId);
@@ -29,7 +29,7 @@ public class Client {
 		this.clientName = new SimpleStringProperty(cClientName);
 		this.clientCounty = new SimpleStringProperty(cClientCounty);
 		this.clientSettlement = new SimpleStringProperty(cClientSettlement);
-		this.clientZipCode = new SimpleIntegerProperty(cClientZipCode);
+		this.clientZipCode = new SimpleStringProperty(cClientZipCode);
 		this.clientAddress = new SimpleStringProperty(cClientAddress);
 		this.clientCompanyPhone = new SimpleStringProperty(cClientCompanyPhone);
 		this.clientCompanyEmail = new SimpleStringProperty(cClientCompanyEmail);
@@ -39,11 +39,13 @@ public class Client {
 		this.clientComment = new SimpleStringProperty(cClientComment);
 	}
 
-	public Integer getClientDeviceId() {
+	
+
+	public Integer getClientId() {
 		return clientId.get();
 	}
 
-	public void setClientDeviceId(Integer cClientId) {
+	public void setClientId(Integer cClientId) {
 		clientId.set(cClientId);
 	}
 
@@ -87,11 +89,11 @@ public class Client {
 		clientSettlement.set(cClientSettlement);
 	}
 
-	public Integer getClientZipCode() {
+	public String getClientZipCode() {
 		return clientZipCode.get();
 	}
 
-	public void setClientZipCode(Integer cClientZipCode) {
+	public void setClientZipCode(String cClientZipCode) {
 		clientZipCode.set(cClientZipCode);
 	}
 
