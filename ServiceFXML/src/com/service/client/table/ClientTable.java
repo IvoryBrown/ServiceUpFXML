@@ -43,23 +43,67 @@ public class ClientTable extends StockFXMLController implements Initializable {
 		clientNumber.setMinWidth(90);
 		clientNumber.setCellValueFactory(new PropertyValueFactory<Client, String>("clientNumber"));
 
-		clientCompanyName = new TableColumn<>("Cégnév");
+		clientCompanyName = new TableColumn<>("Cégnév*");
 		clientCompanyName.setMinWidth(200);
 		clientCompanyName.setCellValueFactory(new PropertyValueFactory<Client, String>("clientCompanyName"));
+		clientCompanyName.setCellFactory(TextFieldTableCell.forTableColumn());
+		clientCompanyName.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Client, String>>() {
+			@Override
+			public void handle(TableColumn.CellEditEvent<Client, String> d) {
+				Client actualClient = (Client) d.getTableView().getItems().get(d.getTablePosition().getRow());
+				actualClient.setClientCompanyName(d.getNewValue());
+				clientDB.updateClient(actualClient);
+				tray = new TrayNotification("Cégnév!", "Sikeres Frissítése", NotificationType.SUCCESS);
+				tray.showAndDismiss(Duration.seconds(1));
+			}
+		});
 
-		clientName = new TableColumn<>("Ügyfél név");
+		clientName = new TableColumn<>("Ügyfél név*");
 		clientName.setMinWidth(150);
 		clientName.setCellValueFactory(new PropertyValueFactory<Client, String>("clientName"));
+		clientName.setCellFactory(TextFieldTableCell.forTableColumn());
+		clientName.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Client, String>>() {
+			@Override
+			public void handle(TableColumn.CellEditEvent<Client, String> d) {
+				Client actualClient = (Client) d.getTableView().getItems().get(d.getTablePosition().getRow());
+				actualClient.setClientName(d.getNewValue());
+				clientDB.updateClient(actualClient);
+				tray = new TrayNotification("Cégnév!", "Sikeres Frissítése", NotificationType.SUCCESS);
+				tray.showAndDismiss(Duration.seconds(1));
+			}
+		});
 
-		clientCounty = new TableColumn<>("Megye");
+		clientCounty = new TableColumn<>("Megye*");
 		clientCounty.setMinWidth(160);
 		clientCounty.setCellValueFactory(new PropertyValueFactory<Client, String>("clientCounty"));
+		clientCounty.setCellFactory(TextFieldTableCell.forTableColumn());
+		clientCounty.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Client, String>>() {
+			@Override
+			public void handle(TableColumn.CellEditEvent<Client, String> d) {
+				Client actualClient = (Client) d.getTableView().getItems().get(d.getTablePosition().getRow());
+				actualClient.setClientCounty(d.getNewValue());
+				clientDB.updateClient(actualClient);
+				tray = new TrayNotification("Megye!", "Sikeres Frissítése", NotificationType.SUCCESS);
+				tray.showAndDismiss(Duration.seconds(1));
+			}
+		});
 
-		clientSettlement = new TableColumn<>("Település");
+		clientSettlement = new TableColumn<>("Település*");
 		clientSettlement.setMinWidth(100);
 		clientSettlement.setCellValueFactory(new PropertyValueFactory<Client, String>("clientSettlement"));
+		clientSettlement.setCellFactory(TextFieldTableCell.forTableColumn());
+		clientSettlement.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Client, String>>() {
+			@Override
+			public void handle(TableColumn.CellEditEvent<Client, String> d) {
+				Client actualClient = (Client) d.getTableView().getItems().get(d.getTablePosition().getRow());
+				actualClient.setClientSettlement(d.getNewValue());
+				clientDB.updateClient(actualClient);
+				tray = new TrayNotification("Település!", "Sikeres Frissítése", NotificationType.SUCCESS);
+				tray.showAndDismiss(Duration.seconds(1));
+			}
+		});
 
-		clientZipCode = new TableColumn<>("Irányítószám");
+		clientZipCode = new TableColumn<>("Irányítószám*");
 		clientZipCode.setMinWidth(40);
 		clientZipCode.setEditable(true);
 		clientZipCode.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -72,10 +116,10 @@ public class ClientTable extends StockFXMLController implements Initializable {
 						Client actualClient = (Client) d.getTableView().getItems().get(d.getTablePosition().getRow());
 						actualClient.setClientZipCode(d.getNewValue());
 						clientDB.updateClient(actualClient);
-						tray = new TrayNotification("Remek!", "Sikeres Frissítés", NotificationType.SUCCESS);
+						tray = new TrayNotification("Irányítószám!", "Sikeres Frissítése", NotificationType.SUCCESS);
 						tray.showAndDismiss(Duration.seconds(1));
 					} else {
-						tray = new TrayNotification("HIBA", "Nem pozítiv Szám!", NotificationType.ERROR);
+						tray = new TrayNotification("HIBA", "Nem megfelelő Irányítószám!", NotificationType.ERROR);
 						tray.showAndDismiss(Duration.seconds(2));
 					}
 				} catch (NumberFormatException numberFormatException) {
@@ -85,33 +129,110 @@ public class ClientTable extends StockFXMLController implements Initializable {
 			}
 		});
 
-		clientAddress = new TableColumn<>("Település");
+		clientAddress = new TableColumn<>("Cím*");
 		clientAddress.setMinWidth(200);
 		clientAddress.setCellValueFactory(new PropertyValueFactory<Client, String>("clientAddress"));
+		clientAddress.setCellFactory(TextFieldTableCell.forTableColumn());
+		clientAddress.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Client, String>>() {
+			@Override
+			public void handle(TableColumn.CellEditEvent<Client, String> d) {
+				Client actualClient = (Client) d.getTableView().getItems().get(d.getTablePosition().getRow());
+				actualClient.setClientAddress(d.getNewValue());
+				clientDB.updateClient(actualClient);
+				tray = new TrayNotification("Cím!", "Sikeres Frissítése", NotificationType.SUCCESS);
+				tray.showAndDismiss(Duration.seconds(1));
+			}
+		});
 
-		clientCompanyPhone = new TableColumn<>("Cég telefon");
+		clientCompanyPhone = new TableColumn<>("Cég telefon*");
 		clientCompanyPhone.setMinWidth(200);
 		clientCompanyPhone.setCellValueFactory(new PropertyValueFactory<Client, String>("clientCompanyPhone"));
+		clientCompanyPhone.setCellFactory(TextFieldTableCell.forTableColumn());
+		clientCompanyPhone.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Client, String>>() {
+			@Override
+			public void handle(TableColumn.CellEditEvent<Client, String> d) {
+				Client actualClient = (Client) d.getTableView().getItems().get(d.getTablePosition().getRow());
+				actualClient.setClientCompanyPhone(d.getNewValue());
+				clientDB.updateClient(actualClient);
+				tray = new TrayNotification("Cég telefon!", "Sikeres Frissítése", NotificationType.SUCCESS);
+				tray.showAndDismiss(Duration.seconds(1));
+			}
+		});
 
-		clientCompanyEmail = new TableColumn<>("Cég email");
+		clientCompanyEmail = new TableColumn<>("Cég email*");
 		clientCompanyEmail.setMinWidth(200);
 		clientCompanyEmail.setCellValueFactory(new PropertyValueFactory<Client, String>("clientCompanyEmail"));
+		clientCompanyEmail.setCellFactory(TextFieldTableCell.forTableColumn());
+		clientCompanyEmail.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Client, String>>() {
+			@Override
+			public void handle(TableColumn.CellEditEvent<Client, String> d) {
+				Client actualClient = (Client) d.getTableView().getItems().get(d.getTablePosition().getRow());
+				actualClient.setClientCompanyEmail(d.getNewValue());
+				clientDB.updateClient(actualClient);
+				tray = new TrayNotification("Cég email!", "Sikeres Frissítése", NotificationType.SUCCESS);
+				tray.showAndDismiss(Duration.seconds(1));
+			}
+		});
 
-		clientPhone = new TableColumn<>("Telefon");
+		clientPhone = new TableColumn<>("Telefon*");
 		clientPhone.setMinWidth(140);
 		clientPhone.setCellValueFactory(new PropertyValueFactory<Client, String>("clientPhone"));
+		clientPhone.setCellFactory(TextFieldTableCell.forTableColumn());
+		clientPhone.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Client, String>>() {
+			@Override
+			public void handle(TableColumn.CellEditEvent<Client, String> d) {
+				Client actualClient = (Client) d.getTableView().getItems().get(d.getTablePosition().getRow());
+				actualClient.setClientPhone(d.getNewValue());
+				clientDB.updateClient(actualClient);
+				tray = new TrayNotification("Telefon!", "Sikeres Frissítése", NotificationType.SUCCESS);
+				tray.showAndDismiss(Duration.seconds(1));
+			}
+		});
 
-		clientEmail = new TableColumn<>("Email");
+		clientEmail = new TableColumn<>("Email*");
 		clientEmail.setMinWidth(150);
 		clientEmail.setCellValueFactory(new PropertyValueFactory<Client, String>("clientEmail"));
+		clientEmail.setCellFactory(TextFieldTableCell.forTableColumn());
+		clientEmail.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Client, String>>() {
+			@Override
+			public void handle(TableColumn.CellEditEvent<Client, String> d) {
+				Client actualClient = (Client) d.getTableView().getItems().get(d.getTablePosition().getRow());
+				actualClient.setClientEmail(d.getNewValue());
+				clientDB.updateClient(actualClient);
+				tray = new TrayNotification("Email!", "Sikeres Frissítése", NotificationType.SUCCESS);
+				tray.showAndDismiss(Duration.seconds(1));
+			}
+		});
 
-		clientPackage = new TableColumn<>("Csomag");
+		clientPackage = new TableColumn<>("Csomag*");
 		clientPackage.setMinWidth(100);
 		clientPackage.setCellValueFactory(new PropertyValueFactory<Client, String>("clientPackage"));
+		clientPackage.setCellFactory(TextFieldTableCell.forTableColumn());
+		clientPackage.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Client, String>>() {
+			@Override
+			public void handle(TableColumn.CellEditEvent<Client, String> d) {
+				Client actualClient = (Client) d.getTableView().getItems().get(d.getTablePosition().getRow());
+				actualClient.setClientPackage(d.getNewValue());
+				clientDB.updateClient(actualClient);
+				tray = new TrayNotification("Csomag!", "Sikeres Frissítése", NotificationType.SUCCESS);
+				tray.showAndDismiss(Duration.seconds(1));
+			}
+		});
 
-		clientComment = new TableColumn<>("Megjegyzés");
+		clientComment = new TableColumn<>("Megjegyzés*");
 		clientComment.setMinWidth(300);
 		clientComment.setCellValueFactory(new PropertyValueFactory<Client, String>("clientComment"));
+		clientComment.setCellFactory(TextFieldTableCell.forTableColumn());
+		clientComment.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Client, String>>() {
+			@Override
+			public void handle(TableColumn.CellEditEvent<Client, String> d) {
+				Client actualClient = (Client) d.getTableView().getItems().get(d.getTablePosition().getRow());
+				actualClient.setClientComment(d.getNewValue());
+				clientDB.updateClient(actualClient);
+				tray = new TrayNotification("Megjegyzés!", "Sikeres Frissítése", NotificationType.SUCCESS);
+				tray.showAndDismiss(Duration.seconds(1));
+			}
+		});
 
 		clientTable.setItems(dataClient);
 		clientTable.getColumns().addAll(clientId, clientNumber, clientCompanyName, clientName, clientCounty,
