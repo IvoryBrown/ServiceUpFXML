@@ -7,15 +7,21 @@ import com.service.client.Client;
 import com.service.client.fillteringdb.ClientFillteringDB;
 import com.service.stock.controller.StockFXMLController;
 
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.Callback;
 import javafx.util.Duration;
 import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
@@ -23,6 +29,8 @@ import tray.notification.TrayNotification;
 public class ClientTable extends StockFXMLController implements Initializable {
 	@FXML
 	private TableView<Client> clientTable;
+	@FXML
+	private TextField clientNameFilteringTxt;
 
 	private TableColumn<Client, Integer> clientId;
 	private TableColumn<Client, String> clientNumber, clientCompanyName, clientName, clientCounty, clientSettlement,
@@ -234,11 +242,68 @@ public class ClientTable extends StockFXMLController implements Initializable {
 			}
 		});
 
+		TableColumn<Client, Boolean> col_action = new TableColumn<>("+");
+		col_action.setSortable(false);
+		col_action.setCellValueFactory(
+				new Callback<TableColumn.CellDataFeatures<Client, Boolean>, ObservableValue<Boolean>>() {
+					@Override
+					public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Client, Boolean> p) {
+						return new SimpleBooleanProperty(p.getValue() != null);
+					}
+				});
+		col_action.setCellFactory(new Callback<TableColumn<Client, Boolean>, TableCell<Client, Boolean>>() {
+			@Override
+			public TableCell<Client, Boolean> call(TableColumn<Client, Boolean> p) {
+				return new ButtonCell(clientTable);
+			}
+		});
+
 		clientTable.setItems(dataClient);
-		clientTable.getColumns().addAll(clientId, clientNumber, clientCompanyName, clientName, clientCounty,
+		clientTable.getColumns().addAll(col_action, clientId, clientNumber, clientCompanyName, clientName, clientCounty,
 				clientZipCode, clientSettlement, clientAddress, clientCompanyPhone, clientCompanyEmail, clientPhone,
 				clientEmail, clientPackage, clientComment);
 		dataClient.addAll(ClientFillteringDB.getAllClient());
+	}
+
+	@FXML
+	private void filteringClientBtn(ActionEvent event) {
+		if (setClientCheckTxt()) {
+			dataClient.clear();
+			dataClient.addAll(ClientFillteringDB.getClientNameFilltering(clientNameFilteringTxt.getText()));
+			clientNameFilteringTxt.clear();
+			clientNameFilteringTxt.setStyle("-fx-prompt-text-fill: #61a2b1");
+			tray = new TrayNotification("Remek!", "Sikeres Frissítés", NotificationType.SUCCESS);
+			tray.showAndDismiss(Duration.seconds(1));
+		} else {
+
+		}
+	}
+
+	@FXML
+	private void updateClientBtn(ActionEvent event) {
+		dataClient.clear();
+		dataClient.addAll(ClientFillteringDB.getAllClient());
+		tray = new TrayNotification("Remek!", "Sikeres Frissítés", NotificationType.SUCCESS);
+		tray.showAndDismiss(Duration.seconds(1));
+		clientNameFilteringTxt.setStyle("-fx-prompt-text-fill: #61a2b1");
+
+	}
+
+	@FXML
+	private void newClientBtn() {
+		// TODO Automatikusan előállított metóduscsonk
+
+	}
+
+	private boolean setClientCheckTxt() {
+		if (clientNameFilteringTxt.getText().trim().isEmpty()) {
+			clientNameFilteringTxt.setStyle("-fx-prompt-text-fill: #CC0033");
+		}
+		if (clientNameFilteringTxt.getText().trim().isEmpty()) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	@Override
