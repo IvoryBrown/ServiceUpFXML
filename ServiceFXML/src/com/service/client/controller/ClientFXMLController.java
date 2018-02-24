@@ -22,24 +22,24 @@ import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
 
 public class ClientFXMLController extends MenuTreeItemController {
-	
+
 	@FXML
 	private ComboBox<String> cmbClientInputCounty;
 	@FXML
 	private TextField txtClientInputClientName, txtClientInputZipCode, txtClientInputSettlement, txtClientInputAddress,
-			txtClientInputEmail, txtClientInputMobil, txtClientInputAdministrator;
+			txtClientInputEmail, txtClientInputMobil;
 	@FXML
 	private Label txtClientInputID, txtClientInputNumber;
 	@FXML
 	private TextArea txtClientInputComment;
 	@FXML
 	private Button btnClientNewClient;
-	
+
 	private TrayNotification tray;
 
 	private final String COUNTRYCOUNTIES[] = { "Bács-Kiskun", "Baranya", "Békés", " Borsod-Abaúj-Zemplén", "Csongrád",
-			" Fejér", " Győr-Moson-Sopron", "Hajdú-Bihar", "Heves", "Jász-Nagykun-Szolnok", " Komárom-Esztergom ", "Nógrád",
-			"Pest", "Somogy", "Szabolcs-Szatmár-Bereg", "Tolna", "Vas", " Veszprém", "Zala" };
+			" Fejér", " Győr-Moson-Sopron", "Hajdú-Bihar", "Heves", "Jász-Nagykun-Szolnok", " Komárom-Esztergom ",
+			"Nógrád", "Pest", "Somogy", "Szabolcs-Szatmár-Bereg", "Tolna", "Vas", " Veszprém", "Zala" };
 
 	protected void setComponentAll() {
 		txtClientInputComment.setWrapText(true);
@@ -69,17 +69,13 @@ public class ClientFXMLController extends MenuTreeItemController {
 		if (txtClientInputMobil.getText().trim().isEmpty()) {
 			txtClientInputMobil.setStyle("-fx-prompt-text-fill: #CC0033");
 		}
-		if (txtClientInputAdministrator.getText().trim().isEmpty()) {
-			txtClientInputAdministrator.setStyle("-fx-prompt-text-fill: #CC0033");
-		}
 		if (txtClientInputAddress.getText().trim().isEmpty()) {
 			txtClientInputAddress.setStyle("-fx-prompt-text-fill: #CC0033");
 		}
 		if (cmbClientInputCounty.getValue() == null || txtClientInputClientName.getText().trim().isEmpty()
 				|| txtClientInputSettlement.getText().trim().isEmpty()
 				|| txtClientInputZipCode.getText().trim().isEmpty() || txtClientInputAddress.getText().trim().isEmpty()
-				|| txtClientInputMobil.getText().trim().isEmpty()
-				|| txtClientInputAdministrator.getText().trim().isEmpty()) {
+				|| txtClientInputMobil.getText().trim().isEmpty()) {
 			return false;
 		}
 		return true;
@@ -94,7 +90,6 @@ public class ClientFXMLController extends MenuTreeItemController {
 		txtClientInputAddress.clear();
 		txtClientInputEmail.clear();
 		txtClientInputMobil.clear();
-		txtClientInputAdministrator.clear();
 		txtClientInputComment.clear();
 	}
 
@@ -104,24 +99,29 @@ public class ClientFXMLController extends MenuTreeItemController {
 				Connection con = DataBaseConnect.getConnection();
 				PreparedStatement insertClient = con
 						.prepareStatement("INSERT INTO ugyfel_adatok(ugyfel_azonosito, ugyfel_nev, megye,"
-								+ "telepules, iranyitoszam, cim,ugyfel_email, ugyfel_telefon, ugyintezo, ugyfel_megjegyzes)"
-								+ "values(?,?,?,?,?,?,?,?,?,?) ");
+								+ "telepules, iranyitoszam, cim, ugyfel_email, ugyfel_telefon, ugyfel_megjegyzes)"
+								+ "values(?,?,?,?,?,?,?,?,?) ");
 				txtClientInputNumber.setText(ClientIdentficationGenerator.random());
 				insertClient.setString(1, txtClientInputNumber.getText());
 				insertClient.setString(2, txtClientInputClientName.getText());
 				insertClient.setString(3, cmbClientInputCounty.getSelectionModel().getSelectedItem());
 				insertClient.setString(4, txtClientInputSettlement.getText());
 				try {
-					insertClient.setInt(5, Integer.parseInt(txtClientInputZipCode.getText()));
+					if (Integer.valueOf(txtClientInputZipCode.getText()) >= 2000
+							&& Integer.valueOf(txtClientInputZipCode.getText()) >= 2000) {
+						insertClient.setInt(5, Integer.parseInt(txtClientInputZipCode.getText()));
+					} else {
+						tray = new TrayNotification("HIBA", "Nem megfelelő Irányítószám!", NotificationType.ERROR);
+						tray.showAndDismiss(Duration.seconds(2));
+					}
 				} catch (NumberFormatException e) {
-					tray = new TrayNotification("HIBA", "Nem megfelelő irányítószám!", NotificationType.ERROR);
+					tray = new TrayNotification("HIBA", "Nem megfelelő szám!", NotificationType.ERROR);
 					tray.showAndDismiss(Duration.seconds(2));
 				}
 				insertClient.setString(6, txtClientInputAddress.getText());
 				insertClient.setString(7, txtClientInputEmail.getText());
 				insertClient.setString(8, txtClientInputMobil.getText());
-				insertClient.setString(9, txtClientInputAdministrator.getText());
-				insertClient.setString(10, txtClientInputComment.getText());
+				insertClient.setString(9, txtClientInputComment.getText());
 				insertClient.executeUpdate();
 				setClientInputText();
 				tray = new TrayNotification("Remek!", "Sikeres Felvétel", NotificationType.SUCCESS);
