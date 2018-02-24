@@ -21,6 +21,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Duration;
@@ -172,6 +173,7 @@ public class StockFXMLController extends ClientFXMLController {
 			Parent root = FXMLLoader
 					.load(getClass().getResource("/com/service/setting/fxmlnewstock/FxmlNewStock.fxml"));
 			Stage stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.setTitle("Eszköz");
 			stage.setScene(new Scene(root, 1000, 650));
 			stage.show();
