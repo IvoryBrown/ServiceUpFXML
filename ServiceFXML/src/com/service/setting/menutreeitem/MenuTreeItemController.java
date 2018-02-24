@@ -2,10 +2,7 @@ package com.service.setting.menutreeitem;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
@@ -15,13 +12,11 @@ import javafx.scene.layout.StackPane;
 public class MenuTreeItemController {
 	@FXML
 	protected StackPane menuPane;
-	
+
 	@FXML
 	protected Pane homePane, clientPane, companyPane;
 	@FXML
-	protected AnchorPane stockPane,clientTablePane;
-	@FXML
-	protected ToggleButton fullSctene;
+	protected AnchorPane stockPane, clientTablePane;
 
 	private final String MENU_HOME = "Kezdőlap";
 	private final String MENU_CONTACTS = "Ügyfelek";
@@ -105,13 +100,4 @@ public class MenuTreeItemController {
 
 	}
 
-	@FXML
-	private void addContact(ActionEvent event) {
-		fullSctene.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-
-			}
-		});
-	}
 }
