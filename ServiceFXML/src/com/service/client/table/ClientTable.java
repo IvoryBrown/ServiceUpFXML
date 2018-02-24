@@ -36,6 +36,7 @@ public class ClientTable extends StockFXMLController implements Initializable {
 	private TableColumn<Client, String> clientNumber, clientCompanyName, clientName, clientCounty, clientSettlement,
 			clientAddress, clientCompanyPhone, clientCompanyEmail, clientPhone, clientZipCode, clientEmail,
 			clientPackage, clientComment;
+	private TableColumn<Client, Boolean> colAction;
 
 	private final ObservableList<Client> dataClient = FXCollections.observableArrayList();
 	private ClientFillteringDB clientDB = new ClientFillteringDB();
@@ -242,16 +243,17 @@ public class ClientTable extends StockFXMLController implements Initializable {
 			}
 		});
 
-		TableColumn<Client, Boolean> col_action = new TableColumn<>("+");
-		col_action.setSortable(false);
-		col_action.setCellValueFactory(
+		 colAction = new TableColumn<>("+");
+		colAction.setSortable(false);
+		colAction.setPrefWidth(40);
+		colAction.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Client, Boolean>, ObservableValue<Boolean>>() {
 					@Override
 					public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Client, Boolean> p) {
 						return new SimpleBooleanProperty(p.getValue() != null);
 					}
 				});
-		col_action.setCellFactory(new Callback<TableColumn<Client, Boolean>, TableCell<Client, Boolean>>() {
+		colAction.setCellFactory(new Callback<TableColumn<Client, Boolean>, TableCell<Client, Boolean>>() {
 			@Override
 			public TableCell<Client, Boolean> call(TableColumn<Client, Boolean> p) {
 				return new ButtonCell(clientTable);
@@ -259,7 +261,7 @@ public class ClientTable extends StockFXMLController implements Initializable {
 		});
 
 		clientTable.setItems(dataClient);
-		clientTable.getColumns().addAll(col_action, clientId, clientNumber, clientCompanyName, clientName, clientCounty,
+		clientTable.getColumns().addAll(colAction, clientId, clientNumber, clientCompanyName, clientName, clientCounty,
 				clientZipCode, clientSettlement, clientAddress, clientCompanyPhone, clientCompanyEmail, clientPhone,
 				clientEmail, clientPackage, clientComment);
 		dataClient.addAll(ClientFillteringDB.getAllClient());

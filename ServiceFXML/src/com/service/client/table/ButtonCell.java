@@ -7,10 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Parent;
+import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
@@ -18,23 +15,22 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBoxBuilder;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ButtonCell extends TableCell<Client, Boolean> {
 	final Button cellButton = new Button("+");
-	final Button exitButton = new Button("-");
-	TableView<SubRecord> subTableView;
+	@FXML
+	private TableView<SubRecord> subTableView;
 
 	ButtonCell(final TableView<Client> tblView) {
 
 		cellButton.setOnAction(new EventHandler<ActionEvent>() {
 
+			@SuppressWarnings("unchecked")
 			@Override
 			public void handle(ActionEvent t) {
 				int selectdIndex = getTableRow().getIndex();
-
 				Client selectedRecord = (Client) tblView.getItems().get(selectdIndex);
 				ObservableList<SubRecord> subDataList = FXCollections.observableArrayList(
 						new SubRecord("ID", selectedRecord.getClientId()),
@@ -52,14 +48,17 @@ public class ButtonCell extends TableCell<Client, Boolean> {
 						new SubRecord("Csomag", selectedRecord.getClientPackage()),
 						new SubRecord("Megjegyzés", selectedRecord.getClientComment()));
 
-				TableColumn columnfield = new TableColumn<>("Field");
+				@SuppressWarnings("rawtypes")
+				TableColumn columnfield = new TableColumn<>(" ");
 				columnfield.setCellValueFactory(new PropertyValueFactory<Client, String>("fieldSubRecordName"));
-				columnfield.setPrefWidth(100);
+				columnfield.setMinWidth(100);
+				columnfield.setMaxWidth(100);
 
-				TableColumn columnValue = new TableColumn<>("Value");
-				columnValue.setCellValueFactory(new PropertyValueFactory<SubRecord, Integer>("fieldSubRecordValue"));
-				columnValue.setPrefWidth(850);
-				
+				@SuppressWarnings("rawtypes")
+				TableColumn columnValue = new TableColumn<>("Ügyfél");
+				columnValue.setCellValueFactory(new PropertyValueFactory<SubRecord, String>("fieldSubRecordValue"));
+				columnValue.setMinWidth(845);
+
 				subTableView = new TableView<>();
 				subTableView.setItems(subDataList);
 				subTableView.getColumns().addAll(columnfield, columnValue);
@@ -67,13 +66,14 @@ public class ButtonCell extends TableCell<Client, Boolean> {
 				try {
 					StackPane root = new StackPane();
 					root.getChildren().add(subTableView);
-					root.getChildren().add(exitButton);
 					Stage stage = new Stage();
+					stage.setResizable(false);
 					root.getStylesheets().add(getClass().getClassLoader()
 							.getResource("com/service/setting/desing/desing.css").toExternalForm());
 					stage.initModality(Modality.APPLICATION_MODAL);
-					stage.setTitle("Eszköz");
-					stage.setScene(new Scene(root, 950, 450));
+					stage.setTitle("Ügyfél");
+					root.prefWidthProperty().bind(stage.widthProperty());
+					stage.setScene(new Scene(root, 950, 430));
 					stage.show();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -86,6 +86,9 @@ public class ButtonCell extends TableCell<Client, Boolean> {
 		super.updateItem(t, empty);
 		if (!empty) {
 			setGraphic(cellButton);
+		}else {
+			 setGraphic( null );
+             setText( null );
 		}
 	}
 }
