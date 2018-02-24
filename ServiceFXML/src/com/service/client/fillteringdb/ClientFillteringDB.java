@@ -16,7 +16,44 @@ public class ClientFillteringDB {
 		Connection con = DataBaseConnect.getConnection();
 		String sql = "SELECT * FROM `ugyfel_adatok`";
 		ArrayList<Client> client = null;
+		Statement createStatement = null;
+		ResultSet rs = null;
+		try {
+			createStatement = con.createStatement();
+			rs = createStatement.executeQuery(sql);
+			client = new ArrayList<>();
+			while (rs.next()) {
+				Client actualCLient = new Client(rs.getInt("id_ugyfel"), rs.getString("ugyfel_azonosito"),
+						rs.getString("cegnev"), rs.getString("ugyfel_nev"), rs.getString("megye"),
+						rs.getString("telepules"), rs.getString("iranyitoszam"), rs.getString("cim"),
+						rs.getString("ceg_telefon"), rs.getString("ceg_email"), rs.getString("ugyfel_telefon"),
+						rs.getString("ugyfel_email"), rs.getString("csomag_tipus"), rs.getString("ugyfel_megjegyzes"));
+				client.add(actualCLient);
+			}
+		} catch (SQLException e) {
+			ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (createStatement != null) {
+					createStatement.close();
+				}
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
+			}
+		}
+		return client;
+	}
 
+	public static ArrayList<Client> getClientNameFilltering(String clientName) {
+		Connection con = DataBaseConnect.getConnection();
+		String sql = "SELECT * FROM `ugyfel_adatok` WHERE CONCAT (`" + "ugyfel_nev" + "`) LIKE '%" + clientName + "%'";
+		ArrayList<Client> client = null;
 		Statement createStatement = null;
 		ResultSet rs = null;
 		try {
@@ -70,7 +107,7 @@ public class ClientFillteringDB {
 			pr.setString(10, client.getClientEmail());
 			pr.setString(11, client.getClientPackage());
 			pr.setString(12, client.getClientComment());
-			pr.setInt(13, client.getClientId());
+			pr.setInt(13, Integer.parseInt(client.getClientId()));
 			pr.execute();
 		} catch (SQLException e) {
 			System.out.println(e);
