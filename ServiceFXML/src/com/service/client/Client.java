@@ -1,10 +1,9 @@
 package com.service.client;
 
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Client {
-	private  final SimpleIntegerProperty clientId;
+	private  final SimpleStringProperty clientId;
 	private final SimpleStringProperty clientNumber;
 	private final SimpleStringProperty clientCompanyName;
 	private final SimpleStringProperty clientName;
@@ -23,7 +22,7 @@ public class Client {
 			String cClientCounty, String cClientSettlement, String cClientZipCode, String cClientAddress,
 			String cClientCompanyPhone, String cClientCompanyEmail, String cClientPhone, String cClientEmail,
 			String cClientPackage, String cClientComment) {
-		this.clientId = new SimpleIntegerProperty(cClientId);
+		this.clientId = new SimpleStringProperty (String.valueOf(cClientId));
 		this.clientNumber = new SimpleStringProperty(cClientNumber);
 		this.clientCompanyName = new SimpleStringProperty(cClientCompanyName);
 		this.clientName = new SimpleStringProperty(cClientName);
@@ -38,14 +37,15 @@ public class Client {
 		this.clientPackage = new SimpleStringProperty(cClientPackage);
 		this.clientComment = new SimpleStringProperty(cClientComment);
 	}
+	
 
 	
 
-	public Integer getClientId() {
+	public String getClientId() {
 		return clientId.get();
 	}
 
-	public void setClientId(Integer cClientId) {
+	public void setClientId(String cClientId) {
 		clientId.set(cClientId);
 	}
 
