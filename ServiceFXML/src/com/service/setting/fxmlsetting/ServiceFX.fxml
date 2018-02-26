@@ -259,7 +259,7 @@
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </Label>
-                              <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="139.0" text="Priotitás">
+                              <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="139.0" text="Prioritás">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
@@ -314,6 +314,62 @@
                                  </VBox.margin>
                               </ComboBox>
                               <TextField prefHeight="36.0" promptText="Pasword">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="436.0" layoutY="106.0" prefHeight="291.0" prefWidth="139.0">
+                           <children>
+                              <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="139.0" text="Tartozékok">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="139.0" text="Sérülés">
+                                 <VBox.margin>
+                                    <Insets top="30.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="139.0" text="Hiba leírás">
+                                 <VBox.margin>
+                                    <Insets top="40.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="581.0" layoutY="106.0" prefHeight="291.0" prefWidth="467.0">
+                           <children>
+                              <TextArea prefHeight="65.0" prefWidth="467.0" promptText="Tartozéké" wrapText="true">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </TextArea>
+                              <TextArea prefHeight="65.0" prefWidth="467.0" promptText="Sérülés" wrapText="true">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </TextArea>
+                              <TextArea prefHeight="92.0" prefWidth="467.0" promptText="Hiba leírás" wrapText="true">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </TextArea>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="442.0" layoutY="64.0" prefHeight="40.0" prefWidth="139.0">
+                           <children>
+                              <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="139.0" text="Hivatkozási szám">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="581.0" layoutY="64.0" prefHeight="48.0" prefWidth="265.0">
+                           <children>
+                              <TextField prefHeight="36.0" promptText="DSS2322">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
