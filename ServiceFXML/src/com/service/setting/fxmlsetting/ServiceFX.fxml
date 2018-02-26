@@ -222,6 +222,94 @@
                               <Button mnemonicParsing="false" onAction="#filteringClientBtn" prefHeight="36.0" prefWidth="206.0" text="Keresés" />
                            </children>
                         </HBox>
+                        <VBox layoutX="14.0" layoutY="64.0" prefHeight="381.0" prefWidth="139.0">
+                           <children>
+                              <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="139.0" text="Eszköz">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="139.0" text="Gyártó">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="139.0" text="Serial no.">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="139.0" text="Javítás helye">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="139.0" text="Állapot">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="139.0" text="Új gép">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="139.0" text="Ügyintéző">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="139.0" text="Label">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="139.0" text="Label">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="162.0" layoutY="64.0" prefHeight="381.0" prefWidth="265.0">
+                           <children>
+                              <ComboBox prefHeight="36.0" prefWidth="265.0" promptText="asztali, laptop">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </ComboBox>
+                              <ComboBox prefHeight="36.0" prefWidth="265.0" promptText="gyárto">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </ComboBox>
+                              <TextField prefHeight="36.0" promptText="DSS2322">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <ComboBox prefHeight="36.0" prefWidth="265.0" promptText="muhely">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </ComboBox>
+                              <ComboBox prefHeight="36.0" prefWidth="265.0" promptText="bevételeyve">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </ComboBox>
+                              <ComboBox prefHeight="36.0" prefWidth="265.0" promptText="ujgép használt">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </ComboBox>
+                              <ComboBox prefHeight="36.0" prefWidth="265.0" promptText="M.N">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </ComboBox>
+                           </children>
+                        </VBox>
                      </children>
                   </AnchorPane>
 						<AnchorPane id="stockPane" fx:id="stockPane" prefHeight="698.0" prefWidth="1132.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
