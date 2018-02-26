@@ -107,8 +107,8 @@ public class ClientFXMLController extends MenuTreeItemController {
 				insertClient.setString(3, cmbClientInputCounty.getSelectionModel().getSelectedItem());
 				insertClient.setString(4, txtClientInputSettlement.getText());
 				try {
-					if (Integer.valueOf(txtClientInputZipCode.getText()) >= 2000
-							&& Integer.valueOf(txtClientInputZipCode.getText()) >= 2000) {
+					if (Integer.valueOf(txtClientInputZipCode.getText()) >= 1000
+							&& Integer.valueOf(txtClientInputZipCode.getText()) <= 9985) {
 						insertClient.setInt(5, Integer.parseInt(txtClientInputZipCode.getText()));
 					} else {
 						tray = new TrayNotification("HIBA", "Nem megfelelő Irányítószám!", NotificationType.ERROR);
