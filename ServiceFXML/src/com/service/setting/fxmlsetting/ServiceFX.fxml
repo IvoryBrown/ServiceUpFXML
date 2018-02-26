@@ -259,12 +259,12 @@
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </Label>
-                              <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="139.0" text="Label">
+                              <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="139.0" text="Priotitás">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </Label>
-                              <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="139.0" text="Label">
+                              <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="139.0" text="Jelszó">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
@@ -308,6 +308,16 @@
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </ComboBox>
+                              <ComboBox prefHeight="36.0" prefWidth="265.0" promptText="Alap">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </ComboBox>
+                              <TextField prefHeight="36.0" promptText="Pasword">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </TextField>
                            </children>
                         </VBox>
                      </children>
