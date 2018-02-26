@@ -304,17 +304,17 @@
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </ComboBox>
-                              <ComboBox id="deviceAdministrator" fx:id="deviceAdministrator" prefHeight="36.0" prefWidth="265.0" promptText="M.N">
+                              <ComboBox id="deviceAdministrator" fx:id="deviceAdministrator" prefHeight="36.0" prefWidth="265.0">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </ComboBox>
-                              <ComboBox prefHeight="36.0" prefWidth="265.0" promptText="Alap">
+                              <ComboBox id="devicePriorit" fx:id="devicePriorit" prefHeight="36.0" prefWidth="265.0">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </ComboBox>
-                              <TextField prefHeight="36.0" promptText="Pasword">
+                              <TextField id="devicePassword" fx:id="devicePassword" prefHeight="36.0" promptText="Pasword">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
@@ -338,21 +338,31 @@
                                     <Insets top="40.0" />
                                  </VBox.margin>
                               </Label>
+                              <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="139.0" text="Megjegyzés">
+                                 <VBox.margin>
+                                    <Insets top="55.0" />
+                                 </VBox.margin>
+                              </Label>
                            </children>
                         </VBox>
                         <VBox layoutX="581.0" layoutY="106.0" prefHeight="291.0" prefWidth="467.0">
                            <children>
-                              <TextArea prefHeight="65.0" prefWidth="467.0" promptText="Tartozéké" wrapText="true">
+                              <TextArea id="deviceAccesssory" fx:id="deviceAccesssory" prefHeight="65.0" prefWidth="467.0" promptText="Tartozéké" wrapText="true">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </TextArea>
-                              <TextArea prefHeight="65.0" prefWidth="467.0" promptText="Sérülés" wrapText="true">
+                              <TextArea id="deviceInjury" fx:id="deviceInjury" prefHeight="65.0" prefWidth="467.0" promptText="Sérülés" wrapText="true">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </TextArea>
-                              <TextArea prefHeight="92.0" prefWidth="467.0" promptText="Hiba leírás" wrapText="true">
+                              <TextArea id="deviceErrorDescription" fx:id="deviceErrorDescription" prefHeight="92.0" prefWidth="467.0" promptText="Hiba leírás" wrapText="true">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </TextArea>
+                              <TextArea id="deviceComment" fx:id="deviceComment" prefHeight="45.0" prefWidth="467.0" promptText="Mgejegyzés" wrapText="true">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
@@ -370,7 +380,7 @@
                         </VBox>
                         <VBox layoutX="581.0" layoutY="64.0" prefHeight="48.0" prefWidth="265.0">
                            <children>
-                              <TextField prefHeight="36.0" promptText="DSS2322">
+                              <TextField id="deviceReferences" fx:id="deviceReferences" prefHeight="36.0" promptText="DSS2322">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
@@ -379,26 +389,26 @@
                         </VBox>
                         <HBox layoutX="12.0" layoutY="445.0" prefHeight="40.0" prefWidth="1055.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#filteringClientBtn" prefHeight="36.0" prefWidth="206.0" text="Dátum">
+                              <Button id="deviceBtnDate" fx:id="deviceBtnDate" mnemonicParsing="false" onAction="#setButtonPaneDate" prefHeight="36.0" prefWidth="206.0" text="Dátum">
                                  <HBox.margin>
                                     <Insets right="5.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#filteringClientBtn" prefHeight="36.0" prefWidth="206.0" text="Softver">
+                              <Button id="deviceBtnSoftver" fx:id="deviceBtnSoftver" mnemonicParsing="false" onAction="#setButtonPaneSoftver" prefHeight="36.0" prefWidth="206.0" text="Softver">
                                  <HBox.margin>
                                     <Insets right="5.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#filteringClientBtn" prefHeight="36.0" prefWidth="206.0" text="Hardver">
+                              <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="206.0" text="Hardver">
                                  <HBox.margin>
                                     <Insets right="5.0" />
                                  </HBox.margin>
                               </Button>
                            </children>
                         </HBox>
-                        <AnchorPane layoutX="10.0" prefHeight="183.0" prefWidth="1120.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="490.0">
+                        <AnchorPane id="deviceAnchorPDate" fx:id="deviceAnchorPDate" layoutX="10.0" prefHeight="183.0" prefWidth="1120.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="490.0">
                            <children>
-                              <VBox prefHeight="183.0" prefWidth="154.0">
+                              <VBox prefHeight="183.0" prefWidth="141.0">
                                  <children>
                                     <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="160.0" text="Vásárlási dátum">
                                        <VBox.margin>
@@ -421,24 +431,24 @@
                                     </Label>
                                  </children>
                               </VBox>
-                              <VBox layoutX="160.0" prefHeight="183.0" prefWidth="265.0">
+                              <VBox layoutX="147.0" prefHeight="183.0" prefWidth="278.0">
                                  <children>
-                                    <DatePicker prefHeight="36.0" prefWidth="265.0">
+                                    <DatePicker id="deviceSalesBuying" fx:id="deviceSalesBuying" prefHeight="36.0" prefWidth="265.0">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </DatePicker>
-                                    <DatePicker prefHeight="36.0" prefWidth="265.0">
+                                    <DatePicker id="deviceAddDate" fx:id="deviceAddDate" prefHeight="36.0" prefWidth="265.0">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </DatePicker>
-                                    <DatePicker prefHeight="36.0" prefWidth="265.0">
+                                    <DatePicker id="deviceEndDate" fx:id="deviceEndDate" prefHeight="36.0" prefWidth="265.0">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </DatePicker>
-                                    <DatePicker prefHeight="36.0" prefWidth="265.0">
+                                    <DatePicker id="deviceDeliveryDate" fx:id="deviceDeliveryDate" prefHeight="36.0" prefWidth="265.0">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
@@ -447,40 +457,40 @@
                               </VBox>
                            </children>
                         </AnchorPane>
-                        <AnchorPane layoutX="10.0" layoutY="490.0" prefHeight="183.0" prefWidth="1120.0">
+                        <AnchorPane id="deviceAncorPSoftver" fx:id="deviceAncorPSoftver" layoutX="10.0" layoutY="490.0" prefHeight="183.0" prefWidth="1120.0">
                            <children>
-                              <VBox prefHeight="183.0" prefWidth="154.0">
+                              <VBox prefHeight="183.0" prefWidth="141.0">
                                  <children>
                                     <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="160.0" text="Szoftver">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="160.0" text="Megnevezés">
+                                    <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="155.0" text="Operációs rendszer ">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="160.0" text="Egyéb softver">
+                                    <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="160.0" text="Megjegyzés">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </Label>
                                  </children>
                               </VBox>
-                              <VBox layoutX="160.0" prefHeight="183.0" prefWidth="265.0">
+                              <VBox layoutX="147.0" prefHeight="183.0" prefWidth="265.0">
                                  <children>
-                                    <ComboBox prefHeight="36.0" prefWidth="265.0" promptText="Igen nem">
+                                    <ComboBox id="deviceSoftver" fx:id="deviceSoftver" prefHeight="36.0" prefWidth="265.0">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </ComboBox>
-                                    <ComboBox prefHeight="36.0" prefWidth="265.0" promptText="Win">
+                                    <ComboBox id="deviceOperatingSystem" fx:id="deviceOperatingSystem" prefHeight="36.0" prefWidth="265.0" promptText="Win">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </ComboBox>
-                                    <TextArea prefHeight="94.0" prefWidth="265.0">
+                                    <TextArea prefHeight="94.0" prefWidth="253.0">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>

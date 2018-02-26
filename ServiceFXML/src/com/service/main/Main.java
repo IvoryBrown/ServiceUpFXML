@@ -13,7 +13,7 @@ public class Main extends Application {
 			Parent root = FXMLLoader.load(getClass().getResource("/com/service/setting/fxmlsetting/ServiceFX.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setWidth(1350);
-			primaryStage.setHeight(710);
+			primaryStage.setHeight(730);
 			//primaryStage.initStyle(StageStyle.TRANSPARENT);
 			primaryStage.setTitle("Szerviz");
 			primaryStage.setScene(scene);
