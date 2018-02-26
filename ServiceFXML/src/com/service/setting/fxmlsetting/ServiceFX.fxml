@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableView?>
@@ -395,9 +396,97 @@
                               </Button>
                            </children>
                         </HBox>
-                        <AnchorPane prefHeight="673.0" prefWidth="1130.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="490.0">
+                        <AnchorPane layoutX="10.0" prefHeight="183.0" prefWidth="1120.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="490.0">
                            <children>
-                              <VBox prefHeight="200.0" prefWidth="162.0" />
+                              <VBox prefHeight="183.0" prefWidth="154.0">
+                                 <children>
+                                    <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="160.0" text="Vásárlási dátum">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin></Label>
+                                    <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="160.0" text="Bejelentés dátum">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="160.0" text="Határidő dátum">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="160.0" text="Kiszállás dátum">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="160.0" prefHeight="183.0" prefWidth="265.0">
+                                 <children>
+                                    <DatePicker prefHeight="36.0" prefWidth="265.0">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </DatePicker>
+                                    <DatePicker prefHeight="36.0" prefWidth="265.0">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </DatePicker>
+                                    <DatePicker prefHeight="36.0" prefWidth="265.0">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </DatePicker>
+                                    <DatePicker prefHeight="36.0" prefWidth="265.0">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </DatePicker>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="10.0" layoutY="490.0" prefHeight="183.0" prefWidth="1120.0">
+                           <children>
+                              <VBox prefHeight="183.0" prefWidth="154.0">
+                                 <children>
+                                    <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="160.0" text="Szoftver">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="160.0" text="Megnevezés">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="160.0" text="Egyéb softver">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="160.0" prefHeight="183.0" prefWidth="265.0">
+                                 <children>
+                                    <ComboBox prefHeight="36.0" prefWidth="265.0" promptText="Igen nem">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </ComboBox>
+                                    <ComboBox prefHeight="36.0" prefWidth="265.0" promptText="Win">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </ComboBox>
+                                    <TextArea prefHeight="94.0" prefWidth="265.0">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </TextArea>
+                                 </children>
+                              </VBox>
                            </children>
                         </AnchorPane>
                      </children>
