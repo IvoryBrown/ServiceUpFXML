@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="710.0" prefWidth="1350.0" stylesheets="@../desing/desing.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.service.client.table.ClientTable">
+<AnchorPane id="AnchorPane" prefHeight="710.0" prefWidth="1350.0" stylesheets="@../desing/desing.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.service.device.controller.DeviceNewController">
 	<children>
 		<SplitPane dividerPositions="0.5" layoutX="247.0" layoutY="231.0" prefHeight="710.0" prefWidth="1350.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="30.0">
 			<items>
@@ -272,39 +272,39 @@
                               </Label>
                            </children>
                         </VBox>
-                        <VBox layoutX="162.0" layoutY="64.0" prefHeight="381.0" prefWidth="265.0">
+                        <VBox layoutX="162.0" layoutY="64.0" prefHeight="374.0" prefWidth="265.0">
                            <children>
-                              <ComboBox prefHeight="36.0" prefWidth="265.0" promptText="asztali, laptop">
+                              <ComboBox id="deviceName" fx:id="deviceName" prefHeight="36.0" prefWidth="265.0">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </ComboBox>
-                              <ComboBox prefHeight="36.0" prefWidth="265.0" promptText="gyárto">
-                                 <VBox.margin>
-                                    <Insets top="5.0" />
-                                 </VBox.margin>
-                              </ComboBox>
-                              <TextField prefHeight="36.0" promptText="DSS2322">
+                              <TextField id="deviceManufacturer" fx:id="deviceManufacturer" prefHeight="36.0" promptText="Gyártó">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </TextField>
-                              <ComboBox prefHeight="36.0" prefWidth="265.0" promptText="muhely">
+                              <TextField id="deviceSerialNumber" fx:id="deviceSerialNumber" prefHeight="36.0" promptText="DSS2322">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <ComboBox id="deviceRepairLocation" fx:id="deviceRepairLocation" prefHeight="36.0" prefWidth="265.0">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </ComboBox>
-                              <ComboBox prefHeight="36.0" prefWidth="265.0" promptText="bevételeyve">
+                              <ComboBox id="deviceStatus" fx:id="deviceStatus" prefHeight="36.0" prefWidth="265.0">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </ComboBox>
-                              <ComboBox prefHeight="36.0" prefWidth="265.0" promptText="ujgép használt">
+                              <ComboBox id="deviceNewMachine" fx:id="deviceNewMachine" prefHeight="36.0" prefWidth="265.0">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </ComboBox>
-                              <ComboBox prefHeight="36.0" prefWidth="265.0" promptText="M.N">
+                              <ComboBox id="deviceAdministrator" fx:id="deviceAdministrator" prefHeight="36.0" prefWidth="265.0" promptText="M.N">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
