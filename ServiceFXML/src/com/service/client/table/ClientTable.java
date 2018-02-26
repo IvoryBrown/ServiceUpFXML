@@ -1,8 +1,5 @@
 package com.service.client.table;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import com.service.client.Client;
 import com.service.client.fillteringdb.ClientFillteringDB;
 import com.service.stock.controller.StockFXMLController;
@@ -15,7 +12,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -27,7 +23,7 @@ import javafx.util.Duration;
 import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
 
-public class ClientTable extends StockFXMLController implements Initializable {
+public class ClientTable extends StockFXMLController  {
 	@FXML
 	private TableView<Client> clientTable;
 	@FXML
@@ -287,7 +283,8 @@ public class ClientTable extends StockFXMLController implements Initializable {
 			tray = new TrayNotification("Remek!", "Sikeres Frissítés", NotificationType.SUCCESS);
 			tray.showAndDismiss(Duration.seconds(1));
 		} else {
-
+			tray = new TrayNotification("HIBA", "Üres a kereső mező", NotificationType.ERROR);
+			tray.showAndDismiss(Duration.seconds(2));
 		}
 	}
 
@@ -316,13 +313,5 @@ public class ClientTable extends StockFXMLController implements Initializable {
 		} else {
 			return true;
 		}
-	}
-
-	@Override
-	public void initialize(URL url, ResourceBundle rb) {
-		setMenuData();
-		setComponentAll();
-		setStockTableData();
-		setClientTableData();
 	}
 }
