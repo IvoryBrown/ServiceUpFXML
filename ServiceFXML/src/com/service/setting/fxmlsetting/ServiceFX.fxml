@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -220,7 +221,7 @@
                                     <Insets right="5.0" top="2.0" />
                                  </HBox.margin>
                               </TextField>
-                              <Button mnemonicParsing="false" onAction="#filteringClientBtn" prefHeight="36.0" prefWidth="206.0" text="Keresés" />
+                              <Button mnemonicParsing="false" onAction="#setButtonNewDevie" prefHeight="36.0" prefWidth="206.0" text="Új Eszköz" />
                            </children>
                         </HBox>
                         <VBox layoutX="14.0" layoutY="64.0" prefHeight="381.0" prefWidth="139.0">
@@ -399,7 +400,7 @@
                                     <Insets right="5.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="206.0" text="Hardver">
+                              <Button id="deviceBtnHardver" fx:id="deviceBtnHardver" mnemonicParsing="false" onAction="#setButtonPaneHardver" prefHeight="36.0" prefWidth="206.0" text="Hardver">
                                  <HBox.margin>
                                     <Insets right="5.0" />
                                  </HBox.margin>
@@ -457,10 +458,20 @@
                               </VBox>
                            </children>
                         </AnchorPane>
-                        <AnchorPane id="deviceAncorPSoftver" fx:id="deviceAncorPSoftver" layoutX="10.0" layoutY="490.0" prefHeight="183.0" prefWidth="1120.0">
+                        <AnchorPane id="deviceAncorPSoftver" fx:id="deviceAncorPSoftver" layoutX="10.0" layoutY="490.0" prefHeight="183.0" prefWidth="1120.0" visible="false">
                            <children>
+                              <VBox layoutX="419.0" prefHeight="183.0" prefWidth="141.0">
+                                 <children>
+                                    <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="160.0" text="Megjegyzés">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                 </children>
+                              </VBox>
                               <VBox prefHeight="183.0" prefWidth="141.0">
                                  <children>
+                                    <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="155.0" text="Adatmentés" />
                                     <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="160.0" text="Szoftver">
                                        <VBox.margin>
                                           <Insets top="5.0" />
@@ -471,26 +482,30 @@
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="160.0" text="Megjegyzés">
-                                       <VBox.margin>
-                                          <Insets top="5.0" />
-                                       </VBox.margin>
-                                    </Label>
                                  </children>
                               </VBox>
                               <VBox layoutX="147.0" prefHeight="183.0" prefWidth="265.0">
                                  <children>
+                                    <ComboBox id="deviceDataRecovery" fx:id="deviceDataRecovery" prefHeight="36.0" prefWidth="265.0">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </ComboBox>
                                     <ComboBox id="deviceSoftver" fx:id="deviceSoftver" prefHeight="36.0" prefWidth="265.0">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </ComboBox>
-                                    <ComboBox id="deviceOperatingSystem" fx:id="deviceOperatingSystem" prefHeight="36.0" prefWidth="265.0" promptText="Win">
+                                    <ComboBox id="deviceOperatingSystem" fx:id="deviceOperatingSystem" prefHeight="36.0" prefWidth="265.0">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
                                     </ComboBox>
-                                    <TextArea prefHeight="94.0" prefWidth="253.0">
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="568.0" prefHeight="183.0" prefWidth="467.0">
+                                 <children>
+                                    <TextArea id="deviceSoftverComment" fx:id="deviceSoftverComment" prefHeight="117.0" prefWidth="467.0">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
@@ -499,6 +514,147 @@
                               </VBox>
                            </children>
                         </AnchorPane>
+                        <AnchorPane id="deviceAncorPHardver" fx:id="deviceAncorPHardver" layoutY="476.0" prefHeight="176.0" prefWidth="1130.0">
+                           <children>
+                              <VBox layoutX="10.0" layoutY="10.0" prefHeight="183.0" prefWidth="75.0">
+                                 <children>
+                                    <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="160.0" text="Ház">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="160.0" text="Tápegység">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="160.0" text="Processzor">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="160.0" text="Alaplap">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="126.0" layoutY="10.0" prefHeight="183.0" prefWidth="87.0">
+                                 <children>
+                                    <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="160.0" text="Memória">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="160.0" text="Videokártya">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="160.0" text="SSD meghajtó">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="160.0" text="Merevlemez">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="249.0" layoutY="14.0" prefHeight="183.0" prefWidth="101.0">
+                                 <children>
+                                    <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="160.0" text="Hűtőventillátor">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="160.0" text="Optikai meghajtó">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="160.0" text="Bővítőkártya" />
+                                    <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="160.0" text="Laptop" />
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="85.0" layoutY="10.0" prefHeight="183.0" prefWidth="31.0">
+                                 <children>
+                                    <CheckBox id="deviceNewHouse" fx:id="deviceNewHouse" mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
+                                       <VBox.margin>
+                                          <Insets left="5.0" top="15.0" />
+                                       </VBox.margin>
+                                    </CheckBox>
+                                    <CheckBox mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
+                                       <VBox.margin>
+                                          <Insets left="5.0" top="20.0" />
+                                       </VBox.margin>
+                                    </CheckBox>
+                                    <CheckBox mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
+                                       <VBox.margin>
+                                          <Insets left="5.0" top="20.0" />
+                                       </VBox.margin>
+                                    </CheckBox>
+                                    <CheckBox mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
+                                       <VBox.margin>
+                                          <Insets left="5.0" top="20.0" />
+                                       </VBox.margin>
+                                    </CheckBox>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="213.0" layoutY="10.0" prefHeight="183.0" prefWidth="31.0">
+                                 <children>
+                                    <CheckBox mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
+                                       <VBox.margin>
+                                          <Insets left="5.0" top="15.0" />
+                                       </VBox.margin>
+                                    </CheckBox>
+                                    <CheckBox mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
+                                       <VBox.margin>
+                                          <Insets left="5.0" top="20.0" />
+                                       </VBox.margin>
+                                    </CheckBox>
+                                    <CheckBox mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
+                                       <VBox.margin>
+                                          <Insets left="5.0" top="20.0" />
+                                       </VBox.margin>
+                                    </CheckBox>
+                                    <CheckBox mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
+                                       <VBox.margin>
+                                          <Insets left="5.0" top="20.0" />
+                                       </VBox.margin>
+                                    </CheckBox>
+                                 </children>
+                              </VBox>
+                              <VBox layoutX="350.0" layoutY="14.0" prefHeight="183.0" prefWidth="31.0">
+                                 <children>
+                                    <CheckBox mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
+                                       <VBox.margin>
+                                          <Insets left="5.0" top="15.0" />
+                                       </VBox.margin>
+                                    </CheckBox>
+                                    <CheckBox mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
+                                       <VBox.margin>
+                                          <Insets left="5.0" top="20.0" />
+                                       </VBox.margin>
+                                    </CheckBox>
+                                    <CheckBox mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
+                                       <VBox.margin>
+                                          <Insets left="5.0" top="15.0" />
+                                       </VBox.margin>
+                                    </CheckBox>
+                                    <CheckBox mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
+                                       <VBox.margin>
+                                          <Insets left="5.0" top="15.0" />
+                                       </VBox.margin>
+                                    </CheckBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                        <TextField id="deviceNumber1" fx:id="deviceNumber1" editable="false" layoutX="913.0" layoutY="12.0" prefHeight="36.0" prefWidth="129.0" promptText="Azonosító" />
                      </children>
                   </AnchorPane>
 						<AnchorPane id="stockPane" fx:id="stockPane" prefHeight="698.0" prefWidth="1132.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

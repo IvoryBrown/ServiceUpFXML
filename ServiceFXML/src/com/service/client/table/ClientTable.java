@@ -29,7 +29,7 @@ public class ClientTable extends StockFXMLController  {
 	@FXML
 	private TextField clientNameFilteringTxt;
 	@FXML
-	private TextField deviceClientName, deviceCompanyName;
+	private TextField deviceClientName, deviceCompanyName,deviceNumber1;
 	private TableColumn<Client, Integer> clientId;
 	private TableColumn<Client, String> clientNumber, clientCompanyName, clientName, clientCounty, clientSettlement,
 			clientAddress, clientCompanyPhone, clientCompanyEmail, clientPhone, clientZipCode, clientEmail,
@@ -261,6 +261,7 @@ public class ClientTable extends StockFXMLController  {
 		clientTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Client>() {
 			@Override
 			public void changed(ObservableValue<? extends Client> observable, Client oldValue, Client newValue) {
+				deviceNumber1.setText(newValue.getClientId());
 				deviceClientName.setText(newValue.getClientName());
 				deviceCompanyName.setText(newValue.getClientCompanyName());
 			}
