@@ -8,6 +8,7 @@ import com.service.client.fillteringdb.ClientFillteringDB;
 import com.service.stock.controller.StockFXMLController;
 
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,7 +32,8 @@ public class ClientTable extends StockFXMLController implements Initializable {
 	private TableView<Client> clientTable;
 	@FXML
 	private TextField clientNameFilteringTxt;
-
+	@FXML
+	private TextField deviceClientName, deviceCompanyName;
 	private TableColumn<Client, Integer> clientId;
 	private TableColumn<Client, String> clientNumber, clientCompanyName, clientName, clientCounty, clientSettlement,
 			clientAddress, clientCompanyPhone, clientCompanyEmail, clientPhone, clientZipCode, clientEmail,
@@ -77,7 +79,7 @@ public class ClientTable extends StockFXMLController implements Initializable {
 				Client actualClient = (Client) d.getTableView().getItems().get(d.getTablePosition().getRow());
 				actualClient.setClientName(d.getNewValue());
 				clientDB.updateClient(actualClient);
-				tray = new TrayNotification("Cégnév!", "Sikeres Frissítése", NotificationType.SUCCESS);
+				tray = new TrayNotification("Ügyfél név!", "Sikeres Frissítése", NotificationType.SUCCESS);
 				tray.showAndDismiss(Duration.seconds(1));
 			}
 		});
@@ -121,7 +123,7 @@ public class ClientTable extends StockFXMLController implements Initializable {
 			@Override
 			public void handle(TableColumn.CellEditEvent<Client, String> d) {
 				try {
-					if (Integer.valueOf(d.getNewValue()) >= 2000 && Integer.valueOf(d.getNewValue()) <= 9985) {
+					if (Integer.valueOf(d.getNewValue()) >= 1000 && Integer.valueOf(d.getNewValue()) <= 9985) {
 						Client actualClient = (Client) d.getTableView().getItems().get(d.getTablePosition().getRow());
 						actualClient.setClientZipCode(d.getNewValue());
 						clientDB.updateClient(actualClient);
@@ -243,7 +245,7 @@ public class ClientTable extends StockFXMLController implements Initializable {
 			}
 		});
 
-		 colAction = new TableColumn<>("+");
+		colAction = new TableColumn<>("+");
 		colAction.setSortable(false);
 		colAction.setPrefWidth(40);
 		colAction.setCellValueFactory(
@@ -257,6 +259,14 @@ public class ClientTable extends StockFXMLController implements Initializable {
 			@Override
 			public TableCell<Client, Boolean> call(TableColumn<Client, Boolean> p) {
 				return new ButtonCell(clientTable);
+			}
+		});
+
+		clientTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Client>() {
+			@Override
+			public void changed(ObservableValue<? extends Client> observable, Client oldValue, Client newValue) {
+				deviceClientName.setText(newValue.getClientName());
+				deviceCompanyName.setText(newValue.getClientCompanyName());
 			}
 		});
 
