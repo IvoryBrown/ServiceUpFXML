@@ -16,7 +16,7 @@ public class MenuTreeItemController {
 	@FXML
 	protected Pane homePane, clientPane;
 	@FXML
-	protected AnchorPane stockPane, clientTablePane, newDevicePane;
+	protected AnchorPane stockPane, clientTablePane, newDevicePane, deviceTable;
 
 	private final String MENU_HOME = "Kezdőlap";
 	private final String MENU_CONTACTS = "Ügyfelek";
@@ -30,7 +30,6 @@ public class MenuTreeItemController {
 
 	@SuppressWarnings("unchecked")
 	protected void setMenuData() {
-
 		TreeItem<String> treeItemRoot1 = new TreeItem<>("Menü");
 		TreeView<String> treeView = new TreeView<>(treeItemRoot1);
 		treeView.setShowRoot(false);
@@ -68,6 +67,7 @@ public class MenuTreeItemController {
 						newDevicePane.setVisible(false);
 						clientTablePane.setVisible(false);
 						stockPane.setVisible(false);
+						deviceTable.setVisible(false);
 						break;
 					case MENU_CLIENT:
 						homePane.setVisible(false);
@@ -75,11 +75,21 @@ public class MenuTreeItemController {
 						newDevicePane.setVisible(false);
 						clientTablePane.setVisible(false);
 						stockPane.setVisible(false);
+						deviceTable.setVisible(false);
 						break;
 					case MENU_DEVICENEW:
 						homePane.setVisible(false);
 						clientPane.setVisible(false);
 						newDevicePane.setVisible(true);
+						clientTablePane.setVisible(false);
+						stockPane.setVisible(false);
+						deviceTable.setVisible(false);
+						break;
+					case MENU_DEVICETABLE:
+						deviceTable.setVisible(true);
+						homePane.setVisible(false);
+						clientPane.setVisible(false);
+						newDevicePane.setVisible(false);
 						clientTablePane.setVisible(false);
 						stockPane.setVisible(false);
 						break;
@@ -89,6 +99,7 @@ public class MenuTreeItemController {
 						newDevicePane.setVisible(false);
 						clientTablePane.setVisible(true);
 						stockPane.setVisible(false);
+						deviceTable.setVisible(false);
 						break;
 					case MENU_STOCK:
 						homePane.setVisible(false);
@@ -96,6 +107,7 @@ public class MenuTreeItemController {
 						newDevicePane.setVisible(false);
 						clientTablePane.setVisible(false);
 						stockPane.setVisible(true);
+						deviceTable.setVisible(false);
 						break;
 					case MENU_EXIT:
 						System.exit(0);
