@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
+import com.service.device.Device;
 import com.service.setting.database.DataBaseConnect;
 import com.service.setting.showinfo.ShowInfo;
 
@@ -17,6 +20,40 @@ public class DeviceFillteringDB {
 
 	public DeviceFillteringDB() {
 		initialize();
+	}
+
+	public static ArrayList<Device> getAllDevice() {
+		Connection con = DataBaseConnect.getConnection();
+		String sql = "SELECT * FROM `gepadatok`";
+		ArrayList<Device> device = null;
+		Statement createStatement = null;
+		ResultSet rs = null;
+		try {
+			createStatement = con.createStatement();
+			rs = createStatement.executeQuery(sql);
+			device = new ArrayList<>();
+			while (rs.next()) {
+				Device actualDevice = new Device(rs.getString("id_gepadatok"), rs.getBoolean("laptop"));
+				device.add(actualDevice);
+			}
+		} catch (SQLException e) {
+			ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (createStatement != null) {
+					createStatement.close();
+				}
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
+			}
+		}
+		return device;
 	}
 
 	public void initialize() {
@@ -45,6 +82,20 @@ public class DeviceFillteringDB {
 			} catch (SQLException e) {
 				ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
 			}
+		}
+	}
+	public void updateDevice(Device client) {
+		Connection conn = DataBaseConnect.getConnection();
+		try {
+			String sqlClient = "UPDATE `gepadatok` set laptop = ?" + " WHERE id_gepadatok = ?";
+			PreparedStatement pr = conn.prepareStatement(sqlClient);
+			pr.setString(1, client.getDeviceID());
+			pr.setBoolean(2, client.setDeviceLaptop());
+			
+			pr.execute();
+		} catch (SQLException e) {
+			System.out.println(e);
+			e.printStackTrace();
 		}
 	}
 }
