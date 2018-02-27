@@ -33,7 +33,7 @@ public class DeviceFillteringDB {
 			rs = createStatement.executeQuery(sql);
 			device = new ArrayList<>();
 			while (rs.next()) {
-				Device actualDevice = new Device(rs.getString("id_gepadatok"), rs.getBoolean("laptop"));
+				Device actualDevice = new Device(rs.getString("id_gepadatok"),rs.getString("ugyintezo"), rs.getBoolean("laptop"));
 				device.add(actualDevice);
 			}
 		} catch (SQLException e) {
@@ -87,10 +87,13 @@ public class DeviceFillteringDB {
 	public void updateDevice(Device client) {
 		Connection conn = DataBaseConnect.getConnection();
 		try {
-			String sqlClient = "UPDATE `gepadatok` set laptop = ?" + " WHERE id_gepadatok = ?";
+			String sqlClient = "UPDATE `gepadatok` set ugyintezo = ?, laptop = ?" + " WHERE id_gepadatok = ?";
 			PreparedStatement pr = conn.prepareStatement(sqlClient);
-			pr.setString(1, client.getDeviceID());
-			pr.setBoolean(2, client.setDeviceLaptop());
+			
+			pr.setString(1, client.getDeviceAdministrator());
+			pr.setBoolean(2, client.getDeviceLaptop());
+			pr.setString(3, client.getDeviceID());
+			
 			
 			pr.execute();
 		} catch (SQLException e) {

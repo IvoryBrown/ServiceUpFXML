@@ -5,14 +5,16 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Device {
 	private final SimpleStringProperty deviceID;
+	private final SimpleStringProperty deviceAdministrator;
 	private final SimpleBooleanProperty deviceLaptop;
 
-	public Device(String dDeviceID, boolean dDeviceLaptop) {
+	public Device(String dDeviceID,String dDeviceAdministrator, boolean dDeviceLaptop) {
 		this.deviceID = new SimpleStringProperty(dDeviceID);
+		this.deviceAdministrator = new SimpleStringProperty(dDeviceAdministrator);
 		this.deviceLaptop = new SimpleBooleanProperty(dDeviceLaptop);
 	}
 
-	public boolean setDeviceLaptop() {
+	public boolean getDeviceLaptop() {
 		return deviceLaptop.get();
 	}
 
@@ -26,6 +28,13 @@ public class Device {
 
 	public void setDeviceID(String deviceID) {
 		this.deviceID.set(deviceID);
+	}
+	public String getDeviceAdministrator() {
+		return deviceAdministrator.get();
+	}
+	
+	public void setDeviceAdministrator(String dDeviceAdministrator) {
+		this.deviceAdministrator.set(dDeviceAdministrator);
 	}
 
 }
