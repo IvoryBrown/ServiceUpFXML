@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="710.0" prefWidth="1350.0" stylesheets="@../desing/desing.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.service.device.controller.DeviceNewController">
+<AnchorPane id="AnchorPane" prefHeight="710.0" prefWidth="1350.0" stylesheets="@../desing/desing.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.service.device.table.DeviceTable">
 	<children>
 		<SplitPane dividerPositions="0.5" layoutX="247.0" layoutY="231.0" prefHeight="710.0" prefWidth="1350.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="30.0">
 			<items>
@@ -202,9 +202,9 @@
 								<Button id="btnClientNewClient" fx:id="btnClientNewClient" layoutX="316.0" layoutY="574.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="206.0" text="Új Ügyfél" />
 							</children>
 						</Pane>
-                  <AnchorPane id="newDevicePane" fx:id="newDevicePane" prefHeight="673.0" prefWidth="1130.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane id="newDevicePane" fx:id="newDevicePane" prefHeight="673.0" prefWidth="1130.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <HBox layoutX="14.0" layoutY="14.0" prefHeight="40.0" prefWidth="831.0">
+                        <HBox layoutX="14.0" layoutY="14.0" prefHeight="40.0" prefWidth="1109.0">
                            <children>
                               <TextField id="deviceNumber" fx:id="deviceNumber" editable="false" prefHeight="36.0" prefWidth="129.0" promptText="Azonosító">
                                  <HBox.margin>
@@ -221,7 +221,15 @@
                                     <Insets right="5.0" top="2.0" />
                                  </HBox.margin>
                               </TextField>
-                              <Button mnemonicParsing="false" onAction="#setButtonNewDevie" prefHeight="36.0" prefWidth="206.0" text="Új Eszköz" />
+                              <Button mnemonicParsing="false" onAction="#setButtonNewDevie" prefHeight="36.0" prefWidth="206.0" text="Új Eszköz">
+                                 <HBox.margin>
+                                    <Insets right="5.0" top="2.0" />
+                                 </HBox.margin></Button>
+                              <Button mnemonicParsing="false" onAction="#setClearAllText" prefHeight="36.0" prefWidth="206.0" text="Adatok Nullázása">
+                                 <HBox.margin>
+                                    <Insets top="2.0" />
+                                 </HBox.margin>
+                              </Button>
                            </children>
                         </HBox>
                         <VBox layoutX="14.0" layoutY="64.0" prefHeight="381.0" prefWidth="139.0">
@@ -348,7 +356,7 @@
                         </VBox>
                         <VBox layoutX="581.0" layoutY="106.0" prefHeight="291.0" prefWidth="467.0">
                            <children>
-                              <TextArea id="deviceAccesssory" fx:id="deviceAccesssory" prefHeight="65.0" prefWidth="467.0" promptText="Tartozéké" wrapText="true">
+                              <TextArea id="deviceAccesssory" fx:id="deviceAccesssory" prefHeight="65.0" prefWidth="467.0" promptText="Tartozékok" wrapText="true">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
@@ -363,7 +371,7 @@
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </TextArea>
-                              <TextArea id="deviceComment" fx:id="deviceComment" prefHeight="45.0" prefWidth="467.0" promptText="Mgejegyzés" wrapText="true">
+                              <TextArea id="deviceComment" fx:id="deviceComment" prefHeight="45.0" prefWidth="467.0" promptText="Megjegyzés" wrapText="true">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
@@ -458,7 +466,7 @@
                               </VBox>
                            </children>
                         </AnchorPane>
-                        <AnchorPane id="deviceAncorPSoftver" fx:id="deviceAncorPSoftver" layoutX="10.0" layoutY="490.0" prefHeight="183.0" prefWidth="1120.0" visible="false">
+                        <AnchorPane id="deviceAncorPSoftver" fx:id="deviceAncorPSoftver" layoutX="10.0" layoutY="490.0" prefHeight="183.0" prefWidth="1120.0">
                            <children>
                               <VBox layoutX="419.0" prefHeight="183.0" prefWidth="141.0">
                                  <children>
@@ -505,7 +513,7 @@
                               </VBox>
                               <VBox layoutX="568.0" prefHeight="183.0" prefWidth="467.0">
                                  <children>
-                                    <TextArea id="deviceSoftverComment" fx:id="deviceSoftverComment" prefHeight="117.0" prefWidth="467.0">
+                                    <TextArea id="deviceSoftverComment" fx:id="deviceSoftverComment" prefHeight="117.0" prefWidth="467.0" promptText="Softver megjegyzés">
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
@@ -514,7 +522,7 @@
                               </VBox>
                            </children>
                         </AnchorPane>
-                        <AnchorPane id="deviceAncorPHardver" fx:id="deviceAncorPHardver" layoutY="476.0" prefHeight="176.0" prefWidth="1130.0">
+                        <AnchorPane id="deviceAncorPHardver" fx:id="deviceAncorPHardver" layoutY="476.0" prefHeight="176.0" prefWidth="1130.0" visible="false">
                            <children>
                               <VBox layoutX="10.0" layoutY="10.0" prefHeight="183.0" prefWidth="75.0">
                                  <children>
@@ -654,7 +662,7 @@
                               </VBox>
                            </children>
                         </AnchorPane>
-                        <TextField id="deviceClientId" fx:id="deviceClientId" editable="false" layoutX="913.0" layoutY="12.0" prefHeight="36.0" prefWidth="129.0" promptText="Azonosító" />
+                        <TextField id="deviceClientId" fx:id="deviceClientId" editable="false" layoutX="919.0" layoutY="66.0" prefHeight="36.0" prefWidth="129.0" promptText="Azonosító" visible="false" />
                      </children>
                   </AnchorPane>
 						<AnchorPane id="stockPane" fx:id="stockPane" prefHeight="698.0" prefWidth="1132.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -747,6 +755,19 @@
 
 							</children>
 						</AnchorPane>
+                  <AnchorPane id="deviceTable" fx:id="deviceTable" prefHeight="673.0" prefWidth="1130.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="93.0">
+                     <children>
+                        <TableView id="deviceAllTable" fx:id="deviceAllTable" editable="true" layoutX="14.0" layoutY="155.0" prefHeight="673.0" prefWidth="1130.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <placeholder>
+										<Label text="Nincs adat." />
+									</placeholder>
+									<columns>
+									</columns>
+									<columns>
+									</columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
 					</children>
 				</AnchorPane>
 			</items>
