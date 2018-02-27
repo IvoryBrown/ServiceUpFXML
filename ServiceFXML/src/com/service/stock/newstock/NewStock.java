@@ -27,7 +27,7 @@ public class NewStock implements Initializable {
 	@FXML
 	private DatePicker stockDeviceDate, stockDeviceSalesDate;
 
-	TrayNotification tray;
+	private TrayNotification tray;
 
 	private boolean setStockCheckTxt() {
 		if (stockDeviceName.getText().trim().isEmpty()) {

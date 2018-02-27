@@ -654,7 +654,7 @@
                               </VBox>
                            </children>
                         </AnchorPane>
-                        <TextField id="deviceNumber1" fx:id="deviceNumber1" editable="false" layoutX="913.0" layoutY="12.0" prefHeight="36.0" prefWidth="129.0" promptText="Azonosító" />
+                        <TextField id="deviceClientId" fx:id="deviceClientId" editable="false" layoutX="913.0" layoutY="12.0" prefHeight="36.0" prefWidth="129.0" promptText="Azonosító" visible="false" />
                      </children>
                   </AnchorPane>
 						<AnchorPane id="stockPane" fx:id="stockPane" prefHeight="698.0" prefWidth="1132.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

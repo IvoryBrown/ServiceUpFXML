@@ -1,15 +1,10 @@
 package com.service.device.controller;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import com.service.client.table.ClientTable;
 import com.service.device.fillteringdb.DeviceFillteringDB;
-import com.service.setting.database.DataBaseConnect;
-import com.service.setting.showinfo.ShowInfo;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,11 +15,14 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 public class DeviceNewController extends ClientTable implements Initializable {
 	@FXML
 	private TextField deviceNumber1, deviceNumber, deviceSerialNumber, deviceManufacturer, devicePassword,
-			deviceReferences;
+			deviceReferences, deviceClientName, deviceCompanyName, deviceClientId;
 	@FXML
 	private TextArea deviceAccesssory, deviceInjury, deviceErrorDescription, deviceComment, deviceSoftverComment;
 	@FXML
@@ -86,22 +84,57 @@ public class DeviceNewController extends ClientTable implements Initializable {
 
 	@FXML
 	private void setButtonNewDevie() {
-		try {
-			Connection con = DataBaseConnect.getConnection();
-			PreparedStatement device = con.prepareStatement(
-					"INSERT INTO gepadatok(ugyfel_adatok_id_ugyfel, eszkoz_fajtaja, eszkoz_gyarto) values(?,?,?) ");
+		if (setDeviceClientCheck()) {
+			if (setDeviceCheck()) {
 
-			device.setString(1, deviceNumber1.getText());
-			device.setString(2, deviceSerialNumber.getText());
+			} else {
+				tray = new TrayNotification("HIBA", "Nincs minden mező kitöltve", NotificationType.ERROR);
+				tray.showAndDismiss(Duration.seconds(2));
+			}
+		} else {
+			tray = new TrayNotification("HIBA", "Nincs ügyfél kiválasztva", NotificationType.ERROR);
+			tray.showAndDismiss(Duration.seconds(2));
+		}
+	}
 
-			device.setBoolean(3, deviceNewHouse.isSelected());
-			device.executeUpdate();
-			System.out.println(deviceNumber1.getText());
-			System.out.println(deviceSerialNumber.getText());
-			System.out.println(deviceNewHouse.isSelected());
-		} catch (SQLException ex) {
+	private boolean setDeviceClientCheck() {
+		if (deviceClientName.getText().trim().isEmpty() || deviceCompanyName.getText().trim().isEmpty()
+				|| deviceClientId.getText().trim().isEmpty()) {
+			deviceCompanyName.setPromptText("Kérlek válasz a táblából!");
+			deviceClientName.setPromptText("Kérlek válasz a táblából!");
+			return false;
+		} else {
+			deviceCompanyName.setStyle(null);
+			deviceClientName.setStyle(null);
+			return true;
+		}
+	}
 
-			ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", ex.getMessage());
+	private boolean setDeviceCheck() {
+		if (deviceName.getValue() == null || deviceManufacturer.getText().trim().isEmpty()
+				|| deviceSerialNumber.getText().trim().isEmpty() || deviceRepairLocation.getValue() == null
+				|| deviceStatus.getValue() == null || deviceNewMachine.getValue() == null
+				|| deviceAdministrator.getValue() == null || devicePriorit.getValue() == null
+				|| deviceAccesssory.getText().trim().isEmpty() || deviceInjury.getText().trim().isEmpty()
+				|| deviceErrorDescription.getText().trim().isEmpty() || deviceAddDate.getValue() == null
+				|| deviceEndDate.getValue() == null || deviceDataRecovery.getValue() == null) {
+			deviceName.setPromptText("Kérlek válasz!");
+			deviceManufacturer.setPromptText("Kérlek válasz!");
+			deviceSerialNumber.setPromptText("Kérlek válasz!");
+			deviceRepairLocation.setPromptText("Kérlek válasz!");
+			deviceStatus.setPromptText("Kérlek válasz!");
+			deviceNewMachine.setPromptText("Kérlek válasz!");
+			deviceAdministrator.setPromptText("Kérlek válasz!");
+			devicePriorit.setPromptText("Kérlek válasz!");
+			deviceAccesssory.setPromptText("Kérlek válasz!");
+			deviceInjury.setPromptText("Kérlek válasz!");
+			deviceErrorDescription.setPromptText("Kérlek válasz!");
+			deviceAddDate.setPromptText("Kérlek válasz!");
+			deviceEndDate.setPromptText("Kérlek válasz!");
+			deviceDataRecovery.setPromptText("Kérlek válasz!");
+			return false;
+		} else {
+			return true;
 		}
 
 	}
