@@ -35,7 +35,8 @@ public class DeviceNewController extends ClientTable implements Initializable {
 	@FXML
 	private DatePicker deviceSalesBuying, deviceAddDate, deviceEndDate, deviceDeliveryDate;
 	@FXML
-	private CheckBox deviceNewHouse;
+	private CheckBox deviceNewHouse, devicePowerSupply, deviceProcessor, deviceBaseBoard, deviceMemory, deviceVideoCard,
+			deviceSSDDrive, deviceHardDrive, deviceCoolingFan, deviceOpticalDrive, deviceExpansionCard, deviceLaptop;
 	private final String CMBDEVICENAME[] = { "Asztali PC", "Notebook", "Nyomtató", "Monitor", "Projektor", "Pendrive",
 			"Szünetmentes tápegység", "Egyéb" };
 	private final String CMBDEVICEREPAIRLOCATION[] = { "Szervíz", "Helyszíni" };
@@ -63,7 +64,6 @@ public class DeviceNewController extends ClientTable implements Initializable {
 		deviceAnchorPDate.setVisible(true);
 		deviceAncorPSoftver.setVisible(false);
 		deviceAncorPHardver.setVisible(false);
-
 	}
 
 	@FXML
@@ -71,7 +71,6 @@ public class DeviceNewController extends ClientTable implements Initializable {
 		deviceAnchorPDate.setVisible(false);
 		deviceAncorPSoftver.setVisible(true);
 		deviceAncorPHardver.setVisible(false);
-
 	}
 
 	@FXML
@@ -79,14 +78,18 @@ public class DeviceNewController extends ClientTable implements Initializable {
 		deviceAnchorPDate.setVisible(false);
 		deviceAncorPSoftver.setVisible(false);
 		deviceAncorPHardver.setVisible(true);
-
 	}
 
 	@FXML
 	private void setButtonNewDevie() {
 		if (setDeviceClientCheck()) {
 			if (setDeviceCheck()) {
+				if (setDeviceSoftverCheck()) {
 
+				} else {
+					tray = new TrayNotification("HIBA", "Nincs Softver kiválasztva", NotificationType.ERROR);
+					tray.showAndDismiss(Duration.seconds(2));
+				}
 			} else {
 				tray = new TrayNotification("HIBA", "Nincs minden mező kitöltve", NotificationType.ERROR);
 				tray.showAndDismiss(Duration.seconds(2));
@@ -134,9 +137,38 @@ public class DeviceNewController extends ClientTable implements Initializable {
 			deviceDataRecovery.setPromptText("Kérlek válasz!");
 			return false;
 		} else {
+			deviceName.setPromptText(null);
+			deviceManufacturer.setPromptText(null);
+			deviceSerialNumber.setPromptText(null);
+			deviceRepairLocation.setPromptText(null);
+			deviceStatus.setPromptText(null);
+			deviceNewMachine.setPromptText(null);
+			deviceAdministrator.setPromptText(null);
+			devicePriorit.setPromptText(null);
+			deviceAccesssory.setPromptText(null);
+			deviceInjury.setPromptText(null);
+			deviceErrorDescription.setPromptText(null);
+			deviceAddDate.setPromptText(null);
+			deviceEndDate.setPromptText(null);
+			deviceDataRecovery.setPromptText(null);
 			return true;
 		}
 
+	}
+
+	private boolean setDeviceSoftverCheck() {
+		if (deviceSoftver.getSelectionModel().getSelectedIndex() == 0) {
+			if (deviceOperatingSystem.getValue() == null) {
+				deviceOperatingSystem.setPromptText("Kérlek válasz!");
+				return false;
+			} else {
+				deviceOperatingSystem.setPromptText(null);
+				return true;
+			}
+		} else {
+			deviceOperatingSystem.setPromptText(null);
+			return true;
+		}
 	}
 
 	@Override

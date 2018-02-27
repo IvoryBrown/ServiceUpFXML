@@ -315,7 +315,7 @@
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </ComboBox>
-                              <TextField id="devicePassword" fx:id="devicePassword" prefHeight="36.0" promptText="Pasword">
+                              <TextField id="devicePassword" fx:id="devicePassword" prefHeight="36.0" promptText="Pasword" text="Nincs">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
@@ -587,17 +587,17 @@
                                           <Insets left="5.0" top="15.0" />
                                        </VBox.margin>
                                     </CheckBox>
-                                    <CheckBox mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
+                                    <CheckBox id="devicePowerSupply" fx:id="devicePowerSupply" mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
                                        <VBox.margin>
                                           <Insets left="5.0" top="20.0" />
                                        </VBox.margin>
                                     </CheckBox>
-                                    <CheckBox mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
+                                    <CheckBox id="deviceProcessor" fx:id="deviceProcessor" mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
                                        <VBox.margin>
                                           <Insets left="5.0" top="20.0" />
                                        </VBox.margin>
                                     </CheckBox>
-                                    <CheckBox mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
+                                    <CheckBox id="deviceBaseBoard" fx:id="deviceBaseBoard" mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
                                        <VBox.margin>
                                           <Insets left="5.0" top="20.0" />
                                        </VBox.margin>
@@ -606,22 +606,22 @@
                               </VBox>
                               <VBox layoutX="213.0" layoutY="10.0" prefHeight="183.0" prefWidth="31.0">
                                  <children>
-                                    <CheckBox mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
+                                    <CheckBox id="deviceMemory" fx:id="deviceMemory" mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
                                        <VBox.margin>
                                           <Insets left="5.0" top="15.0" />
                                        </VBox.margin>
                                     </CheckBox>
-                                    <CheckBox mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
+                                    <CheckBox id="deviceVideoCard" fx:id="deviceVideoCard" mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
                                        <VBox.margin>
                                           <Insets left="5.0" top="20.0" />
                                        </VBox.margin>
                                     </CheckBox>
-                                    <CheckBox mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
+                                    <CheckBox id="deviceSSDDrive" fx:id="deviceSSDDrive" mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
                                        <VBox.margin>
                                           <Insets left="5.0" top="20.0" />
                                        </VBox.margin>
                                     </CheckBox>
-                                    <CheckBox mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
+                                    <CheckBox id="deviceHardDrive" fx:id="deviceHardDrive" mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
                                        <VBox.margin>
                                           <Insets left="5.0" top="20.0" />
                                        </VBox.margin>
@@ -630,22 +630,22 @@
                               </VBox>
                               <VBox layoutX="350.0" layoutY="14.0" prefHeight="183.0" prefWidth="31.0">
                                  <children>
-                                    <CheckBox mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
+                                    <CheckBox id="deviceCoolingFan" fx:id="deviceCoolingFan" mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
                                        <VBox.margin>
                                           <Insets left="5.0" top="15.0" />
                                        </VBox.margin>
                                     </CheckBox>
-                                    <CheckBox mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
+                                    <CheckBox id="deviceOpticalDrive" fx:id="deviceOpticalDrive" mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
                                        <VBox.margin>
                                           <Insets left="5.0" top="20.0" />
                                        </VBox.margin>
                                     </CheckBox>
-                                    <CheckBox mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
+                                    <CheckBox id="deviceExpansionCard" fx:id="deviceExpansionCard" mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
                                        <VBox.margin>
                                           <Insets left="5.0" top="15.0" />
                                        </VBox.margin>
                                     </CheckBox>
-                                    <CheckBox mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
+                                    <CheckBox id="deviceLaptop" fx:id="deviceLaptop" mnemonicParsing="false" prefHeight="0.0" prefWidth="25.0">
                                        <VBox.margin>
                                           <Insets left="5.0" top="15.0" />
                                        </VBox.margin>
