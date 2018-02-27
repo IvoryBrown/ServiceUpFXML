@@ -253,3 +253,20 @@
     -fx-background-color: linear-gradient(#61a2b1, #2A5058);
 }
  
+.check-box .box {
+
+-fx-background-color: #616161;
+-fx-border-color:#61a2b1;
+-fx-border-radius:3px; 
+
+}
+.check-box:selected .mark {
+
+-fx-background-color: white;
+
+}
+
+.check-box:selected .box {
+
+-fx-background-color: linear-gradient(#61a2b1, #2A5058);
+}
