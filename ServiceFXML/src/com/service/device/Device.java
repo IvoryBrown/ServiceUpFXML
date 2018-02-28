@@ -1,5 +1,8 @@
 package com.service.device;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javafx.beans.property.ObjectProperty;
@@ -49,6 +52,7 @@ public class Device {
 	private final SimpleObjectProperty<Date> deviceCompletedDate;
 	private final SimpleStringProperty deviceErrorCorrection;
 	private final SimpleStringProperty deviceTechnicalPerson;
+	private String reportSalesBuyingsDate;
 
 	public Device(String deviceID, String deviceNumber, String deviceCompanyName, String deviceClientName,
 			String deviceName, String deviceManufacturer, String deviceSerialNumber, String deviceRepairLocation,
@@ -254,6 +258,18 @@ public class Device {
 
 	public Date getDeviceSalesBuying() {
 		return (Date) this.deviceSalesBuying.get();
+	}
+
+	public String getDeviceSalesBuyings()  {
+		DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			Date date = inputFormat.parse(String.valueOf(deviceSalesBuying.getValue()));
+			reportSalesBuyingsDate = outputFormat.format(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return this.reportSalesBuyingsDate;
 	}
 
 	public void setDeviceSalesBuying(Date deviceSalesBuying) {

@@ -40,7 +40,7 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 	private TableColumn<Device, Integer> deviceTableId, deviceTableNumber;
 	private TableColumn<Device, Boolean> deviceTableNewHouse, deviceTablePowerSupply, deviceTableProcessor,
 			deviceTableBaseBoard, deviceTableMemory, deviceTableVideoCard, deviceTableSSDDrive, deviceTableHardDrive,
-			deviceTableCoolingFan, deviceTableOpticalDrive, deviceTableExpansionCard, deviceTableLaptop;
+			deviceTableCoolingFan, deviceTableOpticalDrive, deviceTableExpansionCard, deviceTableLaptop, colDeviceAction;
 	private TableColumn<Device, String> deviceTableCompanyName, deviceTableClientName, deviceTableName,
 			deviceTabelManufacturer, deviceTabelSerialNumber, deviceTableRepairLocation, deviceTableStatus,
 			deviceTableNewMachine, deviceTableAdministrator, deviceTablePriorit, deviceTablePassword,
@@ -49,6 +49,9 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 			deviceTableSoftverComment, deviceTableErrorCorrection, deviceTableTechnicalPerson;
 	private TableColumn<Device, Date> deviceTableSalesBuying, deviceTableAddDate, deviceTableEndDate,
 			deviceTableDeliveryDate, deviceTbaleCompletedDate;
+	private TableColumn<Device, String> setDeviceTablePerson;
+	private TableColumn<Device, Boolean> setDeviceTableNewDevice;
+	private TableColumn<Device, Date> setDeviceAllDate;
 	private final ObservableList<Device> dataDevice = FXCollections.observableArrayList();
 	DeviceFillteringDB deviceDb = new DeviceFillteringDB();
 
@@ -58,6 +61,23 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 	protected void setDeviceTableData() {
 		Callback<TableColumn<Device, Date>, TableCell<Device, Date>> dateCellFactory = (
 				TableColumn<Device, Date> param) -> new DataEditingCellDevice();
+				
+				colDeviceAction = new TableColumn<>("+");
+				colDeviceAction.setSortable(false);
+				colDeviceAction.setPrefWidth(40);
+				colDeviceAction.setCellValueFactory(
+						new Callback<TableColumn.CellDataFeatures<Device, Boolean>, ObservableValue<Boolean>>() {
+							@Override
+							public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Device, Boolean> p) {
+								return new SimpleBooleanProperty(p.getValue() != null);
+							}
+						});
+				colDeviceAction.setCellFactory(new Callback<TableColumn<Device, Boolean>, TableCell<Device, Boolean>>() {
+					@Override
+					public TableCell<Device, Boolean> call(TableColumn<Device, Boolean> p) {
+						return new DeviceButtonCell(deviceAllTable);
+					}
+				});
 
 		deviceTableId = new TableColumn<>("ID");
 		deviceTableId.setMinWidth(50);
@@ -177,6 +197,9 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 			}
 		});
 
+		setDeviceTablePerson = new TableColumn<>("Dolgozok");
+		setDeviceTablePerson.getColumns().addAll(deviceTableAdministrator, deviceTableTechnicalPerson);
+
 		deviceTablePriorit = new TableColumn<>("Prioritás");
 		deviceTablePriorit.setMinWidth(70);
 		deviceTablePriorit.setCellValueFactory(new PropertyValueFactory<Device, String>("devicePriorit"));
@@ -255,15 +278,15 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 			}
 		});
 
-		deviceTableSalesBuying = new TableColumn<>("Vásárlási dátum");
+		deviceTableSalesBuying = new TableColumn<>("Vásárlási");
 		deviceTableSalesBuying.setMinWidth(70);
 		deviceTableSalesBuying.setCellValueFactory(new PropertyValueFactory<Device, Date>("deviceSalesBuying"));
 
-		deviceTableAddDate = new TableColumn<>("Bejelentés dátum");
+		deviceTableAddDate = new TableColumn<>("Bejelentés");
 		deviceTableAddDate.setMinWidth(70);
 		deviceTableAddDate.setCellValueFactory(new PropertyValueFactory<Device, Date>("deviceAddDate"));
 
-		deviceTableEndDate = new TableColumn<>("Határidő dátum*");
+		deviceTableEndDate = new TableColumn<>("Határidő*");
 		deviceTableEndDate.setMinWidth(140);
 		deviceTableEndDate.setCellValueFactory(cellData -> cellData.getValue().getDeviceEndDateObject());
 		deviceTableEndDate.setCellFactory(dateCellFactory);
@@ -278,7 +301,7 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 			}
 		});
 
-		deviceTableDeliveryDate = new TableColumn<>("Kiszállás dátum*");
+		deviceTableDeliveryDate = new TableColumn<>("Kiszállás*");
 		deviceTableDeliveryDate.setMinWidth(140);
 		deviceTableDeliveryDate.setCellValueFactory(cellData -> cellData.getValue().getDeviceDeliveryDateObject());
 		deviceTableDeliveryDate.setCellFactory(dateCellFactory);
@@ -306,6 +329,10 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 				tray.showAndDismiss(Duration.seconds(1));
 			}
 		});
+		
+		setDeviceAllDate= new TableColumn<>("Dátumok");
+		setDeviceAllDate.getColumns().addAll(deviceTableSalesBuying, deviceTableAddDate, deviceTableEndDate,
+			deviceTableDeliveryDate, deviceTbaleCompletedDate);
 
 		deviceTableDataRecovery = new TableColumn<>("Adatmentés");
 		deviceTableDataRecovery.setMinWidth(50);
@@ -582,18 +609,20 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 					}
 				});
 
+		setDeviceTableNewDevice = new TableColumn<>("Új gép");
+		setDeviceTableNewDevice.getColumns().addAll(deviceTableNewHouse, deviceTablePowerSupply, deviceTableProcessor,
+				deviceTableBaseBoard, deviceTableMemory, deviceTableVideoCard, deviceTableSSDDrive,
+				deviceTableHardDrive, deviceTableCoolingFan, deviceTableOpticalDrive, deviceTableExpansionCard,
+				deviceTableLaptop);
+
 		deviceAllTable.setItems(dataDevice);
-		deviceAllTable.getColumns().addAll(deviceTableId, deviceTableNumber, deviceTableCompanyName,
+		deviceAllTable.getColumns().addAll(colDeviceAction,deviceTableId, deviceTableNumber, deviceTableCompanyName,
 				deviceTableClientName, deviceTableName, deviceTabelManufacturer, deviceTabelSerialNumber,
-				deviceTableRepairLocation, deviceTableStatus, deviceTableNewMachine, deviceTableAdministrator,
-				deviceTableTechnicalPerson, deviceTablePriorit, deviceTablePassword, deviceTableReferences,
-				deviceTableAccesssory, deviceTableInjury, deviceTableErrorDescription, deviceTableErrorCorrection,
-				deviceTableComment, deviceTableSalesBuying, deviceTableAddDate, deviceTableEndDate,
-				deviceTableDeliveryDate, deviceTbaleCompletedDate, deviceTableDataRecovery, deviceTableSoftver,
-				deviceTableOperatingSystem, deviceTableSoftverComment, deviceTableNewHouse, deviceTablePowerSupply,
-				deviceTableProcessor, deviceTableBaseBoard, deviceTableMemory, deviceTableVideoCard,
-				deviceTableSSDDrive, deviceTableHardDrive, deviceTableCoolingFan, deviceTableOpticalDrive,
-				deviceTableExpansionCard, deviceTableLaptop);
+				deviceTableRepairLocation, deviceTableStatus, deviceTableNewMachine, setDeviceTablePerson,
+				deviceTablePriorit, deviceTablePassword, deviceTableReferences, deviceTableAccesssory,
+				deviceTableInjury, deviceTableErrorDescription, deviceTableErrorCorrection, deviceTableComment,
+				setDeviceAllDate, deviceTableDataRecovery, deviceTableSoftver, deviceTableOperatingSystem,
+				deviceTableSoftverComment, setDeviceTableNewDevice);
 		dataDevice.addAll(DeviceFillteringDB.getAllDevice());
 	}
 
