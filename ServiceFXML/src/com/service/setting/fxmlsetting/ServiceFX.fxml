@@ -15,7 +15,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="710.0" prefWidth="1350.0" stylesheets="@../desing/desing.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.service.device.table.DeviceTable">
 	<children>
@@ -29,179 +28,6 @@
 				<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
 					<children>
 						<Pane id="homePane" fx:id="homePane" layoutX="181.0" layoutY="256.0" prefHeight="698.0" prefWidth="1132.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-						<Pane id="clientPane" fx:id="clientPane" prefHeight="698.0" prefWidth="1132.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-							<children>
-								<VBox layoutY="-1.0" prefHeight="503.0" prefWidth="224.0">
-									<children>
-										<Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="206.0" text="ID:">
-											<font>
-												<Font size="14.0" />
-											</font>
-											<VBox.margin>
-												<Insets top="5.0" />
-											</VBox.margin>
-										</Label>
-										<Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="206.0" text="azonosító:">
-											<font>
-												<Font size="14.0" />
-											</font>
-											<VBox.margin>
-												<Insets top="5.0" />
-											</VBox.margin>
-										</Label>
-										<Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="206.0" text="név:">
-											<font>
-												<Font size="14.0" />
-											</font>
-											<VBox.margin>
-												<Insets top="5.0" />
-											</VBox.margin>
-										</Label>
-										<Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="206.0" text="megye:">
-											<font>
-												<Font size="14.0" />
-											</font>
-											<VBox.margin>
-												<Insets top="5.0" />
-											</VBox.margin>
-										</Label>
-										<Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="206.0" text="irányítószám:">
-											<font>
-												<Font size="14.0" />
-											</font>
-											<VBox.margin>
-												<Insets top="5.0" />
-											</VBox.margin>
-										</Label>
-										<Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="206.0" text="település:">
-											<font>
-												<Font size="14.0" />
-											</font>
-											<VBox.margin>
-												<Insets top="5.0" />
-											</VBox.margin>
-										</Label>
-										<Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="206.0" text="cím:">
-											<font>
-												<Font size="14.0" />
-											</font>
-											<VBox.margin>
-												<Insets top="5.0" />
-											</VBox.margin>
-										</Label>
-										<Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="206.0" text="e-mail:">
-											<font>
-												<Font size="14.0" />
-											</font>
-											<VBox.margin>
-												<Insets top="5.0" />
-											</VBox.margin>
-										</Label>
-										<Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="206.0" text="telefon:">
-											<font>
-												<Font size="14.0" />
-											</font>
-											<VBox.margin>
-												<Insets top="5.0" />
-											</VBox.margin>
-										</Label>
-										<Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="206.0" text="megjegyzés:">
-											<font>
-												<Font size="14.0" />
-											</font>
-										</Label>
-									</children>
-								</VBox>
-								<VBox layoutX="238.0" layoutY="-1.0" prefHeight="580.0" prefWidth="451.0">
-									<children>
-										<Label id="txtClientInputID" fx:id="txtClientInputID" prefHeight="40.0" prefWidth="315.0">
-											<font>
-												<Font size="14.0" />
-											</font>
-											<VBox.margin>
-												<Insets top="5.0" />
-											</VBox.margin>
-											<opaqueInsets>
-												<Insets />
-											</opaqueInsets>
-										</Label>
-										<Label id="txtClientInputNumber" fx:id="txtClientInputNumber" prefHeight="40.0" prefWidth="315.0">
-											<font>
-												<Font size="14.0" />
-											</font>
-											<VBox.margin>
-												<Insets top="5.0" />
-											</VBox.margin>
-											<opaqueInsets>
-												<Insets />
-											</opaqueInsets>
-										</Label>
-										<TextField id="txtClientInputClientName" fx:id="txtClientInputClientName" prefHeight="40.0" prefWidth="316.0" promptText="Senki Béla">
-											<VBox.margin>
-												<Insets top="5.0" />
-											</VBox.margin>
-											<opaqueInsets>
-												<Insets />
-											</opaqueInsets>
-										</TextField>
-										<ComboBox id="cmbClientInputCounty" fx:id="cmbClientInputCounty" prefHeight="40.0" prefWidth="798.0">
-											<VBox.margin>
-												<Insets top="5.0" />
-											</VBox.margin>
-											<opaqueInsets>
-												<Insets />
-											</opaqueInsets>
-										</ComboBox>
-										<TextField id="txtClientInputZipCode" fx:id="txtClientInputZipCode" prefHeight="40.0" prefWidth="316.0" promptText="6767">
-											<VBox.margin>
-												<Insets top="5.0" />
-											</VBox.margin>
-											<opaqueInsets>
-												<Insets />
-											</opaqueInsets>
-										</TextField>
-										<TextField id="txtClientInputSettlement" fx:id="txtClientInputSettlement" prefHeight="40.0" prefWidth="316.0" promptText="Aprajafalva">
-											<VBox.margin>
-												<Insets top="5.0" />
-											</VBox.margin>
-											<opaqueInsets>
-												<Insets />
-											</opaqueInsets>
-										</TextField>
-										<TextField id="txtClientInputAddress" fx:id="txtClientInputAddress" prefHeight="40.0" prefWidth="316.0" promptText="Futrinka utca 15 6/b">
-											<VBox.margin>
-												<Insets top="5.0" />
-											</VBox.margin>
-											<opaqueInsets>
-												<Insets />
-											</opaqueInsets>
-										</TextField>
-										<TextField id="txtClientInputEmail" fx:id="txtClientInputEmail" prefHeight="40.0" prefWidth="316.0" promptText="senkibela@senki.hu">
-											<VBox.margin>
-												<Insets top="5.0" />
-											</VBox.margin>
-											<opaqueInsets>
-												<Insets />
-											</opaqueInsets>
-										</TextField>
-										<TextField id="txtClientInputMobil" fx:id="txtClientInputMobil" prefHeight="40.0" prefWidth="316.0" promptText="+36 90 999 9999">
-											<VBox.margin>
-												<Insets top="5.0" />
-											</VBox.margin>
-											<opaqueInsets>
-												<Insets />
-											</opaqueInsets>
-										</TextField>
-										<TextArea id="txtClientInputComment" fx:id="txtClientInputComment" prefHeight="102.0" prefWidth="307.0" promptText="Komment">
-											<VBox.margin>
-												<Insets top="5.0" />
-											</VBox.margin>
-										</TextArea>
-									</children>
-								</VBox>
-								<Button id="btnClientNewClient" fx:id="btnClientNewClient" layoutX="316.0" layoutY="574.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="206.0" text="Új Ügyfél" />
-							</children>
-						</Pane>
                   <AnchorPane id="newDevicePane" fx:id="newDevicePane" prefHeight="673.0" prefWidth="1130.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <HBox layoutX="14.0" layoutY="14.0" prefHeight="40.0" prefWidth="1109.0">
@@ -710,7 +536,7 @@
 								<Button id="butten" fx:id="butten" layoutX="555.0" layoutY="30.0" mnemonicParsing="false" onAction="#print" prefHeight="36.0" prefWidth="206.0" text="nyom" />
 							</children>
 						</AnchorPane>
-						<AnchorPane id="clientTablePane" fx:id="clientTablePane" prefHeight="673.0" prefWidth="1130.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+						<AnchorPane id="clientTablePane" fx:id="clientTablePane" prefHeight="673.0" prefWidth="1130.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 							<children>
 								<TableView id="clientTable" fx:id="clientTable" editable="true" prefHeight="673.0" prefWidth="1130.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="93.0">
 									<placeholder>
@@ -737,21 +563,33 @@
 								</VBox>
       						<VBox layoutX="222.0" layoutY="3.0" prefHeight="89.0" prefWidth="206.0">
       							<children>
-      								<Button mnemonicParsing="false" onAction="#updateClientBtn" prefHeight="36.0" prefWidth="206.0" text="Tábla Frissités">
+      								<Button mnemonicParsing="false" onAction="#newClientBtn" prefHeight="36.0" prefWidth="206.0" text="Új Ügyfél">
       									<VBox.margin>
       										<Insets top="5.0" />
       									</VBox.margin>
       								</Button>
-      								<Button mnemonicParsing="false" onAction="#newClientBtn" prefHeight="36.0" prefWidth="206.0" text="Új Cég">
-      									<VBox.margin>
-      										<Insets top="5.0" />
-      									</VBox.margin>
-      								</Button>
+                              <Button mnemonicParsing="false" onAction="#newCompanyBtn" prefHeight="36.0" prefWidth="206.0" text="Új Cég">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Button>
       							</children>
       							<opaqueInsets>
       								<Insets />
       							</opaqueInsets>
       						</VBox>
+                        <VBox layoutX="437.0" layoutY="3.0" prefHeight="89.0" prefWidth="206.0">
+                           <children>
+      								<Button mnemonicParsing="false" onAction="#updateClientBtn" prefHeight="36.0" prefWidth="206.0" text="Tábla Frissités">
+      									<VBox.margin>
+      										<Insets top="5.0" />
+      									</VBox.margin>
+      								</Button>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </VBox>
 
 							</children>
 						</AnchorPane>
@@ -764,7 +602,7 @@
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </TextField>
-                              <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="206.0" text="Keresés">
+                              <Button mnemonicParsing="false" onAction="#filteringDeviceBtn" prefHeight="36.0" prefWidth="206.0" text="Keresés">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>

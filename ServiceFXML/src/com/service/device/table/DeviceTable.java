@@ -40,7 +40,8 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 	private TableColumn<Device, Integer> deviceTableId, deviceTableNumber;
 	private TableColumn<Device, Boolean> deviceTableNewHouse, deviceTablePowerSupply, deviceTableProcessor,
 			deviceTableBaseBoard, deviceTableMemory, deviceTableVideoCard, deviceTableSSDDrive, deviceTableHardDrive,
-			deviceTableCoolingFan, deviceTableOpticalDrive, deviceTableExpansionCard, deviceTableLaptop, colDeviceAction;
+			deviceTableCoolingFan, deviceTableOpticalDrive, deviceTableExpansionCard, deviceTableLaptop,
+			colDeviceAction;
 	private TableColumn<Device, String> deviceTableCompanyName, deviceTableClientName, deviceTableName,
 			deviceTabelManufacturer, deviceTabelSerialNumber, deviceTableRepairLocation, deviceTableStatus,
 			deviceTableNewMachine, deviceTableAdministrator, deviceTablePriorit, deviceTablePassword,
@@ -61,23 +62,23 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 	protected void setDeviceTableData() {
 		Callback<TableColumn<Device, Date>, TableCell<Device, Date>> dateCellFactory = (
 				TableColumn<Device, Date> param) -> new DataEditingCellDevice();
-				
-				colDeviceAction = new TableColumn<>("+");
-				colDeviceAction.setSortable(false);
-				colDeviceAction.setPrefWidth(40);
-				colDeviceAction.setCellValueFactory(
-						new Callback<TableColumn.CellDataFeatures<Device, Boolean>, ObservableValue<Boolean>>() {
-							@Override
-							public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Device, Boolean> p) {
-								return new SimpleBooleanProperty(p.getValue() != null);
-							}
-						});
-				colDeviceAction.setCellFactory(new Callback<TableColumn<Device, Boolean>, TableCell<Device, Boolean>>() {
+
+		colDeviceAction = new TableColumn<>("+");
+		colDeviceAction.setSortable(false);
+		colDeviceAction.setPrefWidth(40);
+		colDeviceAction.setCellValueFactory(
+				new Callback<TableColumn.CellDataFeatures<Device, Boolean>, ObservableValue<Boolean>>() {
 					@Override
-					public TableCell<Device, Boolean> call(TableColumn<Device, Boolean> p) {
-						return new DeviceButtonCell(deviceAllTable);
+					public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Device, Boolean> p) {
+						return new SimpleBooleanProperty(p.getValue() != null);
 					}
 				});
+		colDeviceAction.setCellFactory(new Callback<TableColumn<Device, Boolean>, TableCell<Device, Boolean>>() {
+			@Override
+			public TableCell<Device, Boolean> call(TableColumn<Device, Boolean> p) {
+				return new DeviceButtonCell(deviceAllTable);
+			}
+		});
 
 		deviceTableId = new TableColumn<>("ID");
 		deviceTableId.setMinWidth(50);
@@ -332,10 +333,10 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 				updateDeviceTableDate();
 			}
 		});
-		
-		setDeviceAllDate= new TableColumn<>("Dátumok");
+
+		setDeviceAllDate = new TableColumn<>("Dátumok");
 		setDeviceAllDate.getColumns().addAll(deviceTableSalesBuying, deviceTableAddDate, deviceTableEndDate,
-			deviceTableDeliveryDate, deviceTbaleCompletedDate);
+				deviceTableDeliveryDate, deviceTbaleCompletedDate);
 
 		deviceTableDataRecovery = new TableColumn<>("Adatmentés");
 		deviceTableDataRecovery.setMinWidth(50);
@@ -619,7 +620,7 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 				deviceTableLaptop);
 
 		deviceAllTable.setItems(dataDevice);
-		deviceAllTable.getColumns().addAll(colDeviceAction,deviceTableId, deviceTableNumber, deviceTableCompanyName,
+		deviceAllTable.getColumns().addAll(colDeviceAction, deviceTableId, deviceTableNumber, deviceTableCompanyName,
 				deviceTableClientName, deviceTableName, deviceTabelManufacturer, deviceTabelSerialNumber,
 				deviceTableRepairLocation, deviceTableStatus, deviceTableNewMachine, setDeviceTablePerson,
 				deviceTablePriorit, deviceTablePassword, deviceTableReferences, deviceTableAccesssory,
@@ -637,9 +638,35 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 		tray.showAndDismiss(Duration.seconds(1));
 		deviceClientNameFilteringTxt.setStyle("-fx-prompt-text-fill: #61a2b1");
 	}
+
 	private void updateDeviceTableDate() {
 		dataDevice.clear();
 		dataDevice.addAll(DeviceFillteringDB.getAllDevice());
+	}
+	@FXML
+	private void filteringDeviceBtn(ActionEvent event) {
+		if (setDevicetCheckTxt()) {
+			dataDevice.clear();
+			dataDevice.addAll(DeviceFillteringDB.getDeviceNameFilltering(deviceClientNameFilteringTxt.getText()));
+			deviceClientNameFilteringTxt.clear();
+			deviceClientNameFilteringTxt.setStyle("-fx-prompt-text-fill: #61a2b1");
+			tray = new TrayNotification("Remek!", "Sikeres Frissítés", NotificationType.SUCCESS);
+			tray.showAndDismiss(Duration.seconds(1));
+		} else {
+			tray = new TrayNotification("HIBA", "Üres a kereső mező", NotificationType.ERROR);
+			tray.showAndDismiss(Duration.seconds(2));
+		}
+	}
+
+	private boolean setDevicetCheckTxt() {
+		if (deviceClientNameFilteringTxt.getText().trim().isEmpty()) {
+			deviceClientNameFilteringTxt.setStyle("-fx-prompt-text-fill: #CC0033");
+		}
+		if (deviceClientNameFilteringTxt.getText().trim().isEmpty()) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	@Override
@@ -648,7 +675,6 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 		setComboxAll();
 		setClientTableData();
 		setStockTableData();
-		setComponentAll();
 		setMenuData();
 
 	}

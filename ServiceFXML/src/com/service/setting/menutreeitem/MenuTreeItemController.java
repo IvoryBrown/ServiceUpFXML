@@ -14,13 +14,11 @@ public class MenuTreeItemController {
 	protected StackPane menuPane;
 
 	@FXML
-	protected Pane homePane, clientPane;
+	protected Pane homePane;
 	@FXML
 	protected AnchorPane stockPane, clientTablePane, newDevicePane, deviceTable;
 
 	private final String MENU_HOME = "Kezdőlap";
-	private final String MENU_CONTACTS = "Ügyfelek";
-	private final String MENU_CLIENT = "Magánszemély";
 	private final String MENU_DEVICE = "Eszköz";
 	private final String MENU_DEVICENEW = "Új Eszköz";
 	private final String MENU_DEVICETABLE = "Eszköz Tábla";
@@ -35,9 +33,6 @@ public class MenuTreeItemController {
 		treeView.setShowRoot(false);
 
 		TreeItem<String> nodeItemA = new TreeItem<>(MENU_HOME);
-		TreeItem<String> nodeItemB = new TreeItem<>(MENU_CONTACTS);
-		nodeItemB.setExpanded(false);
-		TreeItem<String> nodeItemB1 = new TreeItem<>(MENU_CLIENT);
 		TreeItem<String> nodeItemB2 = new TreeItem<>(MENU_CLIENT_TABLE);
 
 		TreeItem<String> nodeItemD = new TreeItem<>(MENU_DEVICE);
@@ -48,8 +43,7 @@ public class MenuTreeItemController {
 		TreeItem<String> nodeItemC = new TreeItem<>(MENU_STOCK);
 		TreeItem<String> nodeItemE = new TreeItem<>(MENU_EXIT);
 		nodeItemD.getChildren().addAll(nodeItemD1, nodeItemD2);
-		nodeItemB.getChildren().addAll(nodeItemB1, nodeItemB2);
-		treeItemRoot1.getChildren().addAll(nodeItemA, nodeItemB, nodeItemD, nodeItemC, nodeItemE);
+		treeItemRoot1.getChildren().addAll(nodeItemA, nodeItemB2, nodeItemD, nodeItemC, nodeItemE);
 
 		menuPane.getChildren().add(treeView);
 
@@ -63,15 +57,6 @@ public class MenuTreeItemController {
 					switch (selectedMenu) {
 					case MENU_HOME:
 						homePane.setVisible(true);
-						clientPane.setVisible(false);
-						newDevicePane.setVisible(false);
-						clientTablePane.setVisible(false);
-						stockPane.setVisible(false);
-						deviceTable.setVisible(false);
-						break;
-					case MENU_CLIENT:
-						homePane.setVisible(false);
-						clientPane.setVisible(true);
 						newDevicePane.setVisible(false);
 						clientTablePane.setVisible(false);
 						stockPane.setVisible(false);
@@ -79,7 +64,6 @@ public class MenuTreeItemController {
 						break;
 					case MENU_DEVICENEW:
 						homePane.setVisible(false);
-						clientPane.setVisible(false);
 						newDevicePane.setVisible(true);
 						clientTablePane.setVisible(false);
 						stockPane.setVisible(false);
@@ -88,14 +72,12 @@ public class MenuTreeItemController {
 					case MENU_DEVICETABLE:
 						deviceTable.setVisible(true);
 						homePane.setVisible(false);
-						clientPane.setVisible(false);
 						newDevicePane.setVisible(false);
 						clientTablePane.setVisible(false);
 						stockPane.setVisible(false);
 						break;
 					case MENU_CLIENT_TABLE:
 						homePane.setVisible(false);
-						clientPane.setVisible(false);
 						newDevicePane.setVisible(false);
 						clientTablePane.setVisible(true);
 						stockPane.setVisible(false);
@@ -103,7 +85,6 @@ public class MenuTreeItemController {
 						break;
 					case MENU_STOCK:
 						homePane.setVisible(false);
-						clientPane.setVisible(false);
 						newDevicePane.setVisible(false);
 						clientTablePane.setVisible(false);
 						stockPane.setVisible(true);

@@ -12,12 +12,17 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import tray.notification.NotificationType;
@@ -301,8 +306,23 @@ public class ClientTable extends StockFXMLController  {
 
 	@FXML
 	private void newClientBtn() {
-		// TODO Automatikusan előállított metóduscsonk
+		try {
+			Parent root = FXMLLoader
+					.load(getClass().getResource("/com/service/setting/fxmlnewclient/NewClient.fxml"));
+			Stage stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setTitle("Eszköz");
+			stage.setScene(new Scene(root, 1300, 650));
+			stage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
+	}
+	@FXML
+	private void newCompanyBtn() {
+		//TODO
+		
 	}
 
 	private boolean setClientCheckTxt() {

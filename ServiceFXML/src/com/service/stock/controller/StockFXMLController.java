@@ -2,7 +2,7 @@ package com.service.stock.controller;
 
 import java.util.Date;
 
-import com.service.client.controller.ClientFXMLController;
+import com.service.setting.menutreeitem.MenuTreeItemController;
 import com.service.stock.Stock;
 import com.service.stock.filteringdb.StockFillteringDB;
 
@@ -29,7 +29,7 @@ import javafx.util.converter.IntegerStringConverter;
 import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
 
-public class StockFXMLController extends ClientFXMLController {
+public class StockFXMLController extends MenuTreeItemController {
 
 	@FXML
 	private TableView<Stock> stockTable;

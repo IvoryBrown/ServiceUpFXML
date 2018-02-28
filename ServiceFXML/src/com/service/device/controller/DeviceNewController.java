@@ -3,6 +3,7 @@ package com.service.device.controller;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import com.service.client.table.ClientTable;
 import com.service.device.fillteringdb.DeviceFillteringDB;
@@ -14,10 +15,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Callback;
 import javafx.util.Duration;
 import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
@@ -49,6 +52,7 @@ public class DeviceNewController extends ClientTable {
 	private final String CMDDEVICEOPERATINGSYSTEM[] = { "Win Pro 7 32Bit Hungarian", "Win Pro 7 64Bit Hungarian",
 			"Win 8.1 32Bit Hungarian", "Win 8.1 64Bit Hungarian", "Win 10 32Bit Hungarian", "Win 10 64Bit Hungarian" };
 	DeviceFillteringDB db = new DeviceFillteringDB();
+	Callback<DatePicker, DateCell> dayCellFactory;
 
 	protected void setComboxAll() {
 		deviceName.getItems().addAll(CMBDEVICENAME);
@@ -60,7 +64,29 @@ public class DeviceNewController extends ClientTable {
 		deviceSoftver.getItems().addAll(CMBDEVICNEWMACHINE);
 		deviceOperatingSystem.getItems().addAll(CMDDEVICEOPERATINGSYSTEM);
 		deviceDataRecovery.getItems().addAll(CMBDEVICNEWMACHINE);
+		setDate();
 	}
+	private void setDate() {
+		deviceAddDate.setValue(LocalDate.now());
+		dayCellFactory = new Callback<DatePicker, DateCell>() {
+			@Override
+			public DateCell call(final DatePicker datePicker) {
+				return new DateCell() {
+					@Override
+					public void updateItem(LocalDate item, boolean empty) {
+						super.updateItem(item, empty);
+
+						if (item.isBefore(deviceAddDate.getValue().plusDays(5))) {
+							setDisable(true);
+							setStyle("-fx-background-color: linear-gradient(#61a2b1, #2A5058);");
+						}
+					}
+				};
+			}
+		};
+		deviceEndDate.setDayCellFactory(dayCellFactory);
+		deviceEndDate.setValue(deviceAddDate.getValue().plusDays(5));
+	 }
 
 	@FXML
 	private void setButtonPaneDate() {
