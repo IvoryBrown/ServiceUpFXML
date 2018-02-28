@@ -755,9 +755,37 @@
 
 							</children>
 						</AnchorPane>
-                  <AnchorPane id="deviceTable" fx:id="deviceTable" prefHeight="673.0" prefWidth="1130.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="93.0">
+                  <AnchorPane id="deviceTable" fx:id="deviceTable" prefHeight="673.0" prefWidth="1130.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <TableView id="deviceAllTable" fx:id="deviceAllTable" editable="true" layoutX="14.0" layoutY="155.0" prefHeight="673.0" prefWidth="1130.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox layoutX="4.0" layoutY="3.0" prefHeight="89.0" prefWidth="206.0">
+                           <children>
+                              <TextField id="deviceClientNameFilteringTxt" fx:id="deviceClientNameFilteringTxt" prefHeight="36.0" prefWidth="206.0" promptText="Keresés">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="206.0" text="Keresés">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="222.0" layoutY="3.0" prefHeight="89.0" prefWidth="206.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#updateDeviceBtn" prefHeight="36.0" prefWidth="206.0" text="Tábla Frissités">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="206.0">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                        <TableView id="deviceAllTable" fx:id="deviceAllTable" editable="true" layoutX="14.0" layoutY="155.0" prefHeight="673.0" prefWidth="1130.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="93.0">
                           <placeholder>
 										<Label text="Nincs adat." />
 									</placeholder>

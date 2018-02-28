@@ -13,6 +13,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,6 +22,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -32,6 +34,8 @@ import tray.notification.TrayNotification;
 public class DeviceTable extends DeviceNewController implements Initializable {
 	@FXML
 	private TableView<Device> deviceAllTable;
+	@FXML
+	private TextField deviceClientNameFilteringTxt;
 	private TableColumn<Device, Boolean> deviceTableLaptop;
 	private TableColumn<Device, Integer> deviceTableId;
 	private TableColumn<Device, String> deviceTableAdministrator;
@@ -45,8 +49,32 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 		deviceTableId.setCellValueFactory(new PropertyValueFactory<Device, Integer>("deviceID"));
 
 		deviceTableLaptop = new TableColumn<>("Laptop");
-		deviceTableLaptop.setEditable(true);
+		deviceTableLaptop.setEditable(false);
 		deviceTableLaptop.setMinWidth(48);
+		deviceTableLaptop.setCellFactory(new Callback<TableColumn<Device, Boolean>, //
+				TableCell<Device, Boolean>>() {
+			@Override
+			public TableCell<Device, Boolean> call(TableColumn<Device, Boolean> p) {
+				CheckBoxTableCell<Device, Boolean> cell = new CheckBoxTableCell<Device, Boolean>();
+				cell.setAlignment(Pos.CENTER);
+				return cell;
+			}
+		});
+		deviceTableLaptop.setCellValueFactory(new Callback<CellDataFeatures<Device, Boolean>, ObservableValue<Boolean>>() {
+			@Override
+			public ObservableValue<Boolean> call(CellDataFeatures<Device, Boolean> param) {
+				Device device = param.getValue();
+				SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(device.getDeviceLaptop());
+				booleanProp.addListener(new ChangeListener<Boolean>() {
+					@Override
+					public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
+							Boolean newValue) {
+						device.setDeviceLaptop(newValue);
+					}
+				});
+				return booleanProp;
+			}
+		});
 		
 		
 		deviceTableAdministrator = new TableColumn<>("Ügy");
@@ -72,6 +100,16 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 		dataDevice.addAll(DeviceFillteringDB.getAllDevice());
 	}
 
+	@FXML
+	private void updateDeviceBtn(ActionEvent event) {
+		dataDevice.clear();
+		dataDevice.addAll(DeviceFillteringDB.getAllDevice());
+		tray = new TrayNotification("Remek!", "Sikeres Frissítés", NotificationType.SUCCESS);
+		tray.showAndDismiss(Duration.seconds(1));
+		deviceClientNameFilteringTxt.setStyle("-fx-prompt-text-fill: #61a2b1");
+	}
+	
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		setDeviceTableData();
