@@ -15,11 +15,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class DeviceFillteringDB {
-	public ObservableList<String> stationsList = FXCollections.observableArrayList();
+	public ObservableList<String> administratorList = FXCollections.observableArrayList();
 	private String SQLaDMINISTRATOR = " select * from ugyintezo ";
 
 	public DeviceFillteringDB() {
-		initialize();
+		setGetAllAdministrator();
 	}
 
 	public static ArrayList<Device> getAllDevice() {
@@ -33,7 +33,8 @@ public class DeviceFillteringDB {
 			rs = createStatement.executeQuery(sql);
 			device = new ArrayList<>();
 			while (rs.next()) {
-				Device actualDevice = new Device(rs.getString("id_gepadatok"),rs.getString("ugyintezo"), rs.getBoolean("laptop"));
+				Device actualDevice = new Device(rs.getString("id_gepadatok"), rs.getString("ugyintezo"),
+						rs.getBoolean("laptop"));
 				device.add(actualDevice);
 			}
 		} catch (SQLException e) {
@@ -56,7 +57,7 @@ public class DeviceFillteringDB {
 		return device;
 	}
 
-	public void initialize() {
+	public void setGetAllAdministrator() {
 		Connection con = DataBaseConnect.getConnection();
 		PreparedStatement pstStn = null;
 		ResultSet stnRS = null;
@@ -64,7 +65,7 @@ public class DeviceFillteringDB {
 			pstStn = con.prepareStatement(SQLaDMINISTRATOR);
 			stnRS = pstStn.executeQuery(SQLaDMINISTRATOR);
 			while (stnRS.next()) {
-				stationsList.add(stnRS.getString("ugyintezo_neve"));
+				administratorList.add(stnRS.getString("ugyintezo_neve"));
 			}
 		} catch (SQLException ex) {
 			ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", ex.getMessage());
@@ -84,17 +85,17 @@ public class DeviceFillteringDB {
 			}
 		}
 	}
+
 	public void updateDevice(Device client) {
 		Connection conn = DataBaseConnect.getConnection();
 		try {
 			String sqlClient = "UPDATE `gepadatok` set ugyintezo = ?, laptop = ?" + " WHERE id_gepadatok = ?";
 			PreparedStatement pr = conn.prepareStatement(sqlClient);
-			
+
 			pr.setString(1, client.getDeviceAdministrator());
 			pr.setBoolean(2, client.getDeviceLaptop());
 			pr.setString(3, client.getDeviceID());
-			
-			
+
 			pr.execute();
 		} catch (SQLException e) {
 			System.out.println(e);

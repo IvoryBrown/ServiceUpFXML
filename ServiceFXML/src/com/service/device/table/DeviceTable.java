@@ -42,45 +42,12 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 	protected void setDeviceTableData() {
 		deviceTableId = new TableColumn<>("ID");
 		deviceTableId.setMinWidth(50);
-//		deviceTableId.setCellValueFactory(new PropertyValueFactory<Device, Integer>("deviceID"));
-//
-//		deviceTableLaptop = new TableColumn<>("Laptop");
-//		deviceTableLaptop.setEditable(true);
-//		deviceTableLaptop.setMinWidth(48);
-//		deviceTableLaptop.setCellValueFactory(new Callback<CellDataFeatures<Device, Boolean>, ObservableValue<Boolean>>() {
-//			@Override
-//			public ObservableValue<Boolean> call(CellDataFeatures<Device, Boolean> param) {
-//				Device device = param.getValue();
-//				SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(device.getDeviceLaptop());
-//				booleanProp.addListener(new ChangeListener<Boolean>() {
-//					@Override
-//					public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-//							Boolean newValue) {
-//						device.setDeviceLaptop(newValue);
-//					}
-//				});
-//				return booleanProp;
-//			}
-//		});
-//		deviceTableLaptop.setCellFactory(new Callback<TableColumn<Device, Boolean>, //
-//				TableCell<Device, Boolean>>() {
-//			@Override
-//			public TableCell<Device, Boolean> call(TableColumn<Device, Boolean> p) {
-//				CheckBoxTableCell<Device, Boolean> cell = new CheckBoxTableCell<Device, Boolean>();
-//				cell.setAlignment(Pos.CENTER);
-//				return cell;
-//			}
-//		});
-//		deviceTableLaptop.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, Boolean>>() {
-//			@Override
-//			public void handle(TableColumn.CellEditEvent<Device, Boolean> d) {
-//				Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
-//				actualDevice.setDeviceLaptop(d.getNewValue());
-//				deviceDb.updateDevice(actualDevice);
-//				tray = new TrayNotification("Cégnév!", "Sikeres Frissítése", NotificationType.SUCCESS);
-//				tray.showAndDismiss(Duration.seconds(1));
-//			}
-//		});
+		deviceTableId.setCellValueFactory(new PropertyValueFactory<Device, Integer>("deviceID"));
+
+		deviceTableLaptop = new TableColumn<>("Laptop");
+		deviceTableLaptop.setEditable(true);
+		deviceTableLaptop.setMinWidth(48);
+		
 		
 		deviceTableAdministrator = new TableColumn<>("Ügy");
 		deviceTableAdministrator.setMinWidth(100);
@@ -88,7 +55,7 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 	        final String value = i.getValue().getDeviceAdministrator();
 	        return Bindings.createObjectBinding(() -> value);
 	    });
-		deviceTableAdministrator.setCellFactory( ComboBoxTableCell.forTableColumn(deviceDb.stationsList));
+		deviceTableAdministrator.setCellFactory( ComboBoxTableCell.forTableColumn(deviceDb.administratorList));
 		deviceTableAdministrator.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
 			@Override
 			public void handle(TableColumn.CellEditEvent<Device, String> d) {

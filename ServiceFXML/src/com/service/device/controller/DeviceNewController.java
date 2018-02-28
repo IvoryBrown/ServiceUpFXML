@@ -55,7 +55,7 @@ public class DeviceNewController extends ClientTable {
 		deviceRepairLocation.getItems().addAll(CMBDEVICEREPAIRLOCATION);
 		deviceStatus.getItems().addAll(CMBDEVICESTATUS);
 		deviceNewMachine.getItems().addAll(CMBDEVICNEWMACHINE);
-		deviceAdministrator.setItems(db.stationsList);
+		deviceAdministrator.setItems(db.administratorList);
 		devicePriorit.getItems().addAll(CMDDEVICEPRIORIT);
 		deviceSoftver.getItems().addAll(CMBDEVICNEWMACHINE);
 		deviceOperatingSystem.getItems().addAll(CMDDEVICEOPERATINGSYSTEM);
