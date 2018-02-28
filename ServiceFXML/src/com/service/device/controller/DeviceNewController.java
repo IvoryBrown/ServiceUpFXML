@@ -40,9 +40,9 @@ public class DeviceNewController extends ClientTable {
 	@FXML
 	private CheckBox deviceNewHouse, devicePowerSupply, deviceProcessor, deviceBaseBoard, deviceMemory, deviceVideoCard,
 			deviceSSDDrive, deviceHardDrive, deviceCoolingFan, deviceOpticalDrive, deviceExpansionCard, deviceLaptop;
-	private final String CMBDEVICENAME[] = { "Asztali PC", "Notebook", "Nyomtató", "Monitor", "Projektor", "Pendrive",
+	protected final String CMBDEVICENAME[] = { "Asztali PC", "Notebook", "Nyomtató", "Monitor", "Projektor", "Pendrive",
 			"Szünetmentes tápegység", "Egyéb" };
-	private final String CMBDEVICEREPAIRLOCATION[] = { "Szervíz", "Helyszíni" };
+	protected final String CMBDEVICEREPAIRLOCATION[] = { "Szervíz", "Helyszíni" };
 	private final String CMBDEVICESTATUS[] = { "Bevételezve" };
 	private final String CMBDEVICNEWMACHINE[] = { "Igen", "Nem" };
 	private final String CMDDEVICEPRIORIT[] = { "Alap", "Szerződött", "Sűrgős" };

@@ -33,8 +33,20 @@ public class DeviceFillteringDB {
 			rs = createStatement.executeQuery(sql);
 			device = new ArrayList<>();
 			while (rs.next()) {
-				Device actualDevice = new Device(rs.getString("id_gepadatok"), rs.getString("ugyintezo"),
-						rs.getBoolean("laptop"));
+				Device actualDevice = new Device(rs.getString("id_gepadatok"), rs.getString("eszkoz_azonosito"),
+						rs.getString("ceg_nev_gep"), rs.getString("ugyfél_nev_gep"), rs.getString("eszkoz"),
+						rs.getString("eszkoz_gyarto"), rs.getString("eszkoz_gyari_szama"),
+						rs.getString("javitas_helye"), rs.getString("allapot"), rs.getString("uj_gep"),
+						rs.getString("ugyintezo"), rs.getString("prioritas"), rs.getString("jelszo"),
+						rs.getString("hivatkozasi_szam"), rs.getString("tartozekok"), rs.getString("serules"),
+						rs.getString("hiba_leirasa"), rs.getString("eszkoz_megjegyzes"), rs.getDate("vasarlasi_datuma"),
+						rs.getDate("bejelentes_datuma"), rs.getDate("hatarido_datuma"), rs.getDate("kiszallas_datuma"),
+						rs.getString("adatmentes"), rs.getString("softver"), rs.getString("operacios_rendszer"),
+						rs.getString("softver_megjegyzés"), rs.getBoolean("haz"), rs.getBoolean("tapegyseg"),
+						rs.getBoolean("processzor"), rs.getBoolean("alaplap"), rs.getBoolean("memoria"),
+						rs.getBoolean("videokartya"), rs.getBoolean("ssd"), rs.getBoolean("meghajto"),
+						rs.getBoolean("hutoventilator"), rs.getBoolean("optikai_meghajto"),
+						rs.getBoolean("bovitokartya"), rs.getBoolean("laptop"));
 				device.add(actualDevice);
 			}
 		} catch (SQLException e) {
@@ -86,15 +98,21 @@ public class DeviceFillteringDB {
 		}
 	}
 
-	public void updateDevice(Device client) {
+	public void updateDevice(Device device) {
 		Connection conn = DataBaseConnect.getConnection();
 		try {
-			String sqlClient = "UPDATE `gepadatok` set ugyintezo = ?, laptop = ?" + " WHERE id_gepadatok = ?";
-			PreparedStatement pr = conn.prepareStatement(sqlClient);
-
-			pr.setString(1, client.getDeviceAdministrator());
-			pr.setBoolean(2, client.getDeviceLaptop());
-			pr.setString(3, client.getDeviceID());
+			String sqlDevice = "UPDATE `gepadatok` set eszkoz = ?, eszkoz_gyarto = ?, javitas_helye = ?, allapot = ?, tartozekok = ?,"
+					+ "hiba_leirasa = ?, eszkoz_megjegyzes = ?"
+					+ " WHERE id_gepadatok = ?";
+			PreparedStatement pr = conn.prepareStatement(sqlDevice);
+			pr.setString(1, device.getDeviceName());
+			pr.setString(2, device.getDeviceManufacturer());
+			pr.setString(3, device.getDeviceRepairLocation());
+			pr.setString(4, device.getDeviceStatus());
+			pr.setString(5, device.getDeviceAccesssory());
+			pr.setString(6, device.getDeviceErrorDescription());
+			pr.setString(7, device.getDeviceComment());
+			pr.setString(8, device.getDeviceID());
 
 			pr.execute();
 		} catch (SQLException e) {

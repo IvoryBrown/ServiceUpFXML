@@ -50,7 +50,7 @@ public class ClientTable extends StockFXMLController  {
 		clientNumber.setMinWidth(90);
 		clientNumber.setCellValueFactory(new PropertyValueFactory<Client, String>("clientNumber"));
 
-		clientCompanyName = new TableColumn<>("Cégnév*");
+		clientCompanyName = new TableColumn<>("Cég*");
 		clientCompanyName.setMinWidth(200);
 		clientCompanyName.setCellValueFactory(new PropertyValueFactory<Client, String>("clientCompanyName"));
 		clientCompanyName.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -65,7 +65,7 @@ public class ClientTable extends StockFXMLController  {
 			}
 		});
 
-		clientName = new TableColumn<>("Ügyfél név*");
+		clientName = new TableColumn<>("Ügyfél*");
 		clientName.setMinWidth(150);
 		clientName.setCellValueFactory(new PropertyValueFactory<Client, String>("clientName"));
 		clientName.setCellFactory(TextFieldTableCell.forTableColumn());
