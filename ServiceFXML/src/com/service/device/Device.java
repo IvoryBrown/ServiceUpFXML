@@ -46,6 +46,9 @@ public class Device {
 	private final SimpleBooleanProperty deviceOpticalDrive;
 	private final SimpleBooleanProperty deviceExpansionCard;
 	private final SimpleBooleanProperty deviceLaptop;
+	private final SimpleObjectProperty<Date> deviceCompletedDate;
+	private final SimpleStringProperty deviceErrorCorrection;
+	private final SimpleStringProperty deviceTechnicalPerson;
 
 	public Device(String deviceID, String deviceNumber, String deviceCompanyName, String deviceClientName,
 			String deviceName, String deviceManufacturer, String deviceSerialNumber, String deviceRepairLocation,
@@ -56,7 +59,8 @@ public class Device {
 			String deviceOperatingSystem, String deviceSoftverComment, boolean deviceNewHouse,
 			boolean devicePowerSupply, boolean deviceProcessor, boolean deviceBaseBoard, boolean deviceMemory,
 			boolean deviceVideoCard, boolean deviceSSDDrive, boolean deviceHardDrive, boolean deviceCoolingFan,
-			boolean deviceOpticalDrive, boolean deviceExpansionCard, boolean deviceLaptop) {
+			boolean deviceOpticalDrive, boolean deviceExpansionCard, boolean deviceLaptop, Date deviceCompletedDate,
+			String deviceErrorCorrection, String deviceTechnicalPerson) {
 		this.deviceID = new SimpleStringProperty(deviceID);
 		this.deviceNumber = new SimpleStringProperty(deviceNumber);
 		this.deviceCompanyName = new SimpleStringProperty(deviceCompanyName);
@@ -95,6 +99,9 @@ public class Device {
 		this.deviceOpticalDrive = new SimpleBooleanProperty(deviceOpticalDrive);
 		this.deviceExpansionCard = new SimpleBooleanProperty(deviceExpansionCard);
 		this.deviceLaptop = new SimpleBooleanProperty(deviceLaptop);
+		this.deviceCompletedDate = new SimpleObjectProperty<>(deviceCompletedDate);
+		this.deviceErrorCorrection = new SimpleStringProperty(deviceErrorCorrection);
+		this.deviceTechnicalPerson = new SimpleStringProperty(deviceTechnicalPerson);
 	}
 
 	public String getDeviceID() {
@@ -415,5 +422,33 @@ public class Device {
 
 	public void setDeviceLaptop(boolean deviceLaptop) {
 		this.deviceLaptop.set(deviceLaptop);
+	}
+
+	public ObjectProperty<Date> getDeviceCompletedDateObject() {
+		return this.deviceCompletedDate;
+	}
+
+	public Date getDeviceCompletedDate() {
+		return (Date) this.deviceCompletedDate.get();
+	}
+
+	public void setDeviceCompletedDate(Date deviceCompletedDate) {
+		this.deviceCompletedDate.set(deviceCompletedDate);
+	}
+
+	public String getDeviceErrorCorrection() {
+		return this.deviceErrorCorrection.get();
+	}
+
+	public void setDeviceErrorCorrection(String deviceErrorCorrection) {
+		this.deviceErrorCorrection.set(deviceErrorCorrection);
+	}
+
+	public String getDeviceTechnicalPerson() {
+		return this.deviceTechnicalPerson.get();
+	}
+
+	public void setDeviceTechnicalPerson(String deviceTechnicalPerson) {
+		this.deviceTechnicalPerson.set(deviceTechnicalPerson);
 	}
 }

@@ -46,9 +46,9 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 			deviceTableNewMachine, deviceTableAdministrator, deviceTablePriorit, deviceTablePassword,
 			deviceTableReferences, deviceTableAccesssory, deviceTableInjury, deviceTableErrorDescription,
 			deviceTableComment, deviceTableDataRecovery, deviceTableSoftver, deviceTableOperatingSystem,
-			deviceTableSoftverComment;
+			deviceTableSoftverComment, deviceTableErrorCorrection, deviceTableTechnicalPerson;
 	private TableColumn<Device, Date> deviceTableSalesBuying, deviceTableAddDate, deviceTableEndDate,
-			deviceTableDeliveryDate;
+			deviceTableDeliveryDate, deviceTbaleCompletedDate;
 	private final ObservableList<Device> dataDevice = FXCollections.observableArrayList();
 	DeviceFillteringDB deviceDb = new DeviceFillteringDB();
 
@@ -159,6 +159,24 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 		deviceTableAdministrator.setMinWidth(70);
 		deviceTableAdministrator.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceAdministrator"));
 
+		deviceTableTechnicalPerson = new TableColumn<>("Technikus*");
+		deviceTableTechnicalPerson.setMinWidth(100);
+		deviceTableTechnicalPerson.setCellValueFactory(i -> {
+			final String value = i.getValue().getDeviceTechnicalPerson();
+			return Bindings.createObjectBinding(() -> value);
+		});
+		deviceTableTechnicalPerson.setCellFactory(ComboBoxTableCell.forTableColumn(deviceDb.technikalIstratorList));
+		deviceTableTechnicalPerson.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
+			@Override
+			public void handle(TableColumn.CellEditEvent<Device, String> d) {
+				Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+				actualDevice.setDeviceTechnicalPerson(d.getNewValue());
+				deviceDb.updateDevice(actualDevice);
+				tray = new TrayNotification("Technikus!", "Sikeres Frissítése", NotificationType.SUCCESS);
+				tray.showAndDismiss(Duration.seconds(1));
+			}
+		});
+
 		deviceTablePriorit = new TableColumn<>("Prioritás");
 		deviceTablePriorit.setMinWidth(70);
 		deviceTablePriorit.setCellValueFactory(new PropertyValueFactory<Device, String>("devicePriorit"));
@@ -202,6 +220,22 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 				actualDvice.setDeviceErrorDescription(d.getNewValue());
 				deviceDb.updateDevice(actualDvice);
 				tray = new TrayNotification("Hiba leírás!", "Sikeres Frissítése", NotificationType.SUCCESS);
+				tray.showAndDismiss(Duration.seconds(1));
+			}
+		});
+
+		deviceTableErrorCorrection = new TableColumn<>("Valós hiba*");
+		deviceTableErrorCorrection.setMinWidth(370);
+		deviceTableErrorCorrection
+				.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceErrorCorrection"));
+		deviceTableErrorCorrection.setCellFactory(TextFieldTableCell.forTableColumn());
+		deviceTableErrorCorrection.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
+			@Override
+			public void handle(TableColumn.CellEditEvent<Device, String> d) {
+				Device actualDvice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+				actualDvice.setDeviceErrorCorrection(d.getNewValue());
+				deviceDb.updateDevice(actualDvice);
+				tray = new TrayNotification("Valós hiba!", "Sikeres Frissítése", NotificationType.SUCCESS);
 				tray.showAndDismiss(Duration.seconds(1));
 			}
 		});
@@ -255,6 +289,20 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 				actualDevice.setDeviceDeliveryDate(d.getNewValue());
 				deviceDb.updateDevice(actualDevice);
 				tray = new TrayNotification("Kiszállás dátum", "Sikeres Frissítés", NotificationType.SUCCESS);
+				tray.showAndDismiss(Duration.seconds(1));
+			}
+		});
+		deviceTbaleCompletedDate = new TableColumn<>("Elkészült*");
+		deviceTbaleCompletedDate.setMinWidth(140);
+		deviceTbaleCompletedDate.setCellValueFactory(cellData -> cellData.getValue().getDeviceCompletedDateObject());
+		deviceTbaleCompletedDate.setCellFactory(dateCellFactory);
+		deviceTbaleCompletedDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, Date>>() {
+			@Override
+			public void handle(TableColumn.CellEditEvent<Device, Date> d) {
+				Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+				actualDevice.setDeviceCompletedDate(d.getNewValue());
+				deviceDb.updateDevice(actualDevice);
+				tray = new TrayNotification("Elkészült", "Sikeres Frissítés", NotificationType.SUCCESS);
 				tray.showAndDismiss(Duration.seconds(1));
 			}
 		});
@@ -538,13 +586,14 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 		deviceAllTable.getColumns().addAll(deviceTableId, deviceTableNumber, deviceTableCompanyName,
 				deviceTableClientName, deviceTableName, deviceTabelManufacturer, deviceTabelSerialNumber,
 				deviceTableRepairLocation, deviceTableStatus, deviceTableNewMachine, deviceTableAdministrator,
-				deviceTablePriorit, deviceTablePassword, deviceTableReferences, deviceTableAccesssory,
-				deviceTableInjury, deviceTableErrorDescription, deviceTableComment, deviceTableSalesBuying,
-				deviceTableAddDate, deviceTableEndDate, deviceTableDeliveryDate, deviceTableDataRecovery,
-				deviceTableSoftver, deviceTableOperatingSystem, deviceTableSoftverComment, deviceTableNewHouse,
-				deviceTablePowerSupply, deviceTableProcessor, deviceTableBaseBoard, deviceTableMemory,
-				deviceTableVideoCard, deviceTableSSDDrive, deviceTableHardDrive, deviceTableCoolingFan,
-				deviceTableOpticalDrive, deviceTableExpansionCard, deviceTableLaptop);
+				deviceTableTechnicalPerson, deviceTablePriorit, deviceTablePassword, deviceTableReferences,
+				deviceTableAccesssory, deviceTableInjury, deviceTableErrorDescription, deviceTableErrorCorrection,
+				deviceTableComment, deviceTableSalesBuying, deviceTableAddDate, deviceTableEndDate,
+				deviceTableDeliveryDate, deviceTbaleCompletedDate, deviceTableDataRecovery, deviceTableSoftver,
+				deviceTableOperatingSystem, deviceTableSoftverComment, deviceTableNewHouse, deviceTablePowerSupply,
+				deviceTableProcessor, deviceTableBaseBoard, deviceTableMemory, deviceTableVideoCard,
+				deviceTableSSDDrive, deviceTableHardDrive, deviceTableCoolingFan, deviceTableOpticalDrive,
+				deviceTableExpansionCard, deviceTableLaptop);
 		dataDevice.addAll(DeviceFillteringDB.getAllDevice());
 	}
 

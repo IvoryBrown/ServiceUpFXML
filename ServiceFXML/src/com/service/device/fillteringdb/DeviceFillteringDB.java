@@ -16,10 +16,11 @@ import javafx.collections.ObservableList;
 
 public class DeviceFillteringDB {
 	public ObservableList<String> administratorList = FXCollections.observableArrayList();
-	private String SQLaDMINISTRATOR = " select * from ugyintezo ";
+	public ObservableList<String> technikalIstratorList = FXCollections.observableArrayList();
 
 	public DeviceFillteringDB() {
 		setGetAllAdministrator();
+		setGetAllTechnikal();
 	}
 
 	public static ArrayList<Device> getAllDevice() {
@@ -46,7 +47,8 @@ public class DeviceFillteringDB {
 						rs.getBoolean("processzor"), rs.getBoolean("alaplap"), rs.getBoolean("memoria"),
 						rs.getBoolean("videokartya"), rs.getBoolean("ssd"), rs.getBoolean("meghajto"),
 						rs.getBoolean("hutoventilator"), rs.getBoolean("optikai_meghajto"),
-						rs.getBoolean("bovitokartya"), rs.getBoolean("laptop"));
+						rs.getBoolean("bovitokartya"), rs.getBoolean("laptop"), rs.getDate("elkeszult_datuma"),
+						rs.getString("hibajavitas_leirasa"), rs.getString("technikus"));
 				device.add(actualDevice);
 			}
 		} catch (SQLException e) {
@@ -70,6 +72,7 @@ public class DeviceFillteringDB {
 	}
 
 	public void setGetAllAdministrator() {
+		String SQLaDMINISTRATOR = " select * from dolgozok ";
 		Connection con = DataBaseConnect.getConnection();
 		PreparedStatement pstStn = null;
 		ResultSet stnRS = null;
@@ -98,12 +101,42 @@ public class DeviceFillteringDB {
 		}
 	}
 
+	public void setGetAllTechnikal() {
+		String SQLaDMINISTRATOR = " select * from dolgozok ";
+		Connection con = DataBaseConnect.getConnection();
+		PreparedStatement pstStn = null;
+		ResultSet stnRS = null;
+		try {
+			pstStn = con.prepareStatement(SQLaDMINISTRATOR);
+			stnRS = pstStn.executeQuery(SQLaDMINISTRATOR);
+			while (stnRS.next()) {
+				technikalIstratorList.add(stnRS.getString("technikus_neve"));
+			}
+		} catch (SQLException ex) {
+			ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", ex.getMessage());
+		} finally {
+			try {
+				if (pstStn != null) {
+					pstStn.close();
+				}
+				if (stnRS != null) {
+					stnRS.close();
+				}
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
+			}
+		}
+	}
+
 	public void updateDevice(Device device) {
 		Connection conn = DataBaseConnect.getConnection();
 		try {
 			String sqlDevice = "UPDATE `gepadatok` set eszkoz = ?, eszkoz_gyarto = ?, javitas_helye = ?, allapot = ?, tartozekok = ?,"
-					+ "hiba_leirasa = ?, eszkoz_megjegyzes = ?, hatarido_datuma = ?, kiszallas_datuma = ?, softver_megjegyzés = ?"
-					+ " WHERE id_gepadatok = ?";
+					+ "hiba_leirasa = ?, eszkoz_megjegyzes = ?, hatarido_datuma = ?, kiszallas_datuma = ?, softver_megjegyzés = ?,"
+					+ " elkeszult_datuma = ?, hibajavitas_leirasa = ?, technikus = ?" + " WHERE id_gepadatok = ?";
 			PreparedStatement pr = conn.prepareStatement(sqlDevice);
 			pr.setString(1, device.getDeviceName());
 			pr.setString(2, device.getDeviceManufacturer());
@@ -115,7 +148,10 @@ public class DeviceFillteringDB {
 			pr.setObject(8, device.getDeviceEndDate());
 			pr.setObject(9, device.getDeviceDeliveryDate());
 			pr.setString(10, device.getDeviceSoftverComment());
-			pr.setString(11, device.getDeviceID());
+			pr.setObject(11, device.getDeviceCompletedDate());
+			pr.setString(12, device.getDeviceErrorCorrection());
+			pr.setString(13, device.getDeviceTechnicalPerson());
+			pr.setString(14, device.getDeviceID());
 
 			pr.execute();
 		} catch (SQLException e) {
