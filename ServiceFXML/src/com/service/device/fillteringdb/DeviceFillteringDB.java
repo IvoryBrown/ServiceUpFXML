@@ -102,7 +102,7 @@ public class DeviceFillteringDB {
 		Connection conn = DataBaseConnect.getConnection();
 		try {
 			String sqlDevice = "UPDATE `gepadatok` set eszkoz = ?, eszkoz_gyarto = ?, javitas_helye = ?, allapot = ?, tartozekok = ?,"
-					+ "hiba_leirasa = ?, eszkoz_megjegyzes = ?"
+					+ "hiba_leirasa = ?, eszkoz_megjegyzes = ?, hatarido_datuma = ?, kiszallas_datuma = ?, softver_megjegyzés = ?"
 					+ " WHERE id_gepadatok = ?";
 			PreparedStatement pr = conn.prepareStatement(sqlDevice);
 			pr.setString(1, device.getDeviceName());
@@ -112,7 +112,10 @@ public class DeviceFillteringDB {
 			pr.setString(5, device.getDeviceAccesssory());
 			pr.setString(6, device.getDeviceErrorDescription());
 			pr.setString(7, device.getDeviceComment());
-			pr.setString(8, device.getDeviceID());
+			pr.setObject(8, device.getDeviceEndDate());
+			pr.setObject(9, device.getDeviceDeliveryDate());
+			pr.setString(10, device.getDeviceSoftverComment());
+			pr.setString(11, device.getDeviceID());
 
 			pr.execute();
 		} catch (SQLException e) {

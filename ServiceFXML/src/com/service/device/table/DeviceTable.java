@@ -1,6 +1,7 @@
 package com.service.device.table;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import com.service.device.Device;
@@ -8,18 +9,25 @@ import com.service.device.controller.DeviceNewController;
 import com.service.device.fillteringdb.DeviceFillteringDB;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.Callback;
 import javafx.util.Duration;
 import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
@@ -30,11 +38,17 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 	@FXML
 	private TextField deviceClientNameFilteringTxt;
 	private TableColumn<Device, Integer> deviceTableId, deviceTableNumber;
+	private TableColumn<Device, Boolean> deviceTableNewHouse, deviceTablePowerSupply, deviceTableProcessor,
+			deviceTableBaseBoard, deviceTableMemory, deviceTableVideoCard, deviceTableSSDDrive, deviceTableHardDrive,
+			deviceTableCoolingFan, deviceTableOpticalDrive, deviceTableExpansionCard, deviceTableLaptop;
 	private TableColumn<Device, String> deviceTableCompanyName, deviceTableClientName, deviceTableName,
 			deviceTabelManufacturer, deviceTabelSerialNumber, deviceTableRepairLocation, deviceTableStatus,
 			deviceTableNewMachine, deviceTableAdministrator, deviceTablePriorit, deviceTablePassword,
 			deviceTableReferences, deviceTableAccesssory, deviceTableInjury, deviceTableErrorDescription,
-			deviceTableComment;
+			deviceTableComment, deviceTableDataRecovery, deviceTableSoftver, deviceTableOperatingSystem,
+			deviceTableSoftverComment;
+	private TableColumn<Device, Date> deviceTableSalesBuying, deviceTableAddDate, deviceTableEndDate,
+			deviceTableDeliveryDate;
 	private final ObservableList<Device> dataDevice = FXCollections.observableArrayList();
 	DeviceFillteringDB deviceDb = new DeviceFillteringDB();
 
@@ -42,6 +56,9 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 
 	@SuppressWarnings("unchecked")
 	protected void setDeviceTableData() {
+		Callback<TableColumn<Device, Date>, TableCell<Device, Date>> dateCellFactory = (
+				TableColumn<Device, Date> param) -> new DataEditingCellDevice();
+
 		deviceTableId = new TableColumn<>("ID");
 		deviceTableId.setMinWidth(50);
 		deviceTableId.setCellValueFactory(new PropertyValueFactory<Device, Integer>("deviceID"));
@@ -168,14 +185,15 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 				tray.showAndDismiss(Duration.seconds(1));
 			}
 		});
-		
+
 		deviceTableInjury = new TableColumn<>("Sérülés");
 		deviceTableInjury.setMinWidth(170);
 		deviceTableInjury.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceInjury"));
-		
+
 		deviceTableErrorDescription = new TableColumn<>("Hiba leírás*");
 		deviceTableErrorDescription.setMinWidth(370);
-		deviceTableErrorDescription.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceErrorDescription"));
+		deviceTableErrorDescription
+				.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceErrorDescription"));
 		deviceTableErrorDescription.setCellFactory(TextFieldTableCell.forTableColumn());
 		deviceTableErrorDescription.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
 			@Override
@@ -187,8 +205,8 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 				tray.showAndDismiss(Duration.seconds(1));
 			}
 		});
-		
-		deviceTableComment= new TableColumn<>("Eszközről megjegyzés*");
+
+		deviceTableComment = new TableColumn<>("Eszközről megjegyzés*");
 		deviceTableComment.setMinWidth(370);
 		deviceTableComment.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceComment"));
 		deviceTableComment.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -202,15 +220,331 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 				tray.showAndDismiss(Duration.seconds(1));
 			}
 		});
-		
-		
+
+		deviceTableSalesBuying = new TableColumn<>("Vásárlási dátum");
+		deviceTableSalesBuying.setMinWidth(70);
+		deviceTableSalesBuying.setCellValueFactory(new PropertyValueFactory<Device, Date>("deviceSalesBuying"));
+
+		deviceTableAddDate = new TableColumn<>("Bejelentés dátum");
+		deviceTableAddDate.setMinWidth(70);
+		deviceTableAddDate.setCellValueFactory(new PropertyValueFactory<Device, Date>("deviceAddDate"));
+
+		deviceTableEndDate = new TableColumn<>("Határidő dátum*");
+		deviceTableEndDate.setMinWidth(140);
+		deviceTableEndDate.setCellValueFactory(cellData -> cellData.getValue().getDeviceEndDateObject());
+		deviceTableEndDate.setCellFactory(dateCellFactory);
+		deviceTableEndDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, Date>>() {
+			@Override
+			public void handle(TableColumn.CellEditEvent<Device, Date> d) {
+				Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+				actualDevice.setDeviceEndDate(d.getNewValue());
+				deviceDb.updateDevice(actualDevice);
+				tray = new TrayNotification("Határidő dátum!", "Sikeres Frissítés", NotificationType.SUCCESS);
+				tray.showAndDismiss(Duration.seconds(1));
+			}
+		});
+
+		deviceTableDeliveryDate = new TableColumn<>("Kiszállás dátum*");
+		deviceTableDeliveryDate.setMinWidth(140);
+		deviceTableDeliveryDate.setCellValueFactory(cellData -> cellData.getValue().getDeviceDeliveryDateObject());
+		deviceTableDeliveryDate.setCellFactory(dateCellFactory);
+		deviceTableDeliveryDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, Date>>() {
+			@Override
+			public void handle(TableColumn.CellEditEvent<Device, Date> d) {
+				Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+				actualDevice.setDeviceDeliveryDate(d.getNewValue());
+				deviceDb.updateDevice(actualDevice);
+				tray = new TrayNotification("Kiszállás dátum", "Sikeres Frissítés", NotificationType.SUCCESS);
+				tray.showAndDismiss(Duration.seconds(1));
+			}
+		});
+
+		deviceTableDataRecovery = new TableColumn<>("Adatmentés");
+		deviceTableDataRecovery.setMinWidth(50);
+		deviceTableDataRecovery.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceDataRecovery"));
+
+		deviceTableSoftver = new TableColumn<>("Szoftver");
+		deviceTableSoftver.setMinWidth(50);
+		deviceTableSoftver.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceSoftver"));
+
+		deviceTableOperatingSystem = new TableColumn<>("Operációs rendszer ");
+		deviceTableOperatingSystem.setMinWidth(170);
+		deviceTableOperatingSystem
+				.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceOperatingSystem"));
+
+		deviceTableSoftverComment = new TableColumn<>("Szoftver Megjegyzés*");
+		deviceTableSoftverComment.setMinWidth(170);
+		deviceTableSoftverComment.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceSoftverComment"));
+		deviceTableSoftverComment.setCellFactory(TextFieldTableCell.forTableColumn());
+		deviceTableSoftverComment.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
+			@Override
+			public void handle(TableColumn.CellEditEvent<Device, String> d) {
+				Device actualDvice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+				actualDvice.setDeviceSoftverComment(d.getNewValue());
+				deviceDb.updateDevice(actualDvice);
+				tray = new TrayNotification("Szoftver Megjegyzés!", "Sikeres Frissítése", NotificationType.SUCCESS);
+				tray.showAndDismiss(Duration.seconds(1));
+			}
+		});
+
+		deviceTableNewHouse = new TableColumn<>("Ház");
+		deviceTableNewHouse.setEditable(false);
+		deviceTableNewHouse.setMinWidth(48);
+		deviceTableNewHouse.setCellFactory(new Callback<TableColumn<Device, Boolean>, TableCell<Device, Boolean>>() {
+			@Override
+			public TableCell<Device, Boolean> call(TableColumn<Device, Boolean> p) {
+				CheckBoxTableCell<Device, Boolean> cell = new CheckBoxTableCell<Device, Boolean>();
+				cell.setAlignment(Pos.CENTER);
+				return cell;
+			}
+		});
+		deviceTableNewHouse
+				.setCellValueFactory(new Callback<CellDataFeatures<Device, Boolean>, ObservableValue<Boolean>>() {
+					@Override
+					public ObservableValue<Boolean> call(CellDataFeatures<Device, Boolean> param) {
+						Device device = param.getValue();
+						SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(device.getDeviceNewHouse());
+						return booleanProp;
+					}
+				});
+
+		deviceTablePowerSupply = new TableColumn<>("Tápegység");
+		deviceTablePowerSupply.setEditable(false);
+		deviceTablePowerSupply.setMinWidth(48);
+		deviceTablePowerSupply.setCellFactory(new Callback<TableColumn<Device, Boolean>, TableCell<Device, Boolean>>() {
+			@Override
+			public TableCell<Device, Boolean> call(TableColumn<Device, Boolean> p) {
+				CheckBoxTableCell<Device, Boolean> cell = new CheckBoxTableCell<Device, Boolean>();
+				cell.setAlignment(Pos.CENTER);
+				return cell;
+			}
+		});
+		deviceTablePowerSupply
+				.setCellValueFactory(new Callback<CellDataFeatures<Device, Boolean>, ObservableValue<Boolean>>() {
+					@Override
+					public ObservableValue<Boolean> call(CellDataFeatures<Device, Boolean> param) {
+						Device device = param.getValue();
+						SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(device.getDevicePowerSupply());
+						return booleanProp;
+					}
+				});
+
+		deviceTableProcessor = new TableColumn<>("Processzor");
+		deviceTableProcessor.setEditable(false);
+		deviceTableProcessor.setMinWidth(48);
+		deviceTableProcessor.setCellFactory(new Callback<TableColumn<Device, Boolean>, TableCell<Device, Boolean>>() {
+			@Override
+			public TableCell<Device, Boolean> call(TableColumn<Device, Boolean> p) {
+				CheckBoxTableCell<Device, Boolean> cell = new CheckBoxTableCell<Device, Boolean>();
+				cell.setAlignment(Pos.CENTER);
+				return cell;
+			}
+		});
+		deviceTableProcessor
+				.setCellValueFactory(new Callback<CellDataFeatures<Device, Boolean>, ObservableValue<Boolean>>() {
+					@Override
+					public ObservableValue<Boolean> call(CellDataFeatures<Device, Boolean> param) {
+						Device device = param.getValue();
+						SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(device.getDeviceProcessor());
+						return booleanProp;
+					}
+				});
+
+		deviceTableBaseBoard = new TableColumn<>("Alaplap");
+		deviceTableBaseBoard.setEditable(false);
+		deviceTableBaseBoard.setMinWidth(48);
+		deviceTableBaseBoard.setCellFactory(new Callback<TableColumn<Device, Boolean>, TableCell<Device, Boolean>>() {
+			@Override
+			public TableCell<Device, Boolean> call(TableColumn<Device, Boolean> p) {
+				CheckBoxTableCell<Device, Boolean> cell = new CheckBoxTableCell<Device, Boolean>();
+				cell.setAlignment(Pos.CENTER);
+				return cell;
+			}
+		});
+		deviceTableBaseBoard
+				.setCellValueFactory(new Callback<CellDataFeatures<Device, Boolean>, ObservableValue<Boolean>>() {
+					@Override
+					public ObservableValue<Boolean> call(CellDataFeatures<Device, Boolean> param) {
+						Device device = param.getValue();
+						SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(device.getDeviceBaseBoard());
+						return booleanProp;
+					}
+				});
+
+		deviceTableMemory = new TableColumn<>("Memória");
+		deviceTableMemory.setEditable(false);
+		deviceTableMemory.setMinWidth(48);
+		deviceTableMemory.setCellFactory(new Callback<TableColumn<Device, Boolean>, TableCell<Device, Boolean>>() {
+			@Override
+			public TableCell<Device, Boolean> call(TableColumn<Device, Boolean> p) {
+				CheckBoxTableCell<Device, Boolean> cell = new CheckBoxTableCell<Device, Boolean>();
+				cell.setAlignment(Pos.CENTER);
+				return cell;
+			}
+		});
+		deviceTableMemory
+				.setCellValueFactory(new Callback<CellDataFeatures<Device, Boolean>, ObservableValue<Boolean>>() {
+					@Override
+					public ObservableValue<Boolean> call(CellDataFeatures<Device, Boolean> param) {
+						Device device = param.getValue();
+						SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(device.getDeviceMemory());
+						return booleanProp;
+					}
+				});
+		deviceTableVideoCard = new TableColumn<>("Videokártya");
+		deviceTableVideoCard.setEditable(false);
+		deviceTableVideoCard.setMinWidth(48);
+		deviceTableVideoCard.setCellFactory(new Callback<TableColumn<Device, Boolean>, TableCell<Device, Boolean>>() {
+			@Override
+			public TableCell<Device, Boolean> call(TableColumn<Device, Boolean> p) {
+				CheckBoxTableCell<Device, Boolean> cell = new CheckBoxTableCell<Device, Boolean>();
+				cell.setAlignment(Pos.CENTER);
+				return cell;
+			}
+		});
+		deviceTableVideoCard
+				.setCellValueFactory(new Callback<CellDataFeatures<Device, Boolean>, ObservableValue<Boolean>>() {
+					@Override
+					public ObservableValue<Boolean> call(CellDataFeatures<Device, Boolean> param) {
+						Device device = param.getValue();
+						SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(device.getDeviceVideoCard());
+						return booleanProp;
+					}
+				});
+		deviceTableSSDDrive = new TableColumn<>("SSD");
+		deviceTableSSDDrive.setEditable(false);
+		deviceTableSSDDrive.setMinWidth(48);
+		deviceTableSSDDrive.setCellFactory(new Callback<TableColumn<Device, Boolean>, TableCell<Device, Boolean>>() {
+			@Override
+			public TableCell<Device, Boolean> call(TableColumn<Device, Boolean> p) {
+				CheckBoxTableCell<Device, Boolean> cell = new CheckBoxTableCell<Device, Boolean>();
+				cell.setAlignment(Pos.CENTER);
+				return cell;
+			}
+		});
+		deviceTableSSDDrive
+				.setCellValueFactory(new Callback<CellDataFeatures<Device, Boolean>, ObservableValue<Boolean>>() {
+					@Override
+					public ObservableValue<Boolean> call(CellDataFeatures<Device, Boolean> param) {
+						Device device = param.getValue();
+						SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(device.getDeviceSSDDrive());
+						return booleanProp;
+					}
+				});
+		deviceTableHardDrive = new TableColumn<>("Merevlemez");
+		deviceTableHardDrive.setEditable(false);
+		deviceTableHardDrive.setMinWidth(48);
+		deviceTableHardDrive.setCellFactory(new Callback<TableColumn<Device, Boolean>, TableCell<Device, Boolean>>() {
+			@Override
+			public TableCell<Device, Boolean> call(TableColumn<Device, Boolean> p) {
+				CheckBoxTableCell<Device, Boolean> cell = new CheckBoxTableCell<Device, Boolean>();
+				cell.setAlignment(Pos.CENTER);
+				return cell;
+			}
+		});
+		deviceTableHardDrive
+				.setCellValueFactory(new Callback<CellDataFeatures<Device, Boolean>, ObservableValue<Boolean>>() {
+					@Override
+					public ObservableValue<Boolean> call(CellDataFeatures<Device, Boolean> param) {
+						Device device = param.getValue();
+						SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(device.getDeviceHardDrive());
+						return booleanProp;
+					}
+				});
+		deviceTableCoolingFan = new TableColumn<>("Hűtőventillátor");
+		deviceTableCoolingFan.setEditable(false);
+		deviceTableCoolingFan.setMinWidth(48);
+		deviceTableCoolingFan.setCellFactory(new Callback<TableColumn<Device, Boolean>, TableCell<Device, Boolean>>() {
+			@Override
+			public TableCell<Device, Boolean> call(TableColumn<Device, Boolean> p) {
+				CheckBoxTableCell<Device, Boolean> cell = new CheckBoxTableCell<Device, Boolean>();
+				cell.setAlignment(Pos.CENTER);
+				return cell;
+			}
+		});
+		deviceTableCoolingFan
+				.setCellValueFactory(new Callback<CellDataFeatures<Device, Boolean>, ObservableValue<Boolean>>() {
+					@Override
+					public ObservableValue<Boolean> call(CellDataFeatures<Device, Boolean> param) {
+						Device device = param.getValue();
+						SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(device.getDeviceCoolingFan());
+						return booleanProp;
+					}
+				});
+		deviceTableOpticalDrive = new TableColumn<>("Optikai");
+		deviceTableOpticalDrive.setEditable(false);
+		deviceTableOpticalDrive.setMinWidth(48);
+		deviceTableOpticalDrive
+				.setCellFactory(new Callback<TableColumn<Device, Boolean>, TableCell<Device, Boolean>>() {
+					@Override
+					public TableCell<Device, Boolean> call(TableColumn<Device, Boolean> p) {
+						CheckBoxTableCell<Device, Boolean> cell = new CheckBoxTableCell<Device, Boolean>();
+						cell.setAlignment(Pos.CENTER);
+						return cell;
+					}
+				});
+		deviceTableOpticalDrive
+				.setCellValueFactory(new Callback<CellDataFeatures<Device, Boolean>, ObservableValue<Boolean>>() {
+					@Override
+					public ObservableValue<Boolean> call(CellDataFeatures<Device, Boolean> param) {
+						Device device = param.getValue();
+						SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(device.getDeviceOpticalDrive());
+						return booleanProp;
+					}
+				});
+		deviceTableExpansionCard = new TableColumn<>("Bővítőkártya");
+		deviceTableExpansionCard.setEditable(false);
+		deviceTableExpansionCard.setMinWidth(48);
+		deviceTableExpansionCard
+				.setCellFactory(new Callback<TableColumn<Device, Boolean>, TableCell<Device, Boolean>>() {
+					@Override
+					public TableCell<Device, Boolean> call(TableColumn<Device, Boolean> p) {
+						CheckBoxTableCell<Device, Boolean> cell = new CheckBoxTableCell<Device, Boolean>();
+						cell.setAlignment(Pos.CENTER);
+						return cell;
+					}
+				});
+		deviceTableExpansionCard
+				.setCellValueFactory(new Callback<CellDataFeatures<Device, Boolean>, ObservableValue<Boolean>>() {
+					@Override
+					public ObservableValue<Boolean> call(CellDataFeatures<Device, Boolean> param) {
+						Device device = param.getValue();
+						SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(device.getDeviceExpansionCard());
+						return booleanProp;
+					}
+				});
+		deviceTableLaptop = new TableColumn<>("Laptop");
+		deviceTableLaptop.setEditable(false);
+		deviceTableLaptop.setMinWidth(48);
+		deviceTableLaptop.setCellFactory(new Callback<TableColumn<Device, Boolean>, TableCell<Device, Boolean>>() {
+			@Override
+			public TableCell<Device, Boolean> call(TableColumn<Device, Boolean> p) {
+				CheckBoxTableCell<Device, Boolean> cell = new CheckBoxTableCell<Device, Boolean>();
+				cell.setAlignment(Pos.CENTER);
+				return cell;
+			}
+		});
+		deviceTableLaptop
+				.setCellValueFactory(new Callback<CellDataFeatures<Device, Boolean>, ObservableValue<Boolean>>() {
+					@Override
+					public ObservableValue<Boolean> call(CellDataFeatures<Device, Boolean> param) {
+						Device device = param.getValue();
+						SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(device.getDeviceLaptop());
+						return booleanProp;
+					}
+				});
 
 		deviceAllTable.setItems(dataDevice);
 		deviceAllTable.getColumns().addAll(deviceTableId, deviceTableNumber, deviceTableCompanyName,
 				deviceTableClientName, deviceTableName, deviceTabelManufacturer, deviceTabelSerialNumber,
 				deviceTableRepairLocation, deviceTableStatus, deviceTableNewMachine, deviceTableAdministrator,
 				deviceTablePriorit, deviceTablePassword, deviceTableReferences, deviceTableAccesssory,
-				deviceTableInjury,deviceTableErrorDescription,deviceTableComment);
+				deviceTableInjury, deviceTableErrorDescription, deviceTableComment, deviceTableSalesBuying,
+				deviceTableAddDate, deviceTableEndDate, deviceTableDeliveryDate, deviceTableDataRecovery,
+				deviceTableSoftver, deviceTableOperatingSystem, deviceTableSoftverComment, deviceTableNewHouse,
+				deviceTablePowerSupply, deviceTableProcessor, deviceTableBaseBoard, deviceTableMemory,
+				deviceTableVideoCard, deviceTableSSDDrive, deviceTableHardDrive, deviceTableCoolingFan,
+				deviceTableOpticalDrive, deviceTableExpansionCard, deviceTableLaptop);
 		dataDevice.addAll(DeviceFillteringDB.getAllDevice());
 	}
 

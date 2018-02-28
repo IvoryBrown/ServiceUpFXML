@@ -347,7 +347,7 @@
                                     <Insets top="40.0" />
                                  </VBox.margin>
                               </Label>
-                              <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="139.0" text="Megjegyzés">
+                              <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="139.0" text="Eszközről megjegyzés">
                                  <VBox.margin>
                                     <Insets top="55.0" />
                                  </VBox.margin>
@@ -415,7 +415,7 @@
                               </Button>
                            </children>
                         </HBox>
-                        <AnchorPane id="deviceAnchorPDate" fx:id="deviceAnchorPDate" layoutX="10.0" prefHeight="183.0" prefWidth="1120.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="490.0">
+                        <AnchorPane id="deviceAnchorPDate" fx:id="deviceAnchorPDate" layoutX="10.0" prefHeight="183.0" prefWidth="1120.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="490.0">
                            <children>
                               <VBox prefHeight="183.0" prefWidth="141.0">
                                  <children>
@@ -466,7 +466,7 @@
                               </VBox>
                            </children>
                         </AnchorPane>
-                        <AnchorPane id="deviceAncorPSoftver" fx:id="deviceAncorPSoftver" layoutX="10.0" layoutY="490.0" prefHeight="183.0" prefWidth="1120.0">
+                        <AnchorPane id="deviceAncorPSoftver" fx:id="deviceAncorPSoftver" layoutX="10.0" layoutY="490.0" prefHeight="183.0" prefWidth="1120.0" visible="false">
                            <children>
                               <VBox layoutX="419.0" prefHeight="183.0" prefWidth="141.0">
                                  <children>
