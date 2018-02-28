@@ -298,6 +298,7 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 				deviceDb.updateDevice(actualDevice);
 				tray = new TrayNotification("Határidő dátum!", "Sikeres Frissítés", NotificationType.SUCCESS);
 				tray.showAndDismiss(Duration.seconds(1));
+				updateDeviceTableDate();
 			}
 		});
 
@@ -313,6 +314,7 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 				deviceDb.updateDevice(actualDevice);
 				tray = new TrayNotification("Kiszállás dátum", "Sikeres Frissítés", NotificationType.SUCCESS);
 				tray.showAndDismiss(Duration.seconds(1));
+				updateDeviceTableDate();
 			}
 		});
 		deviceTbaleCompletedDate = new TableColumn<>("Elkészült*");
@@ -327,6 +329,7 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 				deviceDb.updateDevice(actualDevice);
 				tray = new TrayNotification("Elkészült", "Sikeres Frissítés", NotificationType.SUCCESS);
 				tray.showAndDismiss(Duration.seconds(1));
+				updateDeviceTableDate();
 			}
 		});
 		
@@ -633,6 +636,10 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 		tray = new TrayNotification("Remek!", "Sikeres Frissítés", NotificationType.SUCCESS);
 		tray.showAndDismiss(Duration.seconds(1));
 		deviceClientNameFilteringTxt.setStyle("-fx-prompt-text-fill: #61a2b1");
+	}
+	private void updateDeviceTableDate() {
+		dataDevice.clear();
+		dataDevice.addAll(DeviceFillteringDB.getAllDevice());
 	}
 
 	@Override

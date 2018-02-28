@@ -52,7 +52,23 @@ public class Device {
 	private final SimpleObjectProperty<Date> deviceCompletedDate;
 	private final SimpleStringProperty deviceErrorCorrection;
 	private final SimpleStringProperty deviceTechnicalPerson;
-	private String reportSalesBuyingsDate;
+	private String converterSalesBuyingsDate;
+	private String converterAddDate;
+	private String converterEndDate;
+	private String converterDeliveryDate;
+	private String converterCompletedDate;
+	private String converterNewHouse;
+	private String converterPowerSupply;
+	private String converterProcessor;
+	private String converterBaseBoard;
+	private String converterMemory;
+	private String converterVideoCard;
+	private String converterSSDDrive;
+	private String converterHardDrive;
+	private String converterCoolingFan;
+	private String converterOpticalDrive;
+	private String converterExpansionCard;
+	private String converterLaptop;
 
 	public Device(String deviceID, String deviceNumber, String deviceCompanyName, String deviceClientName,
 			String deviceName, String deviceManufacturer, String deviceSerialNumber, String deviceRepairLocation,
@@ -260,16 +276,18 @@ public class Device {
 		return (Date) this.deviceSalesBuying.get();
 	}
 
-	public String getDeviceSalesBuyings()  {
-		DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
-		DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
-		try {
-			Date date = inputFormat.parse(String.valueOf(deviceSalesBuying.getValue()));
-			reportSalesBuyingsDate = outputFormat.format(date);
-		} catch (ParseException e) {
-			e.printStackTrace();
+	public String getDeviceSalesBuyingConverter() {
+		if (deviceSalesBuying.getValue() != null) {
+			DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+			DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				Date date = inputFormat.parse(String.valueOf(deviceSalesBuying.getValue()));
+				converterSalesBuyingsDate = outputFormat.format(date);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 		}
-		return this.reportSalesBuyingsDate;
+		return this.converterSalesBuyingsDate;
 	}
 
 	public void setDeviceSalesBuying(Date deviceSalesBuying) {
@@ -284,6 +302,20 @@ public class Device {
 		return (Date) this.deviceAddDate.get();
 	}
 
+	public String getDeviceAddDateConverter() {
+		if (deviceAddDate.getValue() != null) {
+			DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+			DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				Date date = inputFormat.parse(String.valueOf(deviceAddDate.getValue()));
+				converterAddDate = outputFormat.format(date);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		return this.converterAddDate;
+	}
+
 	public void setDeviceAddDate(Date deviceAddDate) {
 		this.deviceAddDate.set(deviceAddDate);
 	}
@@ -296,6 +328,20 @@ public class Device {
 		return (Date) this.deviceEndDate.get();
 	}
 
+	public String getDeviceEndDateConverter() {
+		if (deviceEndDate.getValue() != null) {
+			DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+			DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				Date date = inputFormat.parse(String.valueOf(deviceEndDate.getValue()));
+				converterEndDate = outputFormat.format(date);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		return this.converterEndDate;
+	}
+
 	public void setDeviceEndDate(Date deviceEndDate) {
 		this.deviceEndDate.set(deviceEndDate);
 	}
@@ -306,6 +352,20 @@ public class Device {
 
 	public Date getDeviceDeliveryDate() {
 		return (Date) this.deviceDeliveryDate.get();
+	}
+
+	public String getDeviceDeliveryDateConverter() {
+		if (deviceDeliveryDate.getValue() != null) {
+			DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+			DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				Date date = inputFormat.parse(String.valueOf(deviceDeliveryDate.getValue()));
+				converterDeliveryDate = outputFormat.format(date);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		return this.converterDeliveryDate;
 	}
 
 	public void setDeviceDeliveryDate(Date deviceDeliveryDate) {
@@ -348,12 +408,30 @@ public class Device {
 		return this.deviceNewHouse.get();
 	}
 
+	public String getDeviceNewHouseConverter() {
+		if (deviceNewHouse.getValue() == true) {
+			converterNewHouse = "Igen";
+		} else {
+			converterNewHouse = "Nem";
+		}
+		return this.converterNewHouse;
+	}
+
 	public void setDeviceNewHouse(boolean deviceSoftverComment) {
 		this.deviceNewHouse.set(deviceSoftverComment);
 	}
 
 	public Boolean getDevicePowerSupply() {
 		return this.devicePowerSupply.get();
+	}
+
+	public String getDevicePowerSupplyConverter() {
+		if (devicePowerSupply.getValue() == true) {
+			converterPowerSupply = "Igen";
+		} else {
+			converterPowerSupply = "Nem";
+		}
+		return this.converterPowerSupply;
 	}
 
 	public void setDevicePowerSupply(boolean devicePowerSupply) {
@@ -364,12 +442,30 @@ public class Device {
 		return this.deviceProcessor.get();
 	}
 
+	public String getDeviceProcessorConverter() {
+		if (deviceProcessor.getValue() == true) {
+			converterProcessor = "Igen";
+		} else {
+			converterProcessor = "Nem";
+		}
+		return this.converterProcessor;
+	}
+
 	public void setDeviceProcessor(boolean deviceProcessor) {
 		this.deviceProcessor.set(deviceProcessor);
 	}
 
 	public Boolean getDeviceBaseBoard() {
 		return this.deviceBaseBoard.get();
+	}
+
+	public String getDeviceBaseBoardConverter() {
+		if (deviceBaseBoard.getValue() == true) {
+			converterBaseBoard = "Igen";
+		} else {
+			converterBaseBoard = "Nem";
+		}
+		return this.converterBaseBoard;
 	}
 
 	public void setDeviceBaseBoard(boolean deviceBaseBoard) {
@@ -380,12 +476,30 @@ public class Device {
 		return this.deviceMemory.get();
 	}
 
+	public String getDeviceMemoryConverter() {
+		if (deviceMemory.getValue() == true) {
+			converterMemory = "Igen";
+		} else {
+			converterMemory = "Nem";
+		}
+		return this.converterMemory;
+	}
+
 	public void setDeviceMemory(boolean deviceMemory) {
 		this.deviceMemory.set(deviceMemory);
 	}
 
 	public Boolean getDeviceVideoCard() {
 		return this.deviceVideoCard.get();
+	}
+
+	public String getDeviceVideoCardConverter() {
+		if (deviceVideoCard.getValue() == true) {
+			converterVideoCard = "Igen";
+		} else {
+			converterVideoCard = "Nem";
+		}
+		return this.converterVideoCard;
 	}
 
 	public void setDeviceVideoCard(boolean deviceVideoCard) {
@@ -396,12 +510,30 @@ public class Device {
 		return this.deviceSSDDrive.get();
 	}
 
+	public String getDeviceSSDDriveConverter() {
+		if (deviceSSDDrive.getValue() == true) {
+			converterSSDDrive = "Igen";
+		} else {
+			converterSSDDrive = "Nem";
+		}
+		return this.converterSSDDrive;
+	}
+
 	public void setDeviceSSDDrive(boolean deviceSSDDrive) {
 		this.deviceSSDDrive.set(deviceSSDDrive);
 	}
 
 	public Boolean getDeviceHardDrive() {
 		return this.deviceHardDrive.get();
+	}
+
+	public String getDeviceHardDriveConverter() {
+		if (deviceHardDrive.getValue() == true) {
+			converterHardDrive = "Igen";
+		} else {
+			converterHardDrive = "Nem";
+		}
+		return this.converterHardDrive;
 	}
 
 	public void setDeviceHardDrive(boolean deviceHardDrive) {
@@ -412,12 +544,30 @@ public class Device {
 		return this.deviceCoolingFan.get();
 	}
 
+	public String getDeviceCoolingFanConverter() {
+		if (deviceCoolingFan.getValue() == true) {
+			converterCoolingFan = "Igen";
+		} else {
+			converterCoolingFan = "Nem";
+		}
+		return this.converterCoolingFan;
+	}
+
 	public void setDeviceCoolingFan(boolean deviceCoolingFan) {
 		this.deviceCoolingFan.set(deviceCoolingFan);
 	}
 
 	public Boolean getDeviceOpticalDrive() {
 		return this.deviceOpticalDrive.get();
+	}
+
+	public String getDeviceOpticalDriveConvertel() {
+		if (deviceOpticalDrive.getValue() == true) {
+			converterOpticalDrive = "Igen";
+		} else {
+			converterOpticalDrive = "Nem";
+		}
+		return this.converterOpticalDrive;
 	}
 
 	public void setDeviceOpticalDrive(boolean deviceOpticalDrive) {
@@ -428,12 +578,30 @@ public class Device {
 		return this.deviceExpansionCard.get();
 	}
 
+	public String getDeviceExpansionCardConverter() {
+		if (deviceExpansionCard.getValue() == true) {
+			converterExpansionCard = "Igen";
+		} else {
+			converterExpansionCard = "Nem";
+		}
+		return this.converterExpansionCard;
+	}
+
 	public void setDeviceExpansionCard(boolean deviceExpansionCard) {
 		this.deviceExpansionCard.set(deviceExpansionCard);
 	}
 
 	public Boolean getDeviceLaptop() {
 		return this.deviceLaptop.get();
+	}
+
+	public String getDeviceLaptopConverter() {
+		if (deviceLaptop.getValue() == true) {
+			converterLaptop = "Igen";
+		} else {
+			converterLaptop = "Nem";
+		}
+		return this.converterLaptop;
 	}
 
 	public void setDeviceLaptop(boolean deviceLaptop) {
@@ -446,6 +614,20 @@ public class Device {
 
 	public Date getDeviceCompletedDate() {
 		return (Date) this.deviceCompletedDate.get();
+	}
+
+	public String getDeviceCompletedDateConverter() {
+		if (deviceCompletedDate.getValue() != null) {
+			DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+			DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				Date date = inputFormat.parse(String.valueOf(deviceCompletedDate.getValue()));
+				converterCompletedDate = outputFormat.format(date);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		return this.converterCompletedDate;
 	}
 
 	public void setDeviceCompletedDate(Date deviceCompletedDate) {

@@ -51,6 +51,7 @@ public class ButtonCell extends TableCell<Client, Boolean> {
 				@SuppressWarnings("rawtypes")
 				TableColumn columnfield = new TableColumn<>(" ");
 				columnfield.setCellValueFactory(new PropertyValueFactory<Client, String>("fieldSubRecordName"));
+				columnfield.setStyle("-fx-background-color: #2A5058 ");
 				columnfield.setMinWidth(100);
 				columnfield.setMaxWidth(100);
 
