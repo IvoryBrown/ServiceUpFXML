@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 import com.service.client.table.ClientTable;
 import com.service.device.fillteringdb.DeviceFillteringDB;
+import com.service.setting.combobox.Combobox;
 import com.service.setting.database.DataBaseConnect;
 import com.service.setting.identification.DeviceIdentificationGenereator;
 import com.service.setting.showinfo.ShowInfo;
@@ -45,25 +46,21 @@ public class DeviceNewController extends ClientTable {
 			deviceSSDDrive, deviceHardDrive, deviceCoolingFan, deviceOpticalDrive, deviceExpansionCard, deviceLaptop;
 	protected final String CMBDEVICENAME[] = { "Asztali PC", "Notebook", "Nyomtató", "Monitor", "Projektor", "Pendrive",
 			"Szünetmentes tápegység", "Egyéb" };
-	protected final String CMBDEVICEREPAIRLOCATION[] = { "Szervíz", "Helyszíni" };
-	private final String CMBDEVICESTATUS[] = { "Bevételezve" };
-	private final String CMBDEVICNEWMACHINE[] = { "Igen", "Nem" };
-	private final String CMDDEVICEPRIORIT[] = { "Alap", "Szerződött", "Sűrgős" };
-	private final String CMDDEVICEOPERATINGSYSTEM[] = { "Win Pro 7 32Bit Hungarian", "Win Pro 7 64Bit Hungarian",
-			"Win 8.1 32Bit Hungarian", "Win 8.1 64Bit Hungarian", "Win 10 32Bit Hungarian", "Win 10 64Bit Hungarian" };
-	DeviceFillteringDB db = new DeviceFillteringDB();
-	Callback<DatePicker, DateCell> dayCellFactory;
+	
+	
+	private DeviceFillteringDB db = new DeviceFillteringDB();
+	private Callback<DatePicker, DateCell> dayCellFactory;
 
 	protected void setComboxAll() {
-		deviceName.getItems().addAll(CMBDEVICENAME);
-		deviceRepairLocation.getItems().addAll(CMBDEVICEREPAIRLOCATION);
-		deviceStatus.getItems().addAll(CMBDEVICESTATUS);
-		deviceNewMachine.getItems().addAll(CMBDEVICNEWMACHINE);
+		deviceName.getItems().addAll(Combobox.setLocationCombobox());
+		deviceRepairLocation.getItems().addAll(Combobox.setLocationCombobox());
+		deviceStatus.getItems().addAll(Combobox.setStatusCombobox());
+		deviceNewMachine.getItems().addAll(Combobox.setYesNoCombobox());
 		deviceAdministrator.setItems(db.administratorList);
-		devicePriorit.getItems().addAll(CMDDEVICEPRIORIT);
-		deviceSoftver.getItems().addAll(CMBDEVICNEWMACHINE);
-		deviceOperatingSystem.getItems().addAll(CMDDEVICEOPERATINGSYSTEM);
-		deviceDataRecovery.getItems().addAll(CMBDEVICNEWMACHINE);
+		devicePriorit.getItems().addAll(Combobox.setNewPrioritCombobox());
+		deviceSoftver.getItems().addAll(Combobox.setYesNoCombobox());
+		deviceOperatingSystem.getItems().addAll(Combobox.setOperatingSystemCombobox());
+		deviceDataRecovery.getItems().addAll(Combobox.setYesNoCombobox());
 		setDate();
 	}
 	private void setDate() {

@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 public class MenuTreeItemController {
@@ -14,9 +13,7 @@ public class MenuTreeItemController {
 	protected StackPane menuPane;
 
 	@FXML
-	protected Pane homePane;
-	@FXML
-	protected AnchorPane stockPane, clientTablePane, newDevicePane, deviceTable;
+	protected AnchorPane homePane, stockPane, clientTablePane, newDevicePane, deviceTable;
 
 	private final String MENU_HOME = "Kezdőlap";
 	private final String MENU_DEVICE = "Eszköz";

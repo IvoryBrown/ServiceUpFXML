@@ -60,7 +60,7 @@ public class DeviceButtonCell extends TableCell<Device, Boolean> {
 						new DeviceSubRecord("Kiszállás", selectedRecord.getDeviceDeliveryDateConverter()),
 						new DeviceSubRecord("Adatmentés", selectedRecord.getDeviceDataRecovery()),
 						new DeviceSubRecord("Szoftver", selectedRecord.getDeviceSoftver()),
-						new DeviceSubRecord("Óperációs rendszer", selectedRecord.getDeviceOperatingSystem()),
+						new DeviceSubRecord("Operációs rendszer", selectedRecord.getDeviceOperatingSystem()),
 						new DeviceSubRecord("Szoftver megjegyzés", selectedRecord.getDeviceSoftverComment()),
 						new DeviceSubRecord("Ház", selectedRecord.getDeviceNewHouseConverter()),
 						new DeviceSubRecord("Tápegység", selectedRecord.getDevicePowerSupplyConverter()),

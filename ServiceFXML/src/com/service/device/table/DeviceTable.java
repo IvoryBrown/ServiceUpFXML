@@ -1,12 +1,11 @@
 package com.service.device.table;
 
-import java.net.URL;
 import java.util.Date;
-import java.util.ResourceBundle;
 
 import com.service.device.Device;
 import com.service.device.controller.DeviceNewController;
 import com.service.device.fillteringdb.DeviceFillteringDB;
+import com.service.setting.combobox.Combobox;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -16,7 +15,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -32,7 +30,7 @@ import javafx.util.Duration;
 import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
 
-public class DeviceTable extends DeviceNewController implements Initializable {
+public class DeviceTable extends DeviceNewController  {
 	@FXML
 	private TableView<Device> deviceAllTable;
 	@FXML
@@ -142,7 +140,7 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 			final String value = i.getValue().getDeviceRepairLocation();
 			return Bindings.createObjectBinding(() -> value);
 		});
-		deviceTableRepairLocation.setCellFactory(ComboBoxTableCell.forTableColumn(CMBDEVICEREPAIRLOCATION));
+		deviceTableRepairLocation.setCellFactory(ComboBoxTableCell.forTableColumn(Combobox.setLocationCombobox()));
 		deviceTableRepairLocation.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
 			@Override
 			public void handle(TableColumn.CellEditEvent<Device, String> d) {
@@ -174,7 +172,7 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 		});
 
 		deviceTableStatusz = new TableColumn<>("Státusz*");
-		deviceTableStatusz.setMinWidth(100);
+		deviceTableStatusz.setMinWidth(140);
 		deviceTableStatusz.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceStatusz"));
 		deviceTableStatusz.setCellValueFactory(i -> {
 			final String value = i.getValue().getDeviceStatusz();
@@ -688,16 +686,6 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 		} else {
 			return true;
 		}
-	}
-
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		setDeviceTableData();
-		setComboxAll();
-		setClientTableData();
-		setStockTableData();
-		setMenuData();
-
 	}
 
 }
