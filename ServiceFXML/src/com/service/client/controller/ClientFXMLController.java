@@ -112,7 +112,7 @@ public class ClientFXMLController implements Initializable {
 
 	@FXML
 	private void btnClientNewclient() {
-
+		clientCheckTable.setVisible(true);
 		if (clientInputBoolen()) {
 			if (clientZipCodedBoolen()) {
 				try {

@@ -554,7 +554,7 @@
 												<Insets top="5.0" />
 											</VBox.margin>
 										</TextField>
-										<Button mnemonicParsing="false" onAction="#filteringClientBtn" prefHeight="36.0" prefWidth="206.0" text="Keresés">
+										<Button mnemonicParsing="false" onAction="#filteringClientBtn" prefHeight="36.0" prefWidth="206.0" text="Keresés Ügyfél">
 											<VBox.margin>
 												<Insets top="5.0" />
 											</VBox.margin>
@@ -563,12 +563,12 @@
 								</VBox>
       						<VBox layoutX="222.0" layoutY="3.0" prefHeight="89.0" prefWidth="206.0">
       							<children>
-      								<Button mnemonicParsing="false" onAction="#newClientBtn" prefHeight="36.0" prefWidth="206.0" text="Új Ügyfél">
+      								<Button mnemonicParsing="false" onAction="#updateClientBtn" prefHeight="36.0" prefWidth="206.0" text="Tábla Frissités">
       									<VBox.margin>
       										<Insets top="5.0" />
       									</VBox.margin>
       								</Button>
-                              <Button mnemonicParsing="false" onAction="#newCompanyBtn" prefHeight="36.0" prefWidth="206.0" text="Új Cég">
+                              <Button mnemonicParsing="false" onAction="#filterCompanytBtn" prefHeight="36.0" prefWidth="206.0" text="Keresés Cég">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
@@ -580,11 +580,16 @@
       						</VBox>
                         <VBox layoutX="437.0" layoutY="3.0" prefHeight="89.0" prefWidth="206.0">
                            <children>
-      								<Button mnemonicParsing="false" onAction="#updateClientBtn" prefHeight="36.0" prefWidth="206.0" text="Tábla Frissités">
+      								<Button mnemonicParsing="false" onAction="#newClientBtn" prefHeight="36.0" prefWidth="206.0" text="Új Ügyfél">
       									<VBox.margin>
       										<Insets top="5.0" />
       									</VBox.margin>
       								</Button>
+                              <Button mnemonicParsing="false" onAction="#newCompanyBtn" prefHeight="36.0" prefWidth="206.0" text="Új Cég">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Button>
                            </children>
                            <opaqueInsets>
                               <Insets />

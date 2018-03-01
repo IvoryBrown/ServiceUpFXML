@@ -52,6 +52,7 @@ public class Device {
 	private final SimpleObjectProperty<Date> deviceCompletedDate;
 	private final SimpleStringProperty deviceErrorCorrection;
 	private final SimpleStringProperty deviceTechnicalPerson;
+	private final SimpleStringProperty deviceStatusz;
 	private String converterSalesBuyingsDate;
 	private String converterAddDate;
 	private String converterEndDate;
@@ -80,7 +81,7 @@ public class Device {
 			boolean devicePowerSupply, boolean deviceProcessor, boolean deviceBaseBoard, boolean deviceMemory,
 			boolean deviceVideoCard, boolean deviceSSDDrive, boolean deviceHardDrive, boolean deviceCoolingFan,
 			boolean deviceOpticalDrive, boolean deviceExpansionCard, boolean deviceLaptop, Date deviceCompletedDate,
-			String deviceErrorCorrection, String deviceTechnicalPerson) {
+			String deviceErrorCorrection, String deviceTechnicalPerson, String deviceStatusz) {
 		this.deviceID = new SimpleStringProperty(deviceID);
 		this.deviceNumber = new SimpleStringProperty(deviceNumber);
 		this.deviceCompanyName = new SimpleStringProperty(deviceCompanyName);
@@ -122,6 +123,7 @@ public class Device {
 		this.deviceCompletedDate = new SimpleObjectProperty<>(deviceCompletedDate);
 		this.deviceErrorCorrection = new SimpleStringProperty(deviceErrorCorrection);
 		this.deviceTechnicalPerson = new SimpleStringProperty(deviceTechnicalPerson);
+		this.deviceStatusz = new SimpleStringProperty(deviceStatusz);
 	}
 
 	public String getDeviceID() {
@@ -648,5 +650,12 @@ public class Device {
 
 	public void setDeviceTechnicalPerson(String deviceTechnicalPerson) {
 		this.deviceTechnicalPerson.set(deviceTechnicalPerson);
+	}
+	public String getDeviceStatusz() {
+		return this.deviceStatusz.get();
+	}
+	
+	public void setDeviceStatusz(String deviceStatusz) {
+		this.deviceStatusz.set(deviceStatusz);
 	}
 }

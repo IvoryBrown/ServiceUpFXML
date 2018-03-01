@@ -47,7 +47,7 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 			deviceTableNewMachine, deviceTableAdministrator, deviceTablePriorit, deviceTablePassword,
 			deviceTableReferences, deviceTableAccesssory, deviceTableInjury, deviceTableErrorDescription,
 			deviceTableComment, deviceTableDataRecovery, deviceTableSoftver, deviceTableOperatingSystem,
-			deviceTableSoftverComment, deviceTableErrorCorrection, deviceTableTechnicalPerson;
+			deviceTableSoftverComment, deviceTableErrorCorrection, deviceTableTechnicalPerson, deviceTableStatusz;
 	private TableColumn<Device, Date> deviceTableSalesBuying, deviceTableAddDate, deviceTableEndDate,
 			deviceTableDeliveryDate, deviceTbaleCompletedDate;
 	private TableColumn<Device, String> setDeviceTablePerson;
@@ -57,6 +57,7 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 	DeviceFillteringDB deviceDb = new DeviceFillteringDB();
 
 	private final String CMBDEVICESTATUSS[] = { "Bevételezve", "Kiadva" };
+	private final String CMBDEVICESTATUSZ[] = { "Bevizsgálás alatt", "Akkatrészre vár", "Garanciális", "Bevizsgálva" };
 
 	@SuppressWarnings("unchecked")
 	protected void setDeviceTableData() {
@@ -166,6 +167,25 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 			public void handle(TableColumn.CellEditEvent<Device, String> d) {
 				Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
 				actualDevice.setDeviceStatus(d.getNewValue());
+				deviceDb.updateDevice(actualDevice);
+				tray = new TrayNotification("Állapot!", "Sikeres Frissítése", NotificationType.SUCCESS);
+				tray.showAndDismiss(Duration.seconds(1));
+			}
+		});
+
+		deviceTableStatusz = new TableColumn<>("Státusz*");
+		deviceTableStatusz.setMinWidth(100);
+		deviceTableStatusz.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceStatusz"));
+		deviceTableStatusz.setCellValueFactory(i -> {
+			final String value = i.getValue().getDeviceStatusz();
+			return Bindings.createObjectBinding(() -> value);
+		});
+		deviceTableStatusz.setCellFactory(ComboBoxTableCell.forTableColumn(CMBDEVICESTATUSZ));
+		deviceTableStatusz.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
+			@Override
+			public void handle(TableColumn.CellEditEvent<Device, String> d) {
+				Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+				actualDevice.setDeviceStatusz(d.getNewValue());
 				deviceDb.updateDevice(actualDevice);
 				tray = new TrayNotification("Állapot!", "Sikeres Frissítése", NotificationType.SUCCESS);
 				tray.showAndDismiss(Duration.seconds(1));
@@ -622,11 +642,11 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 		deviceAllTable.setItems(dataDevice);
 		deviceAllTable.getColumns().addAll(colDeviceAction, deviceTableId, deviceTableNumber, deviceTableCompanyName,
 				deviceTableClientName, deviceTableName, deviceTabelManufacturer, deviceTabelSerialNumber,
-				deviceTableRepairLocation, deviceTableStatus, deviceTableNewMachine, setDeviceTablePerson,
-				deviceTablePriorit, deviceTablePassword, deviceTableReferences, deviceTableAccesssory,
-				deviceTableInjury, deviceTableErrorDescription, deviceTableErrorCorrection, deviceTableComment,
-				setDeviceAllDate, deviceTableDataRecovery, deviceTableSoftver, deviceTableOperatingSystem,
-				deviceTableSoftverComment, setDeviceTableNewDevice);
+				deviceTableRepairLocation, deviceTableStatus, deviceTableStatusz, deviceTableNewMachine,
+				setDeviceTablePerson, deviceTablePriorit, deviceTablePassword, deviceTableReferences,
+				deviceTableAccesssory, deviceTableInjury, deviceTableErrorDescription, deviceTableErrorCorrection,
+				deviceTableComment, setDeviceAllDate, deviceTableDataRecovery, deviceTableSoftver,
+				deviceTableOperatingSystem, deviceTableSoftverComment, setDeviceTableNewDevice);
 		dataDevice.addAll(DeviceFillteringDB.getAllDevice());
 	}
 
@@ -643,6 +663,7 @@ public class DeviceTable extends DeviceNewController implements Initializable {
 		dataDevice.clear();
 		dataDevice.addAll(DeviceFillteringDB.getAllDevice());
 	}
+
 	@FXML
 	private void filteringDeviceBtn(ActionEvent event) {
 		if (setDevicetCheckTxt()) {

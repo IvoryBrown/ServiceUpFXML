@@ -293,6 +293,21 @@ public class ClientTable extends StockFXMLController  {
 			tray.showAndDismiss(Duration.seconds(2));
 		}
 	}
+	
+	@FXML
+	private void filterCompanytBtn(ActionEvent event) {
+		if (setClientCheckTxt()) {
+			dataClient.clear();
+			dataClient.addAll(ClientFillteringDB.getCompanyNameFilltering(clientNameFilteringTxt.getText()));
+			clientNameFilteringTxt.clear();
+			clientNameFilteringTxt.setStyle("-fx-prompt-text-fill: #61a2b1");
+			tray = new TrayNotification("Remek!", "Sikeres Frissítés", NotificationType.SUCCESS);
+			tray.showAndDismiss(Duration.seconds(1));
+		} else {
+			tray = new TrayNotification("HIBA", "Üres a kereső mező", NotificationType.ERROR);
+			tray.showAndDismiss(Duration.seconds(2));
+		}
+	}
 
 	@FXML
 	private void updateClientBtn(ActionEvent event) {

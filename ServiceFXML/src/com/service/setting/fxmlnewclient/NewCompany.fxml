@@ -84,7 +84,7 @@
                </children>
             </VBox>
             <Button layoutX="535.0" layoutY="44.0" mnemonicParsing="false" onAction="#btnCompanyCheck" prefHeight="40.0" prefWidth="56.0" text="Check" />
-            <TableView id="companyCheckTable" fx:id="companyCheckTable" layoutX="598.0" layoutY="44.0" prefHeight="301.0" prefWidth="567.0">
+            <TableView id="companyCheckTable" fx:id="companyCheckTable" layoutX="598.0" layoutY="44.0" prefHeight="301.0" prefWidth="567.0" visible="false">
               <placeholder>
 										<Label text="Nincs ilyen cég." />
 									</placeholder>
@@ -93,19 +93,19 @@
 									<columns>
 									</columns>
             </TableView>
-            <Button layoutX="563.0" layoutY="554.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="206.0" text="Új cég" />
+            <Button layoutX="547.0" layoutY="585.0" mnemonicParsing="false" onAction="#btnClientNewclient" prefHeight="36.0" prefWidth="206.0" text="Új cég" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="268.0" layoutY="100.0" maxHeight="800.0" prefHeight="650.0" prefWidth="330.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="205.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox layoutX="228.0" layoutY="105.0" maxHeight="800.0" prefHeight="650.0" prefWidth="355.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Label id="txtClientInputNumber" fx:id="txtClientInputNumber" prefHeight="36.0" prefWidth="331.0" text="Label">
+                  <Label id="txtClientInputNumber" fx:id="txtClientInputNumber" prefHeight="36.0" prefWidth="331.0">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField id="txtClientCompany" fx:id="txtClientCompany" maxHeight="800.0" minWidth="200.0" prefHeight="36.0">
+                  <TextField id="txtClientCompany" fx:id="txtClientCompany" maxHeight="800.0" minWidth="200.0" prefHeight="36.0" promptText="Senki Bakker Zrt">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
@@ -115,52 +115,52 @@
                         <Insets top="5.0" />
                      </VBox.margin>
                   </ComboBox>
-                  <TextField id="txtClientInputZipCode" fx:id="txtClientInputZipCode" maxHeight="800.0" minWidth="200.0" prefHeight="36.0">
+                  <TextField id="txtClientInputZipCode" fx:id="txtClientInputZipCode" maxHeight="800.0" minWidth="200.0" prefHeight="36.0" promptText="4532">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField id="txtClientInputSettlement" fx:id="txtClientInputSettlement" maxHeight="800.0" minWidth="200.0" prefHeight="36.0">
+                  <TextField id="txtClientInputSettlement" fx:id="txtClientInputSettlement" maxHeight="800.0" minWidth="200.0" prefHeight="36.0" promptText="Senkifalva">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField id="txtClientInputAddress" fx:id="txtClientInputAddress" maxHeight="800.0" minWidth="200.0" prefHeight="36.0">
+                  <TextField id="txtClientInputAddress" fx:id="txtClientInputAddress" maxHeight="800.0" minWidth="200.0" prefHeight="36.0" promptText="Senki sgt 61/b 1/3">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField id="txtClientCompanyMobil" fx:id="txtClientCompanyMobil" maxHeight="800.0" minWidth="200.0" prefHeight="36.0">
+                  <TextField id="txtClientCompanyMobil" fx:id="txtClientCompanyMobil" maxHeight="800.0" minWidth="200.0" prefHeight="36.0" promptText="+36 62 371 658">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField id="txtClientCompanyEmail" fx:id="txtClientCompanyEmail" maxHeight="800.0" minWidth="200.0" prefHeight="36.0">
+                  <TextField id="txtClientCompanyEmail" fx:id="txtClientCompanyEmail" maxHeight="800.0" minWidth="200.0" prefHeight="36.0" promptText="senki@senki.hu">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField id="txtClientInputClientName" fx:id="txtClientInputClientName" maxHeight="800.0" minWidth="200.0" prefHeight="36.0">
+                  <TextField id="txtClientInputClientName" fx:id="txtClientInputClientName" maxHeight="800.0" minWidth="200.0" prefHeight="36.0" promptText="Senki Béla">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField id="txtClientInputMobil" fx:id="txtClientInputMobil" maxHeight="800.0" minWidth="200.0" prefHeight="36.0">
+                  <TextField id="txtClientInputMobil" fx:id="txtClientInputMobil" maxHeight="800.0" minWidth="200.0" prefHeight="36.0" promptText="+36 90 999 9999">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField id="txtClientInputEmail" fx:id="txtClientInputEmail" maxHeight="800.0" minWidth="200.0" prefHeight="36.0">
+                  <TextField id="txtClientInputEmail" fx:id="txtClientInputEmail" maxHeight="800.0" minWidth="200.0" prefHeight="36.0" promptText="senkibéla@senki.com">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField id="txtClientCompanyPackard" fx:id="txtClientCompanyPackard" maxHeight="800.0" minWidth="200.0" prefHeight="36.0">
+                  <TextField id="txtClientCompanyPackard" fx:id="txtClientCompanyPackard" maxHeight="800.0" minWidth="200.0" prefHeight="36.0" promptText="--------------">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextArea id="txtClientInputComment" fx:id="txtClientInputComment" maxHeight="800.0" minWidth="200.0" prefHeight="125.0" prefWidth="330.0">
+                  <TextArea id="txtClientInputComment" fx:id="txtClientInputComment" maxHeight="800.0" minWidth="200.0" prefHeight="125.0" prefWidth="330.0" promptText="Cég megjegyzés">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>

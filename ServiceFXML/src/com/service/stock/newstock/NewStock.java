@@ -4,6 +4,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import com.service.setting.database.DataBaseConnect;
@@ -82,6 +83,7 @@ public class NewStock implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		stockDeviceDescription.setWrapText(true);
+		stockDeviceDate.setValue(LocalDate.now());
 	}
 
 }

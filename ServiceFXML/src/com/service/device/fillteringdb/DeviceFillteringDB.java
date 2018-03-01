@@ -48,7 +48,7 @@ public class DeviceFillteringDB {
 						rs.getBoolean("videokartya"), rs.getBoolean("ssd"), rs.getBoolean("meghajto"),
 						rs.getBoolean("hutoventilator"), rs.getBoolean("optikai_meghajto"),
 						rs.getBoolean("bovitokartya"), rs.getBoolean("laptop"), rs.getDate("elkeszult_datuma"),
-						rs.getString("hibajavitas_leirasa"), rs.getString("technikus"));
+						rs.getString("hibajavitas_leirasa"), rs.getString("technikus"),rs.getString("statusz"));
 				device.add(actualDevice);
 			}
 		} catch (SQLException e) {
@@ -95,7 +95,7 @@ public class DeviceFillteringDB {
 						rs.getBoolean("videokartya"), rs.getBoolean("ssd"), rs.getBoolean("meghajto"),
 						rs.getBoolean("hutoventilator"), rs.getBoolean("optikai_meghajto"),
 						rs.getBoolean("bovitokartya"), rs.getBoolean("laptop"), rs.getDate("elkeszult_datuma"),
-						rs.getString("hibajavitas_leirasa"), rs.getString("technikus"));
+						rs.getString("hibajavitas_leirasa"), rs.getString("technikus"),rs.getString("statusz"));
 				device.add(actualDevice);
 			}
 		} catch (SQLException e) {
@@ -183,7 +183,7 @@ public class DeviceFillteringDB {
 		try {
 			String sqlDevice = "UPDATE `gepadatok` set eszkoz = ?, eszkoz_gyarto = ?, javitas_helye = ?, allapot = ?, tartozekok = ?,"
 					+ "hiba_leirasa = ?, eszkoz_megjegyzes = ?, hatarido_datuma = ?, kiszallas_datuma = ?, softver_megjegyzés = ?,"
-					+ " elkeszult_datuma = ?, hibajavitas_leirasa = ?, technikus = ?" + " WHERE id_gepadatok = ?";
+					+ " elkeszult_datuma = ?, hibajavitas_leirasa = ?, technikus = ?, statusz = ?" + " WHERE id_gepadatok = ?";
 			PreparedStatement pr = conn.prepareStatement(sqlDevice);
 			pr.setString(1, device.getDeviceName());
 			pr.setString(2, device.getDeviceManufacturer());
@@ -198,7 +198,8 @@ public class DeviceFillteringDB {
 			pr.setObject(11, device.getDeviceCompletedDate());
 			pr.setString(12, device.getDeviceErrorCorrection());
 			pr.setString(13, device.getDeviceTechnicalPerson());
-			pr.setString(14, device.getDeviceID());
+			pr.setString(14, device.getDeviceStatusz());
+			pr.setString(15, device.getDeviceID());
 
 			pr.execute();
 		} catch (SQLException e) {
