@@ -311,7 +311,7 @@ public class ClientTable extends StockFXMLController  {
 					.load(getClass().getResource("/com/service/setting/fxmlnewclient/NewClient.fxml"));
 			Stage stage = new Stage();
 			stage.initModality(Modality.APPLICATION_MODAL);
-			stage.setTitle("Eszköz");
+			stage.setTitle("Ügyfél");
 			stage.setScene(new Scene(root, 1300, 650));
 			stage.show();
 		} catch (Exception e) {
@@ -321,7 +321,17 @@ public class ClientTable extends StockFXMLController  {
 	}
 	@FXML
 	private void newCompanyBtn() {
-		//TODO
+		try {
+			Parent root = FXMLLoader
+					.load(getClass().getResource("/com/service/setting/fxmlnewclient/NewCompany.fxml"));
+			Stage stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setTitle("Cég");
+			stage.setScene(new Scene(root, 1300, 650));
+			stage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 

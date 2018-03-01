@@ -14,9 +14,9 @@
 
 <AnchorPane prefHeight="650.0" prefWidth="1300.0" stylesheets="@../desing/desing.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.service.client.controller.ClientFXMLController">
    <children>
-      <Pane layoutX="-32.0" prefHeight="650.0" prefWidth="1336.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-32.0" AnchorPane.rightAnchor="-4.0" AnchorPane.topAnchor="0.0">
+      <Pane layoutX="-2.0" prefHeight="650.0" prefWidth="1306.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="-4.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox layoutY="-1.0" prefHeight="503.0" prefWidth="224.0">
+            <VBox layoutX="29.0" layoutY="2.0" prefHeight="500.0" prefWidth="206.0">
                <children>
                   <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="206.0" text="ID:">
                      <font>
