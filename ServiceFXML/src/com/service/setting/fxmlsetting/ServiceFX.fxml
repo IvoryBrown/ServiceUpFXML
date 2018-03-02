@@ -31,7 +31,7 @@
 					<children>
                   <AnchorPane id="homePane" fx:id="homePane" prefHeight="673.0" prefWidth="1130.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <BarChart id="bar" fx:id="bar" layoutX="93.0" layoutY="71.0" prefHeight="444.0" prefWidth="295.0">
+                        <BarChart id="bar" fx:id="bar" layoutX="9.0" layoutY="71.0" prefHeight="291.0" prefWidth="436.0">
                           <xAxis>
                             <CategoryAxis side="BOTTOM" />
                           </xAxis>
@@ -41,6 +41,7 @@
                         </BarChart>
                         <DatePicker id="kezd" fx:id="kezd" layoutX="447.0" layoutY="113.0" />
                         <DatePicker id="fejezd" fx:id="fejezd" layoutX="769.0" layoutY="131.0" />
+                        <TextField id="passName" fx:id="passName" layoutX="189.0" layoutY="367.0" prefHeight="30.0" prefWidth="247.0" />
                         <Button layoutX="638.0" layoutY="255.0" mnemonicParsing="false" onAction="#setStaticcc" text="Button" />
                      </children></AnchorPane>
                   <AnchorPane id="newDevicePane" fx:id="newDevicePane" prefHeight="673.0" prefWidth="1130.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

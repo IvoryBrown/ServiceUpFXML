@@ -14,7 +14,7 @@ public class MenuTreeItemController {
 
 	@FXML
 	protected AnchorPane homePane, stockPane, clientTablePane, newDevicePane, deviceTable;
-
+	
 	private final String MENU_HOME = "Kezdőlap";
 	private final String MENU_DEVICE = "Eszköz";
 	private final String MENU_DEVICENEW = "Új Eszköz";
@@ -22,11 +22,12 @@ public class MenuTreeItemController {
 	private final String MENU_CLIENT_TABLE = "Ügyfelek Tábla";
 	private final String MENU_STOCK = "Raktár";
 	private final String MENU_EXIT = "Kilépés";
+	private TreeView<String> treeView;
 
 	@SuppressWarnings("unchecked")
 	protected void setMenuData() {
 		TreeItem<String> treeItemRoot1 = new TreeItem<>("Menü");
-		TreeView<String> treeView = new TreeView<>(treeItemRoot1);
+		 treeView = new TreeView<>(treeItemRoot1);
 		treeView.setShowRoot(false);
 
 		TreeItem<String> nodeItemA = new TreeItem<>(MENU_HOME);
@@ -43,13 +44,11 @@ public class MenuTreeItemController {
 		treeItemRoot1.getChildren().addAll(nodeItemA, nodeItemB2, nodeItemD, nodeItemC, nodeItemE);
 
 		menuPane.getChildren().add(treeView);
-
 		treeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Object>() {
 			public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
 				TreeItem<String> selectedItem = (TreeItem<String>) newValue;
 				String selectedMenu;
 				selectedMenu = selectedItem.getValue();
-
 				if (null != selectedMenu) {
 					switch (selectedMenu) {
 					case MENU_HOME:
@@ -90,10 +89,12 @@ public class MenuTreeItemController {
 					case MENU_EXIT:
 						System.exit(0);
 						break;
+
 					}
 				}
 			}
 		});
+	
 
 	}
 

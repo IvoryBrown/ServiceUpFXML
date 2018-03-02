@@ -23,11 +23,13 @@ public class HomeController extends DeviceTable implements Initializable {
 	private BarChart<String, Integer> bar;
 	@FXML
 	private DatePicker fejezd, kezd;
+	XYChart.Series<String, Integer> serial ;
 
 	@FXML
 	private void setStaticcc() {
-		String sql = "SELECT hatarido_datuma,bovitokartya FROM `gepadatok` ORDER BY hatarido_datuma asc";
-		XYChart.Series<String, Integer> serial = new XYChart.Series<>();
+		String sql = "SELECT hatarido_datuma, bovitokartya FROM szerviz_up.gepadatok WHERE hatarido_datuma > " + kezd.getValue();
+		bar.getData().clear();
+		 serial = new XYChart.Series<>();
 		Connection con = DataBaseConnect.getConnection();
 		Statement createStatement = null;
 		ResultSet rs = null;
@@ -41,18 +43,16 @@ public class HomeController extends DeviceTable implements Initializable {
 		} catch (SQLException e) {
 			ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
 		}
-
 	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		setStaticcc();
+		
 		setDeviceTableData();
 		setComboxAll();
 		setClientTableData();
 		setStockTableData();
 		setMenuData();
-
 	}
 
 }
