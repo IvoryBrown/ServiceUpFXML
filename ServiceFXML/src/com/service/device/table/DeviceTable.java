@@ -102,7 +102,7 @@ public class DeviceTable extends DeviceNewController  {
 			final String value = i.getValue().getDeviceName();
 			return Bindings.createObjectBinding(() -> value);
 		});
-		deviceTableName.setCellFactory(ComboBoxTableCell.forTableColumn(CMBDEVICENAME));
+		deviceTableName.setCellFactory(ComboBoxTableCell.forTableColumn(Combobox.setDeviceNameCombobox()));
 		deviceTableName.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
 			@Override
 			public void handle(TableColumn.CellEditEvent<Device, String> d) {

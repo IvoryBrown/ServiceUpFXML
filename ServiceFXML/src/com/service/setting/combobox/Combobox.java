@@ -1,6 +1,11 @@
 package com.service.setting.combobox;
 
 public class Combobox {
+	public static String[] setDeviceNameCombobox() {
+		final String CMBDEVICENAME[] = { "Asztali PC", "Notebook", "Nyomtató", "Monitor", "Projektor", "Pendrive",
+				"Szünetmentes tápegység", "Egyéb" };
+		return CMBDEVICENAME;
+	}
 
 	public static String[] setLocationCombobox() {
 		final String CMBDEVICEREPAIRLOCATION[] = { "Szervíz", "Helyszíni" };

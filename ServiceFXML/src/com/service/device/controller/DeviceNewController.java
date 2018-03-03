@@ -44,15 +44,14 @@ public class DeviceNewController extends ClientTable {
 	@FXML
 	private CheckBox deviceNewHouse, devicePowerSupply, deviceProcessor, deviceBaseBoard, deviceMemory, deviceVideoCard,
 			deviceSSDDrive, deviceHardDrive, deviceCoolingFan, deviceOpticalDrive, deviceExpansionCard, deviceLaptop;
-	protected final String CMBDEVICENAME[] = { "Asztali PC", "Notebook", "Nyomtató", "Monitor", "Projektor", "Pendrive",
-			"Szünetmentes tápegység", "Egyéb" };
+	
 	
 	
 	private DeviceFillteringDB db = new DeviceFillteringDB();
 	private Callback<DatePicker, DateCell> dayCellFactory;
 
 	protected void setComboxAll() {
-		deviceName.getItems().addAll(Combobox.setLocationCombobox());
+		deviceName.getItems().addAll(Combobox.setDeviceNameCombobox());
 		deviceRepairLocation.getItems().addAll(Combobox.setLocationCombobox());
 		deviceStatus.getItems().addAll(Combobox.setStatusCombobox());
 		deviceNewMachine.getItems().addAll(Combobox.setYesNoCombobox());

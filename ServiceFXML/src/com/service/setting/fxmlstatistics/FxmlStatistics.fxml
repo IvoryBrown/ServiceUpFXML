@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="710.0" prefWidth="1350.0" stylesheets="@../desing/desing.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.service.statistics.controller.StatisticsController">
+   <children>
+      <VBox layoutX="22.0" layoutY="28.0" prefHeight="439.0" prefWidth="954.0" AnchorPane.bottomAnchor="271.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <BarChart id="barChar" fx:id="barChar" prefHeight="443.0" prefWidth="400.0">
+               <xAxis>
+                  <CategoryAxis side="BOTTOM" />
+               </xAxis>
+               <yAxis>
+                  <NumberAxis side="LEFT" />
+               </yAxis>
+            </BarChart>
+         </children>
+      </VBox>
+      <VBox layoutX="70.0" layoutY="456.0" prefHeight="137.0" prefWidth="261.0" AnchorPane.bottomAnchor="117.0" AnchorPane.topAnchor="456.0">
+         <children>
+            <DatePicker id="startDate" fx:id="startDate" prefHeight="36.0" prefWidth="650.0">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </DatePicker>
+            <DatePicker id="endDate" fx:id="endDate" prefHeight="36.0" prefWidth="653.0">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </DatePicker>
+            <Button mnemonicParsing="false" onAction="#getStatistics" prefHeight="36.0" prefWidth="654.0" text="Szűrés">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+      <TableView id="tableStatistics" fx:id="tableStatistics" layoutX="954.0" layoutY="15.0" prefHeight="399.0" prefWidth="314.0" />
+   </children>
+</AnchorPane>
