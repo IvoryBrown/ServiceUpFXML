@@ -28,7 +28,7 @@
 					<children>
                   <AnchorPane id="homePane" fx:id="homePane" prefHeight="673.0" prefWidth="1130.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button layoutX="910.0" layoutY="14.0" mnemonicParsing="false" onAction="#newStatisticsBtn" prefHeight="36.0" prefWidth="206.0" text="Statisztika" />
+                        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#newStatisticsBtn" prefHeight="36.0" prefWidth="206.0" text="Statisztika" />
                      </children></AnchorPane>
                   <AnchorPane id="newDevicePane" fx:id="newDevicePane" prefHeight="673.0" prefWidth="1130.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
