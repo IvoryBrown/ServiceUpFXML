@@ -6,10 +6,12 @@ import javafx.beans.property.SimpleStringProperty;
 public class Statistics {
 	private final SimpleStringProperty deviceName;
 	private final SimpleIntegerProperty deviceNumber;
+	private final SimpleStringProperty devicePercent;
 
-	public Statistics(String deviceName, int deviceNumber) {
+	public Statistics(String deviceName, int deviceNumber,String devicePercent ) {
 		this.deviceName = new SimpleStringProperty(deviceName);
 		this.deviceNumber = new SimpleIntegerProperty(deviceNumber);
+		this.devicePercent = new SimpleStringProperty(devicePercent);
 	}
 	public Integer getDeviceNumber() {
 		return this.deviceNumber.get();
@@ -24,5 +26,11 @@ public class Statistics {
 
 	public void setDeviceName(String deviceName) {
 		this.deviceName.set(deviceName);
+	}
+	public String getDevicePercent() {
+		return this.devicePercent.get();
+	}
+	public void setDevicePercent(String devicePercent) {
+		this.deviceName.set(devicePercent);
 	}
 }

@@ -257,7 +257,7 @@
 
 -fx-background-color: #616161;
 -fx-border-color:#61a2b1;
--fx-border-radius:3px; 
+-fx-border-radius:3.0px; 
 
 }
 .check-box:selected .mark {
@@ -267,6 +267,55 @@
 }
 
 .check-box:selected .box {
-
 -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+}
+
+.default-color0.chart-bar { 
+	-fx-bar-fill: #2A5058;
+}
+
+.default-color1.chart-bar { 
+	-fx-bar-fill: #a9e200;
+}
+
+.default-color2.chart-bar { 
+	-fx-bar-fill: #22bad9;
+}
+
+.default-color3.chart-bar { 
+	-fx-bar-fill: #0181e2;
+}
+
+.default-color4.chart-bar { 
+	-fx-bar-fill: #2f357f;
+}
+
+.default-color5.chart-bar { 
+	-fx-bar-fill: #860061;
+}
+
+.default-color6.chart-bar {
+	-fx-bar-fill: #c62b00;
+}
+
+.default-color7.chart-bar { 
+	-fx-bar-fill: #ff5700;
+}
+
+.chart-legend {
+	-fx-background-color: #616161;
+}
+
+.chart-legend-item {
+	-fx-font-size: 16.0px;
+}
+
+.chart-legend-item-symbol{
+	-fx-shape: "M0 -3.5 v7 l 4 -3.5z";
+}
+
+.chart {
+	-fx-legend-side: top;
+	-fx-legend-visible: true;
+	-fx-title-side: bottom;
 }
