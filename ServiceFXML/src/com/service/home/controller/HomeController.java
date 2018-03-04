@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class HomeController extends DeviceTable implements Initializable {
@@ -21,7 +22,7 @@ public class HomeController extends DeviceTable implements Initializable {
 			Parent root = FXMLLoader
 					.load(getClass().getResource("/com/service/setting/fxmlstatistics/FxmlStatistics.fxml"));
 			Stage stage = new Stage();
-//			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.setTitle("Statisztika");
 			stage.setScene(new Scene(root, 1350, 650));
 			stage.show();
