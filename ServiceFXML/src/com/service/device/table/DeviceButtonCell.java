@@ -42,7 +42,7 @@ public class DeviceButtonCell extends TableCell<Device, Boolean> {
 						new DeviceSubRecord("Serial no.", selectedRecord.getDeviceSerialNumber()),
 						new DeviceSubRecord("Javítás helye", selectedRecord.getDeviceRepairLocation()),
 						new DeviceSubRecord("Állapot", selectedRecord.getDeviceStatus()),
-						new DeviceSubRecord("Állapot", selectedRecord.getDeviceStatusz()),
+						new DeviceSubRecord("Státusz", selectedRecord.getDeviceStatusz()),
 						new DeviceSubRecord("Új gép", selectedRecord.getDeviceNewMachine()),
 						new DeviceSubRecord("Ügyintéző", selectedRecord.getDeviceAdministrator()),
 						new DeviceSubRecord("Technikus", selectedRecord.getDeviceTechnicalPerson()),
@@ -89,10 +89,12 @@ public class DeviceButtonCell extends TableCell<Device, Boolean> {
 				columnValue
 						.setCellValueFactory(new PropertyValueFactory<DeviceSubRecord, String>("fieldSubRecordValue"));
 				columnValue.setMinWidth(845);
-
+				
 				subTableView = new TableView<>();
 				subTableView.setItems(subDataList);
 				subTableView.getColumns().addAll(columnfield, columnValue);
+				
+				 
 
 				try {
 					StackPane root = new StackPane();
