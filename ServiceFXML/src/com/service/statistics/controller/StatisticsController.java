@@ -17,15 +17,20 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 public class StatisticsController implements Initializable {
 	@FXML
 	private BarChart<String, Number> barChar;
+	@FXML
+	private PieChart piechart;
 	@FXML
 	private DatePicker startDate, endDate;
 	@FXML
@@ -36,6 +41,7 @@ public class StatisticsController implements Initializable {
 			pendriverSumXY, upsBatterySumXY, otherSumXY, sumXY;
 	private ObservableList<String> dataStatistics = FXCollections.observableArrayList();
 	private ObservableList<Statistics> subDataList;
+	private ObservableList<PieChart.Data> pieChartData;
 
 	private Integer sum = 0, pcSum = 0, notebookSum = 0, printerSum = 0, monitorSum = 0, projektorSum = 0,
 			pendriverSum = 0, upsBatterySum = 0, otherSum = 0, newMachineSum = 0;
@@ -70,8 +76,21 @@ public class StatisticsController implements Initializable {
 
 	private void setStatistics() {
 		if (startDate.getValue() == null) {
-			startDate.setValue(LocalDate.of(2011, 1, 1));
 			endDate.setValue(LocalDate.now());
+			final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
+				@Override
+				public DateCell call(final DatePicker datePicker) {
+					return new DateCell() {
+						@Override
+						public void updateItem(LocalDate item, boolean empty) {
+							super.updateItem(item, empty);
+							item.isBefore(endDate.getValue().minusDays(30));
+						}
+					};
+				}
+			};
+			startDate.setDayCellFactory(dayCellFactory);
+			startDate.setValue(endDate.getValue().minusDays(30));
 		}
 		if (checkDate()) {
 			setGetAllTechnikal();
@@ -146,11 +165,13 @@ public class StatisticsController implements Initializable {
 
 		columnValue = new TableColumn<>("DB");
 		columnValue.setCellValueFactory(new PropertyValueFactory<Statistics, Integer>("deviceNumber"));
-		columnValue.setMinWidth(40);
+		columnValue.setMinWidth(70);
+		columnValue.setMaxWidth(70);
 
 		columnPercent = new TableColumn<>("%");
 		columnPercent.setCellValueFactory(new PropertyValueFactory<Statistics, String>("devicePercent"));
 		columnPercent.setMinWidth(40);
+		columnPercent.setMaxWidth(40);
 
 		tableStatistics.getColumns().addAll(columnField, columnValue, columnPercent);
 		tableStatistics.setItems(subDataList);
@@ -198,6 +219,7 @@ public class StatisticsController implements Initializable {
 
 		barChar.getData().addAll(pcSumXY, notebookSumXY, printerSumXY, monitorSumXY, projektorSumXY, pendriverSumXY,
 				upsBatterySumXY, otherSumXY, sumXY);
+
 		sum = 0;
 		pcSum = 0;
 		notebookSum = 0;
@@ -208,6 +230,22 @@ public class StatisticsController implements Initializable {
 		upsBatterySum = 0;
 		otherSum = 0;
 		newMachineSum = 0;
+		getPieChart();
+	}
+
+	private void getPieChart() {
+		pieChartData = FXCollections.observableArrayList(
+				new PieChart.Data("Asztali PC " + String.format("%.1f", pcSumPercent) + "%", pcSumPercent),
+				new PieChart.Data("Notebook " + String.format("%.1f", notebookSumPercent) + "%", notebookSumPercent),
+				new PieChart.Data("Nyomtató " + String.format("%.1f", printerSumPercent) + "%", printerSumPercent),
+				new PieChart.Data("Monitor " + String.format("%.1f", monitorSumPercent) + "%", monitorSumPercent),
+				new PieChart.Data("Projektor " + String.format("%.1f", projektorSumPercent) + "%", projektorSumPercent),
+				new PieChart.Data("Pendriver " + String.format("%.1f", pendriverSumPercent) + "%", pendriverSumPercent),
+				new PieChart.Data("Szünetmentes " + String.format("%.1f", upsBatterySumPercent) + "%",
+						upsBatterySumPercent),
+				new PieChart.Data("Egyéb " + String.format("%.1f", otherSumPercent) + "%", otherSumPercent));
+		piechart.setTitle("Összesítő");
+		piechart.setData(pieChartData);
 	}
 
 	@FXML
@@ -218,6 +256,7 @@ public class StatisticsController implements Initializable {
 		barChar.setAnimated(false);
 		barChar.getData().clear();
 		barChar.setAnimated(true);
+		pieChartData.clear();
 		getStatistics();
 	}
 
