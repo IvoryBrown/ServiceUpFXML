@@ -6,9 +6,11 @@ import com.service.device.Device;
 import com.service.device.controller.DeviceNewController;
 import com.service.device.fillteringdb.DeviceFillteringDB;
 import com.service.setting.combobox.Combobox;
+import com.service.setting.export.PdfGeneration;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,11 +32,11 @@ import javafx.util.Duration;
 import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
 
-public class DeviceTable extends DeviceNewController  {
+public class DeviceTable extends DeviceNewController {
 	@FXML
 	private TableView<Device> deviceAllTable;
 	@FXML
-	private TextField deviceClientNameFilteringTxt;
+	private TextField deviceClientNameFilteringTxt, inputExportName;
 	private TableColumn<Device, Integer> deviceTableId, deviceTableNumber;
 	private TableColumn<Device, Boolean> deviceTableNewHouse, deviceTablePowerSupply, deviceTableProcessor,
 			deviceTableBaseBoard, deviceTableMemory, deviceTableVideoCard, deviceTableSSDDrive, deviceTableHardDrive,
@@ -56,6 +58,21 @@ public class DeviceTable extends DeviceNewController  {
 
 	private final String CMBDEVICESTATUSS[] = { "Bevételezve", "Kiadva" };
 	private final String CMBDEVICESTATUSZ[] = { "Bevizsgálás alatt", "Akkatrészre vár", "Garanciális", "Bevizsgálva" };
+	String s;
+
+	@FXML
+	private void exportList(ActionEvent event) {
+
+		String fileName = inputExportName.getText();
+		fileName = fileName.replaceAll("\\s+", "");
+		if (fileName != null && !fileName.equals("")) {
+			PdfGeneration pdfCreator = new PdfGeneration();
+			pdfCreator.pdfGeneration(fileName, s);
+		} else {
+			System.out.println("Adj meg egy fájlnevet!");
+		}
+		System.exit(0);
+	}
 
 	@SuppressWarnings("unchecked")
 	protected void setDeviceTableData() {
@@ -630,6 +647,13 @@ public class DeviceTable extends DeviceNewController  {
 						return booleanProp;
 					}
 				});
+		
+		deviceAllTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Device>() {
+			@Override
+			public void changed(ObservableValue<? extends Device> observable, Device oldValue, Device newValue) {
+				s = newValue.getDeviceClientName();
+			}
+		});
 
 		setDeviceTableNewDevice = new TableColumn<>("Új gép");
 		setDeviceTableNewDevice.getColumns().addAll(deviceTableNewHouse, deviceTablePowerSupply, deviceTableProcessor,

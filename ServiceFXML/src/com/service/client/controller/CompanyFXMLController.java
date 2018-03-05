@@ -114,8 +114,8 @@ public class CompanyFXMLController implements Initializable {
 									+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?) ");
 					txtClientInputNumber.setText(ClientIdentficationGenerator.random());
 					insertCompany.setString(1, txtClientInputNumber.getText());
-					insertCompany.setString(2, txtClientInputClientName.getText());
-					insertCompany.setString(3, txtClientCompany.getText());
+					insertCompany.setString(2, txtClientCompany.getText());
+					insertCompany.setString(3, txtClientInputClientName.getText());
 					insertCompany.setString(4, cmbClientInputCounty.getSelectionModel().getSelectedItem());
 					insertCompany.setString(5, txtClientInputSettlement.getText());
 					insertCompany.setInt(6, Integer.parseInt(txtClientInputZipCode.getText()));
