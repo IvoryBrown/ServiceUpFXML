@@ -58,7 +58,7 @@ public class DeviceTable extends DeviceNewController {
 
 	private final String CMBDEVICESTATUSS[] = { "Bevételezve", "Kiadva" };
 	private final String CMBDEVICESTATUSZ[] = { "Bevizsgálás alatt", "Akkatrészre vár", "Garanciális", "Bevizsgálva" };
-	String s;
+	String clientName, clientAddress, clientPhone,clientEmail ;
 
 	@FXML
 	private void exportList(ActionEvent event) {
@@ -67,7 +67,7 @@ public class DeviceTable extends DeviceNewController {
 		fileName = fileName.replaceAll("\\s+", "");
 		if (fileName != null && !fileName.equals("")) {
 			PdfGeneration pdfCreator = new PdfGeneration();
-			pdfCreator.pdfGeneration(fileName, s);
+			pdfCreator.pdfGeneration(fileName, clientName,clientAddress,clientPhone,clientEmail);
 		} else {
 			System.out.println("Adj meg egy fájlnevet!");
 		}
@@ -651,7 +651,10 @@ public class DeviceTable extends DeviceNewController {
 		deviceAllTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Device>() {
 			@Override
 			public void changed(ObservableValue<? extends Device> observable, Device oldValue, Device newValue) {
-				s = newValue.getDeviceClientName();
+				clientName = newValue.getDeviceClientName();
+				clientAddress="6729 Szeged, Szabadkai út 9/a???????";
+				clientPhone = "+36-90/999-9999?";
+				clientEmail = "nemtudommi@freemail.hu??";
 			}
 		});
 
