@@ -58,7 +58,9 @@ public class DeviceTable extends DeviceNewController {
 
 	private final String CMBDEVICESTATUSS[] = { "Bevételezve", "Kiadva" };
 	private final String CMBDEVICESTATUSZ[] = { "Bevizsgálás alatt", "Akkatrészre vár", "Garanciális", "Bevizsgálva" };
-	String clientName, clientAddress, clientPhone,clientEmail ;
+	private String clientName, clientAddress, clientPhone, clientEmail, clientNumber, deviceName, deviceNumber,
+			deviceManufacturer, deviceSalesBuying, deviceAddDate, deviceEndDate, devicePassword, deviceAccesssory,
+			deviceInjury, deviceErrorDescription, deviceDataRecovery, deviceAdministrator;
 
 	@FXML
 	private void exportList(ActionEvent event) {
@@ -67,7 +69,10 @@ public class DeviceTable extends DeviceNewController {
 		fileName = fileName.replaceAll("\\s+", "");
 		if (fileName != null && !fileName.equals("")) {
 			PdfGeneration pdfCreator = new PdfGeneration();
-			pdfCreator.pdfGeneration(fileName, clientName,clientAddress,clientPhone,clientEmail);
+			pdfCreator.pdfGeneration(fileName, clientName, clientAddress, clientPhone, clientEmail, clientNumber,
+					deviceName, deviceNumber, deviceManufacturer, deviceSalesBuying, deviceAddDate, deviceEndDate,
+					devicePassword, deviceAccesssory, deviceInjury, deviceErrorDescription, deviceDataRecovery,
+					deviceAdministrator);
 		} else {
 			System.out.println("Adj meg egy fájlnevet!");
 		}
@@ -647,14 +652,27 @@ public class DeviceTable extends DeviceNewController {
 						return booleanProp;
 					}
 				});
-		
+
 		deviceAllTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Device>() {
 			@Override
 			public void changed(ObservableValue<? extends Device> observable, Device oldValue, Device newValue) {
 				clientName = newValue.getDeviceClientName();
-				clientAddress="6729 Szeged, Szabadkai út 9/a???????";
+				clientAddress = "6729 Szeged, Szabadkai út 9/a??";
 				clientPhone = "+36-90/999-9999?";
 				clientEmail = "nemtudommi@freemail.hu??";
+				clientNumber = "xcFDS2342";
+				deviceName = newValue.getDeviceName();
+				deviceNumber = newValue.getDeviceNumber();
+				deviceManufacturer = newValue.getDeviceManufacturer();
+				deviceSalesBuying = newValue.getDeviceSalesBuyingConverter();
+				deviceAddDate = newValue.getDeviceAddDateConverter();
+				deviceEndDate = newValue.getDeviceEndDateConverter();
+				devicePassword = newValue.getDevicePassword();
+				deviceAccesssory = newValue.getDeviceAccesssory();
+				deviceInjury = newValue.getDeviceInjury();
+				deviceErrorDescription = newValue.getDeviceErrorDescription();
+				deviceDataRecovery = newValue.getDeviceDataRecovery();
+				deviceAdministrator = newValue.getDeviceAdministrator();
 			}
 		});
 
