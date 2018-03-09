@@ -623,7 +623,7 @@
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#exportList" prefHeight="36.0" prefWidth="206.0">
+                              <Button mnemonicParsing="false" onAction="#receivedMeansBtn" prefHeight="36.0" prefWidth="206.0" text="Tábla Bevételezve">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
@@ -639,7 +639,6 @@
 									<columns>
 									</columns>
                         </TableView>
-                        <TextField id="inputExportName" fx:id="inputExportName" layoutX="463.0" layoutY="23.0" />
                      </children>
                   </AnchorPane>
 					</children>

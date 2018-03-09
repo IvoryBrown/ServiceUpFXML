@@ -1,9 +1,10 @@
 package com.service.device.table;
 
+import java.net.URL;
 import java.util.Date;
+import java.util.ResourceBundle;
 
 import com.service.device.Device;
-import com.service.device.controller.DeviceNewController;
 import com.service.device.fillteringdb.DeviceFillteringDB;
 import com.service.setting.combobox.Combobox;
 
@@ -12,34 +13,26 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
 
-public class DeviceTable extends DeviceNewController {
+public class DeviceReceivedMean implements Initializable {
 	@FXML
-	private TableView<Device> deviceAllTable;
-	@FXML
-	private TextField deviceClientNameFilteringTxt, inputExportName;
+	private TableView<Device> deviceTableMean;
 	private TableColumn<Device, Integer> deviceTableId, deviceTableNumber;
 	private TableColumn<Device, Boolean> deviceTableNewHouse, deviceTablePowerSupply, deviceTableProcessor,
 			deviceTableBaseBoard, deviceTableMemory, deviceTableVideoCard, deviceTableSSDDrive, deviceTableHardDrive,
@@ -58,6 +51,7 @@ public class DeviceTable extends DeviceNewController {
 	private TableColumn<Device, Date> setDeviceAllDate;
 	private final ObservableList<Device> dataDevice = FXCollections.observableArrayList();
 	DeviceFillteringDB deviceDb = new DeviceFillteringDB();
+	TrayNotification tray = new TrayNotification();
 
 	@SuppressWarnings("unchecked")
 	protected void setDeviceTableData() {
@@ -77,7 +71,7 @@ public class DeviceTable extends DeviceNewController {
 		colDeviceAction.setCellFactory(new Callback<TableColumn<Device, Boolean>, TableCell<Device, Boolean>>() {
 			@Override
 			public TableCell<Device, Boolean> call(TableColumn<Device, Boolean> p) {
-				return new DeviceButtonCell(deviceAllTable);
+				return new DeviceButtonCell(deviceTableMean);
 			}
 		});
 
@@ -319,7 +313,6 @@ public class DeviceTable extends DeviceNewController {
 				deviceDb.updateDevice(actualDevice);
 				tray = new TrayNotification("Határidő dátum!", "Sikeres Frissítés", NotificationType.SUCCESS);
 				tray.showAndDismiss(Duration.seconds(1));
-				updateDeviceTableDate();
 			}
 		});
 
@@ -335,7 +328,6 @@ public class DeviceTable extends DeviceNewController {
 				deviceDb.updateDevice(actualDevice);
 				tray = new TrayNotification("Kiszállás dátum", "Sikeres Frissítés", NotificationType.SUCCESS);
 				tray.showAndDismiss(Duration.seconds(1));
-				updateDeviceTableDate();
 			}
 		});
 		deviceTbaleCompletedDate = new TableColumn<>("Elkészült*");
@@ -350,7 +342,6 @@ public class DeviceTable extends DeviceNewController {
 				deviceDb.updateDevice(actualDevice);
 				tray = new TrayNotification("Elkészült", "Sikeres Frissítés", NotificationType.SUCCESS);
 				tray.showAndDismiss(Duration.seconds(1));
-				updateDeviceTableDate();
 			}
 		});
 
@@ -639,8 +630,8 @@ public class DeviceTable extends DeviceNewController {
 				deviceTableHardDrive, deviceTableCoolingFan, deviceTableOpticalDrive, deviceTableExpansionCard,
 				deviceTableLaptop);
 
-		deviceAllTable.setItems(dataDevice);
-		deviceAllTable.getColumns().addAll(colDeviceAction, deviceTableId, deviceTableNumber, deviceTableCompanyName,
+		deviceTableMean.setItems(dataDevice);
+		deviceTableMean.getColumns().addAll(colDeviceAction, deviceTableId, deviceTableNumber, deviceTableCompanyName,
 				deviceTableClientName, deviceTableName, deviceTabelManufacturer, deviceTabelSerialNumber,
 				deviceTableRepairLocation, deviceTableStatus, deviceTableStatusz, deviceTableNewMachine,
 				setDeviceTablePerson, deviceTablePriorit, deviceTablePassword, deviceTableReferences,
@@ -650,59 +641,10 @@ public class DeviceTable extends DeviceNewController {
 		dataDevice.addAll(DeviceFillteringDB.getAllDevice());
 	}
 
-	@FXML
-	private void updateDeviceBtn(ActionEvent event) {
-		dataDevice.clear();
-		dataDevice.addAll(DeviceFillteringDB.getAllDevice());
-		tray = new TrayNotification("Remek!", "Sikeres Frissítés", NotificationType.SUCCESS);
-		tray.showAndDismiss(Duration.seconds(1));
-		deviceClientNameFilteringTxt.setStyle("-fx-prompt-text-fill: #61a2b1");
-	}
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		setDeviceTableData();
 
-	private void updateDeviceTableDate() {
-		dataDevice.clear();
-		dataDevice.addAll(DeviceFillteringDB.getAllDevice());
-	}
-
-	@FXML
-	private void filteringDeviceBtn(ActionEvent event) {
-		if (setDevicetCheckTxt()) {
-			dataDevice.clear();
-			dataDevice.addAll(DeviceFillteringDB.getDeviceNameFilltering(deviceClientNameFilteringTxt.getText()));
-			deviceClientNameFilteringTxt.clear();
-			deviceClientNameFilteringTxt.setStyle("-fx-prompt-text-fill: #61a2b1");
-			tray = new TrayNotification("Remek!", "Sikeres Frissítés", NotificationType.SUCCESS);
-			tray.showAndDismiss(Duration.seconds(1));
-		} else {
-			tray = new TrayNotification("HIBA", "Üres a kereső mező", NotificationType.ERROR);
-			tray.showAndDismiss(Duration.seconds(2));
-		}
-	}
-
-	@FXML
-	private void receivedMeansBtn() {
-		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/com/service/setting/fxmlmean/ReceivedMean.fxml"));
-			Stage stage = new Stage();
-			stage.initModality(Modality.APPLICATION_MODAL);
-			stage.setTitle("Bevételezve");
-			stage.setScene(new Scene(root, 1300, 650));
-			stage.show();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	private boolean setDevicetCheckTxt() {
-		if (deviceClientNameFilteringTxt.getText().trim().isEmpty()) {
-			deviceClientNameFilteringTxt.setStyle("-fx-prompt-text-fill: #CC0033");
-		}
-		if (deviceClientNameFilteringTxt.getText().trim().isEmpty()) {
-			return false;
-		} else {
-			return true;
-		}
 	}
 
 }

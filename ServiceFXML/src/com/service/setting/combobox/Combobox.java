@@ -8,7 +8,7 @@ public class Combobox {
 	}
 
 	public static String[] setLocationCombobox() {
-		final String CMBDEVICEREPAIRLOCATION[] = { "Szervíz", "Helyszíni" };
+		final String CMBDEVICEREPAIRLOCATION[] = { "Szervíz Szeged", "Szervíz Soltvadkert", "Helyszíni" };
 		return CMBDEVICEREPAIRLOCATION;
 	}
 
@@ -51,6 +51,16 @@ public class Combobox {
 				"Windows 10 Home 32Bit Hungarian", "Windows 10 Home 64Bit Hungarian",
 				"Windows 10 Professional 32Bit Hungarian", "Windows 10 Professional 64Bit Hungarian" };
 		return CMDDEVICEOPERATINGSYSTEM;
+	}
+
+	public static String[] setDeviceStaCombobox() {
+		final String CMBDEVICESTATUSS[] = { "Bevételezve", "Kiadva" };
+		return CMBDEVICESTATUSS;
+	}
+
+	public static String[] setDeviceStatusCombobox() {
+		final String CMBDEVICESTATUSZ[] = { "Bevizsgálás alatt", "Akkatrészre vár", "Garanciális", "Bevizsgálva" };
+		return CMBDEVICESTATUSZ;
 	}
 
 }

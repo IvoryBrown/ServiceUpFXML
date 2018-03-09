@@ -88,7 +88,7 @@ public class DeviceButtonCell extends TableCell<Device, Boolean> {
 				TableColumn columnValue = new TableColumn<>("Eszköz");
 				columnValue
 						.setCellValueFactory(new PropertyValueFactory<DeviceSubRecord, String>("fieldSubRecordValue"));
-				columnValue.setMinWidth(845);
+				
 				
 				subTableView = new TableView<>();
 				subTableView.setItems(subDataList);
@@ -100,11 +100,10 @@ public class DeviceButtonCell extends TableCell<Device, Boolean> {
 					StackPane root = new StackPane();
 					root.getChildren().add(subTableView);
 					Stage stage = new Stage();
-					stage.setResizable(false);
 					root.getStylesheets().add(getClass().getClassLoader()
 							.getResource("com/service/setting/desing/desing.css").toExternalForm());
 					stage.initModality(Modality.APPLICATION_MODAL);
-					stage.setTitle("Ügyfél");
+					stage.setTitle("Eszköz");
 					root.prefWidthProperty().bind(stage.widthProperty());
 					stage.setScene(new Scene(root, 950, 750));
 					stage.show();
