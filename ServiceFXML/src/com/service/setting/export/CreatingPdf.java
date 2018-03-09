@@ -14,52 +14,12 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 public class CreatingPdf {
-	
-//	private String clientName, clientAddress, clientPhone, clientNumber, deviceName, deviceNumber, deviceManufacturer,
-//	deviceSalesBuying, deviceAddDate, deviceEndDate, devicePassword, deviceAccesssory, deviceInjury,
-//	deviceErrorDescription, deviceDataRecovery;
-//
-//	@FXML
-//	private void exportList(ActionEvent event) {
-//
-//		String fileName = inputExportName.getText();
-//		fileName = fileName.replaceAll("\\s+", "");
-//		if (fileName != null && !fileName.equals("")) {
-//			CreatingPdf pdfCreator = new CreatingPdf();
-//			pdfCreator.creating(fileName, clientName, clientAddress, clientPhone, clientNumber, deviceNumber,
-//					deviceSalesBuying, deviceAddDate, deviceEndDate, deviceName, deviceManufacturer, devicePassword,
-//					deviceAccesssory, deviceInjury, deviceErrorDescription, deviceDataRecovery);
-//		} else {
-//			System.out.println("Adj meg egy fájlnevet!");
-//		}
-//		System.exit(0);
-//	}
-//	
-//	deviceAllTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Device>() {
-//		@Override
-//		public void changed(ObservableValue<? extends Device> observable, Device oldValue, Device newValue) {
-//			clientName = newValue.getDeviceClientName();
-//			clientAddress = "6729 Szeged, Szabadkai út 9/a??";
-//			clientPhone = "+36-90/999-9999?";
-//			clientNumber = "xcFDS2342";
-//			deviceName = newValue.getDeviceName();
-//			deviceNumber = newValue.getDeviceNumber();
-//			deviceManufacturer = newValue.getDeviceManufacturer();
-//			deviceSalesBuying = newValue.getDeviceSalesBuyingConverter();
-//			deviceAddDate = newValue.getDeviceAddDateConverter();
-//			deviceEndDate = newValue.getDeviceEndDateConverter();
-//			devicePassword = newValue.getDevicePassword();
-//			deviceAccesssory = newValue.getDeviceAccesssory();
-//			deviceInjury = newValue.getDeviceInjury();
-//			deviceErrorDescription = newValue.getDeviceErrorDescription();
-//			deviceDataRecovery = newValue.getDeviceDataRecovery();
-//		}
-//	});
 
-	public void creating(String fileName, String clientName, String clientAddress, String clientPhone,
-			String clientNumber, String deviceNumber, String deviceSalesBuying, String deviceAddDate,
-			String deviceEndDate, String deviceName, String deviceManufacturer, String devicePassword,
-			String deviceAccesssory, String deviceInjury, String deviceErrorDescription, String deviceDataRecovery) {
+	public void creating(String clientName, String clientZipCode, String clientSettlement, String clientAddress,
+			String clientPhone, String clientNumber, String deviceNumber, String deviceSalesBuying,
+			String deviceAddDate, String deviceEndDate, String deviceName, String deviceManufacturer,
+			String devicePassword, String deviceAccesssory, String deviceInjury, String deviceErrorDescription,
+			String deviceDataRecovery) {
 		Document document = new Document(PageSize.A4);
 		Font font1 = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD);
 		Font font2 = new Font(Font.FontFamily.HELVETICA, 9, Font.BOLD);
@@ -68,9 +28,8 @@ public class CreatingPdf {
 		try {
 			
 			
-
 			String s = "F:/Teszt/";
-			PdfWriter.getInstance(document, new FileOutputStream(s + fileName + ".pdf"));
+			PdfWriter.getInstance(document, new FileOutputStream(s + "zz" + ".pdf"));
 			document.open();
 
 			for (int i = 0; i < 2; i++) {
@@ -86,7 +45,7 @@ public class CreatingPdf {
 				customerLblCell.addElement(ph1);
 				Phrase ph2 = new Phrase(clientName, font2b);
 				customerLblCell.addElement(ph2);
-				Phrase ph3 = new Phrase(clientAddress, font2b);
+				Phrase ph3 = new Phrase(clientZipCode+" " + clientSettlement+"," + clientAddress, font2b);
 				customerLblCell.addElement(ph3);
 				Phrase ph4 = new Phrase(clientPhone, font2b);
 				customerLblCell.addElement(ph4);
