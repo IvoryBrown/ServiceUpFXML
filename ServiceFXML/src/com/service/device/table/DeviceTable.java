@@ -6,7 +6,7 @@ import com.service.device.Device;
 import com.service.device.controller.DeviceNewController;
 import com.service.device.fillteringdb.DeviceFillteringDB;
 import com.service.setting.combobox.Combobox;
-import com.service.setting.export.PdfGeneration;
+import com.service.setting.export.Creating;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -58,9 +58,9 @@ public class DeviceTable extends DeviceNewController {
 
 	private final String CMBDEVICESTATUSS[] = { "Bevételezve", "Kiadva" };
 	private final String CMBDEVICESTATUSZ[] = { "Bevizsgálás alatt", "Akkatrészre vár", "Garanciális", "Bevizsgálva" };
-	private String clientName, clientAddress, clientPhone, clientEmail, clientNumber, deviceName, deviceNumber,
-			deviceManufacturer, deviceSalesBuying, deviceAddDate, deviceEndDate, devicePassword, deviceAccesssory,
-			deviceInjury, deviceErrorDescription, deviceDataRecovery, deviceAdministrator;
+	private String clientName, clientAddress, clientPhone, clientNumber, deviceName, deviceNumber, deviceManufacturer,
+			deviceSalesBuying, deviceAddDate, deviceEndDate, devicePassword, deviceAccesssory, deviceInjury,
+			deviceErrorDescription, deviceDataRecovery;
 
 	@FXML
 	private void exportList(ActionEvent event) {
@@ -68,11 +68,10 @@ public class DeviceTable extends DeviceNewController {
 		String fileName = inputExportName.getText();
 		fileName = fileName.replaceAll("\\s+", "");
 		if (fileName != null && !fileName.equals("")) {
-			PdfGeneration pdfCreator = new PdfGeneration();
-			pdfCreator.pdfGeneration(fileName, clientName, clientAddress, clientPhone, clientEmail, clientNumber,
-					deviceName, deviceNumber, deviceManufacturer, deviceSalesBuying, deviceAddDate, deviceEndDate,
-					devicePassword, deviceAccesssory, deviceInjury, deviceErrorDescription, deviceDataRecovery,
-					deviceAdministrator);
+			Creating pdfCreator = new Creating();
+			pdfCreator.creating(fileName, clientName, clientAddress, clientPhone, clientNumber, deviceNumber,
+					deviceSalesBuying, deviceAddDate, deviceEndDate, deviceName, deviceManufacturer, devicePassword,
+					deviceAccesssory, deviceInjury, deviceErrorDescription, deviceDataRecovery);
 		} else {
 			System.out.println("Adj meg egy fájlnevet!");
 		}
@@ -659,7 +658,6 @@ public class DeviceTable extends DeviceNewController {
 				clientName = newValue.getDeviceClientName();
 				clientAddress = "6729 Szeged, Szabadkai út 9/a??";
 				clientPhone = "+36-90/999-9999?";
-				clientEmail = "nemtudommi@freemail.hu??";
 				clientNumber = "xcFDS2342";
 				deviceName = newValue.getDeviceName();
 				deviceNumber = newValue.getDeviceNumber();
@@ -672,7 +670,6 @@ public class DeviceTable extends DeviceNewController {
 				deviceInjury = newValue.getDeviceInjury();
 				deviceErrorDescription = newValue.getDeviceErrorDescription();
 				deviceDataRecovery = newValue.getDeviceDataRecovery();
-				deviceAdministrator = newValue.getDeviceAdministrator();
 			}
 		});
 
