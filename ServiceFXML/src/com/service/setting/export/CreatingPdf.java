@@ -13,14 +13,16 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
-public class CreatingPdf {
+import javafx.print.PrinterJob;
 
+public class CreatingPdf {
+	Document document ;
 	public void creating(String clientName, String clientZipCode, String clientSettlement, String clientAddress,
 			String clientPhone, String clientNumber, String deviceNumber, String deviceSalesBuying,
 			String deviceAddDate, String deviceEndDate, String deviceName, String deviceManufacturer,
 			String devicePassword, String deviceAccesssory, String deviceInjury, String deviceErrorDescription,
 			String deviceDataRecovery) {
-		Document document = new Document(PageSize.A4);
+		 document = new Document(PageSize.A4);
 		Font font1 = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD);
 		Font font2 = new Font(Font.FontFamily.HELVETICA, 9, Font.BOLD);
 		Font font2b = new Font(Font.FontFamily.HELVETICA, 8, Font.NORMAL);
@@ -195,4 +197,8 @@ public class CreatingPdf {
 		}
 	}
 
+	private void print() {
+		PrinterJob job = PrinterJob.createPrinterJob();
+		job.getPrinter();
+	  }
 }
