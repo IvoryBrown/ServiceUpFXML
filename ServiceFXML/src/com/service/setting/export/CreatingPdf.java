@@ -9,11 +9,11 @@ import com.itextpdf.text.Font;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfAction;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-
-import javafx.print.PrinterJob;
 
 public class CreatingPdf {
 	Document document ;
@@ -23,15 +23,21 @@ public class CreatingPdf {
 			String devicePassword, String deviceAccesssory, String deviceInjury, String deviceErrorDescription,
 			String deviceDataRecovery) {
 		 document = new Document(PageSize.A4);
-		Font font1 = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD);
-		Font font2 = new Font(Font.FontFamily.HELVETICA, 9, Font.BOLD);
-		Font font2b = new Font(Font.FontFamily.HELVETICA, 8, Font.NORMAL);
-		Font font3 = new Font(Font.FontFamily.COURIER, 7, Font.BOLD);
+	
+		
 		try {
+			BaseFont baseFont = BaseFont.createFont(BaseFont.HELVETICA, 
+					BaseFont.CP1250, BaseFont.EMBEDDED);
+			BaseFont baseFont1 = BaseFont.createFont(BaseFont.COURIER, 
+					BaseFont.CP1250, BaseFont.EMBEDDED);
+			Font font1 = new Font(baseFont, 10, Font.BOLD);
+			Font font2 = new Font(baseFont, 9, Font.BOLD);
+			Font font2b = new Font(baseFont, 8, Font.NORMAL);
+			Font font3 = new Font(baseFont1, 7, Font.BOLD);
 			
 			
 			String s = "F:/Teszt/";
-			PdfWriter.getInstance(document, new FileOutputStream(s + "zz" + ".pdf"));
+			PdfWriter pdfWriter = PdfWriter.getInstance(document, new FileOutputStream(s + "zz" + ".pdf"));
 			document.open();
 
 			for (int i = 0; i < 2; i++) {
@@ -188,17 +194,22 @@ public class CreatingPdf {
 				para1.setAlignment(Element.ALIGN_CENTER);
 				document.add(para1);
 			}
+			PdfAction action = new PdfAction(PdfAction.PRINTDIALOG);
+			pdfWriter.setOpenAction(action);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 
 			document.close();
+		
 
 		}
+		 
 	}
+	
 
 	private void print() {
-		PrinterJob job = PrinterJob.createPrinterJob();
-		job.getPrinter();
-	  }
+		
+
+	}
 }
