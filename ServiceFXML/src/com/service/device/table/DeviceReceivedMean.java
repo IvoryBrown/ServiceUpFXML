@@ -24,6 +24,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -35,42 +36,44 @@ import tray.notification.TrayNotification;
 public class DeviceReceivedMean implements Initializable {
 	@FXML
 	private TableView<DeviceClient> deviceTableMean;
+	@FXML
+	private TextField deviceClientNameFilteringTxt;
+
 	private TableColumn<DeviceClient, Integer> deviceTableId, deviceTableNumber;
 	private TableColumn<DeviceClient, Boolean> deviceTableNewHouse, deviceTablePowerSupply, deviceTableProcessor,
 			deviceTableBaseBoard, deviceTableMemory, deviceTableVideoCard, deviceTableSSDDrive, deviceTableHardDrive,
 			deviceTableCoolingFan, deviceTableOpticalDrive, deviceTableExpansionCard, deviceTableLaptop,
 			colDeviceAction;
-	private TableColumn<DeviceClient, String> clientTableNumber, clientTableSettlement, clientTableName, clientTableZipCode, clientTableAddress,
-			clientTablePhone, deviceTableCompanyName, deviceTableName, deviceTabelManufacturer, deviceTabelSerialNumber,
-			deviceTableRepairLocation, deviceTableStatus, deviceTableNewMachine, deviceTableAdministrator,
-			deviceTablePriorit, deviceTablePassword, deviceTableReferences, deviceTableAccesssory, deviceTableInjury,
-			deviceTableErrorDescription, deviceTableComment, deviceTableDataRecovery, deviceTableSoftver,
-			deviceTableOperatingSystem, deviceTableSoftverComment, deviceTableErrorCorrection,
-			deviceTableTechnicalPerson, deviceTableStatusz;
+	private TableColumn<DeviceClient, String> clientTableNumber, clientTableSettlement, clientTableName,
+			clientTableZipCode, clientTableAddress, clientTablePhone, deviceTableCompanyName, deviceTableName,
+			deviceTabelManufacturer, deviceTabelSerialNumber, deviceTableRepairLocation, deviceTableStatus,
+			deviceTableNewMachine, deviceTableAdministrator, deviceTablePriorit, deviceTablePassword,
+			deviceTableReferences, deviceTableAccesssory, deviceTableInjury, deviceTableErrorDescription,
+			deviceTableComment, deviceTableDataRecovery, deviceTableSoftver, deviceTableOperatingSystem,
+			deviceTableSoftverComment, deviceTableErrorCorrection, deviceTableTechnicalPerson, deviceTableStatusz;
 	private TableColumn<DeviceClient, Date> deviceTableSalesBuying, deviceTableAddDate, deviceTableEndDate,
 			deviceTableDeliveryDate, deviceTbaleCompletedDate;
 	private final ObservableList<DeviceClient> dataDeviceClient = FXCollections.observableArrayList();
-	DeviceFillteringDB deviceDb = new DeviceFillteringDB();
-	TrayNotification tray = new TrayNotification();
-	
-	private String clientName,clientZipCode, clientSettlement, clientAddress, clientPhone, clientNumber,  deviceName, deviceNumber, deviceManufacturer,
-	deviceSalesBuying, deviceAddDate, deviceEndDate, devicePassword, deviceAccesssory, deviceInjury,
-	deviceErrorDescription, deviceDataRecovery;
-	
-	
+	private DeviceFillteringDB deviceDb = new DeviceFillteringDB();
+	private TrayNotification tray = new TrayNotification();
+
+	private String clientName, clientZipCode, clientSettlement, clientAddress, clientPhone, clientNumber, deviceName,
+			deviceNumber, deviceManufacturer, deviceSalesBuying, deviceAddDate, deviceEndDate, devicePassword,
+			deviceAccesssory, deviceInjury, deviceErrorDescription, deviceDataRecovery;
+
 	@FXML
 	private void exportList(ActionEvent event) {
 
 		if (clientName != null && !clientName.equals("")) {
 			CreatingPdf pdfCreator = new CreatingPdf();
-			pdfCreator.creating( clientName,clientZipCode, clientSettlement, clientAddress, clientPhone, clientNumber, deviceNumber,
-					deviceSalesBuying, deviceAddDate, deviceEndDate, deviceName, deviceManufacturer, devicePassword,
-					deviceAccesssory, deviceInjury, deviceErrorDescription, deviceDataRecovery);
+			pdfCreator.creating(clientName, clientZipCode, clientSettlement, clientAddress, clientPhone, clientNumber,
+					deviceNumber, deviceSalesBuying, deviceAddDate, deviceEndDate, deviceName, deviceManufacturer,
+					devicePassword, deviceAccesssory, deviceInjury, deviceErrorDescription, deviceDataRecovery);
 		} else {
-			System.out.println("Adj meg egy fájlnevet!");
+			tray = new TrayNotification("HIBA", "Nincs kiválasztva semmi", NotificationType.ERROR);
+			tray.showAndDismiss(Duration.seconds(2));
 		}
 	}
-	
 
 	@SuppressWarnings("unchecked")
 	protected void setDeviceTableData() {
@@ -501,40 +504,77 @@ public class DeviceReceivedMean implements Initializable {
 
 		deviceTableMean.setItems(dataDeviceClient);
 		deviceTableMean.getColumns().addAll(deviceTableId, clientTableNumber, clientTableName, deviceTableCompanyName,
-				clientTableZipCode, clientTableSettlement, clientTableAddress, clientTablePhone, deviceTableNumber, deviceTableName,
-				deviceTabelManufacturer, deviceTabelSerialNumber, deviceTableRepairLocation, deviceTableStatus,
-				deviceTableStatusz, deviceTableNewMachine, deviceTableAdministrator, deviceTableTechnicalPerson,
-				deviceTablePriorit, deviceTablePassword, deviceTableReferences, deviceTableAccesssory,
-				deviceTableInjury, deviceTableErrorDescription, deviceTableErrorCorrection, deviceTableComment,
-				deviceTableSalesBuying, deviceTableAddDate, deviceTableEndDate, deviceTableDeliveryDate,
-				deviceTbaleCompletedDate, deviceTableDataRecovery, deviceTableSoftver, deviceTableOperatingSystem,
-				deviceTableSoftverComment, deviceTableNewHouse, deviceTablePowerSupply, deviceTableProcessor,
-				deviceTableBaseBoard, deviceTableMemory, deviceTableVideoCard, deviceTableSSDDrive,
-				deviceTableHardDrive, deviceTableCoolingFan, deviceTableOpticalDrive, deviceTableExpansionCard,
-				deviceTableLaptop);
+				clientTableZipCode, clientTableSettlement, clientTableAddress, clientTablePhone, deviceTableNumber,
+				deviceTableName, deviceTabelManufacturer, deviceTabelSerialNumber, deviceTableRepairLocation,
+				deviceTableStatus, deviceTableStatusz, deviceTableNewMachine, deviceTableAdministrator,
+				deviceTableTechnicalPerson, deviceTablePriorit, deviceTablePassword, deviceTableReferences,
+				deviceTableAccesssory, deviceTableInjury, deviceTableErrorDescription, deviceTableErrorCorrection,
+				deviceTableComment, deviceTableSalesBuying, deviceTableAddDate, deviceTableEndDate,
+				deviceTableDeliveryDate, deviceTbaleCompletedDate, deviceTableDataRecovery, deviceTableSoftver,
+				deviceTableOperatingSystem, deviceTableSoftverComment, deviceTableNewHouse, deviceTablePowerSupply,
+				deviceTableProcessor, deviceTableBaseBoard, deviceTableMemory, deviceTableVideoCard,
+				deviceTableSSDDrive, deviceTableHardDrive, deviceTableCoolingFan, deviceTableOpticalDrive,
+				deviceTableExpansionCard, deviceTableLaptop);
 		dataDeviceClient.addAll(DeviceFillteringDB.getAllDeviceClient());
 		deviceTableMean.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<DeviceClient>() {
-		@Override
-		public void changed(ObservableValue<? extends DeviceClient> observable, DeviceClient oldValue, DeviceClient newValue) {
-			clientName = newValue.getDeviceClientName();
-			clientZipCode =newValue.getClientZipCode();
-			clientAddress =newValue.getClientAddress();
-			clientSettlement =newValue.getClientSettlement();
-			clientPhone = "+36-90/999-9999?";
-			clientNumber = "xcFDS2342";
-			deviceName = newValue.getDeviceName();
-			deviceNumber = newValue.getDeviceNumber();
-			deviceManufacturer = newValue.getDeviceManufacturer();
-			deviceSalesBuying = newValue.getDeviceSalesBuyingConverter();
-			deviceAddDate = newValue.getDeviceAddDateConverter();
-			deviceEndDate = newValue.getDeviceEndDateConverter();
-			devicePassword = newValue.getDevicePassword();
-			deviceAccesssory = newValue.getDeviceAccesssory();
-			deviceInjury = newValue.getDeviceInjury();
-			deviceErrorDescription = newValue.getDeviceErrorDescription();
-			deviceDataRecovery = newValue.getDeviceDataRecovery();
+			@Override
+			public void changed(ObservableValue<? extends DeviceClient> observable, DeviceClient oldValue,
+					DeviceClient newValue) {
+				clientName = newValue.getDeviceClientName();
+				clientZipCode = newValue.getClientZipCode();
+				clientAddress = newValue.getClientAddress();
+				clientSettlement = newValue.getClientSettlement();
+				clientPhone = newValue.getClientPhone();
+				clientNumber = newValue.getClientNumber();
+				deviceName = newValue.getDeviceName();
+				deviceNumber = newValue.getDeviceNumber();
+				deviceManufacturer = newValue.getDeviceManufacturer();
+				deviceSalesBuying = newValue.getDeviceSalesBuyingConverter();
+				deviceAddDate = newValue.getDeviceAddDateConverter();
+				deviceEndDate = newValue.getDeviceEndDateConverter();
+				devicePassword = newValue.getDevicePassword();
+				deviceAccesssory = newValue.getDeviceAccesssory();
+				deviceInjury = newValue.getDeviceInjury();
+				deviceErrorDescription = newValue.getDeviceErrorDescription();
+				deviceDataRecovery = newValue.getDeviceDataRecovery();
+			}
+		});
+	}
+
+	@FXML
+	private void updateDeviceBtn(ActionEvent event) {
+		dataDeviceClient.clear();
+		dataDeviceClient.addAll(DeviceFillteringDB.getAllDeviceClient());
+		tray = new TrayNotification("Remek!", "Sikeres Frissítés", NotificationType.SUCCESS);
+		tray.showAndDismiss(Duration.seconds(1));
+		deviceClientNameFilteringTxt.setStyle("-fx-prompt-text-fill: #61a2b1");
+	}
+
+	@FXML
+	private void filteringClientBtn(ActionEvent event) {
+		if (setDevicetCheckTxt()) {
+			dataDeviceClient.clear();
+			dataDeviceClient
+					.addAll(DeviceFillteringDB.getAllDeviceClientFiltering(deviceClientNameFilteringTxt.getText()));
+			deviceClientNameFilteringTxt.clear();
+			deviceClientNameFilteringTxt.setStyle("-fx-prompt-text-fill: #61a2b1");
+			tray = new TrayNotification("Remek!", "Sikeres Frissítés", NotificationType.SUCCESS);
+			tray.showAndDismiss(Duration.seconds(1));
+		} else {
+			tray = new TrayNotification("HIBA", "Üres a kereső mező", NotificationType.ERROR);
+			tray.showAndDismiss(Duration.seconds(2));
 		}
-	});
+	}
+
+	private boolean setDevicetCheckTxt() {
+		if (deviceClientNameFilteringTxt.getText().trim().isEmpty()) {
+			deviceClientNameFilteringTxt.setStyle("-fx-prompt-text-fill: #CC0033");
+		}
+		if (deviceClientNameFilteringTxt.getText().trim().isEmpty()) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	@Override

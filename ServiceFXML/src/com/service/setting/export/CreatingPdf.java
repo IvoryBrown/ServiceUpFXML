@@ -1,5 +1,6 @@
 package com.service.setting.export;
 
+import java.io.File;
 import java.io.FileOutputStream;
 
 import com.itextpdf.text.Chunk;
@@ -10,34 +11,43 @@ import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.BaseFont;
-import com.itextpdf.text.pdf.PdfAction;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import javafx.util.Duration;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
+
 public class CreatingPdf {
-	Document document ;
+	private Document document;
+	private String s = "FxPrint.pdf";
+	private TrayNotification tray = new TrayNotification();
+
 	public void creating(String clientName, String clientZipCode, String clientSettlement, String clientAddress,
 			String clientPhone, String clientNumber, String deviceNumber, String deviceSalesBuying,
 			String deviceAddDate, String deviceEndDate, String deviceName, String deviceManufacturer,
 			String devicePassword, String deviceAccesssory, String deviceInjury, String deviceErrorDescription,
 			String deviceDataRecovery) {
-		 document = new Document(PageSize.A4);
-	
-		
+		document = new Document(PageSize.A4);
+
 		try {
-			BaseFont baseFont = BaseFont.createFont(BaseFont.HELVETICA, 
-					BaseFont.CP1250, BaseFont.EMBEDDED);
-			BaseFont baseFont1 = BaseFont.createFont(BaseFont.COURIER, 
-					BaseFont.CP1250, BaseFont.EMBEDDED);
+			BaseFont baseFont = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1250, BaseFont.EMBEDDED);
+			BaseFont baseFont1 = BaseFont.createFont(BaseFont.COURIER, BaseFont.CP1250, BaseFont.EMBEDDED);
 			Font font1 = new Font(baseFont, 10, Font.BOLD);
 			Font font2 = new Font(baseFont, 9, Font.BOLD);
 			Font font2b = new Font(baseFont, 8, Font.NORMAL);
 			Font font3 = new Font(baseFont1, 7, Font.BOLD);
-			
-			
-			String s = "F:/Teszt/";
-			PdfWriter pdfWriter = PdfWriter.getInstance(document, new FileOutputStream(s + "zz" + ".pdf"));
+
+			File file = new File(System.getProperty("user.home") + "\\PcVipService");
+			if (!file.exists()) {
+				if (file.mkdir()) {
+					
+				} 
+			}
+
+			PdfWriter.getInstance(document, new FileOutputStream(System.getProperty("user.home") + "\\PcVipService\\" + s));
+
 			document.open();
 
 			for (int i = 0; i < 2; i++) {
@@ -53,7 +63,7 @@ public class CreatingPdf {
 				customerLblCell.addElement(ph1);
 				Phrase ph2 = new Phrase(clientName, font2b);
 				customerLblCell.addElement(ph2);
-				Phrase ph3 = new Phrase(clientZipCode+" " + clientSettlement+"," + clientAddress, font2b);
+				Phrase ph3 = new Phrase(clientZipCode + " " + clientSettlement + "," + clientAddress, font2b);
 				customerLblCell.addElement(ph3);
 				Phrase ph4 = new Phrase(clientPhone, font2b);
 				customerLblCell.addElement(ph4);
@@ -194,22 +204,27 @@ public class CreatingPdf {
 				para1.setAlignment(Element.ALIGN_CENTER);
 				document.add(para1);
 			}
-			PdfAction action = new PdfAction(PdfAction.PRINTDIALOG);
-			pdfWriter.setOpenAction(action);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-
 			document.close();
-		
-
 		}
-		 
+		print();
 	}
-	
 
-	private void print() {
-		
-
+	public void print() {
+		try {
+			if ((new File(System.getProperty("user.home") + "\\PcVipService\\" + s)).exists()) {
+				Process p = Runtime.getRuntime().exec(
+						"rundll32 url.dll,FileProtocolHandler " + (System.getProperty("user.home") + "\\PcVipService\\" + s));
+				p.waitFor();
+			} else {
+				tray = new TrayNotification("HIBA", "A fájl nem létezik", NotificationType.ERROR);
+				tray.showAndDismiss(Duration.seconds(2));
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 	}
+
 }
