@@ -79,8 +79,8 @@ public class DeviceFillteringDB {
 	public static ArrayList<DeviceClient> getAllDeviceClientFiltering(String clientName) {
 		Connection con = DataBaseConnect.getConnection();
 		String sql = "SELECT * FROM `ugyfel_adatok` JOIN `gepadatok` ON id_ugyfel = ugyfel_adatok_id_ugyfel WHERE CONCAT"
-				+ "(`" + "ugyfel_nev" + "`) LIKE '%" + clientName + "%' AND"+ "(`" + "allapot" + "`) LIKE '%"
-						+ "Bevételezve" + "%'";
+				+ "(`" + "ugyfel_nev" + "`) LIKE '%" + clientName + "%' AND" + "(`" + "allapot" + "`) LIKE '%"
+				+ "Bevételezve" + "%'";
 		ArrayList<DeviceClient> deviceClient = null;
 		Statement createStatement = null;
 		ResultSet rs = null;
