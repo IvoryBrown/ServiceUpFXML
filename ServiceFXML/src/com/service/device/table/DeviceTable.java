@@ -5,6 +5,7 @@ import java.util.Date;
 import com.service.device.Device;
 import com.service.device.controller.DeviceNewController;
 import com.service.device.fillteringdb.DeviceFillteringDB;
+import com.service.main.LoginController;
 import com.service.setting.combobox.Combobox;
 
 import javafx.beans.binding.Bindings;
@@ -58,8 +59,9 @@ public class DeviceTable extends DeviceNewController {
 	private TableColumn<Device, Date> setDeviceAllDate;
 	private final ObservableList<Device> dataDevice = FXCollections.observableArrayList();
 	DeviceFillteringDB deviceDb = new DeviceFillteringDB();
+	LoginController login = new LoginController();
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "static-access" })
 	protected void setDeviceTableData() {
 		Callback<TableColumn<Device, Date>, TableCell<Device, Date>> dateCellFactory = (
 				TableColumn<Device, Date> param) -> new DataEditingCellDevice();
@@ -100,37 +102,41 @@ public class DeviceTable extends DeviceNewController {
 		deviceTableName = new TableColumn<>("Eszköz*");
 		deviceTableName.setMinWidth(150);
 		deviceTableName.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceName"));
-		deviceTableName.setCellValueFactory(i -> {
-			final String value = i.getValue().getDeviceName();
-			return Bindings.createObjectBinding(() -> value);
-		});
-		deviceTableName.setCellFactory(ComboBoxTableCell.forTableColumn(Combobox.setDeviceNameCombobox()));
-		deviceTableName.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
-			@Override
-			public void handle(TableColumn.CellEditEvent<Device, String> d) {
-				Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
-				actualDevice.setDeviceName(d.getNewValue());
-				deviceDb.updateDevice(actualDevice);
-				tray = new TrayNotification("Eszköz!", "Sikeres Frissítése", NotificationType.SUCCESS);
-				tray.showAndDismiss(Duration.seconds(1));
-			}
-		});
+		if (login.admin.equals(login.adminLogin)) {
+
+			deviceTableName.setCellValueFactory(i -> {
+				final String value = i.getValue().getDeviceName();
+				return Bindings.createObjectBinding(() -> value);
+			});
+			deviceTableName.setCellFactory(ComboBoxTableCell.forTableColumn(Combobox.setDeviceNameCombobox()));
+			deviceTableName.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, String> d) {
+					Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDevice.setDeviceName(d.getNewValue());
+					deviceDb.updateDevice(actualDevice);
+					tray = new TrayNotification("Eszköz!", "Sikeres Frissítése", NotificationType.SUCCESS);
+					tray.showAndDismiss(Duration.seconds(1));
+				}
+			});
+		}
 
 		deviceTabelManufacturer = new TableColumn<>("Gyártó*");
 		deviceTabelManufacturer.setMinWidth(150);
 		deviceTabelManufacturer.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceManufacturer"));
-		deviceTabelManufacturer.setCellFactory(TextFieldTableCell.forTableColumn());
-		deviceTabelManufacturer.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
-			@Override
-			public void handle(TableColumn.CellEditEvent<Device, String> d) {
-				Device actualDvice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
-				actualDvice.setDeviceManufacturer(d.getNewValue());
-				deviceDb.updateDevice(actualDvice);
-				tray = new TrayNotification("Gyártó!", "Sikeres Frissítése", NotificationType.SUCCESS);
-				tray.showAndDismiss(Duration.seconds(1));
-			}
-		});
-
+		if (login.admin.equals(login.adminLogin)) {
+			deviceTabelManufacturer.setCellFactory(TextFieldTableCell.forTableColumn());
+			deviceTabelManufacturer.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, String> d) {
+					Device actualDvice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDvice.setDeviceManufacturer(d.getNewValue());
+					deviceDb.updateDevice(actualDvice);
+					tray = new TrayNotification("Gyártó!", "Sikeres Frissítése", NotificationType.SUCCESS);
+					tray.showAndDismiss(Duration.seconds(1));
+				}
+			});
+		}
 		deviceTabelSerialNumber = new TableColumn<>("Serial no.");
 		deviceTabelSerialNumber.setMinWidth(120);
 		deviceTabelSerialNumber.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceSerialNumber"));
@@ -138,22 +144,23 @@ public class DeviceTable extends DeviceNewController {
 		deviceTableRepairLocation = new TableColumn<>("Javítás helye*");
 		deviceTableRepairLocation.setMinWidth(100);
 		deviceTableRepairLocation.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceRepairLocation"));
-		deviceTableRepairLocation.setCellValueFactory(i -> {
-			final String value = i.getValue().getDeviceRepairLocation();
-			return Bindings.createObjectBinding(() -> value);
-		});
-		deviceTableRepairLocation.setCellFactory(ComboBoxTableCell.forTableColumn(Combobox.setLocationCombobox()));
-		deviceTableRepairLocation.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
-			@Override
-			public void handle(TableColumn.CellEditEvent<Device, String> d) {
-				Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
-				actualDevice.setDeviceRepairLocation(d.getNewValue());
-				deviceDb.updateDevice(actualDevice);
-				tray = new TrayNotification("Javítás helye!", "Sikeres Frissítése", NotificationType.SUCCESS);
-				tray.showAndDismiss(Duration.seconds(1));
-			}
-		});
-
+		if (login.admin.equals(login.adminLogin)) {
+			deviceTableRepairLocation.setCellValueFactory(i -> {
+				final String value = i.getValue().getDeviceRepairLocation();
+				return Bindings.createObjectBinding(() -> value);
+			});
+			deviceTableRepairLocation.setCellFactory(ComboBoxTableCell.forTableColumn(Combobox.setLocationCombobox()));
+			deviceTableRepairLocation.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, String> d) {
+					Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDevice.setDeviceRepairLocation(d.getNewValue());
+					deviceDb.updateDevice(actualDevice);
+					tray = new TrayNotification("Javítás helye!", "Sikeres Frissítése", NotificationType.SUCCESS);
+					tray.showAndDismiss(Duration.seconds(1));
+				}
+			});
+		}
 		deviceTableStatus = new TableColumn<>("Állapot*");
 		deviceTableStatus.setMinWidth(100);
 		deviceTableStatus.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceStatus"));
@@ -176,22 +183,23 @@ public class DeviceTable extends DeviceNewController {
 		deviceTableStatusz = new TableColumn<>("Státusz*");
 		deviceTableStatusz.setMinWidth(140);
 		deviceTableStatusz.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceStatusz"));
-		deviceTableStatusz.setCellValueFactory(i -> {
-			final String value = i.getValue().getDeviceStatusz();
-			return Bindings.createObjectBinding(() -> value);
-		});
-		deviceTableStatusz.setCellFactory(ComboBoxTableCell.forTableColumn(Combobox.setDeviceStatusCombobox()));
-		deviceTableStatusz.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
-			@Override
-			public void handle(TableColumn.CellEditEvent<Device, String> d) {
-				Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
-				actualDevice.setDeviceStatusz(d.getNewValue());
-				deviceDb.updateDevice(actualDevice);
-				tray = new TrayNotification("Állapot!", "Sikeres Frissítése", NotificationType.SUCCESS);
-				tray.showAndDismiss(Duration.seconds(1));
-			}
-		});
-
+		if (login.admin.equals(login.adminLogin)) {
+			deviceTableStatusz.setCellValueFactory(i -> {
+				final String value = i.getValue().getDeviceStatusz();
+				return Bindings.createObjectBinding(() -> value);
+			});
+			deviceTableStatusz.setCellFactory(ComboBoxTableCell.forTableColumn(Combobox.setDeviceStatusCombobox()));
+			deviceTableStatusz.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, String> d) {
+					Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDevice.setDeviceStatusz(d.getNewValue());
+					deviceDb.updateDevice(actualDevice);
+					tray = new TrayNotification("Állapot!", "Sikeres Frissítése", NotificationType.SUCCESS);
+					tray.showAndDismiss(Duration.seconds(1));
+				}
+			});
+		}
 		deviceTableNewMachine = new TableColumn<>("Új gép");
 		deviceTableNewMachine.setMinWidth(30);
 		deviceTableNewMachine.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceNewMachine"));
@@ -206,18 +214,19 @@ public class DeviceTable extends DeviceNewController {
 			final String value = i.getValue().getDeviceTechnicalPerson();
 			return Bindings.createObjectBinding(() -> value);
 		});
-		deviceTableTechnicalPerson.setCellFactory(ComboBoxTableCell.forTableColumn(deviceDb.technikalIstratorList));
-		deviceTableTechnicalPerson.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
-			@Override
-			public void handle(TableColumn.CellEditEvent<Device, String> d) {
-				Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
-				actualDevice.setDeviceTechnicalPerson(d.getNewValue());
-				deviceDb.updateDevice(actualDevice);
-				tray = new TrayNotification("Technikus!", "Sikeres Frissítése", NotificationType.SUCCESS);
-				tray.showAndDismiss(Duration.seconds(1));
-			}
-		});
-
+		if (login.admin.equals(login.adminLogin)) {
+			deviceTableTechnicalPerson.setCellFactory(ComboBoxTableCell.forTableColumn(deviceDb.technikalIstratorList));
+			deviceTableTechnicalPerson.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, String> d) {
+					Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDevice.setDeviceTechnicalPerson(d.getNewValue());
+					deviceDb.updateDevice(actualDevice);
+					tray = new TrayNotification("Technikus!", "Sikeres Frissítése", NotificationType.SUCCESS);
+					tray.showAndDismiss(Duration.seconds(1));
+				}
+			});
+		}
 		setDeviceTablePerson = new TableColumn<>("Dolgozok");
 		setDeviceTablePerson.getColumns().addAll(deviceTableAdministrator, deviceTableTechnicalPerson);
 
@@ -233,20 +242,9 @@ public class DeviceTable extends DeviceNewController {
 		deviceTableReferences.setMinWidth(70);
 		deviceTableReferences.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceReferences"));
 
-		deviceTableAccesssory = new TableColumn<>("Tartozékok*");
+		deviceTableAccesssory = new TableColumn<>("Tartozékok");
 		deviceTableAccesssory.setMinWidth(170);
 		deviceTableAccesssory.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceAccesssory"));
-		deviceTableAccesssory.setCellFactory(TextFieldTableCell.forTableColumn());
-		deviceTableAccesssory.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
-			@Override
-			public void handle(TableColumn.CellEditEvent<Device, String> d) {
-				Device actualDvice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
-				actualDvice.setDeviceAccesssory(d.getNewValue());
-				deviceDb.updateDevice(actualDvice);
-				tray = new TrayNotification("Tartozékok!", "Sikeres Frissítése", NotificationType.SUCCESS);
-				tray.showAndDismiss(Duration.seconds(1));
-			}
-		});
 
 		deviceTableInjury = new TableColumn<>("Sérülés");
 		deviceTableInjury.setMinWidth(170);
@@ -256,34 +254,36 @@ public class DeviceTable extends DeviceNewController {
 		deviceTableErrorDescription.setMinWidth(370);
 		deviceTableErrorDescription
 				.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceErrorDescription"));
-		deviceTableErrorDescription.setCellFactory(TextFieldTableCell.forTableColumn());
-		deviceTableErrorDescription.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
-			@Override
-			public void handle(TableColumn.CellEditEvent<Device, String> d) {
-				Device actualDvice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
-				actualDvice.setDeviceErrorDescription(d.getNewValue());
-				deviceDb.updateDevice(actualDvice);
-				tray = new TrayNotification("Hiba leírás!", "Sikeres Frissítése", NotificationType.SUCCESS);
-				tray.showAndDismiss(Duration.seconds(1));
-			}
-		});
-
+		if (login.admin.equals(login.adminLogin)) {
+			deviceTableErrorDescription.setCellFactory(TextFieldTableCell.forTableColumn());
+			deviceTableErrorDescription.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, String> d) {
+					Device actualDvice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDvice.setDeviceErrorDescription(d.getNewValue());
+					deviceDb.updateDevice(actualDvice);
+					tray = new TrayNotification("Hiba leírás!", "Sikeres Frissítése", NotificationType.SUCCESS);
+					tray.showAndDismiss(Duration.seconds(1));
+				}
+			});
+		}
 		deviceTableErrorCorrection = new TableColumn<>("Valós hiba*");
 		deviceTableErrorCorrection.setMinWidth(370);
 		deviceTableErrorCorrection
 				.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceErrorCorrection"));
-		deviceTableErrorCorrection.setCellFactory(TextFieldTableCell.forTableColumn());
-		deviceTableErrorCorrection.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
-			@Override
-			public void handle(TableColumn.CellEditEvent<Device, String> d) {
-				Device actualDvice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
-				actualDvice.setDeviceErrorCorrection(d.getNewValue());
-				deviceDb.updateDevice(actualDvice);
-				tray = new TrayNotification("Valós hiba!", "Sikeres Frissítése", NotificationType.SUCCESS);
-				tray.showAndDismiss(Duration.seconds(1));
-			}
-		});
-
+		if (login.admin.equals(login.adminLogin)) {
+			deviceTableErrorCorrection.setCellFactory(TextFieldTableCell.forTableColumn());
+			deviceTableErrorCorrection.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, String> d) {
+					Device actualDvice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDvice.setDeviceErrorCorrection(d.getNewValue());
+					deviceDb.updateDevice(actualDvice);
+					tray = new TrayNotification("Valós hiba!", "Sikeres Frissítése", NotificationType.SUCCESS);
+					tray.showAndDismiss(Duration.seconds(1));
+				}
+			});
+		}
 		deviceTableComment = new TableColumn<>("Eszközről megjegyzés*");
 		deviceTableComment.setMinWidth(370);
 		deviceTableComment.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceComment"));
@@ -310,19 +310,20 @@ public class DeviceTable extends DeviceNewController {
 		deviceTableEndDate = new TableColumn<>("Határidő*");
 		deviceTableEndDate.setMinWidth(140);
 		deviceTableEndDate.setCellValueFactory(cellData -> cellData.getValue().getDeviceEndDateObject());
-		deviceTableEndDate.setCellFactory(dateCellFactory);
-		deviceTableEndDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, Date>>() {
-			@Override
-			public void handle(TableColumn.CellEditEvent<Device, Date> d) {
-				Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
-				actualDevice.setDeviceEndDate(d.getNewValue());
-				deviceDb.updateDevice(actualDevice);
-				tray = new TrayNotification("Határidő dátum!", "Sikeres Frissítés", NotificationType.SUCCESS);
-				tray.showAndDismiss(Duration.seconds(1));
-				updateDeviceTableDate();
-			}
-		});
-
+		if (login.admin.equals(login.adminLogin)) {
+			deviceTableEndDate.setCellFactory(dateCellFactory);
+			deviceTableEndDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, Date>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, Date> d) {
+					Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDevice.setDeviceEndDate(d.getNewValue());
+					deviceDb.updateDevice(actualDevice);
+					tray = new TrayNotification("Határidő dátum!", "Sikeres Frissítés", NotificationType.SUCCESS);
+					tray.showAndDismiss(Duration.seconds(1));
+					updateDeviceTableDate();
+				}
+			});
+		}
 		deviceTableDeliveryDate = new TableColumn<>("Kiszállás*");
 		deviceTableDeliveryDate.setMinWidth(140);
 		deviceTableDeliveryDate.setCellValueFactory(cellData -> cellData.getValue().getDeviceDeliveryDateObject());
@@ -341,19 +342,20 @@ public class DeviceTable extends DeviceNewController {
 		deviceTbaleCompletedDate = new TableColumn<>("Elkészült*");
 		deviceTbaleCompletedDate.setMinWidth(140);
 		deviceTbaleCompletedDate.setCellValueFactory(cellData -> cellData.getValue().getDeviceCompletedDateObject());
-		deviceTbaleCompletedDate.setCellFactory(dateCellFactory);
-		deviceTbaleCompletedDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, Date>>() {
-			@Override
-			public void handle(TableColumn.CellEditEvent<Device, Date> d) {
-				Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
-				actualDevice.setDeviceCompletedDate(d.getNewValue());
-				deviceDb.updateDevice(actualDevice);
-				tray = new TrayNotification("Elkészült", "Sikeres Frissítés", NotificationType.SUCCESS);
-				tray.showAndDismiss(Duration.seconds(1));
-				updateDeviceTableDate();
-			}
-		});
-
+		if (login.admin.equals(login.adminLogin)) {
+			deviceTbaleCompletedDate.setCellFactory(dateCellFactory);
+			deviceTbaleCompletedDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, Date>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, Date> d) {
+					Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDevice.setDeviceCompletedDate(d.getNewValue());
+					deviceDb.updateDevice(actualDevice);
+					tray = new TrayNotification("Elkészült", "Sikeres Frissítés", NotificationType.SUCCESS);
+					tray.showAndDismiss(Duration.seconds(1));
+					updateDeviceTableDate();
+				}
+			});
+		}
 		setDeviceAllDate = new TableColumn<>("Dátumok");
 		setDeviceAllDate.getColumns().addAll(deviceTableSalesBuying, deviceTableAddDate, deviceTableEndDate,
 				deviceTableDeliveryDate, deviceTbaleCompletedDate);
@@ -374,17 +376,19 @@ public class DeviceTable extends DeviceNewController {
 		deviceTableSoftverComment = new TableColumn<>("Szoftver Megjegyzés*");
 		deviceTableSoftverComment.setMinWidth(170);
 		deviceTableSoftverComment.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceSoftverComment"));
-		deviceTableSoftverComment.setCellFactory(TextFieldTableCell.forTableColumn());
-		deviceTableSoftverComment.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
-			@Override
-			public void handle(TableColumn.CellEditEvent<Device, String> d) {
-				Device actualDvice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
-				actualDvice.setDeviceSoftverComment(d.getNewValue());
-				deviceDb.updateDevice(actualDvice);
-				tray = new TrayNotification("Szoftver Megjegyzés!", "Sikeres Frissítése", NotificationType.SUCCESS);
-				tray.showAndDismiss(Duration.seconds(1));
-			}
-		});
+		if (login.admin.equals(login.adminLogin)) {
+			deviceTableSoftverComment.setCellFactory(TextFieldTableCell.forTableColumn());
+			deviceTableSoftverComment.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, String> d) {
+					Device actualDvice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDvice.setDeviceSoftverComment(d.getNewValue());
+					deviceDb.updateDevice(actualDvice);
+					tray = new TrayNotification("Szoftver Megjegyzés!", "Sikeres Frissítése", NotificationType.SUCCESS);
+					tray.showAndDismiss(Duration.seconds(1));
+				}
+			});
+		}
 
 		deviceTableNewHouse = new TableColumn<>("Ház");
 		deviceTableNewHouse.setEditable(false);
