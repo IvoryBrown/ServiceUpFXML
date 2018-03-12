@@ -298,6 +298,7 @@ public class DeviceNewController extends ClientTable {
 		deviceCoolingFan.setSelected(false);
 		deviceOpticalDrive.setSelected(false);
 		deviceExpansionCard.setSelected(false);
+		setDate();
 	}
 
 }
