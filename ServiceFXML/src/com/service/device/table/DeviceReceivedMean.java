@@ -38,6 +38,7 @@ public class DeviceReceivedMean implements Initializable {
 	private TableView<DeviceClient> deviceTableMean;
 	@FXML
 	private TextField deviceClientNameFilteringTxt;
+	Integer sd = 1;
 
 	private TableColumn<DeviceClient, Integer>  deviceTableNumber;
 	private TableColumn<DeviceClient, Boolean> deviceTableNewHouse, deviceTablePowerSupply, deviceTableProcessor,
@@ -76,6 +77,10 @@ public class DeviceReceivedMean implements Initializable {
 
 	@SuppressWarnings("unchecked")
 	protected void setDeviceTableData() {
+		if (sd ==1) {
+			deviceClientNameFilteringTxt.setDisable(true);
+			System.out.println("as");
+		}
 
 		clientTableNumber = new TableColumn<>("Azonosító");
 		clientTableNumber.setMinWidth(90);
