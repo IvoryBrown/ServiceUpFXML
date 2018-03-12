@@ -659,7 +659,7 @@ public class DeviceTable extends DeviceNewController {
 		deviceClientNameFilteringTxt.setStyle("-fx-prompt-text-fill: #61a2b1");
 	}
 
-	private void updateDeviceTableDate() {
+	protected void updateDeviceTableDate() {
 		dataDevice.clear();
 		dataDevice.addAll(DeviceFillteringDB.getAllDevice());
 	}
