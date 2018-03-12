@@ -31,7 +31,7 @@
                   <Insets top="5.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="206.0" text="Keresés Cég ">
+            <Button mnemonicParsing="false" onAction="#filteringCompanyBtn" prefHeight="36.0" prefWidth="206.0" text="Keresés Cég ">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
