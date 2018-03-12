@@ -39,11 +39,10 @@ public class DeviceReceivedMean implements Initializable {
 	@FXML
 	private TextField deviceClientNameFilteringTxt;
 
-	private TableColumn<DeviceClient, Integer> deviceTableId, deviceTableNumber;
+	private TableColumn<DeviceClient, Integer>  deviceTableNumber;
 	private TableColumn<DeviceClient, Boolean> deviceTableNewHouse, deviceTablePowerSupply, deviceTableProcessor,
 			deviceTableBaseBoard, deviceTableMemory, deviceTableVideoCard, deviceTableSSDDrive, deviceTableHardDrive,
-			deviceTableCoolingFan, deviceTableOpticalDrive, deviceTableExpansionCard, deviceTableLaptop,
-			colDeviceAction;
+			deviceTableCoolingFan, deviceTableOpticalDrive, deviceTableExpansionCard, deviceTableLaptop;
 	private TableColumn<DeviceClient, String> clientTableNumber, clientTableSettlement, clientTableName,
 			clientTableZipCode, clientTableAddress, clientTablePhone, deviceTableCompanyName, deviceTableName,
 			deviceTabelManufacturer, deviceTabelSerialNumber, deviceTableRepairLocation, deviceTableStatus,
@@ -77,9 +76,6 @@ public class DeviceReceivedMean implements Initializable {
 
 	@SuppressWarnings("unchecked")
 	protected void setDeviceTableData() {
-		deviceTableId = new TableColumn<>("ID");
-		deviceTableId.setMinWidth(50);
-		deviceTableId.setCellValueFactory(new PropertyValueFactory<DeviceClient, Integer>("deviceID"));
 
 		clientTableNumber = new TableColumn<>("Azonosító");
 		clientTableNumber.setMinWidth(90);
@@ -147,6 +143,7 @@ public class DeviceReceivedMean implements Initializable {
 						.get(d.getTablePosition().getRow());
 				actualDevice.setDeviceStatus(d.getNewValue());
 				deviceDb.updateDeviceClient(actualDevice);
+				updateDeviceTableDate();
 				tray = new TrayNotification("Állapot!", "Sikeres Frissítése", NotificationType.SUCCESS);
 				tray.showAndDismiss(Duration.seconds(1));
 			}
@@ -501,21 +498,6 @@ public class DeviceReceivedMean implements Initializable {
 						return booleanProp;
 					}
 				});
-
-		deviceTableMean.setItems(dataDeviceClient);
-		deviceTableMean.getColumns().addAll(deviceTableId, clientTableNumber, clientTableName, deviceTableCompanyName,
-				clientTableZipCode, clientTableSettlement, clientTableAddress, clientTablePhone, deviceTableNumber,
-				deviceTableName, deviceTabelManufacturer, deviceTabelSerialNumber, deviceTableRepairLocation,
-				deviceTableStatus, deviceTableStatusz, deviceTableNewMachine, deviceTableAdministrator,
-				deviceTableTechnicalPerson, deviceTablePriorit, deviceTablePassword, deviceTableReferences,
-				deviceTableAccesssory, deviceTableInjury, deviceTableErrorDescription, deviceTableErrorCorrection,
-				deviceTableComment, deviceTableSalesBuying, deviceTableAddDate, deviceTableEndDate,
-				deviceTableDeliveryDate, deviceTbaleCompletedDate, deviceTableDataRecovery, deviceTableSoftver,
-				deviceTableOperatingSystem, deviceTableSoftverComment, deviceTableNewHouse, deviceTablePowerSupply,
-				deviceTableProcessor, deviceTableBaseBoard, deviceTableMemory, deviceTableVideoCard,
-				deviceTableSSDDrive, deviceTableHardDrive, deviceTableCoolingFan, deviceTableOpticalDrive,
-				deviceTableExpansionCard, deviceTableLaptop);
-		dataDeviceClient.addAll(DeviceFillteringDB.getAllDeviceClient());
 		deviceTableMean.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<DeviceClient>() {
 			@Override
 			public void changed(ObservableValue<? extends DeviceClient> observable, DeviceClient oldValue,
@@ -539,10 +521,32 @@ public class DeviceReceivedMean implements Initializable {
 				deviceDataRecovery = newValue.getDeviceDataRecovery();
 			}
 		});
+
+		deviceTableMean.setItems(dataDeviceClient);
+		deviceTableMean.getColumns().addAll( clientTableNumber, clientTableName, deviceTableCompanyName,
+				clientTableZipCode, clientTableSettlement, clientTableAddress, clientTablePhone, deviceTableNumber,
+				deviceTableName, deviceTabelManufacturer, deviceTabelSerialNumber, deviceTableRepairLocation,
+				deviceTableStatus, deviceTableStatusz, deviceTableNewMachine, deviceTableAdministrator,
+				deviceTableTechnicalPerson, deviceTablePriorit, deviceTablePassword, deviceTableReferences,
+				deviceTableAccesssory, deviceTableInjury, deviceTableErrorDescription, deviceTableErrorCorrection,
+				deviceTableComment, deviceTableSalesBuying, deviceTableAddDate, deviceTableEndDate,
+				deviceTableDeliveryDate, deviceTbaleCompletedDate, deviceTableDataRecovery, deviceTableSoftver,
+				deviceTableOperatingSystem, deviceTableSoftverComment, deviceTableNewHouse, deviceTablePowerSupply,
+				deviceTableProcessor, deviceTableBaseBoard, deviceTableMemory, deviceTableVideoCard,
+				deviceTableSSDDrive, deviceTableHardDrive, deviceTableCoolingFan, deviceTableOpticalDrive,
+				deviceTableExpansionCard, deviceTableLaptop);
+		dataDeviceClient.addAll(DeviceFillteringDB.getAllDeviceClient());
+
+	}
+
+	private void updateDeviceTableDate() {
+		dataDeviceClient.clear();
+		dataDeviceClient.addAll(DeviceFillteringDB.getAllDeviceClient());
 	}
 
 	@FXML
 	private void updateDeviceBtn(ActionEvent event) {
+		deviceTableMean.getItems().clear();
 		dataDeviceClient.clear();
 		dataDeviceClient.addAll(DeviceFillteringDB.getAllDeviceClient());
 		tray = new TrayNotification("Remek!", "Sikeres Frissítés", NotificationType.SUCCESS);
@@ -556,6 +560,22 @@ public class DeviceReceivedMean implements Initializable {
 			dataDeviceClient.clear();
 			dataDeviceClient
 					.addAll(DeviceFillteringDB.getAllDeviceClientFiltering(deviceClientNameFilteringTxt.getText()));
+			deviceClientNameFilteringTxt.clear();
+			deviceClientNameFilteringTxt.setStyle("-fx-prompt-text-fill: #61a2b1");
+			tray = new TrayNotification("Remek!", "Sikeres Frissítés", NotificationType.SUCCESS);
+			tray.showAndDismiss(Duration.seconds(1));
+		} else {
+			tray = new TrayNotification("HIBA", "Üres a kereső mező", NotificationType.ERROR);
+			tray.showAndDismiss(Duration.seconds(2));
+		}
+	}
+
+	@FXML
+	private void filteringCompanyBtn(ActionEvent event) {
+		if (setDevicetCheckTxt()) {
+			dataDeviceClient.clear();
+			dataDeviceClient
+					.addAll(DeviceFillteringDB.getAllDeviceCompanyFiltering(deviceClientNameFilteringTxt.getText()));
 			deviceClientNameFilteringTxt.clear();
 			deviceClientNameFilteringTxt.setStyle("-fx-prompt-text-fill: #61a2b1");
 			tray = new TrayNotification("Remek!", "Sikeres Frissítés", NotificationType.SUCCESS);
