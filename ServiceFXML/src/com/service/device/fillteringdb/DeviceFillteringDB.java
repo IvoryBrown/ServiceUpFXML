@@ -18,10 +18,12 @@ import javafx.collections.ObservableList;
 public class DeviceFillteringDB {
 	public ObservableList<String> administratorList = FXCollections.observableArrayList();
 	public ObservableList<String> technikalIstratorList = FXCollections.observableArrayList();
+	public ObservableList<String> dateLincList = FXCollections.observableArrayList();
 
 	public DeviceFillteringDB() {
 		setGetAllAdministrator();
 		setGetAllTechnikal();
+		setGetDateLin();
 	}
 
 	public static ArrayList<DeviceClient> getAllDeviceCompanyFiltering(String companyName) {
@@ -335,6 +337,36 @@ public class DeviceFillteringDB {
 		}
 	}
 
+	public void setGetDateLin() {
+		String SQLaDMINISTRATOR = " select * from date ";
+		Connection con = DataBaseConnect.getConnection();
+		PreparedStatement pstStn = null;
+		ResultSet stnRS = null;
+		try {
+			pstStn = con.prepareStatement(SQLaDMINISTRATOR);
+			stnRS = pstStn.executeQuery(SQLaDMINISTRATOR);
+			while (stnRS.next()) {
+				dateLincList.add(stnRS.getString("date"));
+			}
+		} catch (SQLException ex) {
+			ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", ex.getMessage());
+		} finally {
+			try {
+				if (pstStn != null) {
+					pstStn.close();
+				}
+				if (stnRS != null) {
+					stnRS.close();
+				}
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
+			}
+		}
+	}
+	
 	public void updateDevice(Device device) {
 		Connection conn = DataBaseConnect.getConnection();
 		try {

@@ -58,8 +58,8 @@ public class DeviceTable extends DeviceNewController {
 	private TableColumn<Device, Boolean> setDeviceTableNewDevice;
 	private TableColumn<Device, Date> setDeviceAllDate;
 	private final ObservableList<Device> dataDevice = FXCollections.observableArrayList();
-	DeviceFillteringDB deviceDb = new DeviceFillteringDB();
-	LoginController login = new LoginController();
+	private DeviceFillteringDB deviceDb = new DeviceFillteringDB();
+	private LoginController login = new LoginController();
 
 	@SuppressWarnings({ "unchecked", "static-access" })
 	protected void setDeviceTableData() {
