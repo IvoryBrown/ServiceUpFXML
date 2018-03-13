@@ -12,8 +12,6 @@ import com.service.setting.showinfo.ShowInfo;
 import com.service.stock.Stock;
 
 public class StockFillteringDB {
-	
-	Connection conn = DataBaseConnect.getConnection();
 
 	public static ArrayList<Stock> getAllStock() {
 		Connection con = DataBaseConnect.getConnection();
@@ -92,15 +90,17 @@ public class StockFillteringDB {
 	}
 
 	public void updateStock(Stock stock) {
+		Connection conn = DataBaseConnect.getConnection();
+		PreparedStatement pr = null;
 		try {
 			String sqlStock = "UPDATE `raktar` set eszkoznev = ?, kelte = ?, eladas_kelte = ?, mennyiseg = ?,"
 					+ "raktaron = ?, leiras = ?, szamla_azonosito = ? WHERE category_id = ?";
-			PreparedStatement pr = conn.prepareStatement(sqlStock);
+			pr = conn.prepareStatement(sqlStock);
 			pr.setString(1, stock.getStockDeviceName());
 			pr.setString(2, stock.getStockDeviceDate());
 			pr.setObject(3, stock.getStockDeviceSalesDate());
 			pr.setInt(4, stock.getStockDeviceQuantity());
-			pr.setInt(5,Integer.parseInt( stock.getStockDeviceInStock()));
+			pr.setInt(5, Integer.parseInt(stock.getStockDeviceInStock()));
 			pr.setString(6, stock.getStockDeviceDescription());
 			pr.setString(7, stock.getStockDeviceAccountIdentity());
 			pr.setInt(8, stock.getStockDeviceId());
@@ -108,6 +108,17 @@ public class StockFillteringDB {
 		} catch (SQLException e) {
 			System.out.println(e);
 			e.printStackTrace();
+		} finally {
+			try {
+				if (pr != null) {
+					pr.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
+			}
 		}
 	}
 }
