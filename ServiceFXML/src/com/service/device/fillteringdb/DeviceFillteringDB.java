@@ -366,15 +366,16 @@ public class DeviceFillteringDB {
 			}
 		}
 	}
-	
+
 	public void updateDevice(Device device) {
 		Connection conn = DataBaseConnect.getConnection();
+		PreparedStatement pr = null;
 		try {
 			String sqlDevice = "UPDATE `gepadatok` set eszkoz = ?, eszkoz_gyarto = ?, javitas_helye = ?, allapot = ?, tartozekok = ?,"
 					+ "hiba_leirasa = ?, eszkoz_megjegyzes = ?, hatarido_datuma = ?, kiszallas_datuma = ?, softver_megjegyzés = ?,"
 					+ " elkeszult_datuma = ?, hibajavitas_leirasa = ?, technikus = ?, statusz = ?"
 					+ " WHERE id_gepadatok = ?";
-			PreparedStatement pr = conn.prepareStatement(sqlDevice);
+			pr = conn.prepareStatement(sqlDevice);
 			pr.setString(1, device.getDeviceName());
 			pr.setString(2, device.getDeviceManufacturer());
 			pr.setString(3, device.getDeviceRepairLocation());
@@ -395,20 +396,68 @@ public class DeviceFillteringDB {
 		} catch (SQLException e) {
 			System.out.println(e);
 			e.printStackTrace();
+		} finally {
+			try {
+				if (pr != null) {
+					pr.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
+			}
 		}
 	}
 
 	public void updateDeviceClient(DeviceClient device) {
 		Connection conn = DataBaseConnect.getConnection();
+		PreparedStatement pr = null;
 		try {
 			String sqlDevice = "UPDATE `gepadatok` set allapot = ?" + " WHERE id_gepadatok = ?";
-			PreparedStatement pr = conn.prepareStatement(sqlDevice);
+			pr = conn.prepareStatement(sqlDevice);
 			pr.setString(1, device.getDeviceStatus());
 			pr.setString(2, device.getDeviceID());
 			pr.execute();
 		} catch (SQLException e) {
 			System.out.println(e);
 			e.printStackTrace();
+		} finally {
+			try {
+				if (pr != null) {
+					pr.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
+			}
+		}
+	}
+
+	public void removeContact(Device device) {
+		Connection conn = DataBaseConnect.getConnection();
+		PreparedStatement preparedStatement = null;
+		try {
+			String sql = "delete from `gepadatok` where id_gepadatok = ?";
+			preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setInt(1, Integer.parseInt(device.getDeviceID()));
+			preparedStatement.execute();
+		} catch (SQLException ex) {
+			System.out.println("Valami baj van a contact törlésekor");
+			System.out.println("" + ex);
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
+			}
 		}
 	}
 }
