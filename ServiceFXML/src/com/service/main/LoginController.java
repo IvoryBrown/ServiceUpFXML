@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import com.service.device.fillteringdb.DeviceFillteringDB;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,11 +15,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 public class LoginController implements Initializable {
-	public static String adminLogin = "123admin123";
 	private String userLogin = "kisker";
+	public static String adminLogin = "123admin123";
+	public static String serviceLogin = "szerviz";
 	public static String admin;
 	@FXML
 	private PasswordField loginText;
@@ -51,7 +55,8 @@ public class LoginController implements Initializable {
 		dateLinc();
 		if (locadInteger < dbInteger) {
 			if (!loginText.getText().trim().isEmpty()) {
-				if (loginText.getText().equals(adminLogin) || loginText.getText().equals(userLogin)) {
+				if (loginText.getText().equals(adminLogin) || loginText.getText().equals(userLogin)
+						|| loginText.getText().equals(serviceLogin)) {
 					admin = loginText.getText();
 					try {
 						Parent root = FXMLLoader
@@ -81,7 +86,14 @@ public class LoginController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		btnLogin();
-
+		loginText.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent ke) {
+				if (ke.getCode().equals(KeyCode.ENTER)) {
+					btnLogin();
+				}
+			}
+		});
 	}
 
 }
