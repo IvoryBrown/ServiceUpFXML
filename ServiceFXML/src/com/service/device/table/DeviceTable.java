@@ -20,6 +20,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -51,7 +52,8 @@ public class DeviceTable extends DeviceNewController {
 			deviceTableNewMachine, deviceTableAdministrator, deviceTablePriorit, deviceTablePassword,
 			deviceTableReferences, deviceTableAccesssory, deviceTableInjury, deviceTableErrorDescription,
 			deviceTableComment, deviceTableDataRecovery, deviceTableSoftver, deviceTableOperatingSystem,
-			deviceTableSoftverComment, deviceTableErrorCorrection, deviceTableTechnicalPerson, deviceTableStatusz;
+			deviceTableSoftverComment, deviceTableErrorCorrection, deviceTableTechnicalPerson, deviceTableStatusz,
+			removeCol;
 	private TableColumn<Device, Date> deviceTableSalesBuying, deviceTableAddDate, deviceTableEndDate,
 			deviceTableDeliveryDate, deviceTbaleCompletedDate;
 	private TableColumn<Device, String> setDeviceTablePerson;
@@ -142,7 +144,7 @@ public class DeviceTable extends DeviceNewController {
 		deviceTabelSerialNumber.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceSerialNumber"));
 
 		deviceTableRepairLocation = new TableColumn<>("Javítás helye*");
-		deviceTableRepairLocation.setMinWidth(100);
+		deviceTableRepairLocation.setMinWidth(130);
 		deviceTableRepairLocation.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceRepairLocation"));
 		if (login.admin.equals(login.adminLogin)) {
 			deviceTableRepairLocation.setCellValueFactory(i -> {
@@ -183,7 +185,7 @@ public class DeviceTable extends DeviceNewController {
 		deviceTableStatusz = new TableColumn<>("Státusz*");
 		deviceTableStatusz.setMinWidth(140);
 		deviceTableStatusz.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceStatusz"));
-		if (login.admin.equals(login.adminLogin)) {
+		if (login.admin.equals(login.adminLogin)||login.admin.equals(login.serviceLogin)) {
 			deviceTableStatusz.setCellValueFactory(i -> {
 				final String value = i.getValue().getDeviceStatusz();
 				return Bindings.createObjectBinding(() -> value);
@@ -214,7 +216,7 @@ public class DeviceTable extends DeviceNewController {
 			final String value = i.getValue().getDeviceTechnicalPerson();
 			return Bindings.createObjectBinding(() -> value);
 		});
-		if (login.admin.equals(login.adminLogin)) {
+		if (login.admin.equals(login.adminLogin)||login.admin.equals(login.serviceLogin)) {
 			deviceTableTechnicalPerson.setCellFactory(ComboBoxTableCell.forTableColumn(deviceDb.technikalIstratorList));
 			deviceTableTechnicalPerson.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
 				@Override
@@ -271,7 +273,7 @@ public class DeviceTable extends DeviceNewController {
 		deviceTableErrorCorrection.setMinWidth(370);
 		deviceTableErrorCorrection
 				.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceErrorCorrection"));
-		if (login.admin.equals(login.adminLogin)) {
+		if (login.admin.equals(login.adminLogin)||login.admin.equals(login.serviceLogin)) {
 			deviceTableErrorCorrection.setCellFactory(TextFieldTableCell.forTableColumn());
 			deviceTableErrorCorrection.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
 				@Override
@@ -342,7 +344,7 @@ public class DeviceTable extends DeviceNewController {
 		deviceTbaleCompletedDate = new TableColumn<>("Elkészült*");
 		deviceTbaleCompletedDate.setMinWidth(140);
 		deviceTbaleCompletedDate.setCellValueFactory(cellData -> cellData.getValue().getDeviceCompletedDateObject());
-		if (login.admin.equals(login.adminLogin)) {
+		if (login.admin.equals(login.adminLogin)||login.admin.equals(login.serviceLogin)) {
 			deviceTbaleCompletedDate.setCellFactory(dateCellFactory);
 			deviceTbaleCompletedDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, Date>>() {
 				@Override
@@ -376,7 +378,7 @@ public class DeviceTable extends DeviceNewController {
 		deviceTableSoftverComment = new TableColumn<>("Szoftver Megjegyzés*");
 		deviceTableSoftverComment.setMinWidth(170);
 		deviceTableSoftverComment.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceSoftverComment"));
-		if (login.admin.equals(login.adminLogin)) {
+		if (login.admin.equals(login.adminLogin)||login.admin.equals(login.serviceLogin)) {
 			deviceTableSoftverComment.setCellFactory(TextFieldTableCell.forTableColumn());
 			deviceTableSoftverComment.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
 				@Override
@@ -637,6 +639,42 @@ public class DeviceTable extends DeviceNewController {
 					}
 				});
 
+		removeCol = new TableColumn<>("Törlés");
+		removeCol.setMinWidth(100);
+		Callback<TableColumn<Device, String>, TableCell<Device, String>> cellFactory = new Callback<TableColumn<Device, String>, TableCell<Device, String>>() {
+			@Override
+			public TableCell<Device, String> call(final TableColumn<Device, String> param) {
+				final TableCell<Device, String> cell = new TableCell<Device, String>() {
+					final Button btn = new Button("Törlés");
+
+					@Override
+					public void updateItem(String item, boolean empty) {
+						btn.setDisable(true);
+						if (login.admin.equals(login.adminLogin)) {
+							btn.setDisable(false);
+						}
+						super.updateItem(item, empty);
+						if (empty) {
+							setGraphic(null);
+							setText(null);
+						} else {
+							btn.setOnAction((ActionEvent event) -> {
+								Device device = getTableView().getItems().get(getIndex());
+								dataDevice.remove(device);
+								deviceDb.removeContact(device);
+								tray = new TrayNotification("Törlés!", "Sikeres Törlés", NotificationType.SUCCESS);
+								tray.showAndDismiss(Duration.seconds(1));
+							});
+							setGraphic(btn);
+							setText(null);
+						}
+					}
+				};
+				return cell;
+			}
+		};
+		removeCol.setCellFactory(cellFactory);
+
 		setDeviceTableNewDevice = new TableColumn<>("Új gép");
 		setDeviceTableNewDevice.getColumns().addAll(deviceTableNewHouse, deviceTablePowerSupply, deviceTableProcessor,
 				deviceTableBaseBoard, deviceTableMemory, deviceTableVideoCard, deviceTableSSDDrive,
@@ -650,7 +688,7 @@ public class DeviceTable extends DeviceNewController {
 				setDeviceTablePerson, deviceTablePriorit, deviceTablePassword, deviceTableReferences,
 				deviceTableAccesssory, deviceTableInjury, deviceTableErrorDescription, deviceTableErrorCorrection,
 				deviceTableComment, setDeviceAllDate, deviceTableDataRecovery, deviceTableSoftver,
-				deviceTableOperatingSystem, deviceTableSoftverComment, setDeviceTableNewDevice);
+				deviceTableOperatingSystem, deviceTableSoftverComment, setDeviceTableNewDevice, removeCol);
 		dataDevice.addAll(DeviceFillteringDB.getAllDevice());
 	}
 
