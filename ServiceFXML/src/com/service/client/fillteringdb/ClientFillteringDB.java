@@ -128,11 +128,12 @@ public class ClientFillteringDB {
 
 	public void updateClient(Client client) {
 		Connection conn = DataBaseConnect.getConnection();
+		PreparedStatement pr = null;
 		try {
 			String sqlClient = "UPDATE `ugyfel_adatok` set cegnev = ?, ugyfel_nev = ?, megye = ?,"
 					+ "telepules = ?, iranyitoszam = ?, cim = ?, ceg_telefon = ?, ceg_email = ?, ugyfel_telefon = ?,"
 					+ " ugyfel_email = ?, csomag_tipus = ?, ugyfel_megjegyzes = ?" + " WHERE id_ugyfel = ?";
-			PreparedStatement pr = conn.prepareStatement(sqlClient);
+			pr = conn.prepareStatement(sqlClient);
 			pr.setString(1, client.getClientCompanyName());
 			pr.setString(2, client.getClientName());
 			pr.setString(3, client.getClientCounty());
@@ -150,6 +151,17 @@ public class ClientFillteringDB {
 		} catch (SQLException e) {
 			System.out.println(e);
 			e.printStackTrace();
+		} finally {
+			try {
+				if (pr != null) {
+					pr.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
+			}
 		}
 	}
 }
