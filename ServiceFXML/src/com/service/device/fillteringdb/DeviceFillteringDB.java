@@ -28,7 +28,7 @@ public class DeviceFillteringDB {
 
 	public static ArrayList<DeviceClient> getAllDeviceCompanyFiltering(String companyName) {
 		Connection con = DataBaseConnect.getConnection();
-		String sql = "SELECT * FROM `ugyfel_adatok` JOIN `gepadatok` ON id_ugyfel = ugyfel_adatok_id_ugyfel WHERE CONCAT"
+		String sql = "SELECT * FROM `ugyfel_adatok` JOIN `gepadatok1` ON id_ugyfel = ugyfel_adatok_id_ugyfel WHERE CONCAT"
 				+ "(`" + "ceg_nev_gep" + "`) LIKE '%" + companyName + "%' AND" + "(`" + "allapot" + "`) LIKE '%"
 				+ "Bevételezve" + "%'";
 		ArrayList<DeviceClient> deviceClient = null;
@@ -80,7 +80,7 @@ public class DeviceFillteringDB {
 
 	public static ArrayList<DeviceClient> getAllDeviceClientFiltering(String clientName) {
 		Connection con = DataBaseConnect.getConnection();
-		String sql = "SELECT * FROM `ugyfel_adatok` JOIN `gepadatok` ON id_ugyfel = ugyfel_adatok_id_ugyfel WHERE CONCAT"
+		String sql = "SELECT * FROM `ugyfel_adatok` JOIN `gepadatok1` ON id_ugyfel = ugyfel_adatok_id_ugyfel WHERE CONCAT"
 				+ "(`" + "ugyfel_nev" + "`) LIKE '%" + clientName + "%' AND" + "(`" + "allapot" + "`) LIKE '%"
 				+ "Bevételezve" + "%'";
 		ArrayList<DeviceClient> deviceClient = null;
@@ -132,7 +132,7 @@ public class DeviceFillteringDB {
 
 	public static ArrayList<DeviceClient> getAllDeviceClient() {
 		Connection con = DataBaseConnect.getConnection();
-		String sql = "SELECT * FROM `ugyfel_adatok` JOIN `gepadatok` ON id_ugyfel = ugyfel_adatok_id_ugyfel WHERE CONCAT"
+		String sql = "SELECT * FROM `ugyfel_adatok` JOIN `gepadatok1` ON id_ugyfel = ugyfel_adatok_id_ugyfel WHERE CONCAT"
 				+ "(`" + "allapot" + "`) LIKE '%" + "Bevételezve" + "%'";
 		ArrayList<DeviceClient> deviceClient = null;
 		Statement createStatement = null;
@@ -183,7 +183,7 @@ public class DeviceFillteringDB {
 
 	public static ArrayList<Device> getAllDevice() {
 		Connection con = DataBaseConnect.getConnection();
-		String sql = "SELECT * FROM `gepadatok`";
+		String sql = "SELECT * FROM `gepadatok1`";
 		ArrayList<Device> device = null;
 		Statement createStatement = null;
 		ResultSet rs = null;
@@ -231,7 +231,7 @@ public class DeviceFillteringDB {
 
 	public static ArrayList<Device> getDeviceNameFilltering(String deviceName) {
 		Connection con = DataBaseConnect.getConnection();
-		String sql = "SELECT * FROM `gepadatok` WHERE CONCAT (`" + "ugyfél_nev_gep" + "`) LIKE '%" + deviceName + "%'";
+		String sql = "SELECT * FROM `gepadatok1` WHERE CONCAT (`" + "ugyfél_nev_gep" + "`) LIKE '%" + deviceName + "%'";
 		ArrayList<Device> device = null;
 		Statement createStatement = null;
 		ResultSet rs = null;
@@ -371,7 +371,7 @@ public class DeviceFillteringDB {
 		Connection conn = DataBaseConnect.getConnection();
 		PreparedStatement pr = null;
 		try {
-			String sqlDevice = "UPDATE `gepadatok` set eszkoz = ?, eszkoz_gyarto = ?, javitas_helye = ?, allapot = ?, tartozekok = ?,"
+			String sqlDevice = "UPDATE `gepadatok1` set eszkoz = ?, eszkoz_gyarto = ?, javitas_helye = ?, allapot = ?, tartozekok = ?,"
 					+ "hiba_leirasa = ?, eszkoz_megjegyzes = ?, hatarido_datuma = ?, kiszallas_datuma = ?, softver_megjegyzés = ?,"
 					+ " elkeszult_datuma = ?, hibajavitas_leirasa = ?, technikus = ?, statusz = ?"
 					+ " WHERE id_gepadatok = ?";
@@ -414,7 +414,7 @@ public class DeviceFillteringDB {
 		Connection conn = DataBaseConnect.getConnection();
 		PreparedStatement pr = null;
 		try {
-			String sqlDevice = "UPDATE `gepadatok` set allapot = ?" + " WHERE id_gepadatok = ?";
+			String sqlDevice = "UPDATE `gepadatok1` set allapot = ?" + " WHERE id_gepadatok = ?";
 			pr = conn.prepareStatement(sqlDevice);
 			pr.setString(1, device.getDeviceStatus());
 			pr.setString(2, device.getDeviceID());
@@ -440,7 +440,7 @@ public class DeviceFillteringDB {
 		Connection conn = DataBaseConnect.getConnection();
 		PreparedStatement preparedStatement = null;
 		try {
-			String sql = "delete from `gepadatok` where id_gepadatok = ?";
+			String sql = "delete from `gepadatok1` where id_gepadatok = ?";
 			preparedStatement = conn.prepareStatement(sql);
 			preparedStatement.setInt(1, Integer.parseInt(device.getDeviceID()));
 			preparedStatement.execute();

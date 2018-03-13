@@ -58,7 +58,7 @@ public class StatisticsController implements Initializable {
 	}
 
 	private void setGetAllTechnikal() {
-		String sql = "SELECT  eszkoz, uj_gep FROM gepadatok WHERE hatarido_datuma >= '" + startDate.getValue()
+		String sql = "SELECT  eszkoz, uj_gep FROM gepadatok1 WHERE hatarido_datuma >= '" + startDate.getValue()
 				+ "' and hatarido_datuma <= '" + endDate.getValue() + "'";
 		Connection con = DataBaseConnect.getConnection();
 		PreparedStatement pstStn = null;

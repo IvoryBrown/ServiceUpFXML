@@ -31,6 +31,21 @@ public class HomeController extends DeviceTable implements Initializable {
 		}
 
 	}
+	@FXML
+	private void newErrorBtn(ActionEvent event) {
+		try {
+			Parent root = FXMLLoader
+					.load(getClass().getResource("/com/service/setting/fxmlerror/FxmlError.fxml"));
+			Stage stage = new Stage();
+			stage.setResizable(false);
+			stage.setTitle("Hibabejelentés");
+			stage.setScene(new Scene(root, 1200, 650));
+			stage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

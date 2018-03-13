@@ -3,7 +3,7 @@ package com.service.client;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Client {
-	private  final SimpleStringProperty clientId;
+	private final SimpleStringProperty clientId;
 	private final SimpleStringProperty clientNumber;
 	private final SimpleStringProperty clientCompanyName;
 	private final SimpleStringProperty clientName;
@@ -22,7 +22,7 @@ public class Client {
 			String cClientCounty, String cClientSettlement, String cClientZipCode, String cClientAddress,
 			String cClientCompanyPhone, String cClientCompanyEmail, String cClientPhone, String cClientEmail,
 			String cClientPackage, String cClientComment) {
-		this.clientId = new SimpleStringProperty (String.valueOf(cClientId));
+		this.clientId = new SimpleStringProperty(String.valueOf(cClientId));
 		this.clientNumber = new SimpleStringProperty(cClientNumber);
 		this.clientCompanyName = new SimpleStringProperty(cClientCompanyName);
 		this.clientName = new SimpleStringProperty(cClientName);
@@ -37,119 +37,116 @@ public class Client {
 		this.clientPackage = new SimpleStringProperty(cClientPackage);
 		this.clientComment = new SimpleStringProperty(cClientComment);
 	}
-	
-
-	
 
 	public String getClientId() {
-		return clientId.get();
+		return this.clientId.get();
 	}
 
 	public void setClientId(String cClientId) {
-		clientId.set(cClientId);
+		this.clientId.set(cClientId);
 	}
 
 	public String getClientNumber() {
-		return clientNumber.get();
+		return this.clientNumber.get();
 	}
 
 	public void setClientNumber(String cClientNumber) {
-		clientNumber.set(cClientNumber);
+		this.clientNumber.set(cClientNumber);
 	}
 
 	public String getClientCompanyName() {
-		return clientCompanyName.get();
+		return this.clientCompanyName.get();
 	}
 
 	public void setClientCompanyName(String cClientCompanyName) {
-		clientCompanyName.set(cClientCompanyName);
+		this.clientCompanyName.set(cClientCompanyName);
 	}
 
 	public String getClientName() {
-		return clientName.get();
+		return this.clientName.get();
 	}
 
 	public void setClientName(String cClientName) {
-		clientName.set(cClientName);
+		this.clientName.set(cClientName);
 	}
 
 	public String getClientCounty() {
-		return clientCounty.get();
+		return this.clientCounty.get();
 	}
 
 	public void setClientCounty(String cClientCounty) {
-		clientCounty.set(cClientCounty);
+		this.clientCounty.set(cClientCounty);
 	}
 
 	public String getClientSettlement() {
-		return clientSettlement.get();
+		return this.clientSettlement.get();
 	}
 
 	public void setClientSettlement(String cClientSettlement) {
-		clientSettlement.set(cClientSettlement);
+		this.clientSettlement.set(cClientSettlement);
 	}
 
 	public String getClientZipCode() {
-		return clientZipCode.get();
+		return this.clientZipCode.get();
 	}
 
 	public void setClientZipCode(String cClientZipCode) {
-		clientZipCode.set(cClientZipCode);
+		this.clientZipCode.set(cClientZipCode);
 	}
 
 	public String getClientAddress() {
-		return clientAddress.get();
+		return this.clientAddress.get();
 	}
 
 	public void setClientAddress(String cClientAddress) {
-		clientAddress.set(cClientAddress);
+		this.clientAddress.set(cClientAddress);
 	}
 
 	public String getClientCompanyPhone() {
-		return clientCompanyPhone.get();
+		return this.clientCompanyPhone.get();
 	}
 
 	public void setClientCompanyPhone(String cClientCompanyPhone) {
-		clientCompanyPhone.set(cClientCompanyPhone);
+		this.clientCompanyPhone.set(cClientCompanyPhone);
 	}
 
 	public String getClientCompanyEmail() {
-		return clientCompanyEmail.get();
+		return this.clientCompanyEmail.get();
 	}
 
 	public void setClientCompanyEmail(String cClientCompanyEmail) {
-		clientCompanyEmail.set(cClientCompanyEmail);
+		this.clientCompanyEmail.set(cClientCompanyEmail);
 	}
 
 	public String getClientPhone() {
-		return clientPhone.get();
+		return this.clientPhone.get();
 	}
 
 	public void setClientPhone(String cClientPhone) {
-		clientPhone.set(cClientPhone);
+		this.clientPhone.set(cClientPhone);
 	}
 
 	public String getClientEmail() {
-		return clientEmail.get();
+		return this.clientEmail.get();
 	}
 
 	public void setClientEmail(String cClientEmail) {
-		clientEmail.set(cClientEmail);
+		this.clientEmail.set(cClientEmail);
 	}
 
 	public String getClientPackage() {
-		return clientPackage.get();
+		return this.clientPackage.get();
 	}
 
 	public void setClientPackage(String cClientPackage) {
-		clientPackage.set(cClientPackage);
+		this.clientPackage.set(cClientPackage);
 	}
 
 	public String getClientComment() {
-		return clientComment.get();
+		return this.clientComment.get();
 	}
 
 	public void setClientComment(String cClientComment) {
-		clientComment.set(cClientComment);
+		this.clientComment.set(cClientComment);
 	}
 }

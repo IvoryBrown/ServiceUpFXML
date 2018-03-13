@@ -63,4 +63,9 @@ public class Combobox {
 		return CMBDEVICESTATUSZ;
 	}
 
+	public static String[] setErrorStatusCombobox() {
+		final String CMBERRORSTATUSZ[] = { "Kész", "Mozi?", "Nem lehet" };
+		return CMBERRORSTATUSZ;
+	}
+
 }

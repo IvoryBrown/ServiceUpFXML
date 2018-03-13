@@ -5,15 +5,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/com/service/setting/fxmlsetting/ServiceFX.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/com/service/setting/fxmllogin/LoginFxml.fxml"));
 			Scene scene = new Scene(root);
-			primaryStage.setWidth(1350);
-			primaryStage.setHeight(730);
+			primaryStage.setWidth(764);
+			primaryStage.setHeight(513);
+			primaryStage.initStyle(StageStyle.TRANSPARENT);
 			primaryStage.setTitle("PcVipService");
 			primaryStage.setScene(scene);
 			primaryStage.show();

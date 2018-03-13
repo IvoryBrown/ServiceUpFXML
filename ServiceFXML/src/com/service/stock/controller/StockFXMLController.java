@@ -2,6 +2,7 @@ package com.service.stock.controller;
 
 import java.util.Date;
 
+import com.service.main.LoginController;
 import com.service.setting.menutreeitem.MenuTreeItemController;
 import com.service.stock.Stock;
 import com.service.stock.filteringdb.StockFillteringDB;
@@ -44,6 +45,7 @@ public class StockFXMLController extends MenuTreeItemController {
 	private final ObservableList<Stock> dataStock = FXCollections.observableArrayList();
 	private StockFillteringDB db = new StockFillteringDB();
 	private TrayNotification tray;
+	private LoginController login = new LoginController();
 
 	@SuppressWarnings("unchecked")
 	protected void setStockTableData() {
@@ -136,11 +138,10 @@ public class StockFXMLController extends MenuTreeItemController {
 		dataStock.addAll(StockFillteringDB.getAllStock());
 
 	}
-	
-	
+
 	@FXML
 	private void print(ActionEvent e) {
-		
+
 	}
 
 	@FXML
@@ -167,20 +168,22 @@ public class StockFXMLController extends MenuTreeItemController {
 		stockDeviceNameFilteringTxt.setStyle("-fx-prompt-text-fill: #61a2b1");
 	}
 
+	@SuppressWarnings("static-access")
 	@FXML
 	private void newDevieceBtn(ActionEvent event) {
-		try {
-			Parent root = FXMLLoader
-					.load(getClass().getResource("/com/service/setting/fxmlnewstock/FxmlNewStock.fxml"));
-			Stage stage = new Stage();
-			stage.initModality(Modality.APPLICATION_MODAL);
-			stage.setTitle("Eszköz");
-			stage.setScene(new Scene(root, 1000, 650));
-			stage.show();
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (login.admin.equals(login.adminLogin)) {
+			try {
+				Parent root = FXMLLoader
+						.load(getClass().getResource("/com/service/setting/fxmlnewstock/FxmlNewStock.fxml"));
+				Stage stage = new Stage();
+				stage.initModality(Modality.APPLICATION_MODAL);
+				stage.setTitle("Eszköz");
+				stage.setScene(new Scene(root, 1000, 650));
+				stage.show();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-
 	}
 
 	private boolean setStockCheckTxt() {
@@ -193,7 +196,5 @@ public class StockFXMLController extends MenuTreeItemController {
 			return true;
 		}
 	}
-
-	
 
 }
