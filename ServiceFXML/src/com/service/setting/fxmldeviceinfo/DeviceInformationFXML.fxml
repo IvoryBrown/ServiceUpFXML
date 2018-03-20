@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.web.WebView?>
+
+<AnchorPane prefHeight="650.0" prefWidth="1300.0" stylesheets="@../desing/desing.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.service.device.information.DeviceInformation">
+   <children>
+      <WebView fx:id="webView" prefHeight="650.0" prefWidth="1300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="160.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="93.0" />
+      <VBox layoutX="4.0" layoutY="3.0" prefHeight="89.0" prefWidth="206.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#fileOpen" prefHeight="36.0" prefWidth="206.0" text="Új keresés">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="206.0" text="Tábla Bevételezve">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+      <TextField fx:id="actionStatus" layoutX="218.0" layoutY="9.0" prefHeight="36.0" prefWidth="168.0" />
+      <TableView layoutX="4.0" layoutY="92.0" prefHeight="557.0" prefWidth="155.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="93.0" />
+   </children>
+</AnchorPane>
