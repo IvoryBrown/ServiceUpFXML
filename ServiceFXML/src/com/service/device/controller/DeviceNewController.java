@@ -170,6 +170,7 @@ public class DeviceNewController extends ClientTable {
 						insertDevice.executeUpdate();
 						tray = new TrayNotification("Remek!", "Sikeres Felvétel", NotificationType.SUCCESS);
 						tray.showAndDismiss(Duration.seconds(1));
+						setClearAllText();
 					} catch (SQLException ex) {
 						System.out.println(ex);
 						ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", ex.getMessage());
@@ -272,7 +273,7 @@ public class DeviceNewController extends ClientTable {
 		deviceNewMachine.setValue(null);
 		deviceAdministrator.setValue(null);
 		devicePriorit.setValue(null);
-		devicePassword.clear();
+		devicePassword.setText("nincs");
 		deviceReferences.clear();
 		deviceAccesssory.clear();
 		deviceInjury.clear();
