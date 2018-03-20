@@ -185,7 +185,7 @@ public class DeviceTable extends DeviceNewController {
 		deviceTableStatusz = new TableColumn<>("Státusz*");
 		deviceTableStatusz.setMinWidth(140);
 		deviceTableStatusz.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceStatusz"));
-		if (login.admin.equals(login.adminLogin)||login.admin.equals(login.serviceLogin)) {
+		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)) {
 			deviceTableStatusz.setCellValueFactory(i -> {
 				final String value = i.getValue().getDeviceStatusz();
 				return Bindings.createObjectBinding(() -> value);
@@ -216,7 +216,7 @@ public class DeviceTable extends DeviceNewController {
 			final String value = i.getValue().getDeviceTechnicalPerson();
 			return Bindings.createObjectBinding(() -> value);
 		});
-		if (login.admin.equals(login.adminLogin)||login.admin.equals(login.serviceLogin)) {
+		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)) {
 			deviceTableTechnicalPerson.setCellFactory(ComboBoxTableCell.forTableColumn(deviceDb.technikalIstratorList));
 			deviceTableTechnicalPerson.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
 				@Override
@@ -273,7 +273,7 @@ public class DeviceTable extends DeviceNewController {
 		deviceTableErrorCorrection.setMinWidth(370);
 		deviceTableErrorCorrection
 				.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceErrorCorrection"));
-		if (login.admin.equals(login.adminLogin)||login.admin.equals(login.serviceLogin)) {
+		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)) {
 			deviceTableErrorCorrection.setCellFactory(TextFieldTableCell.forTableColumn());
 			deviceTableErrorCorrection.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
 				@Override
@@ -312,7 +312,8 @@ public class DeviceTable extends DeviceNewController {
 		deviceTableEndDate = new TableColumn<>("Határidő*");
 		deviceTableEndDate.setMinWidth(140);
 		deviceTableEndDate.setCellValueFactory(cellData -> cellData.getValue().getDeviceEndDateObject());
-		if (login.admin.equals(login.adminLogin)) {
+	
+	if (login.admin.equals(login.adminLogin)) {
 			deviceTableEndDate.setCellFactory(dateCellFactory);
 			deviceTableEndDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, Date>>() {
 				@Override
@@ -344,7 +345,7 @@ public class DeviceTable extends DeviceNewController {
 		deviceTbaleCompletedDate = new TableColumn<>("Elkészült*");
 		deviceTbaleCompletedDate.setMinWidth(140);
 		deviceTbaleCompletedDate.setCellValueFactory(cellData -> cellData.getValue().getDeviceCompletedDateObject());
-		if (login.admin.equals(login.adminLogin)||login.admin.equals(login.serviceLogin)) {
+		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)) {
 			deviceTbaleCompletedDate.setCellFactory(dateCellFactory);
 			deviceTbaleCompletedDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, Date>>() {
 				@Override
@@ -378,7 +379,7 @@ public class DeviceTable extends DeviceNewController {
 		deviceTableSoftverComment = new TableColumn<>("Szoftver Megjegyzés*");
 		deviceTableSoftverComment.setMinWidth(170);
 		deviceTableSoftverComment.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceSoftverComment"));
-		if (login.admin.equals(login.adminLogin)||login.admin.equals(login.serviceLogin)) {
+		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)) {
 			deviceTableSoftverComment.setCellFactory(TextFieldTableCell.forTableColumn());
 			deviceTableSoftverComment.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
 				@Override
