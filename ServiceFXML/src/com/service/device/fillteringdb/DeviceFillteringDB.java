@@ -440,12 +440,12 @@ public class DeviceFillteringDB {
 		Connection conn = DataBaseConnect.getConnection();
 		PreparedStatement preparedStatement = null;
 		try {
-			String sql = "delete from `gepadatok1` where id_gepadatok = ?";
+			String sql = "DELETE FROM `gepadatok1` WHERE id_gepadatok = ?";
 			preparedStatement = conn.prepareStatement(sql);
 			preparedStatement.setInt(1, Integer.parseInt(device.getDeviceID()));
 			preparedStatement.execute();
 		} catch (SQLException ex) {
-			System.out.println("Valami baj van a contact törlésekor");
+			System.out.println("Valami baj van a eszköz törlésekor");
 			System.out.println("" + ex);
 		} finally {
 			try {

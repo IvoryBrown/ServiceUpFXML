@@ -9,7 +9,9 @@ import com.service.setting.showinfo.ShowInfo;
 
 public class DataBaseConnect {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://localhost/szerviz_up";
+
+
+	static final String DB_URL = "jdbc:mysql://localhost/szerviz_up?useUnicode=true&characterEncoding=UTF-8";
 	static final String USER = "root";
 	static final String PASS = "12345";
 	static Connection conn = null;
@@ -19,13 +21,12 @@ public class DataBaseConnect {
 		try {
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
-			System.out.println("A híd létrejött");
 		} catch (SQLException ex) {
 			System.out.println("Valami baj van a connection.");
-			ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", ex.getMessage());
+			ShowInfo.errorInfoMessengeException("Adatbï¿½zis Hiba", "Szerver vï¿½lasza: ", ex.getMessage());
 			return null;
 		} catch (ClassNotFoundException e) {
-			ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
+			ShowInfo.errorInfoMessengeException("Adatbï¿½zis Hiba", "Szerver vï¿½lasza: ", e.getMessage());
 			return null;
 		}
 		if (conn != null) {
@@ -33,8 +34,8 @@ public class DataBaseConnect {
 				createStatement = conn.createStatement();
 				return conn;
 			} catch (SQLException ex) {
-				System.out.println("Valami baj van van a createStatament létrehozásakor.");
-				ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", ex.getMessage());
+				System.out.println("Valami baj van van a createStatament lï¿½trehozï¿½sakor.");
+				ShowInfo.errorInfoMessengeException("Adatbï¿½zis Hiba", "Szerver vï¿½lasza: ", ex.getMessage());
 				return null;
 			}
 		}
