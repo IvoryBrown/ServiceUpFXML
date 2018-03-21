@@ -51,7 +51,7 @@ public class DeviceInfoFillteringDB {
 		Connection conn = DataBaseConnect.getConnection();
 		PreparedStatement preparedStatement = null;
 		try {
-			String sql = "delete from `gepadatok_informacio` where int = ?";
+			String sql = "DELETE FROM `gepadatok_informacio` WHERE int = ?";
 			preparedStatement = conn.prepareStatement(sql);
 			preparedStatement.setInt(1, Integer.parseInt(deviceInfo.getDeviceInfoID()));
 			preparedStatement.execute();
