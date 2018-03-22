@@ -40,7 +40,7 @@ public class DeviceReceivedMean implements Initializable {
 	private TextField deviceClientNameFilteringTxt;
 	Integer sd = 1;
 
-	private TableColumn<DeviceClient, Integer>  deviceTableNumber;
+	private TableColumn<DeviceClient, Integer> deviceTableNumber;
 	private TableColumn<DeviceClient, Boolean> deviceTableNewHouse, deviceTablePowerSupply, deviceTableProcessor,
 			deviceTableBaseBoard, deviceTableMemory, deviceTableVideoCard, deviceTableSSDDrive, deviceTableHardDrive,
 			deviceTableCoolingFan, deviceTableOpticalDrive, deviceTableExpansionCard, deviceTableLaptop;
@@ -77,7 +77,7 @@ public class DeviceReceivedMean implements Initializable {
 
 	@SuppressWarnings("unchecked")
 	protected void setDeviceTableData() {
-		if (sd ==1) {
+		if (sd == 1) {
 			deviceClientNameFilteringTxt.setDisable(true);
 			System.out.println("as");
 		}
@@ -507,28 +507,30 @@ public class DeviceReceivedMean implements Initializable {
 			@Override
 			public void changed(ObservableValue<? extends DeviceClient> observable, DeviceClient oldValue,
 					DeviceClient newValue) {
-				clientName = newValue.getDeviceClientName();
-				clientZipCode = newValue.getClientZipCode();
-				clientAddress = newValue.getClientAddress();
-				clientSettlement = newValue.getClientSettlement();
-				clientPhone = newValue.getClientPhone();
-				clientNumber = newValue.getClientNumber();
-				deviceName = newValue.getDeviceName();
-				deviceNumber = newValue.getDeviceNumber();
-				deviceManufacturer = newValue.getDeviceManufacturer();
-				deviceSalesBuying = newValue.getDeviceSalesBuyingConverter();
-				deviceAddDate = newValue.getDeviceAddDateConverter();
-				deviceEndDate = newValue.getDeviceEndDateConverter();
-				devicePassword = newValue.getDevicePassword();
-				deviceAccesssory = newValue.getDeviceAccesssory();
-				deviceInjury = newValue.getDeviceInjury();
-				deviceErrorDescription = newValue.getDeviceErrorDescription();
-				deviceDataRecovery = newValue.getDeviceDataRecovery();
-			}
+				
+					clientName = newValue.getDeviceClientName();
+					clientZipCode = newValue.getClientZipCode();
+					clientAddress = newValue.getClientAddress();
+					clientSettlement = newValue.getClientSettlement();
+					clientPhone = newValue.getClientPhone();
+					clientNumber = newValue.getClientNumber();
+					deviceName = newValue.getDeviceName();
+					deviceNumber = newValue.getDeviceNumber();
+					deviceManufacturer = newValue.getDeviceManufacturer();
+					deviceSalesBuying = newValue.getDeviceSalesBuyingConverter();
+					deviceAddDate = newValue.getDeviceAddDateConverter();
+					deviceEndDate = newValue.getDeviceEndDateConverter();
+					devicePassword = newValue.getDevicePassword();
+					deviceAccesssory = newValue.getDeviceAccesssory();
+					deviceInjury = newValue.getDeviceInjury();
+					deviceErrorDescription = newValue.getDeviceErrorDescription();
+					deviceDataRecovery = newValue.getDeviceDataRecovery();
+				}
+			
 		});
 
 		deviceTableMean.setItems(dataDeviceClient);
-		deviceTableMean.getColumns().addAll( clientTableNumber, clientTableName, deviceTableCompanyName,
+		deviceTableMean.getColumns().addAll(clientTableNumber, clientTableName, deviceTableCompanyName,
 				clientTableZipCode, clientTableSettlement, clientTableAddress, clientTablePhone, deviceTableNumber,
 				deviceTableName, deviceTabelManufacturer, deviceTabelSerialNumber, deviceTableRepairLocation,
 				deviceTableStatus, deviceTableStatusz, deviceTableNewMachine, deviceTableAdministrator,
