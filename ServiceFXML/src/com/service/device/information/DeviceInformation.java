@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import com.service.device.DeviceInfo;
+import com.service.device.fillteringdb.DeviceFillteringDB;
 import com.service.device.fillteringdb.DeviceInfoFillteringDB;
 import com.service.main.LoginController;
 import com.service.setting.database.DataBaseConnect;
@@ -46,10 +47,11 @@ public class DeviceInformation {
 	@FXML
 	private TextField txtDeviceNumber;
 	@FXML
-	private TableView<DeviceInfo> deviceTableInfo;
+	private TableView<DeviceInfo> deviceTableInfo = new TableView<DeviceInfo>();
 	@FXML
 	private Label fileText;
-	private TableColumn<DeviceInfo, Integer> deviceTableId, deviceTableNumber;
+	private TableColumn<DeviceInfo, Integer> deviceTableId;
+	private TableColumn<DeviceInfo, Integer> deviceTableNumber;
 	private TableColumn<DeviceInfo, String> removeCol;
 	private FileChooser fileChooser;
 	private File file;
@@ -63,6 +65,7 @@ public class DeviceInformation {
 	@SuppressWarnings("unchecked")
 	@FXML
 	public void initialize() {
+
 		deviceTableId = new TableColumn<>("ID");
 		deviceTableId.setMinWidth(50);
 		deviceTableId.setCellValueFactory(new PropertyValueFactory<DeviceInfo, Integer>("deviceInfoID"));
@@ -108,14 +111,17 @@ public class DeviceInformation {
 			@Override
 			public void changed(ObservableValue<? extends DeviceInfo> observable, DeviceInfo oldValue,
 					DeviceInfo newValue) {
-				engine = webView.getEngine();
-				engine.loadContent(resizeHtm(newValue.getHtml()));
+				if (oldValue == null || newValue != null) {
+					engine = webView.getEngine();
+					engine.loadContent(resizeHtm(newValue.getHtml()));
+
+				}
+
 			}
 		});
-
 		deviceTableInfo.setItems(dataDevice);
 		deviceTableInfo.getColumns().addAll(deviceTableId, deviceTableNumber, removeCol);
-		dataDevice.addAll(DeviceInfoFillteringDB.getAllDeviceCompanyFiltering());
+		dataDevice.addAll(DeviceInfoFillteringDB.getAllDeviceInfo());
 	}
 
 	private String resizeHtm(Blob s) {
@@ -146,6 +152,27 @@ public class DeviceInformation {
 		}
 	}
 
+	@FXML
+	private void filteringDeviceBtn(ActionEvent event) {
+		if (!txtDeviceNumber.getText().trim().isEmpty()) {
+			dataDevice.clear();
+			dataDevice.addAll(DeviceInfoFillteringDB.getDeviceInfoFilltering(txtDeviceNumber.getText()));
+			txtDeviceNumber.clear();
+			txtDeviceNumber.setStyle("-fx-prompt-text-fill: #61a2b1");
+			tray = new TrayNotification("Remek!", "Sikeres Frissítés", NotificationType.SUCCESS);
+			tray.showAndDismiss(Duration.seconds(1));
+		} else {
+			tray = new TrayNotification("HIBA", "Üres a kereső mező", NotificationType.ERROR);
+			tray.showAndDismiss(Duration.seconds(2));
+		}
+	}
+
+	@FXML
+	private void updateDeviceTable() {
+		dataDevice.clear();
+		dataDevice.addAll(DeviceInfoFillteringDB.getAllDeviceInfo());
+	}
+
 	private void browers(File file) {
 		engine = webView.getEngine();
 		try {
@@ -164,7 +191,17 @@ public class DeviceInformation {
 			return true;
 		}
 	}
-	
+
+	private boolean checkDeviceNumber() {
+		boolean f = false;
+		for (int i = 0; i < deviceDb.checkDeviceNumber.size(); i++) {
+			if (deviceDb.checkDeviceNumber.get(i).equals(txtDeviceNumber.getText())) {
+				f = true;
+			}
+		}
+		return f;
+	}
+
 	private void clearText() {
 		txtDeviceNumber.clear();
 		fileText.setText(null);
@@ -172,33 +209,38 @@ public class DeviceInformation {
 
 	@FXML
 	private void buttonDatabese() {
-		if (check()) {
-			try {
-				Connection con = DataBaseConnect.getConnection();
-				PreparedStatement insertDeviceInf = con
-						.prepareStatement("INSERT INTO gepadatok_informacio(eszkoz_az, gep_info)" + "values(?,?) ");
-
-				insertDeviceInf.setString(1, txtDeviceNumber.getText());
-				InputStream htm = new FileInputStream(new File(HTMPath));
-				System.out.println(HTMPath);
-				insertDeviceInf.setBlob(2, htm);
-				insertDeviceInf.executeUpdate();
-				htm.close();
-				clearText();
-				tray = new TrayNotification("Remek!", "Sikeres Felvétel", NotificationType.SUCCESS);
-				tray.showAndDismiss(Duration.seconds(1));
-			} catch (SQLException e) {
-				ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
-				e.printStackTrace();
-			} catch (FileNotFoundException e) {
-				ShowInfo.errorInfoMessengeException("Fájl Hiba", "Szerver válasza: ", e.getMessage());
-				e.printStackTrace();
-			} catch (IOException e) {
-				ShowInfo.errorInfoMessengeException("Fájl Hiba", "Szerver válasza: ", e.getMessage());
-				e.printStackTrace();
+		if (checkDeviceNumber()) {
+			if (check()) {
+				try {
+					Connection con = DataBaseConnect.getConnection();
+					PreparedStatement insertDeviceInf = con
+							.prepareStatement("INSERT INTO gepadatok_informacio(eszkoz_az, gep_info)" + "values(?,?) ");
+					insertDeviceInf.setString(1, txtDeviceNumber.getText());
+					InputStream htm = new FileInputStream(new File(HTMPath));
+					System.out.println(HTMPath);
+					insertDeviceInf.setBlob(2, htm);
+					insertDeviceInf.executeUpdate();
+					htm.close();
+					clearText();
+					updateDeviceTable();
+					tray = new TrayNotification("Remek!", "Sikeres Felvétel", NotificationType.SUCCESS);
+					tray.showAndDismiss(Duration.seconds(1));
+				} catch (SQLException e) {
+					ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
+					e.printStackTrace();
+				} catch (FileNotFoundException e) {
+					ShowInfo.errorInfoMessengeException("Fájl Hiba", "Szerver válasza: ", e.getMessage());
+					e.printStackTrace();
+				} catch (IOException e) {
+					ShowInfo.errorInfoMessengeException("Fájl Hiba", "Szerver válasza: ", e.getMessage());
+					e.printStackTrace();
+				}
+			} else {
+				tray = new TrayNotification("HIBA", "Nincs minden mező kitöltve", NotificationType.ERROR);
+				tray.showAndDismiss(Duration.seconds(2));
 			}
 		} else {
-			tray = new TrayNotification("HIBA", "Nincs minden mező kitöltve", NotificationType.ERROR);
+			tray = new TrayNotification("HIBA", "Nincs ilyen eszköz azonosító", NotificationType.ERROR);
 			tray.showAndDismiss(Duration.seconds(2));
 		}
 	}
