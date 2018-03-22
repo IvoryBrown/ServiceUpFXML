@@ -11,8 +11,17 @@ import com.service.device.DeviceInfo;
 import com.service.setting.database.DataBaseConnect;
 import com.service.setting.showinfo.ShowInfo;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class DeviceInfoFillteringDB {
-	public static ArrayList<DeviceInfo> getAllDeviceCompanyFiltering() {
+	public ObservableList<String> checkDeviceNumber = FXCollections.observableArrayList();
+
+	public DeviceInfoFillteringDB() {
+		setCheckDeviceNumber();
+	}
+
+	public static ArrayList<DeviceInfo> getAllDeviceInfo() {
 		Connection con = DataBaseConnect.getConnection();
 		String sql = "SELECT * FROM `gepadatok_informacio`";
 		ArrayList<DeviceInfo> deviceInfo = null;
@@ -46,7 +55,43 @@ public class DeviceInfoFillteringDB {
 		}
 		return deviceInfo;
 	}
-	
+
+	public static ArrayList<DeviceInfo> getDeviceInfoFilltering(String deviceNumber) {
+		Connection con = DataBaseConnect.getConnection();
+		String sql = "SELECT * FROM `gepadatok_informacio`WHERE CONCAT (`" + "eszkoz_az" + "`) LIKE '%" + deviceNumber
+				+ "%'";
+		ArrayList<DeviceInfo> deviceInfo = null;
+		Statement createStatement = null;
+		ResultSet rs = null;
+		try {
+			createStatement = con.createStatement();
+			rs = createStatement.executeQuery(sql);
+			deviceInfo = new ArrayList<>();
+			while (rs.next()) {
+				DeviceInfo actualDevice = new DeviceInfo(rs.getString("int"), rs.getString("eszkoz_az"),
+						rs.getBlob("gep_info"));
+				deviceInfo.add(actualDevice);
+			}
+		} catch (SQLException e) {
+			ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (createStatement != null) {
+					createStatement.close();
+				}
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
+			}
+		}
+		return deviceInfo;
+	}
+
 	public void removeContact(DeviceInfo deviceInfo) {
 		Connection conn = DataBaseConnect.getConnection();
 		PreparedStatement preparedStatement = null;
@@ -65,6 +110,36 @@ public class DeviceInfoFillteringDB {
 				}
 				if (conn != null) {
 					conn.close();
+				}
+			} catch (SQLException e) {
+				ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
+			}
+		}
+	}
+
+	public void setCheckDeviceNumber() {
+		String SQLaDMINISTRATOR = " SELECT `eszkoz_azonosito` FROM gepadatok1 ";
+		Connection con = DataBaseConnect.getConnection();
+		PreparedStatement pstStn = null;
+		ResultSet stnRS = null;
+		try {
+			pstStn = con.prepareStatement(SQLaDMINISTRATOR);
+			stnRS = pstStn.executeQuery(SQLaDMINISTRATOR);
+			while (stnRS.next()) {
+				checkDeviceNumber.add(stnRS.getString("eszkoz_azonosito"));
+			}
+		} catch (SQLException ex) {
+			ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", ex.getMessage());
+		} finally {
+			try {
+				if (pstStn != null) {
+					pstStn.close();
+				}
+				if (stnRS != null) {
+					stnRS.close();
+				}
+				if (con != null) {
+					con.close();
 				}
 			} catch (SQLException e) {
 				ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
