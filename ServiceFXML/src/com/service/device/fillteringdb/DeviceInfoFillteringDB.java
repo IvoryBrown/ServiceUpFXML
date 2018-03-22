@@ -51,9 +51,9 @@ public class DeviceInfoFillteringDB {
 		Connection conn = DataBaseConnect.getConnection();
 		PreparedStatement preparedStatement = null;
 		try {
-			String sql = "DELETE FROM `gepadatok_informacio` WHERE int = ?";
+			String sql = "DELETE FROM `gepadatok_informacio` WHERE `int` = ?";
 			preparedStatement = conn.prepareStatement(sql);
-			preparedStatement.setInt(1, Integer.parseInt(deviceInfo.getDeviceInfoID()));
+			preparedStatement.setString(1, deviceInfo.getDeviceInfoID());
 			preparedStatement.execute();
 		} catch (SQLException ex) {
 			System.out.println("Valami baj van a contact törlésekor");

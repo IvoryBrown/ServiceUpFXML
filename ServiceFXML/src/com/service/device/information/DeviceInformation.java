@@ -12,7 +12,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import com.service.device.Device;
 import com.service.device.DeviceInfo;
 import com.service.device.fillteringdb.DeviceInfoFillteringDB;
 import com.service.main.LoginController;
@@ -26,6 +25,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -47,6 +47,8 @@ public class DeviceInformation {
 	private TextField txtDeviceNumber;
 	@FXML
 	private TableView<DeviceInfo> deviceTableInfo;
+	@FXML
+	private Label fileText;
 	private TableColumn<DeviceInfo, Integer> deviceTableId, deviceTableNumber;
 	private TableColumn<DeviceInfo, String> removeCol;
 	private FileChooser fileChooser;
@@ -131,6 +133,7 @@ public class DeviceInformation {
 
 	@FXML
 	private void fileOpen() {
+		fileText.setStyle("   -fx-font-size: 12.0;");
 		fileChooser = new FileChooser();
 		fileChooser.setTitle("Report beillesztés");
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("HTM (*.htm)", "*.htm");
@@ -139,6 +142,7 @@ public class DeviceInformation {
 		if (file != null) {
 			browers(file);
 			HTMPath = file.getAbsolutePath();
+			fileText.setText(file.getAbsolutePath());
 		}
 	}
 
@@ -153,10 +157,17 @@ public class DeviceInformation {
 
 	private boolean check() {
 		if (txtDeviceNumber.getText().trim().isEmpty() || file == null) {
+			txtDeviceNumber.setStyle("-fx-prompt-text-fill: #CC0033");
 			return false;
 		} else {
+			txtDeviceNumber.setStyle("-fx-prompt-text-fill: #61a2b1");
 			return true;
 		}
+	}
+	
+	private void clearText() {
+		txtDeviceNumber.clear();
+		fileText.setText(null);
 	}
 
 	@FXML
@@ -173,6 +184,7 @@ public class DeviceInformation {
 				insertDeviceInf.setBlob(2, htm);
 				insertDeviceInf.executeUpdate();
 				htm.close();
+				clearText();
 				tray = new TrayNotification("Remek!", "Sikeres Felvétel", NotificationType.SUCCESS);
 				tray.showAndDismiss(Duration.seconds(1));
 			} catch (SQLException e) {
