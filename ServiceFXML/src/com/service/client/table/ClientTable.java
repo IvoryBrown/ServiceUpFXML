@@ -28,13 +28,13 @@ import javafx.util.Duration;
 import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
 
-public class ClientTable extends StockFXMLController  {
+public class ClientTable extends StockFXMLController {
 	@FXML
 	private TableView<Client> clientTable;
 	@FXML
 	private TextField clientNameFilteringTxt;
 	@FXML
-	private TextField deviceClientName, deviceCompanyName,deviceClientId;
+	private TextField deviceClientName, deviceCompanyName, deviceClientId;
 	private TableColumn<Client, Integer> clientId;
 	private TableColumn<Client, String> clientNumber, clientCompanyName, clientName, clientCounty, clientSettlement,
 			clientAddress, clientCompanyPhone, clientCompanyEmail, clientPhone, clientZipCode, clientEmail,
@@ -266,9 +266,11 @@ public class ClientTable extends StockFXMLController  {
 		clientTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Client>() {
 			@Override
 			public void changed(ObservableValue<? extends Client> observable, Client oldValue, Client newValue) {
-				deviceClientId.setText(newValue.getClientId());
-				deviceClientName.setText(newValue.getClientName());
-				deviceCompanyName.setText(newValue.getClientCompanyName());
+			
+					deviceClientId.setText(newValue.getClientId());
+					deviceClientName.setText(newValue.getClientName());
+					deviceCompanyName.setText(newValue.getClientCompanyName());
+				
 			}
 		});
 
@@ -293,7 +295,7 @@ public class ClientTable extends StockFXMLController  {
 			tray.showAndDismiss(Duration.seconds(2));
 		}
 	}
-	
+
 	@FXML
 	private void filterCompanytBtn(ActionEvent event) {
 		if (setClientCheckTxt()) {
@@ -322,8 +324,7 @@ public class ClientTable extends StockFXMLController  {
 	@FXML
 	private void newClientBtn() {
 		try {
-			Parent root = FXMLLoader
-					.load(getClass().getResource("/com/service/setting/fxmlnewclient/NewClient.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/com/service/setting/fxmlnewclient/NewClient.fxml"));
 			Stage stage = new Stage();
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.setTitle("Ügyfél");
@@ -334,11 +335,11 @@ public class ClientTable extends StockFXMLController  {
 		}
 
 	}
+
 	@FXML
 	private void newCompanyBtn() {
 		try {
-			Parent root = FXMLLoader
-					.load(getClass().getResource("/com/service/setting/fxmlnewclient/NewCompany.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/com/service/setting/fxmlnewclient/NewCompany.fxml"));
 			Stage stage = new Stage();
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.setTitle("Cég");
@@ -347,7 +348,7 @@ public class ClientTable extends StockFXMLController  {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	private boolean setClientCheckTxt() {
