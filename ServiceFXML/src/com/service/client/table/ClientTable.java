@@ -266,16 +266,16 @@ public class ClientTable extends StockFXMLController {
 		clientTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Client>() {
 			@Override
 			public void changed(ObservableValue<? extends Client> observable, Client oldValue, Client newValue) {
-			
+				if (oldValue == null || newValue != null) {
 					deviceClientId.setText(newValue.getClientId());
 					deviceClientName.setText(newValue.getClientName());
 					deviceCompanyName.setText(newValue.getClientCompanyName());
-				
+				}
 			}
 		});
 
 		clientTable.setItems(dataClient);
-		clientTable.getColumns().addAll(colAction, clientId, clientNumber, clientCompanyName, clientName, clientCounty,
+		clientTable.getColumns().addAll(colAction, clientId, clientNumber, clientName, clientCompanyName, clientCounty,
 				clientZipCode, clientSettlement, clientAddress, clientCompanyPhone, clientCompanyEmail, clientPhone,
 				clientEmail, clientPackage, clientComment);
 		dataClient.addAll(ClientFillteringDB.getAllClient());

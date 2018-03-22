@@ -8,7 +8,7 @@ public class Combobox {
 	}
 
 	public static String[] setLocationCombobox() {
-		final String CMBDEVICEREPAIRLOCATION[] = { "Szervíz Szeged", "Szervíz Soltvadkert", "Helyszíni" };
+		final String CMBDEVICEREPAIRLOCATION[] = { "Szervíz Szeged", "Szervíz Soltvadkert", "Helyszíni", "Külsős Cég" };
 		return CMBDEVICEREPAIRLOCATION;
 	}
 
@@ -59,7 +59,7 @@ public class Combobox {
 	}
 
 	public static String[] setDeviceStatusCombobox() {
-		final String CMBDEVICESTATUSZ[] = { "Bevizsgálás alatt", "Akkatrészre vár", "Garanciális", "Bevizsgálva" };
+		final String CMBDEVICESTATUSZ[] = { "Bevizsgálás alatt", "Akkatrészre vár", "Garanciális","Továbbküldve ", "Bevizsgálva" };
 		return CMBDEVICESTATUSZ;
 	}
 

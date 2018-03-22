@@ -9,7 +9,10 @@ import com.service.main.LoginController;
 import com.service.setting.combobox.Combobox;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,15 +24,19 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -119,6 +126,7 @@ public class DeviceTable extends DeviceNewController {
 					deviceDb.updateDevice(actualDevice);
 					tray = new TrayNotification("Eszköz!", "Sikeres Frissítése", NotificationType.SUCCESS);
 					tray.showAndDismiss(Duration.seconds(1));
+					updateDeviceTableDate();
 				}
 			});
 		}
@@ -136,6 +144,7 @@ public class DeviceTable extends DeviceNewController {
 					deviceDb.updateDevice(actualDvice);
 					tray = new TrayNotification("Gyártó!", "Sikeres Frissítése", NotificationType.SUCCESS);
 					tray.showAndDismiss(Duration.seconds(1));
+					updateDeviceTableDate();
 				}
 			});
 		}
@@ -160,6 +169,7 @@ public class DeviceTable extends DeviceNewController {
 					deviceDb.updateDevice(actualDevice);
 					tray = new TrayNotification("Javítás helye!", "Sikeres Frissítése", NotificationType.SUCCESS);
 					tray.showAndDismiss(Duration.seconds(1));
+					updateDeviceTableDate();
 				}
 			});
 		}
@@ -179,6 +189,7 @@ public class DeviceTable extends DeviceNewController {
 				deviceDb.updateDevice(actualDevice);
 				tray = new TrayNotification("Állapot!", "Sikeres Frissítése", NotificationType.SUCCESS);
 				tray.showAndDismiss(Duration.seconds(1));
+				updateDeviceTableDate();
 			}
 		});
 
@@ -199,6 +210,7 @@ public class DeviceTable extends DeviceNewController {
 					deviceDb.updateDevice(actualDevice);
 					tray = new TrayNotification("Állapot!", "Sikeres Frissítése", NotificationType.SUCCESS);
 					tray.showAndDismiss(Duration.seconds(1));
+					updateDeviceTableDate();
 				}
 			});
 		}
@@ -312,8 +324,8 @@ public class DeviceTable extends DeviceNewController {
 		deviceTableEndDate = new TableColumn<>("Határidő*");
 		deviceTableEndDate.setMinWidth(140);
 		deviceTableEndDate.setCellValueFactory(cellData -> cellData.getValue().getDeviceEndDateObject());
-	
-	if (login.admin.equals(login.adminLogin)) {
+
+		if (login.admin.equals(login.adminLogin)) {
 			deviceTableEndDate.setCellFactory(dateCellFactory);
 			deviceTableEndDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, Date>>() {
 				@Override
@@ -676,6 +688,31 @@ public class DeviceTable extends DeviceNewController {
 		};
 		removeCol.setCellFactory(cellFactory);
 
+		deviceAllTable.setRowFactory(ts -> new TableRow<Device>() {
+			@Override
+			public void updateItem(Device item, boolean empty) {
+				super.updateItem(item, empty);
+				if (item == null) {
+					setStyle("");
+				} else {
+					setStyle("");
+					if (item.getDeviceStatus().equals("Bevételezve")) {
+						setStyle("-fx-background-color: #800000;");
+					}
+					if (item.getDeviceStatusz() != null) {
+						if (item.getDeviceStatusz().equals("Bevizsgálás alatt")
+								|| item.getDeviceStatusz().equals("Akkatrészre vár")
+								|| item.getDeviceStatusz().equals("Garanciális")
+								|| item.getDeviceStatusz().equals("Továbbküldve")) {
+							setStyle("-fx-background-color: #b22222;");
+						}
+					}
+
+				}
+
+			}
+		});
+
 		setDeviceTableNewDevice = new TableColumn<>("Új gép");
 		setDeviceTableNewDevice.getColumns().addAll(deviceTableNewHouse, deviceTablePowerSupply, deviceTableProcessor,
 				deviceTableBaseBoard, deviceTableMemory, deviceTableVideoCard, deviceTableSSDDrive,
@@ -683,8 +720,8 @@ public class DeviceTable extends DeviceNewController {
 				deviceTableLaptop);
 
 		deviceAllTable.setItems(dataDevice);
-		deviceAllTable.getColumns().addAll(colDeviceAction, deviceTableId, deviceTableNumber, deviceTableCompanyName,
-				deviceTableClientName, deviceTableName, deviceTabelManufacturer, deviceTabelSerialNumber,
+		deviceAllTable.getColumns().addAll(colDeviceAction, deviceTableId, deviceTableNumber, deviceTableClientName,
+				deviceTableCompanyName, deviceTableName, deviceTabelManufacturer, deviceTabelSerialNumber,
 				deviceTableRepairLocation, deviceTableStatus, deviceTableStatusz, deviceTableNewMachine,
 				setDeviceTablePerson, deviceTablePriorit, deviceTablePassword, deviceTableReferences,
 				deviceTableAccesssory, deviceTableInjury, deviceTableErrorDescription, deviceTableErrorCorrection,
@@ -734,7 +771,22 @@ public class DeviceTable extends DeviceNewController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
 
+	@FXML
+	private void DeviceInfo() {
+		try {
+			Parent root = FXMLLoader
+					.load(getClass().getResource("/com/service/setting/fxmldeviceinfo/DeviceInformationFXML.fxml"));
+			Stage stage = new Stage();
+			stage.setWidth(1300);
+			stage.setHeight(650);
+			stage.setTitle("Információ");
+			stage.setScene(new Scene(root));
+			stage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private boolean setDevicetCheckTxt() {

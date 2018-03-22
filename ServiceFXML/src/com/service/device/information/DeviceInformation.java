@@ -13,7 +13,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import com.service.device.DeviceInfo;
-import com.service.device.fillteringdb.DeviceFillteringDB;
 import com.service.device.fillteringdb.DeviceInfoFillteringDB;
 import com.service.main.LoginController;
 import com.service.setting.database.DataBaseConnect;
@@ -82,23 +81,27 @@ public class DeviceInformation {
 				final TableCell<DeviceInfo, String> cell = new TableCell<DeviceInfo, String>() {
 					final Button btn = new Button("-");
 
+					@SuppressWarnings("static-access")
 					@Override
 					public void updateItem(String item, boolean empty) {
-
-						super.updateItem(item, empty);
-						if (empty) {
-							setGraphic(null);
-							setText(null);
-						} else {
-							btn.setOnAction((ActionEvent event) -> {
-								DeviceInfo deviceInfo = getTableView().getItems().get(getIndex());
-								dataDevice.remove(deviceInfo);
-								deviceDb.removeContact(deviceInfo);
-								tray = new TrayNotification("Törlés!", "Sikeres Törlés", NotificationType.SUCCESS);
-								tray.showAndDismiss(Duration.seconds(1));
-							});
-							setGraphic(btn);
-							setText(null);
+						btn.setDisable(true);
+						if (login.admin.equals(login.adminLogin)) {
+							btn.setDisable(false);
+							super.updateItem(item, empty);
+							if (empty) {
+								setGraphic(null);
+								setText(null);
+							} else {
+								btn.setOnAction((ActionEvent event) -> {
+									DeviceInfo deviceInfo = getTableView().getItems().get(getIndex());
+									dataDevice.remove(deviceInfo);
+									deviceDb.removeContact(deviceInfo);
+									tray = new TrayNotification("Törlés!", "Sikeres Törlés", NotificationType.SUCCESS);
+									tray.showAndDismiss(Duration.seconds(1));
+								});
+								setGraphic(btn);
+								setText(null);
+							}
 						}
 					}
 				};
@@ -114,10 +117,8 @@ public class DeviceInformation {
 				if (oldValue == null || newValue != null) {
 					engine = webView.getEngine();
 					engine.loadContent(resizeHtm(newValue.getHtml()));
-
-				}
-
-			}
+}
+}
 		});
 		deviceTableInfo.setItems(dataDevice);
 		deviceTableInfo.getColumns().addAll(deviceTableId, deviceTableNumber, removeCol);
@@ -137,8 +138,10 @@ public class DeviceInformation {
 		return g;
 	}
 
+	@SuppressWarnings("static-access")
 	@FXML
 	private void fileOpen() {
+		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)) {
 		fileText.setStyle("   -fx-font-size: 12.0;");
 		fileChooser = new FileChooser();
 		fileChooser.setTitle("Report beillesztés");
@@ -150,7 +153,7 @@ public class DeviceInformation {
 			HTMPath = file.getAbsolutePath();
 			fileText.setText(file.getAbsolutePath());
 		}
-	}
+	}}
 
 	@FXML
 	private void filteringDeviceBtn(ActionEvent event) {
