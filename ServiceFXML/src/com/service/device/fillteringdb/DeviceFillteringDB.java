@@ -16,6 +16,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class DeviceFillteringDB {
+
 	public ObservableList<String> administratorList = FXCollections.observableArrayList();
 	public ObservableList<String> technikalIstratorList = FXCollections.observableArrayList();
 	public ObservableList<String> dateLincList = FXCollections.observableArrayList();
