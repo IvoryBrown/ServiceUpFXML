@@ -63,7 +63,7 @@ public class LoginController implements Initializable {
 								.load(getClass().getResource("/com/service/setting/fxmlsetting/ServiceFX.fxml"));
 						Stage stage = new Stage();
 						stage.setTitle("PcVipService");
-						stage.setScene(new Scene(root, 1350, 650));
+						stage.setScene(new Scene(root, 1350, 700));
 						stage.show();
 					} catch (Exception e) {
 						e.printStackTrace();
