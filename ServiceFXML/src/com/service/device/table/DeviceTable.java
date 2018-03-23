@@ -9,10 +9,8 @@ import com.service.main.LoginController;
 import com.service.setting.combobox.Combobox;
 
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,7 +22,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Labeled;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -35,8 +33,6 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -49,6 +45,8 @@ public class DeviceTable extends DeviceNewController {
 	private TableView<Device> deviceAllTable;
 	@FXML
 	private TextField deviceClientNameFilteringTxt, inputExportName;
+	@FXML
+	private Label blackDeviceNumberT, backDeviceNumber, backClientNameT, backClientName;
 	private TableColumn<Device, Integer> deviceTableId, deviceTableNumber;
 	private TableColumn<Device, Boolean> deviceTableNewHouse, deviceTablePowerSupply, deviceTableProcessor,
 			deviceTableBaseBoard, deviceTableMemory, deviceTableVideoCard, deviceTableSSDDrive, deviceTableHardDrive,
@@ -688,6 +686,7 @@ public class DeviceTable extends DeviceNewController {
 		};
 		removeCol.setCellFactory(cellFactory);
 
+		
 		deviceAllTable.setRowFactory(ts -> new TableRow<Device>() {
 			@Override
 			public void updateItem(Device item, boolean empty) {
@@ -697,19 +696,32 @@ public class DeviceTable extends DeviceNewController {
 				} else {
 					setStyle("");
 					if (item.getDeviceStatus().equals("Bevételezve")) {
-						setStyle("-fx-background-color: #800000;");
+						setStyle("-fx-background-color: #669999;");
 					}
 					if (item.getDeviceStatusz() != null) {
 						if (item.getDeviceStatusz().equals("Bevizsgálás alatt")
 								|| item.getDeviceStatusz().equals("Akkatrészre vár")
 								|| item.getDeviceStatusz().equals("Garanciális")
 								|| item.getDeviceStatusz().equals("Továbbküldve")) {
-							setStyle("-fx-background-color: #b22222;");
+							setStyle("-fx-background-color: #336666;");
 						}
 					}
 
 				}
+			}
+		});
 
+		blackDeviceNumberT.setStyle(" -fx-font-size: 15pt ;");
+		backClientNameT.setStyle("-fx-font-size: 15pt ;");
+		deviceAllTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Device>() {
+			@Override
+			public void changed(ObservableValue<? extends Device> observable, Device oldValue, Device newValue) {
+				if (oldValue == null || newValue != null) {
+					backClientName.setText(newValue.getDeviceClientName());
+					backClientName.setStyle(" -fx-font-size: 15pt ;");
+					backDeviceNumber.setText(newValue.getDeviceNumber());
+					backDeviceNumber.setStyle(" -fx-font-size: 15pt ;");
+				}
 			}
 		});
 
@@ -737,11 +749,15 @@ public class DeviceTable extends DeviceNewController {
 		tray = new TrayNotification("Remek!", "Sikeres Frissítés", NotificationType.SUCCESS);
 		tray.showAndDismiss(Duration.seconds(1));
 		deviceClientNameFilteringTxt.setStyle("-fx-prompt-text-fill: #61a2b1");
+		backDeviceNumber.setText(null);
+		backClientName.setText(null);
 	}
 
 	protected void updateDeviceTableDate() {
 		dataDevice.clear();
 		dataDevice.addAll(DeviceFillteringDB.getAllDevice());
+		backDeviceNumber.setText(null);
+		backClientName.setText(null);
 	}
 
 	@FXML
