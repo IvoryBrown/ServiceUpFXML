@@ -507,7 +507,7 @@ public class DeviceReceivedMean implements Initializable {
 			@Override
 			public void changed(ObservableValue<? extends DeviceClient> observable, DeviceClient oldValue,
 					DeviceClient newValue) {
-				
+				if (oldValue == null || newValue != null) {
 					clientName = newValue.getDeviceClientName();
 					clientZipCode = newValue.getClientZipCode();
 					clientAddress = newValue.getClientAddress();
@@ -526,7 +526,7 @@ public class DeviceReceivedMean implements Initializable {
 					deviceErrorDescription = newValue.getDeviceErrorDescription();
 					deviceDataRecovery = newValue.getDeviceDataRecovery();
 				}
-			
+			}
 		});
 
 		deviceTableMean.setItems(dataDeviceClient);
