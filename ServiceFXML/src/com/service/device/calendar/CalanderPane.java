@@ -15,7 +15,10 @@ public class CalanderPane extends AnchorPane {
 	}
 	
 	private void baaj() {
-		this.setOnMouseClicked(e -> System.out.println("This pane's date is: " + date));
+	
+		this.setOnMouseClicked(e -> System.out.println("This pane's date is: " + date)
+				
+				);
 		
 	}
 
