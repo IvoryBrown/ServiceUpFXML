@@ -32,7 +32,6 @@ public class CalanderControler implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		currentYearMonth = YearMonth.now();
 		FullCalendarView(currentYearMonth);
-
 	}
 
 	public void FullCalendarView(YearMonth yearMonth) {
@@ -44,18 +43,9 @@ public class CalanderControler implements Initializable {
 				CalanderPane p = new CalanderPane();
 				setGridPane.add(p, j, i);
 				allCalendarDays.add(p);
-				if (j == 6) {
-					p.setStyle(" -fx-background-color: #eecccc;");
-				} else if (j == 5) {
-					p.setStyle(" -fx-background-color: #e7f5e3;");
-				} else {
-					p.setStyle(" -fx-background-color: #fafaf7;");
-				}
-
 			}
 		}
 		populateCalendar(yearMonth);
-
 	}
 
 	@SuppressWarnings("static-access")
@@ -64,6 +54,7 @@ public class CalanderControler implements Initializable {
 		while (!calendarDate.getDayOfWeek().toString().equals("MONDAY")) {
 			calendarDate = calendarDate.minusDays(1);
 		}
+		int z = 0;
 		for (CalanderPane ap : allCalendarDays) {
 			if (ap.getChildren().size() != 0) {
 				ap.getChildren().remove(0);
@@ -71,19 +62,35 @@ public class CalanderControler implements Initializable {
 			}
 			Text txt = new Text(String.valueOf(calendarDate.getDayOfMonth()));
 			ap.setDate(calendarDate);
+			ap.setNumber(z += 1);
 			ap.setTopAnchor(txt, 5.0);
 			ap.setLeftAnchor(txt, 5.0);
 			ap.getChildren().add(txt);
 			calendarDate = calendarDate.plusDays(1);
-			name(ap);
-			
+			setDateNow(ap);
 		}
 		calendarTitle.setText(String.valueOf(yearMonth.getYear() + " " + yearMonth.getMonth()));
 	}
-	
-	private void name(CalanderPane p) {
-		Label n = new Label("sd");
-		p.getChildren().add(n);
+
+	private void setDateNow(CalanderPane p) {
+		if (p.getNumber() == 7 || p.getNumber() == 14 || p.getNumber() == 21 || p.getNumber() == 28
+				|| p.getNumber() == 35) {
+			p.setStyle(" -fx-background-color: #eecccc;");
+			if (p.getDate().equals(LocalDate.now())) {
+				p.setStyle(" -fx-background-color: #c2d1da;");
+			}
+		} else if (p.getNumber() == 6 || p.getNumber() == 13 || p.getNumber() == 20 || p.getNumber() == 27
+				|| p.getNumber() == 34) {
+			p.setStyle(" -fx-background-color: #e7f5e3;");
+			if (p.getDate().equals(LocalDate.now())) {
+				p.setStyle(" -fx-background-color: #c2d1da;");
+			}
+		} else {
+			p.setStyle(" -fx-background-color: #fafaf7;");
+			if (p.getDate().equals(LocalDate.now())) {
+				p.setStyle(" -fx-background-color: #c2d1da;");
+			}
+		}
 	}
 
 	@FXML

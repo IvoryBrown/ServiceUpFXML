@@ -7,19 +7,19 @@ import javafx.scene.layout.AnchorPane;
 
 public class CalanderPane extends AnchorPane {
 	private LocalDate date;
-	
+	private Integer number;
 
 	public CalanderPane(Node... children) {
 		super(children);
-		baaj();
+		this.setOnMouseClicked(e ->	baaj());
 	}
-	
+
 	private void baaj() {
-	
-		this.setOnMouseClicked(e -> System.out.println("This pane's date is: " + date)
-				
-				);
+
+		 System.out.println("This pane's date is: " + date+" :"+number);
+
 		
+
 	}
 
 	public LocalDate getDate() {
@@ -28,5 +28,13 @@ public class CalanderPane extends AnchorPane {
 
 	public void setDate(LocalDate date) {
 		this.date = date;
+	}
+
+	public Integer getNumber() {
+		return this.number;
+	}
+
+	public void setNumber(Integer number) {
+		this.number = number;
 	}
 }
