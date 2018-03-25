@@ -63,7 +63,7 @@ public class MonthSet {
 	protected static void setDateNow(CalendarPane p) {
 		if (p.getNumber() == 7 || p.getNumber() == 14 || p.getNumber() == 21 || p.getNumber() == 28
 				|| p.getNumber() == 35) {
-			p.setStyle(" -fx-background-color: #eecccc;");
+			p.setStyle(" -fx-background-color: #c5e5c8;");
 			if (p.getDate().equals(LocalDate.now())) {
 				p.setStyle(" -fx-background-color: #c2d1da;");
 			}

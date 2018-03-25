@@ -6,12 +6,17 @@ import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import com.service.device.fillteringdb.DeviceFillteringDB;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 public class CalendarControler implements Initializable {
@@ -27,6 +32,7 @@ public class CalendarControler implements Initializable {
 	private YearMonth currentYearMonth;
 	private ArrayList<CalendarPane> allCalendarDays = new ArrayList<>(35);
 	LocalDate calendarDate;
+	DeviceFillteringDB dDb = new DeviceFillteringDB();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -55,22 +61,50 @@ public class CalendarControler implements Initializable {
 			calendarDate = calendarDate.minusDays(1);
 		}
 		int z = 0;
-		for (CalendarPane ap : allCalendarDays) {
-			if (ap.getChildren().size() != 0) {
-				ap.getChildren().remove(0);
-				ap.getChildren().clear();
+		for (CalendarPane p : allCalendarDays) {
+			if (p.getChildren().size() != 0) {
+				p.getChildren().remove(0);
+				p.getChildren().clear();
 			}
 			Text txt = new Text(String.valueOf(calendarDate.getDayOfMonth()));
-			ap.setDate(calendarDate);
-			ap.setNumber(z += 1);
-			ap.setTopAnchor(txt, 5.0);
-			ap.setLeftAnchor(txt, 5.0);
-			ap.getChildren().add(txt);
+			txt.setStyle("-fx-font: 18 arial");
+			p.setDate(calendarDate);
+			p.setNumber(z += 1);
+			p.setTopAnchor(txt, 5.0);
+			p.setLeftAnchor(txt, 5.0);
+			p.getChildren().add(txt);
 			calendarDate = calendarDate.plusDays(1);
-			MonthSet.setDateNow(ap);
+			MonthSet.setDateNow(p);
+			dfd(p.getDate(), p);
 		}
 		;
 		calendarTitle.setText(String.valueOf(yearMonth.getYear() + " " + MonthSet.setMonth(yearMonth)));
+	}
+
+	@SuppressWarnings("static-access")
+	private void dfd(LocalDate localDate, CalendarPane p) {
+		String d = String.valueOf(localDate);
+		VBox vb = new VBox();
+		p.setTopAnchor(vb, 25.0);
+		p.setLeftAnchor(vb, 5.0);
+		p.getChildren().add(vb);
+		int k = 0;
+		for (int i = 0; i < dDb.calendarList.size(); i++) {
+			if (dDb.calendarList.get(i).equals(d)) {
+				k = k + 1;
+				String g = dDb.calendarList.get(i + 1);
+				Label l = new Label(g);
+				l.setFont(Font.font("Verdana", FontWeight.BOLD, 11));
+				l.setStyle(" -fx-text-fill: tomato;");
+				
+				vb.getChildren().add(l);
+				if (k == 5) {
+					return;
+				}
+
+			}
+		}
+
 	}
 
 	@FXML

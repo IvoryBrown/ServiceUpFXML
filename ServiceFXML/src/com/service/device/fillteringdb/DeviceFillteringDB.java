@@ -20,11 +20,13 @@ public class DeviceFillteringDB {
 	public ObservableList<String> administratorList = FXCollections.observableArrayList();
 	public ObservableList<String> technikalIstratorList = FXCollections.observableArrayList();
 	public ObservableList<String> dateLincList = FXCollections.observableArrayList();
+	public ObservableList<String> calendarList = FXCollections.observableArrayList();
 
 	public DeviceFillteringDB() {
 		setGetAllAdministrator();
 		setGetAllTechnikal();
 		setGetDateLin();
+		setCalendar();
 	}
 
 	public static ArrayList<DeviceClient> getAllDeviceCompanyFiltering(String companyName) {
@@ -288,6 +290,36 @@ public class DeviceFillteringDB {
 			stnRS = pstStn.executeQuery(SQLaDMINISTRATOR);
 			while (stnRS.next()) {
 				administratorList.add(stnRS.getString("ugyintezo_neve"));
+			}
+		} catch (SQLException ex) {
+			ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", ex.getMessage());
+		} finally {
+			try {
+				if (pstStn != null) {
+					pstStn.close();
+				}
+				if (stnRS != null) {
+					stnRS.close();
+				}
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
+			}
+		}
+	}
+	public void setCalendar() {
+		String SQLaDMINISTRATOR = " select `ugyfél_nev_gep`,`hatarido_datuma` from `gepadatok1` ";
+		Connection con = DataBaseConnect.getConnection();
+		PreparedStatement pstStn = null;
+		ResultSet stnRS = null;
+		try {
+			pstStn = con.prepareStatement(SQLaDMINISTRATOR);
+			stnRS = pstStn.executeQuery(SQLaDMINISTRATOR);
+			while (stnRS.next()) {
+				calendarList.add(stnRS.getString("hatarido_datuma"));
+				calendarList.add(stnRS.getString("ugyfél_nev_gep"));
 			}
 		} catch (SQLException ex) {
 			ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", ex.getMessage());

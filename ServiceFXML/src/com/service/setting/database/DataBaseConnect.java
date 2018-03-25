@@ -14,6 +14,7 @@ public class DataBaseConnect {
 	static final String DB_URL = "jdbc:mysql://localhost/szerviz_up?useUnicode=true&characterEncoding=UTF-8";
 	static final String USER = "root";
 	static final String PASS = "12345";
+
 	static Connection conn = null;
 	static Statement createStatement = null;
 
