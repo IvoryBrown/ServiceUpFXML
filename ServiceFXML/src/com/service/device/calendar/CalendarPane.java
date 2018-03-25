@@ -5,11 +5,11 @@ import java.time.LocalDate;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 
-public class CalanderPane extends AnchorPane {
+public class CalendarPane extends AnchorPane {
 	private LocalDate date;
 	private Integer number;
 
-	public CalanderPane(Node... children) {
+	public CalendarPane(Node... children) {
 		super(children);
 		this.setOnMouseClicked(e ->	baaj());
 	}

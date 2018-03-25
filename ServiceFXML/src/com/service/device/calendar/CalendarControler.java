@@ -14,7 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
-public class CalanderControler implements Initializable {
+public class CalendarControler implements Initializable {
 
 	@FXML
 	private AnchorPane controlAnchorPane;
@@ -25,7 +25,7 @@ public class CalanderControler implements Initializable {
 	@FXML
 	private Button previousMonth, nextMonth;
 	private YearMonth currentYearMonth;
-	private ArrayList<CalanderPane> allCalendarDays = new ArrayList<>(35);
+	private ArrayList<CalendarPane> allCalendarDays = new ArrayList<>(35);
 	LocalDate calendarDate;
 
 	@Override
@@ -40,7 +40,7 @@ public class CalanderControler implements Initializable {
 		setGridPane.setVgap(1);
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 7; j++) {
-				CalanderPane p = new CalanderPane();
+				CalendarPane p = new CalendarPane();
 				setGridPane.add(p, j, i);
 				allCalendarDays.add(p);
 			}
@@ -55,7 +55,7 @@ public class CalanderControler implements Initializable {
 			calendarDate = calendarDate.minusDays(1);
 		}
 		int z = 0;
-		for (CalanderPane ap : allCalendarDays) {
+		for (CalendarPane ap : allCalendarDays) {
 			if (ap.getChildren().size() != 0) {
 				ap.getChildren().remove(0);
 				ap.getChildren().clear();
@@ -67,30 +67,10 @@ public class CalanderControler implements Initializable {
 			ap.setLeftAnchor(txt, 5.0);
 			ap.getChildren().add(txt);
 			calendarDate = calendarDate.plusDays(1);
-			setDateNow(ap);
+			MonthSet.setDateNow(ap);
 		}
-		calendarTitle.setText(String.valueOf(yearMonth.getYear() + " " + yearMonth.getMonth()));
-	}
-
-	private void setDateNow(CalanderPane p) {
-		if (p.getNumber() == 7 || p.getNumber() == 14 || p.getNumber() == 21 || p.getNumber() == 28
-				|| p.getNumber() == 35) {
-			p.setStyle(" -fx-background-color: #eecccc;");
-			if (p.getDate().equals(LocalDate.now())) {
-				p.setStyle(" -fx-background-color: #c2d1da;");
-			}
-		} else if (p.getNumber() == 6 || p.getNumber() == 13 || p.getNumber() == 20 || p.getNumber() == 27
-				|| p.getNumber() == 34) {
-			p.setStyle(" -fx-background-color: #e7f5e3;");
-			if (p.getDate().equals(LocalDate.now())) {
-				p.setStyle(" -fx-background-color: #c2d1da;");
-			}
-		} else {
-			p.setStyle(" -fx-background-color: #fafaf7;");
-			if (p.getDate().equals(LocalDate.now())) {
-				p.setStyle(" -fx-background-color: #c2d1da;");
-			}
-		}
+		;
+		calendarTitle.setText(String.valueOf(yearMonth.getYear() + " " + MonthSet.setMonth(yearMonth)));
 	}
 
 	@FXML
@@ -105,11 +85,11 @@ public class CalanderControler implements Initializable {
 		populateCalendar(currentYearMonth);
 	}
 
-	public ArrayList<CalanderPane> getAllCalendarDays() {
+	public ArrayList<CalendarPane> getAllCalendarDays() {
 		return allCalendarDays;
 	}
 
-	public void setAllCalendarDays(ArrayList<CalanderPane> allCalendarDays) {
+	public void setAllCalendarDays(ArrayList<CalendarPane> allCalendarDays) {
 		this.allCalendarDays = allCalendarDays;
 	}
 }
