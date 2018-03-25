@@ -5,7 +5,7 @@ import java.time.YearMonth;
 
 public class MonthSet {
 
-	protected static String setMonth(YearMonth yearMonth) {
+	public static String setMonth(YearMonth yearMonth) {
 		String monthToString = String.valueOf(yearMonth.getMonth());
 		if (yearMonth.getMonth().toString().equals("JANUARY")) {
 			monthToString = "Január";
@@ -60,7 +60,7 @@ public class MonthSet {
 
 	}
 
-	protected static void setDateNow(CalendarPane p) {
+	public static void setDateNow(CalendarPane p) {
 		if (p.getNumber() == 7 || p.getNumber() == 14 || p.getNumber() == 21 || p.getNumber() == 28
 				|| p.getNumber() == 35) {
 			p.setStyle(" -fx-background-color: #c5e5c8;");
