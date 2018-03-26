@@ -1,10 +1,8 @@
 package com.service.device.controller;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.ResourceBundle;
-import java.util.concurrent.atomic.LongAccumulator;
 
 import com.service.device.Device;
 import com.service.device.calendar.CalendarPane;
@@ -16,6 +14,7 @@ import com.service.setting.combobox.Combobox;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,6 +24,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -45,6 +45,8 @@ public class DeviceCalendarController implements Initializable {
 	private TableView<Device> deviceTable;
 	@FXML
 	private TextField deviceClientNameFilteringTxt;
+	@FXML
+	private Label blackDeviceNumberT, backDeviceNumber, backClientNameT, backClientName;
 	private TableColumn<Device, Integer> deviceTableId, deviceTableNumber;
 	private TableColumn<Device, Boolean> deviceTableNewHouse, deviceTablePowerSupply, deviceTableProcessor,
 			deviceTableBaseBoard, deviceTableMemory, deviceTableVideoCard, deviceTableSSDDrive, deviceTableHardDrive,
@@ -62,12 +64,12 @@ public class DeviceCalendarController implements Initializable {
 	private TableColumn<Device, String> setDeviceTablePerson;
 	private TableColumn<Device, Boolean> setDeviceTableNewDevice;
 	private TableColumn<Device, Date> setDeviceAllDate;
-	private final ObservableList<Device> dataDevice = FXCollections.observableArrayList();
+	private static ObservableList<Device> dataDevice = FXCollections.observableArrayList();
 	private DeviceFillteringDB deviceDb = new DeviceFillteringDB();
 	private LoginController login = new LoginController();
 	private TrayNotification tray = new TrayNotification();
-	
 
+	@SuppressWarnings({ "unchecked", "static-access" })
 	private void setTable() {
 		Callback<TableColumn<Device, Date>, TableCell<Device, Date>> dateCellFactory = (
 				TableColumn<Device, Date> param) -> new DataEditingCellDevice();
@@ -129,20 +131,20 @@ public class DeviceCalendarController implements Initializable {
 		deviceTabelManufacturer = new TableColumn<>("Gyártó*");
 		deviceTabelManufacturer.setMinWidth(150);
 		deviceTabelManufacturer.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceManufacturer"));
-		// if (login.admin.equals(login.adminLogin)) {
-		deviceTabelManufacturer.setCellFactory(TextFieldTableCell.forTableColumn());
-		deviceTabelManufacturer.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
-			@Override
-			public void handle(TableColumn.CellEditEvent<Device, String> d) {
-				Device actualDvice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
-				actualDvice.setDeviceManufacturer(d.getNewValue());
-				deviceDb.updateDevice(actualDvice);
-				tray = new TrayNotification("Gyártó!", "Sikeres Frissítése", NotificationType.SUCCESS);
-				tray.showAndDismiss(Duration.seconds(1));
+		if (login.admin.equals(login.adminLogin)) {
+			deviceTabelManufacturer.setCellFactory(TextFieldTableCell.forTableColumn());
+			deviceTabelManufacturer.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, String> d) {
+					Device actualDvice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDvice.setDeviceManufacturer(d.getNewValue());
+					deviceDb.updateDevice(actualDvice);
+					tray = new TrayNotification("Gyártó!", "Sikeres Frissítése", NotificationType.SUCCESS);
+					tray.showAndDismiss(Duration.seconds(1));
 
-			}
-		});
-		// }
+				}
+			});
+		}
 		deviceTabelSerialNumber = new TableColumn<>("Serial no.");
 		deviceTabelSerialNumber.setMinWidth(120);
 		deviceTabelSerialNumber.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceSerialNumber"));
@@ -150,24 +152,24 @@ public class DeviceCalendarController implements Initializable {
 		deviceTableRepairLocation = new TableColumn<>("Javítás helye*");
 		deviceTableRepairLocation.setMinWidth(130);
 		deviceTableRepairLocation.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceRepairLocation"));
-		// if (login.admin.equals(login.adminLogin)) {
-		deviceTableRepairLocation.setCellValueFactory(i -> {
-			final String value = i.getValue().getDeviceRepairLocation();
-			return Bindings.createObjectBinding(() -> value);
-		});
-		deviceTableRepairLocation.setCellFactory(ComboBoxTableCell.forTableColumn(Combobox.setLocationCombobox()));
-		deviceTableRepairLocation.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
-			@Override
-			public void handle(TableColumn.CellEditEvent<Device, String> d) {
-				Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
-				actualDevice.setDeviceRepairLocation(d.getNewValue());
-				deviceDb.updateDevice(actualDevice);
-				tray = new TrayNotification("Javítás helye!", "Sikeres Frissítése", NotificationType.SUCCESS);
-				tray.showAndDismiss(Duration.seconds(1));
+		if (login.admin.equals(login.adminLogin)) {
+			deviceTableRepairLocation.setCellValueFactory(i -> {
+				final String value = i.getValue().getDeviceRepairLocation();
+				return Bindings.createObjectBinding(() -> value);
+			});
+			deviceTableRepairLocation.setCellFactory(ComboBoxTableCell.forTableColumn(Combobox.setLocationCombobox()));
+			deviceTableRepairLocation.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, String> d) {
+					Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDevice.setDeviceRepairLocation(d.getNewValue());
+					deviceDb.updateDevice(actualDevice);
+					tray = new TrayNotification("Javítás helye!", "Sikeres Frissítése", NotificationType.SUCCESS);
+					tray.showAndDismiss(Duration.seconds(1));
 
-			}
-		});
-		// }
+				}
+			});
+		}
 		deviceTableStatus = new TableColumn<>("Állapot*");
 		deviceTableStatus.setMinWidth(100);
 		deviceTableStatus.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceStatus"));
@@ -191,25 +193,24 @@ public class DeviceCalendarController implements Initializable {
 		deviceTableStatusz = new TableColumn<>("Státusz*");
 		deviceTableStatusz.setMinWidth(140);
 		deviceTableStatusz.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceStatusz"));
-		// if (login.admin.equals(login.adminLogin) ||
-		// login.admin.equals(login.serviceLogin)) {
-		deviceTableStatusz.setCellValueFactory(i -> {
-			final String value = i.getValue().getDeviceStatusz();
-			return Bindings.createObjectBinding(() -> value);
-		});
-		deviceTableStatusz.setCellFactory(ComboBoxTableCell.forTableColumn(Combobox.setDeviceStatusCombobox()));
-		deviceTableStatusz.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
-			@Override
-			public void handle(TableColumn.CellEditEvent<Device, String> d) {
-				Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
-				actualDevice.setDeviceStatusz(d.getNewValue());
-				deviceDb.updateDevice(actualDevice);
-				tray = new TrayNotification("Állapot!", "Sikeres Frissítése", NotificationType.SUCCESS);
-				tray.showAndDismiss(Duration.seconds(1));
+		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)) {
+			deviceTableStatusz.setCellValueFactory(i -> {
+				final String value = i.getValue().getDeviceStatusz();
+				return Bindings.createObjectBinding(() -> value);
+			});
+			deviceTableStatusz.setCellFactory(ComboBoxTableCell.forTableColumn(Combobox.setDeviceStatusCombobox()));
+			deviceTableStatusz.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, String> d) {
+					Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDevice.setDeviceStatusz(d.getNewValue());
+					deviceDb.updateDevice(actualDevice);
+					tray = new TrayNotification("Állapot!", "Sikeres Frissítése", NotificationType.SUCCESS);
+					tray.showAndDismiss(Duration.seconds(1));
 
-			}
-		});
-		// }
+				}
+			});
+		}
 		deviceTableNewMachine = new TableColumn<>("Új gép");
 		deviceTableNewMachine.setMinWidth(30);
 		deviceTableNewMachine.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceNewMachine"));
@@ -224,20 +225,19 @@ public class DeviceCalendarController implements Initializable {
 			final String value = i.getValue().getDeviceTechnicalPerson();
 			return Bindings.createObjectBinding(() -> value);
 		});
-		// if (login.admin.equals(login.adminLogin) ||
-		// login.admin.equals(login.serviceLogin)) {
-		deviceTableTechnicalPerson.setCellFactory(ComboBoxTableCell.forTableColumn(deviceDb.technikalIstratorList));
-		deviceTableTechnicalPerson.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
-			@Override
-			public void handle(TableColumn.CellEditEvent<Device, String> d) {
-				Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
-				actualDevice.setDeviceTechnicalPerson(d.getNewValue());
-				deviceDb.updateDevice(actualDevice);
-				tray = new TrayNotification("Technikus!", "Sikeres Frissítése", NotificationType.SUCCESS);
-				tray.showAndDismiss(Duration.seconds(1));
-			}
-		});
-		// }
+		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)) {
+			deviceTableTechnicalPerson.setCellFactory(ComboBoxTableCell.forTableColumn(deviceDb.technikalIstratorList));
+			deviceTableTechnicalPerson.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, String> d) {
+					Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDevice.setDeviceTechnicalPerson(d.getNewValue());
+					deviceDb.updateDevice(actualDevice);
+					tray = new TrayNotification("Technikus!", "Sikeres Frissítése", NotificationType.SUCCESS);
+					tray.showAndDismiss(Duration.seconds(1));
+				}
+			});
+		}
 		setDeviceTablePerson = new TableColumn<>("Dolgozok");
 		setDeviceTablePerson.getColumns().addAll(deviceTableAdministrator, deviceTableTechnicalPerson);
 
@@ -265,37 +265,36 @@ public class DeviceCalendarController implements Initializable {
 		deviceTableErrorDescription.setMinWidth(370);
 		deviceTableErrorDescription
 				.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceErrorDescription"));
-		// if (login.admin.equals(login.adminLogin)) {
-		deviceTableErrorDescription.setCellFactory(TextFieldTableCell.forTableColumn());
-		deviceTableErrorDescription.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
-			@Override
-			public void handle(TableColumn.CellEditEvent<Device, String> d) {
-				Device actualDvice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
-				actualDvice.setDeviceErrorDescription(d.getNewValue());
-				deviceDb.updateDevice(actualDvice);
-				tray = new TrayNotification("Hiba leírás!", "Sikeres Frissítése", NotificationType.SUCCESS);
-				tray.showAndDismiss(Duration.seconds(1));
-			}
-		});
-		// }
+		if (login.admin.equals(login.adminLogin)) {
+			deviceTableErrorDescription.setCellFactory(TextFieldTableCell.forTableColumn());
+			deviceTableErrorDescription.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, String> d) {
+					Device actualDvice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDvice.setDeviceErrorDescription(d.getNewValue());
+					deviceDb.updateDevice(actualDvice);
+					tray = new TrayNotification("Hiba leírás!", "Sikeres Frissítése", NotificationType.SUCCESS);
+					tray.showAndDismiss(Duration.seconds(1));
+				}
+			});
+		}
 		deviceTableErrorCorrection = new TableColumn<>("Valós hiba*");
 		deviceTableErrorCorrection.setMinWidth(370);
 		deviceTableErrorCorrection
 				.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceErrorCorrection"));
-		// if (login.admin.equals(login.adminLogin) ||
-		// login.admin.equals(login.serviceLogin)) {
-		deviceTableErrorCorrection.setCellFactory(TextFieldTableCell.forTableColumn());
-		deviceTableErrorCorrection.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
-			@Override
-			public void handle(TableColumn.CellEditEvent<Device, String> d) {
-				Device actualDvice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
-				actualDvice.setDeviceErrorCorrection(d.getNewValue());
-				deviceDb.updateDevice(actualDvice);
-				tray = new TrayNotification("Valós hiba!", "Sikeres Frissítése", NotificationType.SUCCESS);
-				tray.showAndDismiss(Duration.seconds(1));
-			}
-		});
-		// }
+		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)) {
+			deviceTableErrorCorrection.setCellFactory(TextFieldTableCell.forTableColumn());
+			deviceTableErrorCorrection.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, String> d) {
+					Device actualDvice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDvice.setDeviceErrorCorrection(d.getNewValue());
+					deviceDb.updateDevice(actualDvice);
+					tray = new TrayNotification("Valós hiba!", "Sikeres Frissítése", NotificationType.SUCCESS);
+					tray.showAndDismiss(Duration.seconds(1));
+				}
+			});
+		}
 		deviceTableComment = new TableColumn<>("Eszközről megjegyzés*");
 		deviceTableComment.setMinWidth(370);
 		deviceTableComment.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceComment"));
@@ -315,28 +314,41 @@ public class DeviceCalendarController implements Initializable {
 		deviceTableSalesBuying.setMinWidth(70);
 		deviceTableSalesBuying.setCellValueFactory(new PropertyValueFactory<Device, Date>("deviceSalesBuying"));
 
-		deviceTableAddDate = new TableColumn<>("Bejelentés");
-		deviceTableAddDate.setMinWidth(70);
-		deviceTableAddDate.setCellValueFactory(new PropertyValueFactory<Device, Date>("deviceAddDate"));
+		deviceTableAddDate = new TableColumn<>("Bejelentés*");
+		deviceTableAddDate.setMinWidth(140);
+		deviceTableAddDate.setCellValueFactory(cellData -> cellData.getValue().getDeviceAddDateObject());
+		if (login.admin.equals(login.adminLogin)) {
+			deviceTableAddDate.setCellFactory(dateCellFactory);
+			deviceTableAddDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, Date>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, Date> d) {
+					Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDevice.setDeviceAddDate(d.getNewValue());
+					deviceDb.updateDevice(actualDevice);
+					tray = new TrayNotification("Bejelentés dátum!", "Sikeres Frissítés", NotificationType.SUCCESS);
+					tray.showAndDismiss(Duration.seconds(1));
+
+				}
+			});
+		}
 
 		deviceTableEndDate = new TableColumn<>("Határidő*");
 		deviceTableEndDate.setMinWidth(140);
 		deviceTableEndDate.setCellValueFactory(cellData -> cellData.getValue().getDeviceEndDateObject());
+		if (login.admin.equals(login.adminLogin)) {
+			deviceTableEndDate.setCellFactory(dateCellFactory);
+			deviceTableEndDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, Date>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, Date> d) {
+					Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDevice.setDeviceEndDate(d.getNewValue());
+					deviceDb.updateDevice(actualDevice);
+					tray = new TrayNotification("Határidő dátum!", "Sikeres Frissítés", NotificationType.SUCCESS);
+					tray.showAndDismiss(Duration.seconds(1));
 
-		// if (login.admin.equals(login.adminLogin)) {
-		deviceTableEndDate.setCellFactory(dateCellFactory);
-		deviceTableEndDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, Date>>() {
-			@Override
-			public void handle(TableColumn.CellEditEvent<Device, Date> d) {
-				Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
-				actualDevice.setDeviceEndDate(d.getNewValue());
-				deviceDb.updateDevice(actualDevice);
-				tray = new TrayNotification("Határidő dátum!", "Sikeres Frissítés", NotificationType.SUCCESS);
-				tray.showAndDismiss(Duration.seconds(1));
-
-			}
-		});
-		// }
+				}
+			});
+		}
 		deviceTableDeliveryDate = new TableColumn<>("Kiszállás*");
 		deviceTableDeliveryDate.setMinWidth(140);
 		deviceTableDeliveryDate.setCellValueFactory(cellData -> cellData.getValue().getDeviceDeliveryDateObject());
@@ -355,21 +367,20 @@ public class DeviceCalendarController implements Initializable {
 		deviceTbaleCompletedDate = new TableColumn<>("Elkészült*");
 		deviceTbaleCompletedDate.setMinWidth(140);
 		deviceTbaleCompletedDate.setCellValueFactory(cellData -> cellData.getValue().getDeviceCompletedDateObject());
-		// if (login.admin.equals(login.adminLogin) ||
-		// login.admin.equals(login.serviceLogin)) {
-		deviceTbaleCompletedDate.setCellFactory(dateCellFactory);
-		deviceTbaleCompletedDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, Date>>() {
-			@Override
-			public void handle(TableColumn.CellEditEvent<Device, Date> d) {
-				Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
-				actualDevice.setDeviceCompletedDate(d.getNewValue());
-				deviceDb.updateDevice(actualDevice);
-				tray = new TrayNotification("Elkészült", "Sikeres Frissítés", NotificationType.SUCCESS);
-				tray.showAndDismiss(Duration.seconds(1));
+		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)) {
+			deviceTbaleCompletedDate.setCellFactory(dateCellFactory);
+			deviceTbaleCompletedDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, Date>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, Date> d) {
+					Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDevice.setDeviceCompletedDate(d.getNewValue());
+					deviceDb.updateDevice(actualDevice);
+					tray = new TrayNotification("Elkészült", "Sikeres Frissítés", NotificationType.SUCCESS);
+					tray.showAndDismiss(Duration.seconds(1));
 
-			}
-		});
-		// }
+				}
+			});
+		}
 		setDeviceAllDate = new TableColumn<>("Dátumok");
 		setDeviceAllDate.getColumns().addAll(deviceTableSalesBuying, deviceTableAddDate, deviceTableEndDate,
 				deviceTableDeliveryDate, deviceTbaleCompletedDate);
@@ -390,20 +401,19 @@ public class DeviceCalendarController implements Initializable {
 		deviceTableSoftverComment = new TableColumn<>("Szoftver Megjegyzés*");
 		deviceTableSoftverComment.setMinWidth(170);
 		deviceTableSoftverComment.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceSoftverComment"));
-		// if (login.admin.equals(login.adminLogin) ||
-		// login.admin.equals(login.serviceLogin)) {
-		deviceTableSoftverComment.setCellFactory(TextFieldTableCell.forTableColumn());
-		deviceTableSoftverComment.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
-			@Override
-			public void handle(TableColumn.CellEditEvent<Device, String> d) {
-				Device actualDvice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
-				actualDvice.setDeviceSoftverComment(d.getNewValue());
-				deviceDb.updateDevice(actualDvice);
-				tray = new TrayNotification("Szoftver Megjegyzés!", "Sikeres Frissítése", NotificationType.SUCCESS);
-				tray.showAndDismiss(Duration.seconds(1));
-			}
-		});
-		// }
+		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)) {
+			deviceTableSoftverComment.setCellFactory(TextFieldTableCell.forTableColumn());
+			deviceTableSoftverComment.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, String> d) {
+					Device actualDvice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDvice.setDeviceSoftverComment(d.getNewValue());
+					deviceDb.updateDevice(actualDvice);
+					tray = new TrayNotification("Szoftver Megjegyzés!", "Sikeres Frissítése", NotificationType.SUCCESS);
+					tray.showAndDismiss(Duration.seconds(1));
+				}
+			});
+		}
 
 		deviceTableNewHouse = new TableColumn<>("Ház");
 		deviceTableNewHouse.setEditable(false);
@@ -660,12 +670,13 @@ public class DeviceCalendarController implements Initializable {
 				final TableCell<Device, String> cell = new TableCell<Device, String>() {
 					final Button btn = new Button("Törlés");
 
+					@SuppressWarnings("static-access")
 					@Override
 					public void updateItem(String item, boolean empty) {
 						btn.setDisable(true);
-						// if (login.admin.equals(login.adminLogin)) {
-						btn.setDisable(false);
-						// }
+						if (login.admin.equals(login.adminLogin)) {
+							btn.setDisable(false);
+						}
 						super.updateItem(item, empty);
 						if (empty) {
 							setGraphic(null);
@@ -712,6 +723,20 @@ public class DeviceCalendarController implements Initializable {
 
 			}
 		});
+		
+		blackDeviceNumberT.setStyle(" -fx-font-size: 15pt ;");
+		backClientNameT.setStyle("-fx-font-size: 15pt ;");
+		deviceTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Device>() {
+			@Override
+			public void changed(ObservableValue<? extends Device> observable, Device oldValue, Device newValue) {
+				if (oldValue == null || newValue != null) {
+					backClientName.setText(newValue.getDeviceClientName());
+					backClientName.setStyle(" -fx-font-size: 15pt ;");
+					backDeviceNumber.setText(newValue.getDeviceNumber());
+					backDeviceNumber.setStyle(" -fx-font-size: 15pt ;");
+				}
+			}
+		});
 
 		setDeviceTableNewDevice = new TableColumn<>("Új gép");
 		setDeviceTableNewDevice.getColumns().addAll(deviceTableNewHouse, deviceTablePowerSupply, deviceTableProcessor,
@@ -727,15 +752,21 @@ public class DeviceCalendarController implements Initializable {
 				deviceTableAccesssory, deviceTableInjury, deviceTableErrorDescription, deviceTableErrorCorrection,
 				deviceTableComment, setDeviceAllDate, deviceTableDataRecovery, deviceTableSoftver,
 				deviceTableOperatingSystem, deviceTableSoftverComment, setDeviceTableNewDevice, removeCol);
-		setDataBase();
+		setDataBase(CalendarPane.sDate);
 	}
 
-	 
-	public void setDataBase() {
-		LocalDate date = null;
-		CalendarPane date1 = new CalendarPane(date);
-		String d = String.valueOf(date1);
-		System.out.println(date1);
+	static String d;
+
+	public static void setDataBase(String date) {
+		dataDevice.clear();
+		d = String.valueOf(date);
+		System.out.println(date);
+		dataDevice.addAll(DeviceFillteringDB.getDeviceNameCalendar(d));
+	}
+
+	@FXML
+	private void updateDeviceTableDate() {
+		dataDevice.clear();
 		dataDevice.addAll(DeviceFillteringDB.getDeviceNameCalendar(d));
 	}
 

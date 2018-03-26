@@ -686,7 +686,6 @@ public class DeviceTable extends DeviceNewController {
 		};
 		removeCol.setCellFactory(cellFactory);
 
-		
 		deviceAllTable.setRowFactory(ts -> new TableRow<Device>() {
 			@Override
 			public void updateItem(Device item, boolean empty) {
@@ -696,14 +695,23 @@ public class DeviceTable extends DeviceNewController {
 				} else {
 					setStyle("");
 					if (item.getDeviceStatus().equals("Bevételezve")) {
-						setStyle("-fx-background-color: #669999;");
+						setStyle("-fx-text-background-color: tomato;");
+					} else {
+						setStyle("-fx-text-background-color: white;");
 					}
 					if (item.getDeviceStatusz() != null) {
 						if (item.getDeviceStatusz().equals("Bevizsgálás alatt")
 								|| item.getDeviceStatusz().equals("Akkatrészre vár")
 								|| item.getDeviceStatusz().equals("Garanciális")
 								|| item.getDeviceStatusz().equals("Továbbküldve")) {
-							setStyle("-fx-background-color: #336666;");
+
+							setStyle("-fx-text-background-color: blue;");
+						}else if (item.getDeviceStatus().equals("Bevételezve")&& item.getDeviceStatusz().equals("Bevizsgálva")) {
+							setStyle("-fx-text-background-color: green;");
+						}
+						
+						else {
+							setStyle("-fx-text-background-color: white;");
 						}
 					}
 

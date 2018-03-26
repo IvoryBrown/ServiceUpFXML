@@ -31,7 +31,7 @@ public class DataEditingCellDevice extends TableCell<Device, Date> {
 				if (event.getClickCount() == 2) {
 					datePicker.hide();
 					commitEdit(Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-				}
+				} 
 				event.consume();
 			});
 			return cell;
@@ -76,6 +76,7 @@ public class DataEditingCellDevice extends TableCell<Device, Date> {
 					setGraphic(datePicker);
 					setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
 				}else {
+					datePicker.setValue(getDate());
 					setText(null);
 					setGraphic(null);
 				}

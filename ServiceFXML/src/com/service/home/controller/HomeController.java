@@ -98,11 +98,12 @@ public class HomeController extends DeviceTable implements Initializable {
 				Label l = new Label(g);
 				l.setFont(Font.font("Verdana", FontWeight.BOLD, 11));
 				l.setStyle(" -fx-text-fill: tomato;");
-
-				vb.getChildren().add(l);
 				if (k == 4) {
+					l.setText("...");
+					vb.getChildren().add(l);
 					return;
 				}
+				vb.getChildren().add(l);
 
 			}
 		}

@@ -325,7 +325,7 @@ public class Device {
 	public ObjectProperty<Date> getDeviceEndDateObject() {
 		return deviceEndDate;
 	}
-
+ 
 	public Date getDeviceEndDate() {
 		return (Date) this.deviceEndDate.get();
 	}

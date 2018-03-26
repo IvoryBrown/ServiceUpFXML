@@ -12,31 +12,27 @@ import javafx.stage.Stage;
 public class CalendarPane extends AnchorPane {
 	private LocalDate date;
 	private Integer number;
-
+	public static String sDate;
 	public CalendarPane(Node... children) {
 		super(children);
-		this.setOnMouseClicked(e -> baaj());
+		this.setOnMouseClicked(e -> setCalendarController());
+		
 	}
 
-	public CalendarPane(LocalDate date) {
-		this.date = date;
-		System.out.println(this.date);
-	}
-
-	private void baaj() {
-		String date = String.valueOf(this.date);
+	private void setCalendarController() {
+		sDate = String.valueOf(getDate());
 		try {
 			Parent root = FXMLLoader
 					.load(getClass().getResource("/com/service/setting/fxmlmean/NewDeviceCalendar.fxml"));
 			Stage stage = new Stage();
 			stage.setWidth(1300);
 			stage.setHeight(650);
-			stage.setTitle(date);
+			stage.setTitle(sDate);
 			stage.setScene(new Scene(root));
 			stage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		} 
 	}
 
 	public LocalDate getDate() {

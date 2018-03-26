@@ -282,7 +282,7 @@ public class DeviceFillteringDB {
 
 	public static ArrayList<Device> getDeviceNameCalendar(String date) {
 		Connection con = DataBaseConnect.getConnection();
-		String sql = "SELECT * FROM `gepadatok1` WHERE CONCAT (`" + "hatarido_datuma" + "`) LIKE '%" + date + "%'";
+		String sql = "SELECT * FROM `gepadatok1` WHERE  hatarido_datuma ='"+date +"'";
 		ArrayList<Device> device = null;
 		Statement createStatement = null;
 		ResultSet rs = null;
@@ -454,7 +454,7 @@ public class DeviceFillteringDB {
 		PreparedStatement pr = null;
 		try {
 			String sqlDevice = "UPDATE `gepadatok1` set eszkoz = ?, eszkoz_gyarto = ?, javitas_helye = ?, allapot = ?, tartozekok = ?,"
-					+ "hiba_leirasa = ?, eszkoz_megjegyzes = ?, hatarido_datuma = ?, kiszallas_datuma = ?, softver_megjegyzés = ?,"
+					+ "hiba_leirasa = ?, eszkoz_megjegyzes = ?, bejelentes_datuma = ?, hatarido_datuma = ?, kiszallas_datuma = ?, softver_megjegyzés = ?,"
 					+ " elkeszult_datuma = ?, hibajavitas_leirasa = ?, technikus = ?, statusz = ?"
 					+ " WHERE id_gepadatok = ?";
 			pr = conn.prepareStatement(sqlDevice);
@@ -465,14 +465,15 @@ public class DeviceFillteringDB {
 			pr.setString(5, device.getDeviceAccesssory());
 			pr.setString(6, device.getDeviceErrorDescription());
 			pr.setString(7, device.getDeviceComment());
-			pr.setObject(8, device.getDeviceEndDate());
-			pr.setObject(9, device.getDeviceDeliveryDate());
-			pr.setString(10, device.getDeviceSoftverComment());
-			pr.setObject(11, device.getDeviceCompletedDate());
-			pr.setString(12, device.getDeviceErrorCorrection());
-			pr.setString(13, device.getDeviceTechnicalPerson());
-			pr.setString(14, device.getDeviceStatusz());
-			pr.setString(15, device.getDeviceID());
+			pr.setObject(8, device.getDeviceAddDate());
+			pr.setObject(9, device.getDeviceEndDate());
+			pr.setObject(10, device.getDeviceDeliveryDate());
+			pr.setString(11, device.getDeviceSoftverComment());
+			pr.setObject(12, device.getDeviceCompletedDate());
+			pr.setString(13, device.getDeviceErrorCorrection());
+			pr.setString(14, device.getDeviceTechnicalPerson());
+			pr.setString(15, device.getDeviceStatusz());
+			pr.setString(16, device.getDeviceID());
 
 			pr.execute();
 		} catch (SQLException e) {

@@ -93,14 +93,18 @@ public class CalendarControler implements Initializable {
 			if (dDb.calendarList.get(i).equals(d)) {
 				k = k + 1;
 				String g = dDb.calendarList.get(i + 1);
-				Label l = new Label(g);
+				Label l = new Label();
+				l.setText(g);
 				l.setFont(Font.font("Verdana", FontWeight.BOLD, 11));
 				l.setStyle(" -fx-text-fill: tomato;");
 				
-				vb.getChildren().add(l);
-				if (k == 5) {
+				if (k == 4) {
+					l.setText("...");
+					vb.getChildren().add(l);
+					System.out.println(l.getText()+k);
 					return;
 				}
+				vb.getChildren().add(l);
 
 			}
 		}
