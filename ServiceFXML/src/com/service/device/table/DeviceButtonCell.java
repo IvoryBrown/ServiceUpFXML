@@ -23,7 +23,7 @@ public class DeviceButtonCell extends TableCell<Device, Boolean> {
 	@FXML
 	private TableView<DeviceSubRecord> subTableView;
 
-	DeviceButtonCell(final TableView<Device> tblView) {
+	public DeviceButtonCell(final TableView<Device> tblView) {
 
 		cellButton.setOnAction(new EventHandler<ActionEvent>() {
 

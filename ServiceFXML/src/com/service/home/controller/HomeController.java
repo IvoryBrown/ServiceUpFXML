@@ -39,8 +39,8 @@ public class HomeController extends DeviceTable implements Initializable {
 	private Button previousMonth, nextMonth;
 	private YearMonth currentYearMonth;
 	private ArrayList<CalendarPane> allCalendarDays = new ArrayList<>(35);
-	LocalDate calendarDate;
-	DeviceFillteringDB dDb = new DeviceFillteringDB();
+	private LocalDate calendarDate;
+	private DeviceFillteringDB dDb = new DeviceFillteringDB();
 
 	public void FullCalendarView(YearMonth yearMonth) {
 		this.currentYearMonth = yearMonth;

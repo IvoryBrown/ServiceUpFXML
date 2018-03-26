@@ -20,7 +20,7 @@ public class DataEditingCellDevice extends TableCell<Device, Date> {
 
 	private DatePicker datePicker;
 
-	DataEditingCellDevice() {
+	public DataEditingCellDevice() {
 		if (datePicker == null) {
 			createDatePicker();
 		}
