@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="loadAncjopsne" prefHeight="368.0" prefWidth="338.0" stylesheets="@../desing/Indicator.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.service.main.LoadAppController">
+   <children>
+      <VBox layoutX="21.0" layoutY="18.0" prefHeight="320.0" prefWidth="299.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ProgressIndicator fx:id="pindicator" prefHeight="350.0" prefWidth="297.0" progress="0.0" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

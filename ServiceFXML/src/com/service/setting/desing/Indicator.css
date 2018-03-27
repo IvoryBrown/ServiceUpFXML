@@ -1,0 +1,23 @@
+.root{
+	-fx-background-image: url("background.jpg");
+    -fx-font-size: 14.0;
+}
+
+.progress-indicator {    
+    -fx-progress-color: transparent;    
+}
+.progress-indicator .indicator {
+    -fx-background-color:#2A5058;
+    -fx-border-color: -fx-box-border;  
+}
+.progress-indicator .progress {
+    -fx-background-color: #61a2b1;       
+     -fx-padding: 2em; 
+}
+.progress-indicator:indeterminate .spinner {    
+    -fx-padding: 1.5em;
+}
+.progress-indicator .percentage {
+    -fx-font: 11px "Segoe UI";    
+    -fx-text-fill: #212121;    
+}

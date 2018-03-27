@@ -19,6 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class LoginController implements Initializable {
 	private String userLogin = "kisker";
@@ -61,16 +62,18 @@ public class LoginController implements Initializable {
 					admin = loginText.getText();
 					try {
 						Parent root = FXMLLoader
-								.load(getClass().getResource("/com/service/setting/fxmlsetting/ServiceFX.fxml"));
+								.load(getClass().getResource("/com/service/setting/fxmlsetting/LoadApplication.fxml"));
 						Stage stage = new Stage();
 						stage.setTitle("PcVipService");
-						stage.setScene(new Scene(root, 1350, 700));
+						stage.initStyle(StageStyle.TRANSPARENT);
+						stage.setScene(new Scene(root, 500, 368));
 						stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/service/setting/desing/icon-it.png")));
 						stage.show();
 						Main.primaryStage.close();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
+				
 				} else {
 					errorLb.setText("Nem megfelelő jelszó!");
 				}
