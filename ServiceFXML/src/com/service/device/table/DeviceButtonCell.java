@@ -14,6 +14,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -24,6 +25,7 @@ public class DeviceButtonCell extends TableCell<Device, Boolean> {
 	private TableView<DeviceSubRecord> subTableView;
 
 	public DeviceButtonCell(final TableView<Device> tblView) {
+		
 
 		cellButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -91,6 +93,7 @@ public class DeviceButtonCell extends TableCell<Device, Boolean> {
 				
 				
 				subTableView = new TableView<>();
+				subTableView.setStyle("-fx-text-background-color: white;");
 				subTableView.setItems(subDataList);
 				subTableView.getColumns().addAll(columnfield, columnValue);
 				
@@ -104,6 +107,7 @@ public class DeviceButtonCell extends TableCell<Device, Boolean> {
 							.getResource("com/service/setting/desing/desing.css").toExternalForm());
 					stage.initModality(Modality.APPLICATION_MODAL);
 					stage.setTitle("Eszköz");
+					stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/service/setting/desing/icon-it.png")));
 					root.prefWidthProperty().bind(stage.widthProperty());
 					stage.setScene(new Scene(root, 950, 750));
 					stage.show();

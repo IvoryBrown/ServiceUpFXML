@@ -64,7 +64,7 @@ public class DeviceInformation {
 	@SuppressWarnings("unchecked")
 	@FXML
 	public void initialize() {
-
+		deviceTableInfo.setStyle("-fx-text-background-color: white;");
 		deviceTableId = new TableColumn<>("ID");
 		deviceTableId.setMinWidth(50);
 		deviceTableId.setCellValueFactory(new PropertyValueFactory<DeviceInfo, Integer>("deviceInfoID"));

@@ -33,6 +33,7 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -690,6 +691,7 @@ public class DeviceTable extends DeviceNewController {
 			@Override
 			public void updateItem(Device item, boolean empty) {
 				super.updateItem(item, empty);
+
 				if (item == null) {
 					setStyle("");
 				} else {
@@ -703,14 +705,13 @@ public class DeviceTable extends DeviceNewController {
 						if (item.getDeviceStatusz().equals("Bevizsgálás alatt")
 								|| item.getDeviceStatusz().equals("Akkatrészre vár")
 								|| item.getDeviceStatusz().equals("Garanciális")
-								|| item.getDeviceStatusz().equals("Továbbküldve")) {
+								|| item.getDeviceStatusz().equals("Továbbküldve ")) {
 
-							setStyle("-fx-text-background-color: blue;");
-						}else if (item.getDeviceStatus().equals("Bevételezve")&& item.getDeviceStatusz().equals("Bevizsgálva")) {
-							setStyle("-fx-text-background-color: green;");
-						}
-						
-						else {
+							setStyle("-fx-text-background-color: #40e0d0;");
+						} else if (item.getDeviceStatus().equals("Bevételezve")
+								&& item.getDeviceStatusz().equals("Bevizsgálva")) {
+							setStyle("-fx-text-background-color: #7cfc00;");
+						} else {
 							setStyle("-fx-text-background-color: white;");
 						}
 					}
@@ -790,6 +791,7 @@ public class DeviceTable extends DeviceNewController {
 			Stage stage = new Stage();
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.setTitle("Bevételezve");
+			stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/service/setting/desing/icon-it.png")));
 			stage.setScene(new Scene(root, 1300, 650));
 			stage.show();
 		} catch (Exception e) {
@@ -806,6 +808,7 @@ public class DeviceTable extends DeviceNewController {
 			stage.setWidth(1300);
 			stage.setHeight(650);
 			stage.setTitle("Információ");
+			stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/service/setting/desing/icon-it.png")));
 			stage.setScene(new Scene(root));
 			stage.show();
 		} catch (Exception e) {

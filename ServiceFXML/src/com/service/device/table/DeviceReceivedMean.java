@@ -23,6 +23,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
@@ -38,7 +39,6 @@ public class DeviceReceivedMean implements Initializable {
 	private TableView<DeviceClient> deviceTableMean;
 	@FXML
 	private TextField deviceClientNameFilteringTxt;
-
 
 	private TableColumn<DeviceClient, Integer> deviceTableNumber;
 	private TableColumn<DeviceClient, Boolean> deviceTableNewHouse, deviceTablePowerSupply, deviceTableProcessor,
@@ -77,7 +77,7 @@ public class DeviceReceivedMean implements Initializable {
 
 	@SuppressWarnings("unchecked")
 	protected void setDeviceTableData() {
-		
+		deviceTableMean.setStyle("-fx-text-background-color: whitesmoke;");
 
 		clientTableNumber = new TableColumn<>("Azonosító");
 		clientTableNumber.setMinWidth(90);
@@ -522,6 +522,39 @@ public class DeviceReceivedMean implements Initializable {
 					deviceInjury = newValue.getDeviceInjury();
 					deviceErrorDescription = newValue.getDeviceErrorDescription();
 					deviceDataRecovery = newValue.getDeviceDataRecovery();
+				}
+			}
+		});
+		deviceTableMean.setRowFactory(ts -> new TableRow<DeviceClient>() {
+			@Override
+			public void updateItem(DeviceClient item, boolean empty) {
+				super.updateItem(item, empty);
+				if (item == null) {
+					setStyle("");
+				} else {
+					setStyle("");
+					if (item.getDeviceStatus().equals("Bevételezve")) {
+						setStyle("-fx-text-background-color: tomato;");
+					} else {
+						setStyle("-fx-text-background-color: white;");
+					}
+					if (item.getDeviceStatusz() != null) {
+						if (item.getDeviceStatusz().equals("Bevizsgálás alatt")
+								|| item.getDeviceStatusz().equals("Akkatrészre vár")
+								|| item.getDeviceStatusz().equals("Garanciális")
+								|| item.getDeviceStatusz().equals("Továbbküldve ")) {
+
+							setStyle("-fx-text-background-color: #40e0d0;");
+						} else if (item.getDeviceStatus().equals("Bevételezve")
+								&& item.getDeviceStatusz().equals("Bevizsgálva")) {
+							setStyle("-fx-text-background-color: #7cfc00;");
+						}
+
+						else {
+							setStyle("-fx-text-background-color: white;");
+						}
+					}
+
 				}
 			}
 		});

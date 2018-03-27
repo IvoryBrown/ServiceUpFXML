@@ -21,6 +21,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -47,6 +48,7 @@ public class ClientTable extends StockFXMLController {
 
 	@SuppressWarnings("unchecked")
 	protected void setClientTableData() {
+		clientTable.setStyle("-fx-text-background-color: whitesmoke;");
 		clientId = new TableColumn<>("ID");
 		clientId.setMinWidth(50);
 		clientId.setCellValueFactory(new PropertyValueFactory<Client, Integer>("clientId"));
@@ -328,6 +330,7 @@ public class ClientTable extends StockFXMLController {
 			Stage stage = new Stage();
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.setTitle("Ügyfél");
+			stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/service/setting/desing/icon-it.png")));
 			stage.setScene(new Scene(root, 1300, 650));
 			stage.show();
 		} catch (Exception e) {
@@ -343,6 +346,7 @@ public class ClientTable extends StockFXMLController {
 			Stage stage = new Stage();
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.setTitle("Cég");
+			stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/service/setting/desing/icon-it.png")));
 			stage.setScene(new Scene(root, 1300, 650));
 			stage.show();
 		} catch (Exception e) {

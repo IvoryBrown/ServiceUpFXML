@@ -14,6 +14,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -73,6 +74,7 @@ public class ButtonCell extends TableCell<Client, Boolean> {
 							.getResource("com/service/setting/desing/desing.css").toExternalForm());
 					stage.initModality(Modality.APPLICATION_MODAL);
 					stage.setTitle("Ügyfél");
+					stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/service/setting/desing/icon-it.png")));
 					root.prefWidthProperty().bind(stage.widthProperty());
 					stage.setScene(new Scene(root, 950, 430));
 					stage.show();

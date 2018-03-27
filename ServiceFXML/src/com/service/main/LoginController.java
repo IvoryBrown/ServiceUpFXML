@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -33,7 +34,7 @@ public class LoginController implements Initializable {
 	private String localDateSub;
 	private String dbDate;
 	private Integer locadInteger;
-	private Integer dbInteger;
+	private Integer dbInteger; 
 
 	private void dateLinc() {
 		localDate = LocalDate.now();
@@ -64,7 +65,9 @@ public class LoginController implements Initializable {
 						Stage stage = new Stage();
 						stage.setTitle("PcVipService");
 						stage.setScene(new Scene(root, 1350, 700));
+						stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/service/setting/desing/icon-it.png")));
 						stage.show();
+						Main.primaryStage.close();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

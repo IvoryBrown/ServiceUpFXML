@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -28,6 +29,7 @@ public class CalendarPane extends AnchorPane {
 			stage.setWidth(1300);
 			stage.setHeight(650);
 			stage.setTitle(sDate);
+			stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/service/setting/desing/icon-it.png")));
 			stage.setScene(new Scene(root));
 			stage.show();
 		} catch (Exception e) {

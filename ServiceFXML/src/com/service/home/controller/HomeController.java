@@ -19,6 +19,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -138,6 +139,7 @@ public class HomeController extends DeviceTable implements Initializable {
 			Stage stage = new Stage();
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.setTitle("Statisztika");
+			stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/service/setting/desing/icon-it.png")));
 			stage.setScene(new Scene(root, 1350, 650));
 			stage.show();
 		} catch (Exception e) {
@@ -153,6 +155,7 @@ public class HomeController extends DeviceTable implements Initializable {
 			Stage stage = new Stage();
 			stage.setResizable(false);
 			stage.setTitle("Hibabejelentés");
+			stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/service/setting/desing/icon-it.png")));
 			stage.setScene(new Scene(root, 1200, 650));
 			stage.show();
 		} catch (Exception e) {

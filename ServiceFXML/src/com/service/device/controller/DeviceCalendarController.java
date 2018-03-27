@@ -71,6 +71,7 @@ public class DeviceCalendarController implements Initializable {
 
 	@SuppressWarnings({ "unchecked", "static-access" })
 	private void setTable() {
+		deviceTable.setStyle("-fx-text-background-color: white;");
 		Callback<TableColumn<Device, Date>, TableCell<Device, Date>> dateCellFactory = (
 				TableColumn<Device, Date> param) -> new DataEditingCellDevice();
 
@@ -708,14 +709,24 @@ public class DeviceCalendarController implements Initializable {
 				} else {
 					setStyle("");
 					if (item.getDeviceStatus().equals("Bevételezve")) {
-						setStyle("-fx-background-color: #669999;");
+						setStyle("-fx-text-background-color: tomato;");
+					} else {
+						setStyle("-fx-text-background-color: white;");
 					}
 					if (item.getDeviceStatusz() != null) {
 						if (item.getDeviceStatusz().equals("Bevizsgálás alatt")
 								|| item.getDeviceStatusz().equals("Akkatrészre vár")
 								|| item.getDeviceStatusz().equals("Garanciális")
-								|| item.getDeviceStatusz().equals("Továbbküldve")) {
-							setStyle("-fx-background-color: #336666;");
+								|| item.getDeviceStatusz().equals("Továbbküldve ")) {
+
+							setStyle("-fx-text-background-color: #40e0d0;");
+						} else if (item.getDeviceStatus().equals("Bevételezve")
+								&& item.getDeviceStatusz().equals("Bevizsgálva")) {
+							setStyle("-fx-text-background-color: #7cfc00;");
+						}
+
+						else {
+							setStyle("-fx-text-background-color: white;");
 						}
 					}
 
@@ -723,7 +734,7 @@ public class DeviceCalendarController implements Initializable {
 
 			}
 		});
-		
+
 		blackDeviceNumberT.setStyle(" -fx-font-size: 15pt ;");
 		backClientNameT.setStyle("-fx-font-size: 15pt ;");
 		deviceTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Device>() {

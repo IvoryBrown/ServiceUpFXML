@@ -59,7 +59,7 @@ public class Combobox {
 	}
 
 	public static String[] setDeviceStatusCombobox() {
-		final String CMBDEVICESTATUSZ[] = { "Bevizsgálás alatt", "Akkatrészre vár", "Garanciális","Továbbküldve ", "Bevizsgálva" };
+		final String CMBDEVICESTATUSZ[] = { "Bevizsgálás alatt", "Akkatrészre vár", "Garanciális","Továbbküldve", "Bevizsgálva" };
 		return CMBDEVICESTATUSZ;
 	}
 

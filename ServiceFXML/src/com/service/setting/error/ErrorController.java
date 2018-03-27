@@ -53,6 +53,7 @@ public class ErrorController implements Initializable {
 
 	@SuppressWarnings({ "unchecked", "static-access" })
 	private void errorTable() {
+		errorTable.setStyle("-fx-text-background-color: white;");
 		errorTableId = new TableColumn<Error, Integer>("ID");
 		errorTableId.setMinWidth(50);
 		errorTableId.setCellValueFactory(new PropertyValueFactory<Error, Integer>("errorId"));
