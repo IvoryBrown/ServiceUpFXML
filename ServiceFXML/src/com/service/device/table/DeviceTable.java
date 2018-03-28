@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.service.device.Device;
 import com.service.device.controller.DeviceNewController;
+import com.service.device.controller.DeviceRemoveController;
 import com.service.device.fillteringdb.DeviceFillteringDB;
 import com.service.main.LoginController;
 import com.service.setting.combobox.Combobox;
@@ -48,7 +49,7 @@ public class DeviceTable extends DeviceNewController {
 	private TextField deviceClientNameFilteringTxt, inputExportName;
 	@FXML
 	private Label blackDeviceNumberT, backDeviceNumber, backClientNameT, backClientName;
-	private TableColumn<Device, Integer> deviceTableId, deviceTableNumber;
+	private TableColumn<Device, Integer> deviceTableId, deviceTableClientID, deviceTableNumber;
 	private TableColumn<Device, Boolean> deviceTableNewHouse, deviceTablePowerSupply, deviceTableProcessor,
 			deviceTableBaseBoard, deviceTableMemory, deviceTableVideoCard, deviceTableSSDDrive, deviceTableHardDrive,
 			deviceTableCoolingFan, deviceTableOpticalDrive, deviceTableExpansionCard, deviceTableLaptop,
@@ -68,6 +69,7 @@ public class DeviceTable extends DeviceNewController {
 	private final ObservableList<Device> dataDevice = FXCollections.observableArrayList();
 	private DeviceFillteringDB deviceDb = new DeviceFillteringDB();
 	private LoginController login = new LoginController();
+	private String removeDeviceNumber, removeClientName, removeCompanyName,removeDeviceClientID;
 
 	@SuppressWarnings({ "unchecked", "static-access" })
 	protected void setDeviceTableData() {
@@ -95,6 +97,14 @@ public class DeviceTable extends DeviceNewController {
 		deviceTableId.setMinWidth(50);
 		deviceTableId.setCellValueFactory(new PropertyValueFactory<Device, Integer>("deviceID"));
 
+		deviceTableClientID = new TableColumn<>("ID CLient");
+		deviceTableClientID.setMinWidth(50);
+		deviceTableClientID.setCellValueFactory(new PropertyValueFactory<Device, Integer>("deviceClientID"));
+		deviceTableClientID.setVisible(false);
+		if (login.admin.equals(login.adminLogin)) {
+			deviceTableClientID.setVisible(true);
+		}
+		
 		deviceTableNumber = new TableColumn<>("Azonosító");
 		deviceTableNumber.setMinWidth(50);
 		deviceTableNumber.setCellValueFactory(new PropertyValueFactory<Device, Integer>("deviceNumber"));
@@ -730,6 +740,10 @@ public class DeviceTable extends DeviceNewController {
 					backClientName.setStyle(" -fx-font-size: 15pt ;");
 					backDeviceNumber.setText(newValue.getDeviceNumber());
 					backDeviceNumber.setStyle(" -fx-font-size: 15pt ;");
+					removeDeviceNumber = newValue.getDeviceNumber();
+					removeClientName = newValue.getDeviceClientName();
+					removeCompanyName = newValue.getDeviceCompanyName();
+					removeDeviceClientID = newValue.getDeviceClientID();
 				}
 			}
 		});
@@ -741,14 +755,39 @@ public class DeviceTable extends DeviceNewController {
 				deviceTableLaptop);
 
 		deviceAllTable.setItems(dataDevice);
-		deviceAllTable.getColumns().addAll(colDeviceAction, deviceTableId, deviceTableNumber, deviceTableClientName,
-				deviceTableCompanyName, deviceTableName, deviceTabelManufacturer, deviceTabelSerialNumber,
-				deviceTableRepairLocation, deviceTableStatus, deviceTableStatusz, deviceTableNewMachine,
-				setDeviceTablePerson, deviceTablePriorit, deviceTablePassword, deviceTableReferences,
-				deviceTableAccesssory, deviceTableInjury, deviceTableErrorDescription, deviceTableErrorCorrection,
-				deviceTableComment, setDeviceAllDate, deviceTableDataRecovery, deviceTableSoftver,
-				deviceTableOperatingSystem, deviceTableSoftverComment, setDeviceTableNewDevice, removeCol);
+		deviceAllTable.getColumns().addAll(colDeviceAction, deviceTableId, deviceTableClientID, deviceTableNumber,
+				deviceTableClientName, deviceTableCompanyName, deviceTableName, deviceTabelManufacturer,
+				deviceTabelSerialNumber, deviceTableRepairLocation, deviceTableStatus, deviceTableStatusz,
+				deviceTableNewMachine, setDeviceTablePerson, deviceTablePriorit, deviceTablePassword,
+				deviceTableReferences, deviceTableAccesssory, deviceTableInjury, deviceTableErrorDescription,
+				deviceTableErrorCorrection, deviceTableComment, setDeviceAllDate, deviceTableDataRecovery,
+				deviceTableSoftver, deviceTableOperatingSystem, deviceTableSoftverComment, setDeviceTableNewDevice,
+				removeCol);
 		dataDevice.addAll(DeviceFillteringDB.getAllDevice());
+	}
+
+	@FXML
+	private void removeDevice() {
+		if (removeDeviceNumber != null && !removeDeviceNumber.equals("")) {
+			DeviceRemoveController.removeSetText(removeDeviceNumber, removeClientName, removeCompanyName,removeDeviceClientID);
+			try {
+				Parent root = FXMLLoader
+						.load(getClass().getResource("/com/service/setting/fxmlnewdevice/NewDevice.fxml"));
+				Stage stage = new Stage();
+				stage.setWidth(1300);
+				stage.setHeight(700);
+				stage.setTitle("Meglévő Eszköz");
+				stage.getIcons()
+						.add(new Image(getClass().getResourceAsStream("/com/service/setting/desing/icon-it.png")));
+				stage.setScene(new Scene(root));
+				stage.show();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			tray = new TrayNotification("HIBA", "Nincs a táblázatból kiválasztva senki", NotificationType.ERROR);
+			tray.showAndDismiss(Duration.seconds(2));
+		}
 	}
 
 	@FXML

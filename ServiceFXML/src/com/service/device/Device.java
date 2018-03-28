@@ -12,6 +12,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Device {
 	private final SimpleStringProperty deviceID;
+	private final SimpleStringProperty deviceClientID;
 	private final SimpleStringProperty deviceNumber;
 	private final SimpleStringProperty deviceCompanyName;
 	private final SimpleStringProperty deviceClientName;
@@ -71,7 +72,7 @@ public class Device {
 	private String converterExpansionCard;
 	private String converterLaptop;
 
-	public Device(String deviceID, String deviceNumber, String deviceCompanyName, String deviceClientName,
+	public Device(String deviceID,String deviceClientID, String deviceNumber, String deviceCompanyName, String deviceClientName,
 			String deviceName, String deviceManufacturer, String deviceSerialNumber, String deviceRepairLocation,
 			String deviceStatus, String deviceNewMachine, String deviceAdministrator, String devicePriorit,
 			String devicePassword, String deviceReferences, String deviceAccesssory, String deviceInjury,
@@ -83,6 +84,7 @@ public class Device {
 			boolean deviceOpticalDrive, boolean deviceExpansionCard, boolean deviceLaptop, Date deviceCompletedDate,
 			String deviceErrorCorrection, String deviceTechnicalPerson, String deviceStatusz) {
 		this.deviceID = new SimpleStringProperty(deviceID);
+		this.deviceClientID = new SimpleStringProperty(deviceClientID);
 		this.deviceNumber = new SimpleStringProperty(deviceNumber);
 		this.deviceCompanyName = new SimpleStringProperty(deviceCompanyName);
 		this.deviceClientName = new SimpleStringProperty(deviceClientName);
@@ -132,6 +134,13 @@ public class Device {
 
 	public void setDeviceID(String deviceID) {
 		this.deviceID.set(deviceID);
+	}
+	public String getDeviceClientID() {
+		return this.deviceClientID.get();
+	}
+	
+	public void setDeviceClientID(String deviceClientID) {
+		this.deviceClientID.set(deviceClientID);
 	}
 
 	public String getDeviceNumber() {

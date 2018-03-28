@@ -62,6 +62,7 @@ public class ButtonCell extends TableCell<Client, Boolean> {
 				columnValue.setMinWidth(845);
 
 				subTableView = new TableView<>();
+				subTableView.setStyle("-fx-text-background-color: whitesmoke;");
 				subTableView.setItems(subDataList);
 				subTableView.getColumns().addAll(columnfield, columnValue);
 

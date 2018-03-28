@@ -195,9 +195,9 @@ public class DeviceFillteringDB {
 			rs = createStatement.executeQuery(sql);
 			device = new ArrayList<>();
 			while (rs.next()) {
-				Device actualDevice = new Device(rs.getString("id_gepadatok"), rs.getString("eszkoz_azonosito"),
-						rs.getString("ceg_nev_gep"), rs.getString("ugyfél_nev_gep"), rs.getString("eszkoz"),
-						rs.getString("eszkoz_gyarto"), rs.getString("eszkoz_gyari_szama"),
+				Device actualDevice = new Device(rs.getString("id_gepadatok"), rs.getString("ugyfel_adatok_id_ugyfel"),
+						rs.getString("eszkoz_azonosito"), rs.getString("ceg_nev_gep"), rs.getString("ugyfél_nev_gep"),
+						rs.getString("eszkoz"), rs.getString("eszkoz_gyarto"), rs.getString("eszkoz_gyari_szama"),
 						rs.getString("javitas_helye"), rs.getString("allapot"), rs.getString("uj_gep"),
 						rs.getString("ugyintezo"), rs.getString("prioritas"), rs.getString("jelszo"),
 						rs.getString("hivatkozasi_szam"), rs.getString("tartozekok"), rs.getString("serules"),
@@ -243,9 +243,9 @@ public class DeviceFillteringDB {
 			rs = createStatement.executeQuery(sql);
 			device = new ArrayList<>();
 			while (rs.next()) {
-				Device actualDevice = new Device(rs.getString("id_gepadatok"), rs.getString("eszkoz_azonosito"),
-						rs.getString("ceg_nev_gep"), rs.getString("ugyfél_nev_gep"), rs.getString("eszkoz"),
-						rs.getString("eszkoz_gyarto"), rs.getString("eszkoz_gyari_szama"),
+				Device actualDevice = new Device(rs.getString("id_gepadatok"), rs.getString("ugyfel_adatok_id_ugyfel"),
+						rs.getString("eszkoz_azonosito"), rs.getString("ceg_nev_gep"), rs.getString("ugyfél_nev_gep"),
+						rs.getString("eszkoz"), rs.getString("eszkoz_gyarto"), rs.getString("eszkoz_gyari_szama"),
 						rs.getString("javitas_helye"), rs.getString("allapot"), rs.getString("uj_gep"),
 						rs.getString("ugyintezo"), rs.getString("prioritas"), rs.getString("jelszo"),
 						rs.getString("hivatkozasi_szam"), rs.getString("tartozekok"), rs.getString("serules"),
@@ -282,7 +282,7 @@ public class DeviceFillteringDB {
 
 	public static ArrayList<Device> getDeviceNameCalendar(String date) {
 		Connection con = DataBaseConnect.getConnection();
-		String sql = "SELECT * FROM `gepadatok1` WHERE  hatarido_datuma ='"+date +"'";
+		String sql = "SELECT * FROM `gepadatok1` WHERE  hatarido_datuma ='" + date + "'";
 		ArrayList<Device> device = null;
 		Statement createStatement = null;
 		ResultSet rs = null;
@@ -291,9 +291,9 @@ public class DeviceFillteringDB {
 			rs = createStatement.executeQuery(sql);
 			device = new ArrayList<>();
 			while (rs.next()) {
-				Device actualDevice = new Device(rs.getString("id_gepadatok"), rs.getString("eszkoz_azonosito"),
-						rs.getString("ceg_nev_gep"), rs.getString("ugyfél_nev_gep"), rs.getString("eszkoz"),
-						rs.getString("eszkoz_gyarto"), rs.getString("eszkoz_gyari_szama"),
+				Device actualDevice = new Device(rs.getString("id_gepadatok"), rs.getString("ugyfel_adatok_id_ugyfel"),
+						rs.getString("eszkoz_azonosito"), rs.getString("ceg_nev_gep"), rs.getString("ugyfél_nev_gep"),
+						rs.getString("eszkoz"), rs.getString("eszkoz_gyarto"), rs.getString("eszkoz_gyari_szama"),
 						rs.getString("javitas_helye"), rs.getString("allapot"), rs.getString("uj_gep"),
 						rs.getString("ugyintezo"), rs.getString("prioritas"), rs.getString("jelszo"),
 						rs.getString("hivatkozasi_szam"), rs.getString("tartozekok"), rs.getString("serules"),

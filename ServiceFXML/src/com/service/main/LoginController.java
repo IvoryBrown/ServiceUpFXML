@@ -18,6 +18,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -35,7 +36,7 @@ public class LoginController implements Initializable {
 	private String localDateSub;
 	private String dbDate;
 	private Integer locadInteger;
-	private Integer dbInteger; 
+	private Integer dbInteger;
 
 	private void dateLinc() {
 		localDate = LocalDate.now();
@@ -64,16 +65,20 @@ public class LoginController implements Initializable {
 						Parent root = FXMLLoader
 								.load(getClass().getResource("/com/service/setting/fxmlsetting/LoadApplication.fxml"));
 						Stage stage = new Stage();
-						stage.setTitle("PcVipService");
 						stage.initStyle(StageStyle.TRANSPARENT);
-						stage.setScene(new Scene(root, 500, 368));
-						stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/service/setting/desing/icon-it.png")));
+						Scene scene = new Scene(root);
+						scene.setFill(Color.TRANSPARENT);
+						stage.setWidth(500);
+						stage.setHeight(368);
+						stage.setScene(scene);
+						stage.getIcons().add(
+								new Image(getClass().getResourceAsStream("/com/service/setting/desing/icon-it.png")));
 						stage.show();
 						Main.primaryStage.close();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-				
+
 				} else {
 					errorLb.setText("Nem megfelelő jelszó!");
 				}
@@ -82,6 +87,7 @@ public class LoginController implements Initializable {
 			errorLb.setText("Hozzáférése lejárt");
 		}
 	}
+	
 
 	@FXML
 	private void btnExit() {

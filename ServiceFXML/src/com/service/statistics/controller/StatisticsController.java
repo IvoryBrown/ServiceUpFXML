@@ -146,6 +146,7 @@ public class StatisticsController implements Initializable {
 
 	@SuppressWarnings("unchecked")
 	private void setStatisticsTable() {
+		tableStatistics.setStyle("-fx-text-background-color: whitesmoke;");
 		subDataList = FXCollections.observableArrayList(
 				new Statistics("Asztali gép", pcSum, String.format("%.1f", pcSumPercent)),
 				new Statistics("Notebook", notebookSum, String.format("%.1f", notebookSumPercent)),

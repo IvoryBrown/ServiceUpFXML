@@ -1,7 +1,4 @@
-.root{
-	-fx-background-image: url("background.jpg");
-    -fx-font-size: 14.0;
-}
+.root { -fx-background-color: transparent; }
 
 .progress-indicator {    
     -fx-progress-color: transparent;    
@@ -21,3 +18,10 @@
     -fx-font: 11px "Segoe UI";    
     -fx-text-fill: #212121;    
 }
+
+.progress-bar > .track {
+    -fx-background-color: #61a2b1; 
+}
+.progress-bar .bar {
+    -fx-background-color: #2A5058;
+    }
