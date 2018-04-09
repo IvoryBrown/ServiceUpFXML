@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 import com.service.client.table.ClientTable;
 import com.service.device.fillteringdb.DeviceFillteringDB;
+import com.service.main.LoginController;
 import com.service.setting.combobox.Combobox;
 import com.service.setting.database.DataBaseConnect;
 import com.service.setting.identification.DeviceIdentificationGenereator;
@@ -44,9 +45,7 @@ public class DeviceNewController extends ClientTable {
 	@FXML
 	private CheckBox deviceNewHouse, devicePowerSupply, deviceProcessor, deviceBaseBoard, deviceMemory, deviceVideoCard,
 			deviceSSDDrive, deviceHardDrive, deviceCoolingFan, deviceOpticalDrive, deviceExpansionCard, deviceLaptop;
-	
-	
-	
+
 	private DeviceFillteringDB db = new DeviceFillteringDB();
 	private Callback<DatePicker, DateCell> dayCellFactory;
 
@@ -62,6 +61,7 @@ public class DeviceNewController extends ClientTable {
 		deviceDataRecovery.getItems().addAll(Combobox.setYesNoCombobox());
 		setDate();
 	}
+
 	private void setDate() {
 		deviceAddDate.setValue(LocalDate.now());
 		dayCellFactory = new Callback<DatePicker, DateCell>() {
@@ -82,7 +82,7 @@ public class DeviceNewController extends ClientTable {
 		};
 		deviceEndDate.setDayCellFactory(dayCellFactory);
 		deviceEndDate.setValue(deviceAddDate.getValue().plusDays(5));
-	 }
+	}
 
 	@FXML
 	private void setButtonPaneDate() {
@@ -110,13 +110,25 @@ public class DeviceNewController extends ClientTable {
 		if (setDeviceClientCheck()) {
 			if (setDeviceCheck()) {
 				if (setDeviceSoftverCheck()) {
-					String SQL = "INSERT INTO gepadatok1(ugyfel_adatok_id_ugyfel, eszkoz_azonosito, ceg_nev_gep, ugyfél_nev_gep,"
-							+ " eszkoz, eszkoz_gyarto, eszkoz_gyari_szama, javitas_helye, allapot, uj_gep, ugyintezo, prioritas,"
-							+ "jelszo, hivatkozasi_szam, tartozekok, serules, hiba_leirasa, eszkoz_megjegyzes, vasarlasi_datuma,"
-							+ " bejelentes_datuma, hatarido_datuma, kiszallas_datuma, adatmentes, softver, operacios_rendszer, "
-							+ "softver_megjegyzés, laptop, haz, tapegyseg, processzor, alaplap, memoria, videokartya, ssd, meghajto,"
-							+ " hutoventilator, optikai_meghajto, bovitokartya)"
-							+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+					String SQL = null;
+					if (LoginController.setLogin.equals("Irisz")) {
+						SQL = "INSERT INTO gepadatok1(ugyfel_adatok_id_ugyfel, eszkoz_azonosito, ceg_nev_gep, ugyfél_nev_gep,"
+								+ " eszkoz, eszkoz_gyarto, eszkoz_gyari_szama, javitas_helye, allapot, uj_gep, ugyintezo, prioritas,"
+								+ "jelszo, hivatkozasi_szam, tartozekok, serules, hiba_leirasa, eszkoz_megjegyzes, vasarlasi_datuma,"
+								+ " bejelentes_datuma, hatarido_datuma, kiszallas_datuma, adatmentes, softver, operacios_rendszer, "
+								+ "softver_megjegyzés, laptop, haz, tapegyseg, processzor, alaplap, memoria, videokartya, ssd, meghajto,"
+								+ " hutoventilator, optikai_meghajto, bovitokartya)"
+								+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+					}
+					if (LoginController.setLogin.equals("Exicom")) {
+						SQL = "INSERT INTO gepadatok1_exi(ugyfel_adatok_id_ugyfel_exi, eszkoz_azonosito, ceg_nev_gep, ugyfél_nev_gep,"
+								+ " eszkoz, eszkoz_gyarto, eszkoz_gyari_szama, javitas_helye, allapot, uj_gep, ugyintezo, prioritas,"
+								+ "jelszo, hivatkozasi_szam, tartozekok, serules, hiba_leirasa, eszkoz_megjegyzes, vasarlasi_datuma,"
+								+ " bejelentes_datuma, hatarido_datuma, kiszallas_datuma, adatmentes, softver, operacios_rendszer, "
+								+ "softver_megjegyzés, laptop, haz, tapegyseg, processzor, alaplap, memoria, videokartya, ssd, meghajto,"
+								+ " hutoventilator, optikai_meghajto, bovitokartya)"
+								+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+					}
 					try {
 						Connection con = DataBaseConnect.getConnection();
 						PreparedStatement insertDevice = con.prepareStatement(SQL);

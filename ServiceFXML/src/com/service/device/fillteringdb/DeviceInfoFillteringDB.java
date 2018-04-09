@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.service.device.DeviceInfo;
+import com.service.main.LoginController;
 import com.service.setting.database.DataBaseConnect;
 import com.service.setting.showinfo.ShowInfo;
 
@@ -23,7 +24,13 @@ public class DeviceInfoFillteringDB {
 
 	public static ArrayList<DeviceInfo> getAllDeviceInfo() {
 		Connection con = DataBaseConnect.getConnection();
-		String sql = "SELECT * FROM `gepadatok_informacio`";
+		String sql = null;
+		if (LoginController.setLogin.equals("Irisz")) {
+			sql = "SELECT * FROM `gepadatok_informacio`";
+		}
+		if (LoginController.setLogin.equals("Exicom")) {
+			sql = "SELECT * FROM `gepadatok_informacio_exi`";
+		}
 		ArrayList<DeviceInfo> deviceInfo = null;
 		Statement createStatement = null;
 		ResultSet rs = null;
@@ -58,8 +65,15 @@ public class DeviceInfoFillteringDB {
 
 	public static ArrayList<DeviceInfo> getDeviceInfoFilltering(String deviceNumber) {
 		Connection con = DataBaseConnect.getConnection();
-		String sql = "SELECT * FROM `gepadatok_informacio`WHERE CONCAT (`" + "eszkoz_az" + "`) LIKE '%" + deviceNumber
-				+ "%'";
+		String sql = null;
+		if (LoginController.setLogin.equals("Irisz")) {
+			sql = "SELECT * FROM `gepadatok_informacio` WHERE CONCAT (`" + "eszkoz_az" + "`) LIKE '%" + deviceNumber
+					+ "%'";
+		}
+		if (LoginController.setLogin.equals("Exicom")) {
+			sql = "SELECT * FROM `gepadatok_informacio_exi` WHERE CONCAT (`" + "eszkoz_az" + "`) LIKE '%" + deviceNumber
+					+ "%'";
+		}
 		ArrayList<DeviceInfo> deviceInfo = null;
 		Statement createStatement = null;
 		ResultSet rs = null;
@@ -96,7 +110,13 @@ public class DeviceInfoFillteringDB {
 		Connection conn = DataBaseConnect.getConnection();
 		PreparedStatement preparedStatement = null;
 		try {
-			String sql = "DELETE FROM `gepadatok_informacio` WHERE `int` = ?";
+			String sql = null;
+			if (LoginController.setLogin.equals("Irisz")) {
+				sql = "DELETE FROM `gepadatok_informacio` WHERE `int` = ?";
+			}
+			if (LoginController.setLogin.equals("Exicom")) {
+				sql = "DELETE FROM `gepadatok_informacio_exi` WHERE `int` = ?";
+			}
 			preparedStatement = conn.prepareStatement(sql);
 			preparedStatement.setString(1, deviceInfo.getDeviceInfoID());
 			preparedStatement.execute();
@@ -118,7 +138,13 @@ public class DeviceInfoFillteringDB {
 	}
 
 	public void setCheckDeviceNumber() {
-		String SQLaDMINISTRATOR = " SELECT `eszkoz_azonosito` FROM gepadatok1 ";
+		String SQLaDMINISTRATOR = null;
+		if (LoginController.setLogin.equals("Irisz")) {
+			SQLaDMINISTRATOR = " SELECT `eszkoz_azonosito` FROM gepadatok1 ";
+		}
+		if (LoginController.setLogin.equals("Exicom")) {
+			SQLaDMINISTRATOR = " SELECT `eszkoz_azonosito` FROM gepadatok1_exi ";
+		}
 		Connection con = DataBaseConnect.getConnection();
 		PreparedStatement pstStn = null;
 		ResultSet stnRS = null;

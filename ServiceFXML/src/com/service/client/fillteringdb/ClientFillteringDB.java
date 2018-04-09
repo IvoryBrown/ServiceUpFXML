@@ -8,13 +8,20 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.service.client.Client;
+import com.service.main.LoginController;
 import com.service.setting.database.DataBaseConnect;
 import com.service.setting.showinfo.ShowInfo;
 
 public class ClientFillteringDB {
 	public static ArrayList<Client> getAllClient() {
 		Connection con = DataBaseConnect.getConnection();
-		String sql = "SELECT * FROM `ugyfel_adatok`";
+		String sql = null;
+		if (LoginController.setLogin.equals("Irisz")) {
+			sql = "SELECT * FROM `ugyfel_adatok`";
+		}
+		if (LoginController.setLogin.equals("Exicom")) {
+			sql = "SELECT * FROM `ugyfel_adatok_exi`";
+		}
 		ArrayList<Client> client = null;
 		Statement createStatement = null;
 		ResultSet rs = null;
@@ -52,7 +59,13 @@ public class ClientFillteringDB {
 
 	public static ArrayList<Client> getClientNameFilltering(String clientName) {
 		Connection con = DataBaseConnect.getConnection();
-		String sql = "SELECT * FROM `ugyfel_adatok` WHERE CONCAT (`" + "ugyfel_nev" + "`) LIKE '%" + clientName + "%'";
+		String sql = null;
+		if (LoginController.setLogin.equals("Irisz")) {
+			sql = "SELECT * FROM `ugyfel_adatok` WHERE CONCAT (`" + "ugyfel_nev" + "`) LIKE '%" + clientName + "%'";
+		}
+		if (LoginController.setLogin.equals("Exicom")) {
+			sql = "SELECT * FROM `ugyfel_adatok_exi` WHERE CONCAT (`" + "ugyfel_nev" + "`) LIKE '%" + clientName + "%'";
+		}
 		ArrayList<Client> client = null;
 		Statement createStatement = null;
 		ResultSet rs = null;
@@ -90,7 +103,13 @@ public class ClientFillteringDB {
 
 	public static ArrayList<Client> getCompanyNameFilltering(String companyName) {
 		Connection con = DataBaseConnect.getConnection();
-		String sql = "SELECT * FROM `ugyfel_adatok` WHERE CONCAT (`" + "cegnev" + "`) LIKE '%" + companyName + "%'";
+		String sql = null;
+		if (LoginController.setLogin.equals("Irisz")) {
+			sql = "SELECT * FROM `ugyfel_adatok` WHERE CONCAT (`" + "cegnev" + "`) LIKE '%" + companyName + "%'";
+		}
+		if (LoginController.setLogin.equals("Exicom")) {
+			sql = "SELECT * FROM `ugyfel_adatok_exi` WHERE CONCAT (`" + "cegnev" + "`) LIKE '%" + companyName + "%'";
+		}
 		ArrayList<Client> client = null;
 		Statement createStatement = null;
 		ResultSet rs = null;
@@ -130,9 +149,17 @@ public class ClientFillteringDB {
 		Connection conn = DataBaseConnect.getConnection();
 		PreparedStatement pr = null;
 		try {
-			String sqlClient = "UPDATE `ugyfel_adatok` set cegnev = ?, ugyfel_nev = ?, megye = ?,"
-					+ "telepules = ?, iranyitoszam = ?, cim = ?, ceg_telefon = ?, ceg_email = ?, ugyfel_telefon = ?,"
-					+ " ugyfel_email = ?, csomag_tipus = ?, ugyfel_megjegyzes = ?" + " WHERE id_ugyfel = ?";
+			String sqlClient = null;
+			if (LoginController.setLogin.equals("Irisz")) {
+				sqlClient = "UPDATE `ugyfel_adatok` set cegnev = ?, ugyfel_nev = ?, megye = ?,"
+						+ "telepules = ?, iranyitoszam = ?, cim = ?, ceg_telefon = ?, ceg_email = ?, ugyfel_telefon = ?,"
+						+ " ugyfel_email = ?, csomag_tipus = ?, ugyfel_megjegyzes = ?" + " WHERE id_ugyfel = ?";
+			}
+			if (LoginController.setLogin.equals("Exicom")) {
+				sqlClient = "UPDATE `ugyfel_adatok_exi` set cegnev = ?, ugyfel_nev = ?, megye = ?,"
+						+ "telepules = ?, iranyitoszam = ?, cim = ?, ceg_telefon = ?, ceg_email = ?, ugyfel_telefon = ?,"
+						+ " ugyfel_email = ?, csomag_tipus = ?, ugyfel_megjegyzes = ?" + " WHERE id_ugyfel = ?";
+			}
 			pr = conn.prepareStatement(sqlClient);
 			pr.setString(1, client.getClientCompanyName());
 			pr.setString(2, client.getClientName());

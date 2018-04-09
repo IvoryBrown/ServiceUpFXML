@@ -117,8 +117,8 @@ public class DeviceInformation {
 				if (oldValue == null || newValue != null) {
 					engine = webView.getEngine();
 					engine.loadContent(resizeHtm(newValue.getHtml()));
-}
-}
+				}
+			}
 		});
 		deviceTableInfo.setItems(dataDevice);
 		deviceTableInfo.getColumns().addAll(deviceTableId, deviceTableNumber, removeCol);
@@ -142,18 +142,19 @@ public class DeviceInformation {
 	@FXML
 	private void fileOpen() {
 		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)) {
-		fileText.setStyle("   -fx-font-size: 12.0;");
-		fileChooser = new FileChooser();
-		fileChooser.setTitle("Report beillesztés");
-		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("HTM (*.htm)", "*.htm");
-		fileChooser.getExtensionFilters().add(extFilter);
-		file = fileChooser.showOpenDialog(new Stage());
-		if (file != null) {
-			browers(file);
-			HTMPath = file.getAbsolutePath();
-			fileText.setText(file.getAbsolutePath());
+			fileText.setStyle("   -fx-font-size: 12.0;");
+			fileChooser = new FileChooser();
+			fileChooser.setTitle("Report beillesztés");
+			FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("HTM (*.htm)", "*.htm");
+			fileChooser.getExtensionFilters().add(extFilter);
+			file = fileChooser.showOpenDialog(new Stage());
+			if (file != null) {
+				browers(file);
+				HTMPath = file.getAbsolutePath();
+				fileText.setText(file.getAbsolutePath());
+			}
 		}
-	}}
+	}
 
 	@FXML
 	private void filteringDeviceBtn(ActionEvent event) {
@@ -216,8 +217,15 @@ public class DeviceInformation {
 			if (check()) {
 				try {
 					Connection con = DataBaseConnect.getConnection();
-					PreparedStatement insertDeviceInf = con
-							.prepareStatement("INSERT INTO gepadatok_informacio(eszkoz_az, gep_info)" + "values(?,?) ");
+					PreparedStatement insertDeviceInf = null;
+					if (LoginController.setLogin.equals("Irisz")) {
+						insertDeviceInf = con.prepareStatement(
+								"INSERT INTO gepadatok_informacio(eszkoz_az, gep_info)" + "values(?,?) ");
+					}
+					if (LoginController.setLogin.equals("Exicom")) {
+						insertDeviceInf = con.prepareStatement(
+								"INSERT INTO gepadatok_informacio_exi(eszkoz_az, gep_info)" + "values(?,?) ");
+					}
 					insertDeviceInf.setString(1, txtDeviceNumber.getText());
 					InputStream htm = new FileInputStream(new File(HTMPath));
 					System.out.println(HTMPath);
