@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -10,17 +11,17 @@
 
 <AnchorPane prefHeight="513.0" prefWidth="764.0" stylesheets="@../desing/Login.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.service.main.LoginController">
    <children>
-      <AnchorPane opacity="0.7" prefHeight="513.0" prefWidth="764.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane prefHeight="513.0" prefWidth="764.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox layoutX="170.0" layoutY="141.0" prefHeight="513.0" prefWidth="764.0" AnchorPane.bottomAnchor="158.0" AnchorPane.leftAnchor="153.0" AnchorPane.rightAnchor="153.0" AnchorPane.topAnchor="158.0">
+            <VBox layoutX="170.0" layoutY="141.0" prefHeight="239.0" prefWidth="458.0" AnchorPane.bottomAnchor="116.0" AnchorPane.leftAnchor="153.0" AnchorPane.rightAnchor="153.0" AnchorPane.topAnchor="158.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="45.0" prefWidth="414.0" text="LOGIN" textFill="#00fffb">
+                  <Label alignment="CENTER" opacity="0.7" prefHeight="45.0" prefWidth="414.0" text="LOGIN" textFill="#00fffb">
                      <font>
                         <Font size="40.0" />
                      </font>
                   </Label>
-                  <PasswordField id="loginText" fx:id="loginText" />
-                  <Button mnemonicParsing="false" onAction="#btnLogin" prefHeight="36.0" prefWidth="465.0" text="Belépés">
+                  <PasswordField id="loginText" fx:id="loginText" opacity="0.6" promptText="Jelszó" />
+                  <Button mnemonicParsing="false" onAction="#btnLogin" opacity="0.7" prefHeight="36.0" prefWidth="465.0" text="Belépés">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
@@ -28,14 +29,19 @@
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#btnExit" prefHeight="36.0" prefWidth="466.0" text="Kilépés">
+                  <Button mnemonicParsing="false" onAction="#btnExit" opacity="0.7" prefHeight="36.0" prefWidth="466.0" text="Kilépés">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
                   </Button>
+                  <ComboBox fx:id="loginService" prefHeight="42.0" prefWidth="465.0">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </ComboBox>
                </children>
             </VBox>
-            <Label id="errorLb" fx:id="errorLb" alignment="CENTER" layoutX="162.0" layoutY="403.0" prefHeight="58.0" prefWidth="425.0" textFill="#f20606">
+            <Label id="errorLb" fx:id="errorLb" alignment="CENTER" layoutX="153.0" layoutY="21.0" prefHeight="58.0" prefWidth="425.0" textFill="#f20606">
                <font>
                   <Font size="40.0" />
                </font>

@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 import com.service.device.fillteringdb.DeviceFillteringDB;
+import com.service.setting.combobox.Combobox;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.image.Image;
@@ -31,6 +33,9 @@ public class LoginController implements Initializable {
 	private PasswordField loginText;
 	@FXML
 	private Label errorLb;
+	@FXML
+	private ComboBox<String> loginService;
+	public static String setLogin;
 	private DeviceFillteringDB deviceDb = new DeviceFillteringDB();
 	private LocalDate localDate;
 	private String localDateSub;
@@ -58,36 +63,41 @@ public class LoginController implements Initializable {
 		dateLinc();
 		if (locadInteger < dbInteger) {
 			if (!loginText.getText().trim().isEmpty()) {
-				if (loginText.getText().equals(adminLogin) || loginText.getText().equals(userLogin)
-						|| loginText.getText().equals(serviceLogin)) {
-					admin = loginText.getText();
-					try {
-						Parent root = FXMLLoader
-								.load(getClass().getResource("/com/service/setting/fxmlsetting/LoadApplication.fxml"));
-						Stage stage = new Stage();
-						stage.initStyle(StageStyle.TRANSPARENT);
-						Scene scene = new Scene(root);
-						scene.setFill(Color.TRANSPARENT);
-						stage.setWidth(500);
-						stage.setHeight(368);
-						stage.setScene(scene);
-						stage.getIcons().add(
-								new Image(getClass().getResourceAsStream("/com/service/setting/desing/icon-it.png")));
-						stage.show();
-						Main.primaryStage.close();
-					} catch (Exception e) {
-						e.printStackTrace();
+				if (loginService.getValue() != null) {
+					if (loginText.getText().equals(adminLogin) || loginText.getText().equals(userLogin)
+							|| loginText.getText().equals(serviceLogin)) {
+						setLogin = loginService.getSelectionModel().getSelectedItem();
+						admin = loginText.getText();
+						try {
+							Parent root = FXMLLoader.load(
+									getClass().getResource("/com/service/setting/fxmlsetting/LoadApplication.fxml"));
+							Stage stage = new Stage();
+							stage.initStyle(StageStyle.TRANSPARENT);
+							Scene scene = new Scene(root);
+							scene.setFill(Color.TRANSPARENT);
+							stage.setWidth(500);
+							stage.setHeight(368);
+							stage.setScene(scene);
+							stage.getIcons().add(new Image(
+									getClass().getResourceAsStream("/com/service/setting/desing/icon-it.png")));
+							stage.show();
+							Main.primaryStage.close();
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+
+					} else {
+						errorLb.setText("Nem megfelelő jelszó!");
 					}
 
 				} else {
-					errorLb.setText("Nem megfelelő jelszó!");
+					errorLb.setText("Adatbázist válaszál!");
 				}
 			}
 		} else {
 			errorLb.setText("Hozzáférése lejárt");
 		}
 	}
-	
 
 	@FXML
 	private void btnExit() {
@@ -98,6 +108,8 @@ public class LoginController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		btnLogin();
+		loginService.getItems().addAll(Combobox.setLoginCombobox());
+
 		loginText.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent ke) {

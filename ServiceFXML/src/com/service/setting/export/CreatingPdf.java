@@ -72,15 +72,15 @@ public class CreatingPdf {
 				table.addCell(customerLblCell);
 
 				PdfPCell balanceLblCell = new PdfPCell();
-				Phrase ph1a = new Phrase("Írisz Holding Kft.", font2);
+				Phrase ph1a = new Phrase("  ", font2);
 				balanceLblCell.addElement(ph1a);
-				Phrase ph1b = new Phrase("Székhely: 1044, Budapest, Óradna utca 5.", font3);
+				Phrase ph1b = new Phrase(" ", font3);
 				balanceLblCell.addElement(ph1b);
-				Phrase ph1c = new Phrase("Telephely: 6722, Szeged, Tisza Lajos krt. 47. +36-30/640-5949", font3);
+				Phrase ph1c = new Phrase(" ", font3);
 				balanceLblCell.addElement(ph1c);
-				Phrase ph1d = new Phrase("Telephely: 6230, Soltvadkert, Kossuth u. 1-3. +36-78/482-497", font3);
+				Phrase ph1d = new Phrase(" ", font3);
 				balanceLblCell.addElement(ph1d);
-				Phrase ph1f = new Phrase("www.iriszholding.hu", font3);
+				Phrase ph1f = new Phrase(" ", font3);
 				balanceLblCell.addElement(ph1f);
 				table.addCell(balanceLblCell);
 				table.completeRow();
@@ -166,7 +166,7 @@ public class CreatingPdf {
 				document.add(new Paragraph("\n\n"));
 
 				PdfPTable table0 = new PdfPTable(3);
-				PdfPCell cell = new PdfPCell(new Paragraph("         Írisz Holding Kft.", font3));
+				PdfPCell cell = new PdfPCell(new Paragraph("         .", font3));
 				cell.setBorderWidthTop(2f);
 				cell.setBorderWidthRight(0f);
 				cell.setBorderWidthBottom(0f);

@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 
 import com.service.client.Client;
 import com.service.client.fillteringdb.ClientFillteringDB;
+import com.service.main.LoginController;
 import com.service.setting.database.DataBaseConnect;
 import com.service.setting.identification.ClientIdentficationGenerator;
 import com.service.setting.showinfo.ShowInfo;
@@ -108,10 +109,19 @@ public class CompanyFXMLController implements Initializable {
 			if (companyZipCodedBoolen()) {
 				try {
 					Connection con = DataBaseConnect.getConnection();
-					PreparedStatement insertCompany = con
-							.prepareStatement("INSERT INTO ugyfel_adatok(ugyfel_azonosito, cegnev, ugyfel_nev, megye,"
-									+ "telepules, iranyitoszam, cim, ceg_telefon, ceg_email, ugyfel_email, ugyfel_telefon, csomag_tipus, ugyfel_megjegyzes)"
-									+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?) ");
+					PreparedStatement insertCompany = null;
+					if (LoginController.setLogin.equals("Irisz")) {
+						insertCompany = con.prepareStatement(
+								"INSERT INTO ugyfel_adatok(ugyfel_azonosito, cegnev, ugyfel_nev, megye,"
+										+ "telepules, iranyitoszam, cim, ceg_telefon, ceg_email, ugyfel_email, ugyfel_telefon, csomag_tipus, ugyfel_megjegyzes)"
+										+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?) ");
+					}
+					if (LoginController.setLogin.equals("Exicom")) {
+						insertCompany = con.prepareStatement(
+								"INSERT INTO ugyfel_adatok_exi(ugyfel_azonosito, cegnev, ugyfel_nev, megye,"
+										+ "telepules, iranyitoszam, cim, ceg_telefon, ceg_email, ugyfel_email, ugyfel_telefon, csomag_tipus, ugyfel_megjegyzes)"
+										+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?) ");
+					}
 					txtClientInputNumber.setText(ClientIdentficationGenerator.random());
 					insertCompany.setString(1, txtClientInputNumber.getText());
 					insertCompany.setString(2, txtClientCompany.getText());
@@ -161,6 +171,7 @@ public class CompanyFXMLController implements Initializable {
 
 	@SuppressWarnings("unchecked")
 	private void companyCheckTable() {
+		companyCheckTable.setStyle("-fx-text-background-color: whitesmoke;");
 		companyCheckTable.setVisible(true);
 		companyName = new TableColumn<>("Cég");
 		companyName.setMinWidth(150);

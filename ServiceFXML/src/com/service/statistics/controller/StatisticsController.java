@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import com.service.main.LoginController;
 import com.service.setting.database.DataBaseConnect;
 import com.service.setting.showinfo.ShowInfo;
 import com.service.statistics.Statistics;
@@ -58,8 +59,15 @@ public class StatisticsController implements Initializable {
 	}
 
 	private void setGetAllTechnikal() {
-		String sql = "SELECT  eszkoz, uj_gep FROM gepadatok1 WHERE hatarido_datuma >= '" + startDate.getValue()
+		String sql = null;
+		if (LoginController.setLogin.equals("Irisz")) {
+		sql = "SELECT  eszkoz, uj_gep FROM gepadatok1 WHERE hatarido_datuma >= '" + startDate.getValue()
 				+ "' and hatarido_datuma <= '" + endDate.getValue() + "'";
+		}
+		if (LoginController.setLogin.equals("Exicom")) {
+			sql = "SELECT  eszkoz, uj_gep FROM gepadatok1_exi WHERE hatarido_datuma >= '" + startDate.getValue()
+			+ "' and hatarido_datuma <= '" + endDate.getValue() + "'";
+		}
 		Connection con = DataBaseConnect.getConnection();
 		PreparedStatement pstStn = null;
 		ResultSet stnRS = null;

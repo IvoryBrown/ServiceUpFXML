@@ -25,19 +25,6 @@ public class CalendarPane extends AnchorPane {
 
 	private void setCalendarController() {
 		sDate = String.valueOf(getDate());
-//		try {
-//			Parent root = FXMLLoader
-//					.load(getClass().getResource("/com/service/setting/fxmlmean/NewDeviceCalendar.fxml"));
-//			Stage stage = new Stage();
-//			stage.setWidth(1300);
-//			stage.setHeight(650);
-//			stage.setTitle(sDate);
-//			stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/service/setting/desing/icon-it.png")));
-//			stage.setScene(new Scene(root));
-//			stage.show();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
 		try {
 			Parent root = FXMLLoader
 					.load(getClass().getResource("/com/service/setting/fxmlsetting/ProgressBar.fxml"));

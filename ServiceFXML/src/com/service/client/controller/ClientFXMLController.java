@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 
 import com.service.client.Client;
 import com.service.client.fillteringdb.ClientFillteringDB;
+import com.service.main.LoginController;
 import com.service.setting.database.DataBaseConnect;
 import com.service.setting.identification.ClientIdentficationGenerator;
 import com.service.setting.showinfo.ShowInfo;
@@ -43,7 +44,7 @@ public class ClientFXMLController implements Initializable {
 	private Button btnClientNewClient;
 	@FXML
 	private TableView<Client> clientCheckTable;
-	private TableColumn<Client, String> clientNumber, clientAddress ;
+	private TableColumn<Client, String> clientNumber, clientAddress;
 
 	private final ObservableList<Client> dataClient = FXCollections.observableArrayList();
 	private TrayNotification tray;
@@ -117,10 +118,19 @@ public class ClientFXMLController implements Initializable {
 			if (clientZipCodedBoolen()) {
 				try {
 					Connection con = DataBaseConnect.getConnection();
-					PreparedStatement insertClient = con
-							.prepareStatement("INSERT INTO ugyfel_adatok(ugyfel_azonosito, ugyfel_nev, megye,"
-									+ "telepules, iranyitoszam, cim, ugyfel_email, ugyfel_telefon, ugyfel_megjegyzes)"
-									+ "values(?,?,?,?,?,?,?,?,?) ");
+					PreparedStatement insertClient = null;
+					if (LoginController.setLogin.equals("Irisz")) {
+						insertClient = con
+								.prepareStatement("INSERT INTO ugyfel_adatok(ugyfel_azonosito, ugyfel_nev, megye,"
+										+ "telepules, iranyitoszam, cim, ugyfel_email, ugyfel_telefon, ugyfel_megjegyzes)"
+										+ "values(?,?,?,?,?,?,?,?,?) ");
+					}
+					if (LoginController.setLogin.equals("Exicom")) {
+						insertClient = con
+								.prepareStatement("INSERT INTO ugyfel_adatok_exi(ugyfel_azonosito, ugyfel_nev, megye,"
+										+ "telepules, iranyitoszam, cim, ugyfel_email, ugyfel_telefon, ugyfel_megjegyzes)"
+										+ "values(?,?,?,?,?,?,?,?,?) ");
+					}
 					txtClientInputNumber.setText(ClientIdentficationGenerator.random());
 					insertClient.setString(1, txtClientInputNumber.getText());
 					insertClient.setString(2, txtClientInputClientName.getText());
@@ -152,18 +162,19 @@ public class ClientFXMLController implements Initializable {
 	@SuppressWarnings("unchecked")
 	private void clientCheckTable() {
 		clientCheckTable.setVisible(true);
-		clientNumber= new TableColumn<>("Ügyfél");
+		clientCheckTable.setStyle("-fx-text-background-color: whitesmoke;");
+		clientNumber = new TableColumn<>("Ügyfél");
 		clientNumber.setMinWidth(150);
 		clientNumber.setCellValueFactory(new PropertyValueFactory<Client, String>("clientName"));
-		
+
 		clientAddress = new TableColumn<>("Cím");
 		clientAddress.setMinWidth(200);
 		clientAddress.setCellValueFactory(new PropertyValueFactory<Client, String>("clientAddress"));
 		clientCheckTable.setItems(dataClient);
-		clientCheckTable.getColumns().addAll(clientNumber,clientAddress);
+		clientCheckTable.getColumns().addAll(clientNumber, clientAddress);
 		dataClient.addAll(ClientFillteringDB.getAllClient());
 	}
-	
+
 	private boolean setClientCheckTxt() {
 		if (txtClientInputClientName.getText().trim().isEmpty()) {
 			return false;
