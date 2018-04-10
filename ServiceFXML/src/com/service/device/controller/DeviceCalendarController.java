@@ -194,7 +194,7 @@ public class DeviceCalendarController implements Initializable {
 		deviceTableStatusz = new TableColumn<>("Státusz*");
 		deviceTableStatusz.setMinWidth(140);
 		deviceTableStatusz.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceStatusz"));
-		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)) {
+		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)|| login.admin.equals(login.exicomServiceLogin)) {
 			deviceTableStatusz.setCellValueFactory(i -> {
 				final String value = i.getValue().getDeviceStatusz();
 				return Bindings.createObjectBinding(() -> value);
@@ -226,7 +226,7 @@ public class DeviceCalendarController implements Initializable {
 			final String value = i.getValue().getDeviceTechnicalPerson();
 			return Bindings.createObjectBinding(() -> value);
 		});
-		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)) {
+		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)|| login.admin.equals(login.exicomServiceLogin)) {
 			deviceTableTechnicalPerson.setCellFactory(ComboBoxTableCell.forTableColumn(deviceDb.technikalIstratorList));
 			deviceTableTechnicalPerson.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
 				@Override
@@ -283,7 +283,7 @@ public class DeviceCalendarController implements Initializable {
 		deviceTableErrorCorrection.setMinWidth(370);
 		deviceTableErrorCorrection
 				.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceErrorCorrection"));
-		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)) {
+		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)|| login.admin.equals(login.exicomServiceLogin)) {
 			deviceTableErrorCorrection.setCellFactory(TextFieldTableCell.forTableColumn());
 			deviceTableErrorCorrection.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
 				@Override
@@ -368,7 +368,7 @@ public class DeviceCalendarController implements Initializable {
 		deviceTbaleCompletedDate = new TableColumn<>("Elkészült*");
 		deviceTbaleCompletedDate.setMinWidth(140);
 		deviceTbaleCompletedDate.setCellValueFactory(cellData -> cellData.getValue().getDeviceCompletedDateObject());
-		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)) {
+		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)|| login.admin.equals(login.exicomServiceLogin)) {
 			deviceTbaleCompletedDate.setCellFactory(dateCellFactory);
 			deviceTbaleCompletedDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, Date>>() {
 				@Override
@@ -402,7 +402,7 @@ public class DeviceCalendarController implements Initializable {
 		deviceTableSoftverComment = new TableColumn<>("Szoftver Megjegyzés*");
 		deviceTableSoftverComment.setMinWidth(170);
 		deviceTableSoftverComment.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceSoftverComment"));
-		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)) {
+		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)|| login.admin.equals(login.exicomServiceLogin)) {
 			deviceTableSoftverComment.setCellFactory(TextFieldTableCell.forTableColumn());
 			deviceTableSoftverComment.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
 				@Override
@@ -671,7 +671,6 @@ public class DeviceCalendarController implements Initializable {
 				final TableCell<Device, String> cell = new TableCell<Device, String>() {
 					final Button btn = new Button("Törlés");
 
-					@SuppressWarnings("static-access")
 					@Override
 					public void updateItem(String item, boolean empty) {
 						btn.setDisable(true);
@@ -771,7 +770,6 @@ public class DeviceCalendarController implements Initializable {
 	public static void setDataBase(String date) {
 		dataDevice.clear();
 		d = String.valueOf(date);
-		System.out.println(date);
 		dataDevice.addAll(DeviceFillteringDB.getDeviceNameCalendar(d));
 	}
 
