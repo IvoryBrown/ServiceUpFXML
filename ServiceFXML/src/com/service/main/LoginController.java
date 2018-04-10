@@ -25,9 +25,11 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class LoginController implements Initializable {
-	private String userLogin = "kisker";
+	private String userLogin = "123kisker45";
 	public static String adminLogin = "123admin123";
-	public static String serviceLogin = "szerviz";
+	public static String serviceLogin = "szerviz45";
+	public static String exicomUserLogin = "exiuser";
+	public static String exicomServiceLogin = "szervizexic";
 	public static String admin;
 	@FXML
 	private PasswordField loginText;
@@ -35,7 +37,7 @@ public class LoginController implements Initializable {
 	private Label errorLb;
 	@FXML
 	private ComboBox<String> loginService;
-	public static String setLogin;
+	public static String setLogin = null;
 	private DeviceFillteringDB deviceDb = new DeviceFillteringDB();
 	private LocalDate localDate;
 	private String localDateSub;
@@ -66,37 +68,60 @@ public class LoginController implements Initializable {
 				if (loginService.getValue() != null) {
 					if (loginText.getText().equals(adminLogin) || loginText.getText().equals(userLogin)
 							|| loginText.getText().equals(serviceLogin)) {
-						setLogin = loginService.getSelectionModel().getSelectedItem();
-						admin = loginText.getText();
-						try {
-							Parent root = FXMLLoader.load(
-									getClass().getResource("/com/service/setting/fxmlsetting/LoadApplication.fxml"));
-							Stage stage = new Stage();
-							stage.initStyle(StageStyle.TRANSPARENT);
-							Scene scene = new Scene(root);
-							scene.setFill(Color.TRANSPARENT);
-							stage.setWidth(500);
-							stage.setHeight(368);
-							stage.setScene(scene);
-							stage.getIcons().add(new Image(
-									getClass().getResourceAsStream("/com/service/setting/desing/icon-it.png")));
-							stage.show();
-							Main.primaryStage.close();
-						} catch (Exception e) {
-							e.printStackTrace();
+						if (loginService.getValue().equals("Irisz")) {
+							setLogin = null;
+							setLogin = loginService.getSelectionModel().getSelectedItem();
+							admin = loginText.getText();
+							getParent();
+						} else {
+							errorLb.setText("Nincs hozzáférésed");
 						}
-
 					} else {
 						errorLb.setText("Nem megfelelő jelszó!");
 					}
-
+					if (loginText.getText().equals(exicomUserLogin) || loginText.getText().equals(exicomServiceLogin)
+							|| loginText.getText().equals(adminLogin)) {
+						if (loginService.getValue().equals("Exicom")) {
+							setLogin = null;
+							setLogin = loginService.getSelectionModel().getSelectedItem();
+							admin = loginText.getText();
+							getParent();
+						} else {
+							errorLb.setText("Nincs hozzáférésed");
+							return;
+						}
+					} else {
+						errorLb.setText("Nem megfelelő jelszó!");
+						return;
+					}
 				} else {
-					errorLb.setText("Adatbázist válaszál!");
+					errorLb.setText("Adatbázist válasszál!");
+					return;
 				}
 			}
 		} else {
 			errorLb.setText("Hozzáférése lejárt");
 		}
+	}
+
+	private void getParent() {
+		try {
+			Parent root = FXMLLoader
+					.load(getClass().getResource("/com/service/setting/fxmlsetting/LoadApplication.fxml"));
+			Stage stage = new Stage();
+			stage.initStyle(StageStyle.TRANSPARENT);
+			Scene scene = new Scene(root);
+			scene.setFill(Color.TRANSPARENT);
+			stage.setWidth(500);
+			stage.setHeight(368);
+			stage.setScene(scene);
+			stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/service/setting/desing/icon-it.png")));
+			stage.show();
+			Main.primaryStage.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	@FXML
