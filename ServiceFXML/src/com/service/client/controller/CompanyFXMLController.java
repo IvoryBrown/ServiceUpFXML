@@ -118,7 +118,7 @@ public class CompanyFXMLController implements Initializable {
 					}
 					if (LoginController.setLogin.equals("Exicom")) {
 						insertCompany = con.prepareStatement(
-								"INSERT INTO ugyfel_adatok(ugyfel_azonosito, cegnev, ugyfel_nev, megye,"
+								"INSERT INTO ugyfel_adatok_exi(ugyfel_azonosito, cegnev, ugyfel_nev, megye,"
 										+ "telepules, iranyitoszam, cim, ceg_telefon, ceg_email, ugyfel_email, ugyfel_telefon, csomag_tipus, ugyfel_megjegyzes)"
 										+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?) ");
 					}
