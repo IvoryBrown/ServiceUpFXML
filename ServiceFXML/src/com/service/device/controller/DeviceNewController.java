@@ -10,6 +10,8 @@ import com.service.device.fillteringdb.DeviceFillteringDB;
 import com.service.main.LoginController;
 import com.service.setting.combobox.Combobox;
 import com.service.setting.database.DataBaseConnect;
+import com.service.setting.email.EmailSending;
+import com.service.setting.email.HTMLDataSource;
 import com.service.setting.identification.DeviceIdentificationGenereator;
 import com.service.setting.showinfo.ShowInfo;
 
@@ -104,6 +106,10 @@ public class DeviceNewController extends ClientTable {
 		deviceAncorPSoftver.setVisible(false);
 		deviceAncorPHardver.setVisible(true);
 	}
+	
+	private void setHtmlEmail() {
+		 new HTMLDataSource(deviceNumber.getText());
+	}
 
 	@FXML
 	private void setButtonNewDevie() {
@@ -182,6 +188,8 @@ public class DeviceNewController extends ClientTable {
 						insertDevice.executeUpdate();
 						tray = new TrayNotification("Remek!", "Sikeres Felvétel", NotificationType.SUCCESS);
 						tray.showAndDismiss(Duration.seconds(1));
+						setHtmlEmail();
+						 new EmailSending();
 						setClearAllText();
 					} catch (SQLException ex) {
 						System.out.println(ex);
