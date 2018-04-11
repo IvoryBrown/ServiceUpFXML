@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import com.service.device.DeviceClient;
 import com.service.device.fillteringdb.DeviceFillteringDB;
+import com.service.main.LoginController;
 import com.service.setting.combobox.Combobox;
 import com.service.setting.export.CreatingPdf;
 
@@ -63,15 +64,19 @@ public class DeviceReceivedMean implements Initializable {
 
 	@FXML
 	private void exportList(ActionEvent event) {
-
-		if (clientName != null && !clientName.equals("")) {
-			CreatingPdf pdfCreator = new CreatingPdf();
-			pdfCreator.creating(clientName, clientZipCode, clientSettlement, clientAddress, clientPhone, clientNumber,
-					deviceNumber, deviceSalesBuying, deviceAddDate, deviceEndDate, deviceName, deviceManufacturer,
-					devicePassword, deviceAccesssory, deviceInjury, deviceErrorDescription, deviceDataRecovery);
-		} else {
-			tray = new TrayNotification("HIBA", "Nincs kiválasztva semmi", NotificationType.ERROR);
-			tray.showAndDismiss(Duration.seconds(2));
+		if (LoginController.admin.equals(LoginController.userLogin)
+				|| LoginController.admin.equals(LoginController.adminLogin)
+				|| LoginController.admin.equals(LoginController.serviceLogin)) {
+			if (clientName != null && !clientName.equals("")) {
+				CreatingPdf pdfCreator = new CreatingPdf();
+				pdfCreator.creating(clientName, clientZipCode, clientSettlement, clientAddress, clientPhone,
+						clientNumber, deviceNumber, deviceSalesBuying, deviceAddDate, deviceEndDate, deviceName,
+						deviceManufacturer, devicePassword, deviceAccesssory, deviceInjury, deviceErrorDescription,
+						deviceDataRecovery);
+			} else {
+				tray = new TrayNotification("HIBA", "Nincs kiválasztva semmi", NotificationType.ERROR);
+				tray.showAndDismiss(Duration.seconds(2));
+			}
 		}
 	}
 

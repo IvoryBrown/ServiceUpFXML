@@ -25,7 +25,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class LoginController implements Initializable {
-	private String userLogin = "123kisker45";
+	public static String userLogin = "123kisker45";
 	public static String adminLogin = "123admin123";
 	public static String serviceLogin = "szerviz45";
 	public static String exicomUserLogin = "exiuser";
