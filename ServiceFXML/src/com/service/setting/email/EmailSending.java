@@ -21,7 +21,7 @@ public class EmailSending {
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.host", host);
 		props.put("mail.smtp.port", "587");
-		props.put("mail.debug", "true");
+//		props.put("mail.debug", "true");
 
 		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
@@ -30,12 +30,15 @@ public class EmailSending {
 		});
 
 		try {
+			for (int i = 0; i < EmailSetting.administratorEmail.size(); i++) {
+				
+			
 			Transport bus = session.getTransport("smtp");
 			bus.connect();
 			Message msg = new MimeMessage(session);
 
 			msg.setFrom(new InternetAddress(EmailSetting.from));
-			InternetAddress[] address = { new InternetAddress(EmailSetting.to) };
+			InternetAddress[] address = { new InternetAddress(EmailSetting.administratorEmail.get(i)) };
 			msg.setRecipients(Message.RecipientType.TO, address);
 			msg.setSubject(HTMLDataSource.deviceNumber);
 			msg.setSentDate(new Date());
@@ -45,6 +48,7 @@ public class EmailSending {
 			bus.sendMessage(msg, address);
 
 			bus.close();
+			}
 
 		} catch (MessagingException mex) {
 			mex.printStackTrace();

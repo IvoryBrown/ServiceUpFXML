@@ -8,6 +8,9 @@ import com.service.device.controller.DeviceRemoveController;
 import com.service.device.fillteringdb.DeviceFillteringDB;
 import com.service.main.LoginController;
 import com.service.setting.combobox.Combobox;
+import com.service.setting.email.EmailSending;
+import com.service.setting.email.EmailSetting;
+import com.service.setting.email.HTMLDataSource;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -46,6 +49,8 @@ public class DeviceTable extends DeviceNewController {
 	@FXML
 	private TableView<Device> deviceAllTable;
 	@FXML
+	private Button sendMail;
+	@FXML
 	private TextField deviceClientNameFilteringTxt, inputExportName;
 	@FXML
 	private Label blackDeviceNumberT, backDeviceNumber, backClientNameT, backClientName;
@@ -69,7 +74,9 @@ public class DeviceTable extends DeviceNewController {
 	private final ObservableList<Device> dataDevice = FXCollections.observableArrayList();
 	private DeviceFillteringDB deviceDb = new DeviceFillteringDB();
 	private LoginController login = new LoginController();
-	private String removeDeviceNumber, removeClientName, removeCompanyName,removeDeviceClientID;
+	private HTMLDataSource html = new HTMLDataSource();
+	private String removeDeviceNumber, removeClientName, removeCompanyName, removeDeviceClientID;
+	private static String removeDeviceAdministratorEmail;
 
 	@SuppressWarnings({ "unchecked", "static-access" })
 	protected void setDeviceTableData() {
@@ -104,7 +111,7 @@ public class DeviceTable extends DeviceNewController {
 		if (login.admin.equals(login.adminLogin)) {
 			deviceTableClientID.setVisible(true);
 		}
-		
+
 		deviceTableNumber = new TableColumn<>("Azonosító");
 		deviceTableNumber.setMinWidth(50);
 		deviceTableNumber.setCellValueFactory(new PropertyValueFactory<Device, Integer>("deviceNumber"));
@@ -205,7 +212,8 @@ public class DeviceTable extends DeviceNewController {
 		deviceTableStatusz = new TableColumn<>("Státusz*");
 		deviceTableStatusz.setMinWidth(140);
 		deviceTableStatusz.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceStatusz"));
-		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)|| login.admin.equals(login.exicomServiceLogin)) {
+		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)
+				|| login.admin.equals(login.exicomServiceLogin)) {
 			deviceTableStatusz.setCellValueFactory(i -> {
 				final String value = i.getValue().getDeviceStatusz();
 				return Bindings.createObjectBinding(() -> value);
@@ -237,7 +245,8 @@ public class DeviceTable extends DeviceNewController {
 			final String value = i.getValue().getDeviceTechnicalPerson();
 			return Bindings.createObjectBinding(() -> value);
 		});
-		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)|| login.admin.equals(login.exicomServiceLogin)) {
+		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)
+				|| login.admin.equals(login.exicomServiceLogin)) {
 			deviceTableTechnicalPerson.setCellFactory(ComboBoxTableCell.forTableColumn(deviceDb.technikalIstratorList));
 			deviceTableTechnicalPerson.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
 				@Override
@@ -294,7 +303,8 @@ public class DeviceTable extends DeviceNewController {
 		deviceTableErrorCorrection.setMinWidth(370);
 		deviceTableErrorCorrection
 				.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceErrorCorrection"));
-		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)|| login.admin.equals(login.exicomServiceLogin)) {
+		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)
+				|| login.admin.equals(login.exicomServiceLogin)) {
 			deviceTableErrorCorrection.setCellFactory(TextFieldTableCell.forTableColumn());
 			deviceTableErrorCorrection.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
 				@Override
@@ -366,7 +376,8 @@ public class DeviceTable extends DeviceNewController {
 		deviceTbaleCompletedDate = new TableColumn<>("Elkészült*");
 		deviceTbaleCompletedDate.setMinWidth(140);
 		deviceTbaleCompletedDate.setCellValueFactory(cellData -> cellData.getValue().getDeviceCompletedDateObject());
-		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)|| login.admin.equals(login.exicomServiceLogin)) {
+		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)
+				|| login.admin.equals(login.exicomServiceLogin)) {
 			deviceTbaleCompletedDate.setCellFactory(dateCellFactory);
 			deviceTbaleCompletedDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, Date>>() {
 				@Override
@@ -400,7 +411,8 @@ public class DeviceTable extends DeviceNewController {
 		deviceTableSoftverComment = new TableColumn<>("Szoftver Megjegyzés*");
 		deviceTableSoftverComment.setMinWidth(170);
 		deviceTableSoftverComment.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceSoftverComment"));
-		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)|| login.admin.equals(login.exicomServiceLogin)) {
+		if (login.admin.equals(login.adminLogin) || login.admin.equals(login.serviceLogin)
+				|| login.admin.equals(login.exicomServiceLogin)) {
 			deviceTableSoftverComment.setCellFactory(TextFieldTableCell.forTableColumn());
 			deviceTableSoftverComment.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
 				@Override
@@ -744,6 +756,16 @@ public class DeviceTable extends DeviceNewController {
 					removeClientName = newValue.getDeviceClientName();
 					removeCompanyName = newValue.getDeviceCompanyName();
 					removeDeviceClientID = newValue.getDeviceClientID();
+					removeDeviceAdministratorEmail = newValue.getDeviceAdministrator();
+					html.setHTMLCompom(newValue.getDeviceNumber(), newValue.getDeviceName(),
+							newValue.getDeviceManufacturer(), newValue.getDeviceRepairLocation(),
+							newValue.getDeviceStatus(), newValue.getDeviceNewMachine(),
+							newValue.getDeviceAdministrator(), newValue.getDeviceTechnicalPerson(),
+							newValue.getDevicePriorit(), newValue.getDeviceReferences(),
+							newValue.getDeviceErrorDescription(), newValue.getDeviceErrorCorrection(),
+							newValue.getDeviceDeliveryDateConverter(), newValue.getDeviceAddDateConverter(),
+							newValue.getDeviceEndDateConverter(), newValue.getDeviceCompletedDateConverter(),
+							newValue.getDeviceSoftver());
 				}
 			}
 		});
@@ -767,9 +789,21 @@ public class DeviceTable extends DeviceNewController {
 	}
 
 	@FXML
+	private void setSendEmail() {
+		if (!backClientName.getText().trim().isEmpty()) {
+			EmailSetting.setEmailDB(removeDeviceAdministratorEmail);
+			new EmailSending();
+			System.out.println("igen");
+		} else {
+			System.out.println("nem");
+		}
+	}
+
+	@FXML
 	private void removeDevice() {
 		if (removeDeviceNumber != null && !removeDeviceNumber.equals("")) {
-			DeviceRemoveController.removeSetText(removeDeviceNumber, removeClientName, removeCompanyName,removeDeviceClientID);
+			DeviceRemoveController.removeSetText(removeDeviceNumber, removeClientName, removeCompanyName,
+					removeDeviceClientID);
 			try {
 				Parent root = FXMLLoader
 						.load(getClass().getResource("/com/service/setting/fxmlnewdevice/NewDevice.fxml"));
