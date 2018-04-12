@@ -46,7 +46,8 @@ public class DeviceNewController extends ClientTable {
 	private DatePicker deviceSalesBuying, deviceAddDate, deviceEndDate, deviceDeliveryDate;
 	@FXML
 	private CheckBox deviceNewHouse, devicePowerSupply, deviceProcessor, deviceBaseBoard, deviceMemory, deviceVideoCard,
-			deviceSSDDrive, deviceHardDrive, deviceCoolingFan, deviceOpticalDrive, deviceExpansionCard, deviceLaptop;
+			deviceSSDDrive, deviceHardDrive, deviceCoolingFan, deviceOpticalDrive, deviceExpansionCard, deviceLaptop,
+			emailCeckBox;
 
 	private DeviceFillteringDB db = new DeviceFillteringDB();
 	private Callback<DatePicker, DateCell> dayCellFactory;
@@ -106,9 +107,21 @@ public class DeviceNewController extends ClientTable {
 		deviceAncorPSoftver.setVisible(false);
 		deviceAncorPHardver.setVisible(true);
 	}
-	
+
 	private void setHtmlEmail() {
-		 new HTMLDataSource(deviceNumber.getText());
+		if (emailCeckBox.isSelected()) {
+		HTMLDataSource html = new HTMLDataSource();
+		html.setHTMLCompom(deviceNumber.getText(), deviceName.getSelectionModel().getSelectedItem(),
+				deviceManufacturer.getText(), deviceRepairLocation.getSelectionModel().getSelectedItem(),
+				deviceStatus.getSelectionModel().getSelectedItem(),
+				deviceNewMachine.getSelectionModel().getSelectedItem(),
+				deviceAdministrator.getSelectionModel().getSelectedItem(), " ",
+				devicePriorit.getSelectionModel().getSelectedItem(), deviceReferences.getText(),
+				deviceErrorDescription.getText(), " ", deviceDeliveryDate.getEditor().getText(),
+				deviceAddDate.getEditor().getText(), deviceEndDate.getEditor().getText(), " ",
+				deviceSoftver.getSelectionModel().getSelectedItem());
+		new EmailSending();
+		}
 	}
 
 	@FXML
@@ -186,10 +199,9 @@ public class DeviceNewController extends ClientTable {
 						insertDevice.setBoolean(37, deviceOpticalDrive.isSelected());
 						insertDevice.setBoolean(38, deviceExpansionCard.isSelected());
 						insertDevice.executeUpdate();
+						setHtmlEmail();
 						tray = new TrayNotification("Remek!", "Sikeres Felvétel", NotificationType.SUCCESS);
 						tray.showAndDismiss(Duration.seconds(1));
-						setHtmlEmail();
-						 new EmailSending();
 						setClearAllText();
 					} catch (SQLException ex) {
 						System.out.println(ex);
@@ -319,6 +331,7 @@ public class DeviceNewController extends ClientTable {
 		deviceCoolingFan.setSelected(false);
 		deviceOpticalDrive.setSelected(false);
 		deviceExpansionCard.setSelected(false);
+		emailCeckBox.setSelected(false);
 		setDate();
 	}
 

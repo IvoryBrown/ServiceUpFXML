@@ -21,7 +21,7 @@ public class EmailSending {
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.host", host);
 		props.put("mail.smtp.port", "587");
-//		props.put("mail.debug", "true");
+		props.put("mail.debug", "true");
 
 		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
@@ -37,7 +37,7 @@ public class EmailSending {
 			msg.setFrom(new InternetAddress(EmailSetting.from));
 			InternetAddress[] address = { new InternetAddress(EmailSetting.to) };
 			msg.setRecipients(Message.RecipientType.TO, address);
-			msg.setSubject("javás emailküldés");
+			msg.setSubject(HTMLDataSource.deviceNumber);
 			msg.setSentDate(new Date());
 
 			setHTMLContent(msg);

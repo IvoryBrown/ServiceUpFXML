@@ -311,7 +311,7 @@
                               </TextField>
                            </children>
                         </VBox>
-                        <VBox layoutX="436.0" layoutY="106.0" prefHeight="291.0" prefWidth="139.0">
+                        <VBox layoutX="436.0" layoutY="106.0" prefHeight="325.0" prefWidth="139.0">
                            <children>
                               <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="139.0" text="Tartozékok">
                                  <VBox.margin>
@@ -331,6 +331,11 @@
                               <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="139.0" text="Eszközről megjegyzés">
                                  <VBox.margin>
                                     <Insets top="55.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="139.0" text="Email küldés">
+                                 <VBox.margin>
+                                    <Insets top="15.0" />
                                  </VBox.margin>
                               </Label>
                            </children>
@@ -644,6 +649,7 @@
                            </children>
                         </AnchorPane>
                         <TextField id="deviceClientId" fx:id="deviceClientId" editable="false" layoutX="919.0" layoutY="66.0" prefHeight="36.0" prefWidth="129.0" promptText="Azonosító" visible="false" />
+                        <CheckBox fx:id="emailCeckBox" layoutX="581.0" layoutY="405.0" mnemonicParsing="false" />
                      </children>
                   </AnchorPane>
 						<AnchorPane id="stockPane" fx:id="stockPane" prefHeight="698.0" prefWidth="1132.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
