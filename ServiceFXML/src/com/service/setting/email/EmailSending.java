@@ -40,7 +40,7 @@ public class EmailSending {
 			msg.setFrom(new InternetAddress(EmailSetting.from));
 			InternetAddress[] address = { new InternetAddress(EmailSetting.administratorEmail.get(i)) };
 			msg.setRecipients(Message.RecipientType.TO, address);
-			msg.setSubject(HTMLDataSource.deviceNumber);
+			msg.setSubject("Értesítés a "+HTMLDataSource.deviceNumber+" számú megrendelésedről");
 			msg.setSentDate(new Date());
 
 			setHTMLContent(msg);
@@ -53,6 +53,45 @@ public class EmailSending {
 		} catch (MessagingException mex) {
 			mex.printStackTrace();
 		}
+	}
+	
+	public static void newEmailSending() {
+		String host = "smtp.gmail.com";
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", host);
+		props.put("mail.smtp.port", "587");
+//		props.put("mail.debug", "true");
+
+		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(EmailSetting.username, EmailSetting.password);
+			}
+		});
+		try {	
+			
+			Transport bus = session.getTransport("smtp");
+			bus.connect();
+			Message msg = new MimeMessage(session);
+
+			msg.setFrom(new InternetAddress(EmailSetting.from));
+			InternetAddress[] address = { new InternetAddress(EmailSetting.to) };
+			msg.setRecipients(Message.RecipientType.TO, address);
+			msg.setSubject("Értesítés a "+HTMLDataSource.deviceNumber+" számú megrendelésedről");
+			msg.setSentDate(new Date());
+
+			setHTMLContent(msg);
+			msg.saveChanges();
+			bus.sendMessage(msg, address);
+
+			bus.close();
+			
+
+		} catch (MessagingException mex) {
+			mex.printStackTrace();
+		}
+
 	}
 
 	private static void setHTMLContent(Message msg) throws MessagingException {
