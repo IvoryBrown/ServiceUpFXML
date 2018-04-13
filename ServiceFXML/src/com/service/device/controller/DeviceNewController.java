@@ -120,7 +120,7 @@ public class DeviceNewController extends ClientTable {
 				deviceErrorDescription.getText(), " ", deviceDeliveryDate.getEditor().getText(),
 				deviceAddDate.getEditor().getText(), deviceEndDate.getEditor().getText(), " ",
 				deviceSoftver.getSelectionModel().getSelectedItem());
-		new EmailSending();
+		 EmailSending.newEmailSending();
 		}
 	}
 
