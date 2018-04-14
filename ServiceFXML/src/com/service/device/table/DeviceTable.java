@@ -757,15 +757,17 @@ public class DeviceTable extends DeviceNewController {
 					removeCompanyName = newValue.getDeviceCompanyName();
 					removeDeviceClientID = newValue.getDeviceClientID();
 					removeDeviceAdministratorEmail = newValue.getDeviceAdministrator();
-					html.setHTMLCompom(newValue.getDeviceNumber(), newValue.getDeviceName(),
-							newValue.getDeviceManufacturer(), newValue.getDeviceRepairLocation(),
-							newValue.getDeviceStatus(), newValue.getDeviceNewMachine(),
-							newValue.getDeviceAdministrator(), newValue.getDeviceTechnicalPerson(),
-							newValue.getDevicePriorit(), newValue.getDeviceReferences(),
+					html.setHTMLCompom(newValue.getDeviceCompanyName(), newValue.getDeviceClientName(),
+							newValue.getDeviceNumber(), newValue.getDeviceName(), newValue.getDeviceManufacturer(),
+							newValue.getDeviceRepairLocation(), newValue.getDeviceStatus(),
+							newValue.getDeviceNewMachine(), newValue.getDeviceAdministrator(),
+							newValue.getDeviceTechnicalPerson(), newValue.getDevicePriorit(),
+							newValue.getDeviceReferences(), newValue.getDeviceStatusz(),
 							newValue.getDeviceErrorDescription(), newValue.getDeviceErrorCorrection(),
-							newValue.getDeviceDeliveryDateConverter(), newValue.getDeviceAddDateConverter(),
-							newValue.getDeviceEndDateConverter(), newValue.getDeviceCompletedDateConverter(),
-							newValue.getDeviceSoftver());
+							newValue.getDeviceComment(), newValue.getDeviceDeliveryDateConverter(),
+							newValue.getDeviceAddDateConverter(), newValue.getDeviceEndDateConverter(),
+							newValue.getDeviceCompletedDateConverter(), newValue.getDeviceSoftver(),
+							newValue.getDeviceOperatingSystem());
 				}
 			}
 		});
