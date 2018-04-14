@@ -183,7 +183,7 @@
                            </children>
                         </AnchorPane>
                      </children></AnchorPane>
-                  <AnchorPane id="newDevicePane" fx:id="newDevicePane" prefHeight="673.0" prefWidth="1130.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane id="newDevicePane" fx:id="newDevicePane" prefHeight="673.0" prefWidth="1130.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <HBox layoutX="14.0" layoutY="14.0" prefHeight="40.0" prefWidth="1109.0">
                            <children>
@@ -304,7 +304,7 @@
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </ComboBox>
-                              <TextField id="devicePassword" fx:id="devicePassword" prefHeight="36.0" promptText="Pasword" text="Nincs">
+                              <TextField id="devicePassword" fx:id="devicePassword" prefHeight="36.0" promptText="Pasword">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
@@ -759,7 +759,7 @@
 
 							</children>
 						</AnchorPane>
-                  <AnchorPane id="deviceTable" fx:id="deviceTable" prefHeight="673.0" prefWidth="1130.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane id="deviceTable" fx:id="deviceTable" prefHeight="673.0" prefWidth="1130.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <VBox layoutX="4.0" layoutY="3.0" prefHeight="89.0" prefWidth="206.0">
                            <children>
