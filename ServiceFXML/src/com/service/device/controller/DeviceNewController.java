@@ -110,17 +110,19 @@ public class DeviceNewController extends ClientTable {
 
 	private void setHtmlEmail() {
 		if (emailCeckBox.isSelected()) {
-		HTMLDataSource html = new HTMLDataSource();
-		html.setHTMLCompom(deviceNumber.getText(), deviceName.getSelectionModel().getSelectedItem(),
-				deviceManufacturer.getText(), deviceRepairLocation.getSelectionModel().getSelectedItem(),
-				deviceStatus.getSelectionModel().getSelectedItem(),
-				deviceNewMachine.getSelectionModel().getSelectedItem(),
-				deviceAdministrator.getSelectionModel().getSelectedItem(), " ",
-				devicePriorit.getSelectionModel().getSelectedItem(), deviceReferences.getText(),
-				deviceErrorDescription.getText(), " ", deviceDeliveryDate.getEditor().getText(),
-				deviceAddDate.getEditor().getText(), deviceEndDate.getEditor().getText(), " ",
-				deviceSoftver.getSelectionModel().getSelectedItem());
-		 EmailSending.newEmailSending();
+			HTMLDataSource html = new HTMLDataSource();
+			html.setHTMLCompom(deviceCompanyName.getText(), deviceClientName.getText(), deviceNumber.getText(),
+					deviceName.getSelectionModel().getSelectedItem(), deviceManufacturer.getText(),
+					deviceRepairLocation.getSelectionModel().getSelectedItem(),
+					deviceStatus.getSelectionModel().getSelectedItem(),
+					deviceNewMachine.getSelectionModel().getSelectedItem(),
+					deviceAdministrator.getSelectionModel().getSelectedItem(), " ",
+					devicePriorit.getSelectionModel().getSelectedItem(), deviceReferences.getText(), "",
+					deviceErrorDescription.getText(), " ", deviceComment.getText(),
+					deviceDeliveryDate.getEditor().getText(), deviceAddDate.getEditor().getText(),
+					deviceEndDate.getEditor().getText(), " ", deviceSoftver.getSelectionModel().getSelectedItem(),
+					deviceOperatingSystem.getSelectionModel().getSelectedItem());
+			EmailSending.newEmailSending();
 		}
 	}
 
@@ -238,9 +240,10 @@ public class DeviceNewController extends ClientTable {
 				|| deviceSerialNumber.getText().trim().isEmpty() || deviceRepairLocation.getValue() == null
 				|| deviceStatus.getValue() == null || deviceNewMachine.getValue() == null
 				|| deviceAdministrator.getValue() == null || devicePriorit.getValue() == null
-				|| deviceAccesssory.getText().trim().isEmpty() || deviceInjury.getText().trim().isEmpty()
-				|| deviceErrorDescription.getText().trim().isEmpty() || deviceAddDate.getValue() == null
-				|| deviceEndDate.getValue() == null || deviceDataRecovery.getValue() == null) {
+				|| deviceAccesssory.getText().trim().isEmpty() || devicePassword.getText().trim().isEmpty()
+				|| deviceInjury.getText().trim().isEmpty() || deviceErrorDescription.getText().trim().isEmpty()
+				|| deviceAddDate.getValue() == null || deviceEndDate.getValue() == null
+				|| deviceDataRecovery.getValue() == null) {
 			deviceName.setPromptText("Kérlek válasz!");
 			deviceManufacturer.setPromptText("Kérlek válasz!");
 			deviceSerialNumber.setPromptText("Kérlek válasz!");
@@ -255,6 +258,7 @@ public class DeviceNewController extends ClientTable {
 			deviceAddDate.setPromptText("Kérlek válasz!");
 			deviceEndDate.setPromptText("Kérlek válasz!");
 			deviceDataRecovery.setPromptText("Kérlek válasz!");
+			devicePassword.setPromptText("Kérlek válasz!");
 			return false;
 		} else {
 			deviceName.setStyle(null);
@@ -271,6 +275,7 @@ public class DeviceNewController extends ClientTable {
 			deviceAddDate.setStyle(null);
 			deviceEndDate.setStyle(null);
 			deviceDataRecovery.setStyle(null);
+			devicePassword.setStyle(null);
 			return true;
 		}
 
@@ -305,7 +310,7 @@ public class DeviceNewController extends ClientTable {
 		deviceNewMachine.setValue(null);
 		deviceAdministrator.setValue(null);
 		devicePriorit.setValue(null);
-		devicePassword.setText("nincs");
+		devicePassword.clear();
 		deviceReferences.clear();
 		deviceAccesssory.clear();
 		deviceInjury.clear();
