@@ -21,7 +21,7 @@ public class EmailSending {
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.host", host);
 		props.put("mail.smtp.port", "587");
-//		props.put("mail.debug", "true");
+		// props.put("mail.debug", "true");
 
 		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
@@ -31,30 +31,30 @@ public class EmailSending {
 
 		try {
 			for (int i = 0; i < EmailSetting.administratorEmail.size(); i++) {
-				
-			
-			Transport bus = session.getTransport("smtp");
-			bus.connect();
-			Message msg = new MimeMessage(session);
 
-			msg.setFrom(new InternetAddress(EmailSetting.from));
-			InternetAddress[] address = { new InternetAddress(EmailSetting.administratorEmail.get(i)) };
-			msg.setRecipients(Message.RecipientType.TO, address);
-			msg.setSubject("Értesítés a "+HTMLDataSource.deviceNumber+" számú megrendelésedről");
-			msg.setSentDate(new Date());
+				Transport bus = session.getTransport("smtp");
+				bus.connect();
+				Message msg = new MimeMessage(session);
 
-			setHTMLContent(msg);
-			msg.saveChanges();
-			bus.sendMessage(msg, address);
+				msg.setFrom(new InternetAddress(EmailSetting.from));
+				InternetAddress[] address = { new InternetAddress(EmailSetting.administratorEmail.get(i)) };
+				msg.setRecipients(Message.RecipientType.TO, address);
+				msg.setSubject("Értesítés a " + HTMLDataSource.deviceNumber + " számú megrendelésről: "
+						+ HTMLDataSource.deviceStatusz);
+				msg.setSentDate(new Date());
 
-			bus.close();
+				setHTMLContent(msg);
+				msg.saveChanges();
+				bus.sendMessage(msg, address);
+
+				bus.close();
 			}
 
 		} catch (MessagingException mex) {
 			mex.printStackTrace();
 		}
 	}
-	
+
 	public static void newEmailSending() {
 		String host = "smtp.gmail.com";
 		Properties props = new Properties();
@@ -62,15 +62,15 @@ public class EmailSending {
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.host", host);
 		props.put("mail.smtp.port", "587");
-//		props.put("mail.debug", "true");
+		// props.put("mail.debug", "true");
 
 		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(EmailSetting.username, EmailSetting.password);
 			}
 		});
-		try {	
-			
+		try {
+
 			Transport bus = session.getTransport("smtp");
 			bus.connect();
 			Message msg = new MimeMessage(session);
@@ -78,7 +78,7 @@ public class EmailSending {
 			msg.setFrom(new InternetAddress(EmailSetting.from));
 			InternetAddress[] address = { new InternetAddress(EmailSetting.to) };
 			msg.setRecipients(Message.RecipientType.TO, address);
-			msg.setSubject("Értesítés a "+HTMLDataSource.deviceNumber+" számú megrendelésedről");
+			msg.setSubject("Értesítés a " + HTMLDataSource.deviceNumber + " számú megrendelésről");
 			msg.setSentDate(new Date());
 
 			setHTMLContent(msg);
@@ -86,7 +86,6 @@ public class EmailSending {
 			bus.sendMessage(msg, address);
 
 			bus.close();
-			
 
 		} catch (MessagingException mex) {
 			mex.printStackTrace();
