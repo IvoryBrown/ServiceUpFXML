@@ -111,9 +111,8 @@ public class DeviceNewController extends ClientTable {
 	private void setHtmlEmail() {
 		if (emailCeckBox.isSelected()) {
 			HTMLDataSource html = new HTMLDataSource();
-			html.setHTMLCompom(deviceCompanyName.getText(), deviceClientName.getText(), deviceNumber.getText(),
-					deviceName.getSelectionModel().getSelectedItem(), deviceManufacturer.getText(),
-					deviceRepairLocation.getSelectionModel().getSelectedItem(),
+			html.setHTMLCompom(" ", " ", deviceNumber.getText(), deviceName.getSelectionModel().getSelectedItem(),
+					deviceManufacturer.getText(), deviceRepairLocation.getSelectionModel().getSelectedItem(),
 					deviceStatus.getSelectionModel().getSelectedItem(),
 					deviceNewMachine.getSelectionModel().getSelectedItem(),
 					deviceAdministrator.getSelectionModel().getSelectedItem(), " ",
