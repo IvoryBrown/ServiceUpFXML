@@ -53,6 +53,10 @@ public class DeviceNewController extends ClientTable {
 	private Callback<DatePicker, DateCell> dayCellFactory;
 
 	protected void setComboxAll() {
+		emailCeckBox.setDisable(true);
+		if (LoginController.setLogin.equals("Exicom")) {
+			emailCeckBox.setDisable(false);
+		}
 		deviceName.getItems().addAll(Combobox.setDeviceNameCombobox());
 		deviceRepairLocation.getItems().addAll(Combobox.setLocationCombobox());
 		deviceStatus.getItems().addAll(Combobox.setStatusCombobox());
