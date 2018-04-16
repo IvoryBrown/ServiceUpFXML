@@ -28,8 +28,8 @@ public class LoginController implements Initializable {
 	public static String userLogin = "123kisker45";
 	public static String adminLogin = "123admin123";
 	public static String serviceLogin = "szerviz45";
-	public static String exicomUserLogin = "exiuser";
-	public static String exicomServiceLogin = "szervizexic";
+	public static String exicomUserLogin = "userexi";
+	public static String exicomServiceLogin = "exicszerviz";
 	public static String admin;
 	@FXML
 	private PasswordField loginText;
