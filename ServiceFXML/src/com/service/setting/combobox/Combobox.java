@@ -50,7 +50,7 @@ public class Combobox {
 				"Windows 10 Education 32Bit Hungarian", "Windows 10 Education 64Bit Hungarian",
 				"Windows 10 Mobile 32Bit Hungarian", "Windows 10 Mobile 64Bit Hungarian",
 				"Windows 10 Home 32Bit Hungarian", "Windows 10 Home 64Bit Hungarian",
-				"Windows 10 Professional 32Bit Hungarian", "Windows 10 Professional 64Bit Hungarian" };
+				"Windows 10 Professional 32Bit Hungarian", "Windows 10 Professional 64Bit Hungarian" , "--------Egyéb Program---------"};
 		return CMDDEVICEOPERATINGSYSTEM;
 	}
 
@@ -60,7 +60,7 @@ public class Combobox {
 	}
 
 	public static String[] setDeviceStatusCombobox() {
-		final String CMBDEVICESTATUSZ[] = { "Bevizsgálás alatt", "Akkatrészre vár", "Garanciális", "Továbbküldve",
+		final String CMBDEVICESTATUSZ[] = { "Bevizsgálás alatt", "Alkatrészre vár", "Garanciális", "Továbbküldve",
 				"Bevizsgálva" };
 		return CMBDEVICESTATUSZ;
 	}
