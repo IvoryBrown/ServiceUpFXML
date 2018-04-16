@@ -80,6 +80,12 @@ public class DeviceTable extends DeviceNewController {
 
 	@SuppressWarnings({ "unchecked", "static-access" })
 	protected void setDeviceTableData() {
+		sendMail.setDisable(true);
+		if (LoginController.setLogin.equals("Exicom")) {
+			if (login.admin.equals(login.adminLogin) || login.admin.equals(login.exicomServiceLogin)) {
+				sendMail.setDisable(false);
+			}
+		}
 		Callback<TableColumn<Device, Date>, TableCell<Device, Date>> dateCellFactory = (
 				TableColumn<Device, Date> param) -> new DataEditingCellDevice();
 
