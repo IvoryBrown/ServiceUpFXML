@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -21,6 +22,7 @@ public class Main extends Application {
 			Scene scene = new Scene(root, 300, 600);
 			primaryStage.setScene(scene);
 			primaryStage.initStyle(StageStyle.TRANSPARENT);
+			primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/setting/icon/icon-it.png")));
 			// pozitcio
 			Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 			primaryStage.setX(primaryScreenBounds.getMinX() + primaryScreenBounds.getWidth() - 300);
@@ -40,6 +42,7 @@ public class Main extends Application {
 			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("Main.fxml"));
 			Scene scene = new Scene(root, 300, 600);
 			primaryStage.setScene(scene);
+			primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/setting/icon/icon-it.png")));
 			// pozitcio
 			Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 			primaryStage.setX(primaryScreenBounds.getMinX() + primaryScreenBounds.getWidth() - 300);
