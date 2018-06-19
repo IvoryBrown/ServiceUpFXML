@@ -39,9 +39,12 @@ public class Main extends Application {
 
 	public void startEnd() {
 		try {
+			Stage stage =  new Stage();
+			primaryStage = stage;
 			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("Main.fxml"));
 			Scene scene = new Scene(root, 300, 600);
-			primaryStage.setScene(scene);
+			stage.setScene(scene);
+			stage.initStyle(StageStyle.TRANSPARENT);
 			primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/setting/icon/icon-it.png")));
 			// pozitcio
 			Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();

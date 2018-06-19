@@ -10,7 +10,7 @@ public class ClientNewMain {
 
 	public void newClientBtn() {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/com/client/NewClient.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/com/client/view/NewClient.fxml"));
 			Stage stage = new Stage();
 			stage.setTitle("Ügyfél");
 			stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/setting/icon/icon-it.png")));
