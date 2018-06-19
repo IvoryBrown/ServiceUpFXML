@@ -16,7 +16,6 @@ public class MainMin {
 	public void start() {
 
 		try {
-			System.out.println("3");
 			Parent root = FXMLLoader.load(getClass().getResource("MainMin.fxml"));
 			Stage stage = new Stage();
 			this.primaryStage = stage;
