@@ -93,7 +93,6 @@ public class MainController implements Initializable {
 	@SuppressWarnings("rawtypes")
 	private void handleMouseClicked(MouseEvent event) {
 		Node node = event.getPickResult().getIntersectedNode();
-		// Accept clicks only on node cells, and not on empty spaces of the TreeView
 		if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
 			String name = (String) ((TreeItem) treeView.getSelectionModel().getSelectedItem()).getValue();
 			
