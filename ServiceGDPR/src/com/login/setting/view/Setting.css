@@ -9,16 +9,11 @@
     -fx-background-radius: 10.0;
 }
 
-.text-field {
-	-fx-background-color: #c3c4c4,
-		linear-gradient(#d6d6d6 50.0%, white 100.0%),
-		radial-gradient(center 50.0% -40.0%, radius 200.0%, #e6e6e6 45.0%, rgba(230.0
-		, 230.0, 230.0, 0.0) 50.0%);
-	-fx-background-radius: 30.0;
-	-fx-background-insets: 0.0, 1.0, 1.0;
-	-fx-text-fill: black;
-	-fx-effect: dropshadow(three-pass-box, rgba(0.0, 0.0, 0.0, 0.6), 3.0,
-		0.0, 0.0, 1.0);
+.text-field{
+    -fx-background-color:  #616161;
+    -fx-font-size: 18.0;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #61a2b1 ;
 }
 
 .tree-view, .tree-cell {
@@ -27,7 +22,6 @@
 	-fx-font-family: "Arial Narrow";
 	-fx-font-size: 18.0;
 	-fx-font-weight: bold;
-	-fx-background-radius: 20.0;
 }
 
 .tree-cell:selected {
