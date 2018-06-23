@@ -3,6 +3,12 @@
 	 -fx-font-size: 19.0;
 }
 
+.split-pane{
+	-fx-background-image: url("/com/setting/image/background.jpg");
+    -fx-background-color:whitesmoke;
+    -fx-background-radius: 10.0;
+}
+
 .text-field {
 	-fx-background-color: #c3c4c4,
 		linear-gradient(#d6d6d6 50.0%, white 100.0%),
@@ -13,4 +19,22 @@
 	-fx-text-fill: black;
 	-fx-effect: dropshadow(three-pass-box, rgba(0.0, 0.0, 0.0, 0.6), 3.0,
 		0.0, 0.0, 1.0);
+}
+
+.tree-view, .tree-cell {
+	-fx-background-color: #616161;
+	-fx-text-fill: whitesmoke;
+	-fx-font-family: "Arial Narrow";
+	-fx-font-size: 18.0;
+	-fx-font-weight: bold;
+	-fx-background-radius: 20.0;
+}
+
+.tree-cell:selected {
+	-fx-background-color: linear-gradient(#61a2b1, #2A5058)
+		radial-gradient(center 50.0% 50.0%, radius 100.0%, #61a2b1, #2A5058);
+
+	-fx-text-fill:  whitesmoke;
+	-fx-font-size: 25.0;
+	-fx-font-weight: bold;
 }
