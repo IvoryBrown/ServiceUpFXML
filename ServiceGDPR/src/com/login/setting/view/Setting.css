@@ -1,6 +1,5 @@
 .root {
 	-fx-background-image: url("/com/setting/image/background.jpg");
-	 -fx-font-size: 19.0;
 }
 
 .split-pane{
@@ -31,4 +30,7 @@
 	-fx-text-fill:  whitesmoke;
 	-fx-font-size: 25.0;
 	-fx-font-weight: bold;
+}
+.label{
+	-fx-font-size: 20.0;
 }

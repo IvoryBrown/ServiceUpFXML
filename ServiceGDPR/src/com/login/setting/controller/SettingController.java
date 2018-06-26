@@ -3,12 +3,17 @@ package com.login.setting.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.fxdialog.controller.FXDialogController;
+import com.fxdialog.main.FXDialogMain;
 import com.login.setting.main.SettingMain;
+import com.setting.tooltip.Popup;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
@@ -28,6 +33,10 @@ public class SettingController implements Initializable {
 	private SplitPane loginSPane;
 	@FXML
 	private TextField urlTxt, nameTxt, passwordTxt;
+	@FXML
+	private Label messageLbl;
+	@FXML
+	private Button exitButton;
 
 	private final String MENU_DATABASE = "Adatbázis";
 	private final String MENU_DEVICE = "Eszköz";
@@ -49,8 +58,30 @@ public class SettingController implements Initializable {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public void initialize(URL location, ResourceBundle resources) {
+		setDBtextField();
+		setTooltipButton();
+		setMenuIttem();
+	}
+
+	// SettingDBFile
+	private void setDBtextField() {
+		SettingDBFile.setDataBaseOutput();
+		urlTxt.setText(SettingDBFile.getDBOutput());
+		nameTxt.setText(SettingDBFile.getNameOutput());
+		passwordTxt.setText(SettingDBFile.getPasswordOutput());
+	}
+
+	// set button popup
+	private void setTooltipButton() {
+		Popup tt = new Popup("Kilépés");
+		exitButton.setTooltip(tt);
+
+	}
+
+	// Menu
+	@SuppressWarnings("unchecked")
+	private void setMenuIttem() {
 		TreeItem<String> treeItemRoot1 = new TreeItem<>("Menü");
 		treeView = new TreeView<>(treeItemRoot1);
 		treeView.setShowRoot(false);
@@ -104,7 +135,21 @@ public class SettingController implements Initializable {
 
 	@FXML
 	private void saveDBButton() {
-		SettingDBWrite.writeDB(urlTxt.getText(), nameTxt.getText(), passwordTxt.getText());
-		SettingDBWrite.output();
+		if (urlTxt.getText().trim().isEmpty() || nameTxt.getText().trim().isEmpty()) {
+			messageLbl.setStyle("-fx-text-fill: red;");
+			messageLbl.setText("Sikertelen beállítás!!");
+		} else {
+			SettingDBFile.writeDB(urlTxt.getText(), nameTxt.getText(), passwordTxt.getText());
+			messageLbl.setStyle("-fx-text-fill: green;");
+			messageLbl.setText("Sikeres beállítás!!");
+
+		}
+	}
+	@FXML
+	private void setExitButton() {
+		FXDialogMain main = new FXDialogMain();
+		main.start();
+		FXDialogController.setdf("exit");
+		SettingMain.primaryStageSettingMain.close();
 	}
 }

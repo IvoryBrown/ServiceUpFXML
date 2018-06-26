@@ -1,0 +1,23 @@
+.button {
+	-fx-opacity: 0.7;
+    -fx-text-fill: #9400D3;
+    -fx-font-size: 13.0;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-radius: 30.0;
+     -fx-background-color: linear-gradient(#2A5058, #61a2b1);
+}
+
+.button:hover {
+    -fx-background-color: #DC143C;
+    -fx-text-fill: white;
+}
+
+.tooltip {
+	-fx-opacity: 0.7;
+	-fx-font: normal bold 20 Langdon; 
+	-fx-background-color: linear-gradient(#2A5058, #61a2b1);
+	-fx-background-radius: 10;
+	-fx-border-radius: 10;
+	-fx-text-fill: #F5F5F5;
+}

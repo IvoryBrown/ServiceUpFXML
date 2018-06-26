@@ -25,9 +25,11 @@
                </children></AnchorPane>
           <AnchorPane fx:id="settingMenuPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <AnchorPane fx:id="settingDatabase" layoutX="115.0" layoutY="149.0" prefHeight="698.0" prefWidth="680.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Label fx:id="messageLbl" alignment="CENTER" prefHeight="30.0" prefWidth="544.0" />
+                  <Button fx:id="exitButton" layoutX="649.0" mnemonicParsing="false" onAction="#setExitButton" prefHeight="30.0" prefWidth="33.0" stylesheets="@SettingButton.css" text="X" />
+                  <AnchorPane fx:id="settingDatabase" layoutX="115.0" layoutY="149.0" prefHeight="698.0" prefWidth="680.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
                      <children>
-                        <VBox layoutX="14.0" layoutY="14.0" prefHeight="436.0" prefWidth="128.0">
+                        <VBox layoutX="14.0" layoutY="49.0" prefHeight="401.0" prefWidth="128.0">
                            <children>
                               <Label alignment="CENTER_RIGHT" prefHeight="39.0" prefWidth="292.0" text="URL:  \\">
                                  <VBox.margin>
@@ -46,7 +48,7 @@
                               </Label>
                            </children>
                         </VBox>
-                        <VBox layoutX="151.0" layoutY="14.0" prefHeight="436.0" prefWidth="523.0">
+                        <VBox layoutX="151.0" layoutY="49.0" prefHeight="401.0" prefWidth="523.0">
                            <children>
                               <TextField fx:id="urlTxt" promptText="URL Elérési Út">
                                  <VBox.margin>
@@ -65,7 +67,7 @@
                               </TextField>
                            </children>
                         </VBox>
-                        <Button layoutX="583.0" layoutY="642.0" mnemonicParsing="false" onAction="#saveDBButton" text="Save" />
+                        <Button layoutX="601.0" layoutY="622.0" mnemonicParsing="false" onAction="#saveDBButton" text="Save" />
                      </children>
                   </AnchorPane>
                </children></AnchorPane>
