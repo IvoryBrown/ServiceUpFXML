@@ -3,24 +3,29 @@ package com.login.setting.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.fxdialog.controller.FXDialogController;
+import com.fxdialog.controller.Message;
 import com.fxdialog.main.FXDialogMain;
 import com.login.setting.main.SettingMain;
 import com.setting.tooltip.Popup;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 
 public class SettingController implements Initializable {
 	@FXML
@@ -28,7 +33,7 @@ public class SettingController implements Initializable {
 	@FXML
 	private StackPane settingTrheePane;
 	@FXML
-	private AnchorPane loginAPane, settingMenuPane, settingDatabase;
+	private AnchorPane loginAPane, settingMenuPane, settingDatabase, settingAdministrator;
 	@FXML
 	private SplitPane loginSPane;
 	@FXML
@@ -36,20 +41,22 @@ public class SettingController implements Initializable {
 	@FXML
 	private Label messageLbl;
 	@FXML
-	private Button exitButton;
+	private Button exitButton,maxSizeButton;
+	@FXML
+	private HBox hBox;
+	
 
 	private final String MENU_DATABASE = "Adatbázis";
-	private final String MENU_DEVICE = "Eszköz";
-	private final String MENU_DEVICENEW = "Új Eszköz";
-	private final String MENU_DEVICETABLE = "Eszköz Tábla";
-	private final String MENU_CLIENT_TABLE = "Ügyfelek Tábla";
+	private final String MENU_WORKERS = "Dolgozok";
+	private final String MENU_ADMINSITRATOR = "Ügyintéző";
+	private final String MENU_DEVICETABLE = "Szervizes";
 	private final String MENU_STOCK = "Raktár";
 	private final String MENU_EXIT = "Kilépés";
 	private TreeView<String> treeView;
 
 	@FXML
 	private void loginTxt() {
-		if (loginTxt.getText().equals("123")) {
+		if (loginTxt.getText().equals("123admin123")) {
 			loginAPane.setVisible(false);
 			loginSPane.setVisible(true);
 		} else {
@@ -76,6 +83,8 @@ public class SettingController implements Initializable {
 	private void setTooltipButton() {
 		Popup tt = new Popup("Kilépés");
 		exitButton.setTooltip(tt);
+		Popup tz = new Popup("Teljes Méret");
+		maxSizeButton.setTooltip(tz);
 
 	}
 
@@ -87,50 +96,48 @@ public class SettingController implements Initializable {
 		treeView.setShowRoot(false);
 
 		TreeItem<String> nodeItemA = new TreeItem<>(MENU_DATABASE);
-		TreeItem<String> nodeItemB2 = new TreeItem<>(MENU_CLIENT_TABLE);
 
-		TreeItem<String> nodeItemD = new TreeItem<>(MENU_DEVICE);
-		nodeItemD.setExpanded(false);
-		TreeItem<String> nodeItemD1 = new TreeItem<>(MENU_DEVICENEW);
-		TreeItem<String> nodeItemD2 = new TreeItem<>(MENU_DEVICETABLE);
+		TreeItem<String> nodeItemB = new TreeItem<>(MENU_WORKERS);
+		nodeItemB.setExpanded(false);
+		TreeItem<String> nodeItemB1 = new TreeItem<>(MENU_ADMINSITRATOR);
+		TreeItem<String> nodeItemB2 = new TreeItem<>(MENU_DEVICETABLE);
 
 		TreeItem<String> nodeItemC = new TreeItem<>(MENU_STOCK);
 		TreeItem<String> nodeItemE = new TreeItem<>(MENU_EXIT);
-		nodeItemD.getChildren().addAll(nodeItemD1, nodeItemD2);
-		treeItemRoot1.getChildren().addAll(nodeItemA, nodeItemB2, nodeItemD, nodeItemC, nodeItemE);
+		nodeItemB.getChildren().addAll(nodeItemB1, nodeItemB2);
+		treeItemRoot1.getChildren().addAll(nodeItemA, nodeItemB, nodeItemC, nodeItemE);
 
+		EventHandler<MouseEvent> mouseEventHandle = (MouseEvent event) -> {
+			handleMouseClicked(event);
+		};
+
+		treeView.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEventHandle);
 		settingTrheePane.getChildren().add(treeView);
-		treeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Object>() {
 
-			public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
-				TreeItem<String> selectedItem = (TreeItem<String>) newValue;
-				String selectedMenu;
-				selectedMenu = selectedItem.getValue();
-				if (null != selectedMenu) {
-					switch (selectedMenu) {
-					case MENU_DATABASE:
-						settingDatabase.setVisible(true);
-						break;
-					case MENU_DEVICENEW:
+	}
 
-						break;
-					case MENU_DEVICETABLE:
+	@SuppressWarnings("rawtypes")
+	private void handleMouseClicked(MouseEvent event) {
+		Node node = event.getPickResult().getIntersectedNode();
+		if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
+			String name = (String) ((TreeItem) treeView.getSelectionModel().getSelectedItem()).getValue();
 
-						break;
-					case MENU_CLIENT_TABLE:
-
-						break;
-					case MENU_STOCK:
-
-						break;
-					case MENU_EXIT:
-						SettingMain.primaryStageSettingMain.close();
-						break;
-
-					}
-				}
+			if (name.equals(MENU_DATABASE)) {
+				settingDatabase.setVisible(true);
+				settingAdministrator.setVisible(false);
+				return;
 			}
-		});
+			if (name.equals(MENU_ADMINSITRATOR)) {
+				settingDatabase.setVisible(false);
+				settingAdministrator.setVisible(true);
+				return;
+			}
+
+			if (name.equals(MENU_EXIT)) {
+				getExitButton();
+				return;
+			}
+		}
 	}
 
 	@FXML
@@ -145,11 +152,26 @@ public class SettingController implements Initializable {
 
 		}
 	}
+
 	@FXML
 	private void setExitButton() {
+		getExitButton();
+	}
+	@FXML
+	private void maxSizeButton() {
+		SettingMain.primaryStageSettingMain.setMaximized(true);
+		
+	}
+	@FXML
+	private void minSizeButton() {
+		SettingMain.primaryStageSettingMain.setMinHei //méret kicsi!!!
+		
+	}
+
+	private void getExitButton() {
+		Message.setMesssage("Biztos kilépsz?");
 		FXDialogMain main = new FXDialogMain();
 		main.start();
-		FXDialogController.setdf("exit");
-		SettingMain.primaryStageSettingMain.close();
+		Message.setStage(SettingMain.primaryStageSettingMain);
 	}
 }

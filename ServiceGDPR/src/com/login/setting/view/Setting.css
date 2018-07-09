@@ -2,6 +2,9 @@
 	-fx-background-image: url("/com/setting/image/background.jpg");
 }
 
+.lblg{
+	 -fx-background-color:  #616161;
+}
 .split-pane{
 	-fx-background-image: url("/com/setting/image/background.jpg");
     -fx-background-color:whitesmoke;
@@ -33,4 +36,15 @@
 }
 .label{
 	-fx-font-size: 20.0;
+}
+.button {
+    -fx-text-fill: whitesmoke;
+    -fx-font-size: 15.0;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-radius: 30.0;
+     -fx-background-color: linear-gradient(#2A5058, #61a2b1);
+}
+.button:hover {
+   -fx-background-color: linear-gradient( #61a2b1, #2A5058);
 }
