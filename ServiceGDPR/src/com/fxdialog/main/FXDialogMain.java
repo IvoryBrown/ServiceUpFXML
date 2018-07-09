@@ -4,6 +4,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -18,9 +20,11 @@ public class FXDialogMain  {
 			this.primaryStageFXDialogMain = stage;
 			stage.initStyle(StageStyle.TRANSPARENT);
 			Scene scene = new Scene(root);
+			scene.setFill(Color.TRANSPARENT);
+			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/setting/icon/icon-it.png")));
-			stage.setWidth(650);
-			stage.setHeight(220);
+			stage.setWidth(550);
+			stage.setHeight(170);
 			stage.setScene(scene);
 			stage.show();
 		} catch (Exception e) {
