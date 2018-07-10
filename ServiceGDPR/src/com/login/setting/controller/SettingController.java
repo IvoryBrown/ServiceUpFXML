@@ -1,5 +1,9 @@
 package com.login.setting.controller;
 
+import java.awt.PopupMenu;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
+import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -7,20 +11,22 @@ import com.fxdialog.controller.Message;
 import com.fxdialog.main.FXDialogMain;
 import com.login.setting.main.SettingMain;
 import com.setting.tooltip.Popup;
+import com.sun.javafx.tk.Toolkit;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -41,10 +47,9 @@ public class SettingController implements Initializable {
 	@FXML
 	private Label messageLbl;
 	@FXML
-	private Button exitButton,maxSizeButton;
+	private Button exitButton, maxSizeButton;
 	@FXML
 	private HBox hBox;
-	
 
 	private final String MENU_DATABASE = "Adatbázis";
 	private final String MENU_WORKERS = "Dolgozok";
@@ -157,15 +162,18 @@ public class SettingController implements Initializable {
 	private void setExitButton() {
 		getExitButton();
 	}
+
+	// full size
 	@FXML
 	private void maxSizeButton() {
 		SettingMain.primaryStageSettingMain.setMaximized(true);
-		
 	}
+
+	// resize
 	@FXML
 	private void minSizeButton() {
-		SettingMain.primaryStageSettingMain.setMinHei //méret kicsi!!!
-		
+		SettingMain.primaryStageSettingMain.setMaximized(false);
+		SettingMain.primaryStageSettingMain.sizeToScene();
 	}
 
 	private void getExitButton() {
