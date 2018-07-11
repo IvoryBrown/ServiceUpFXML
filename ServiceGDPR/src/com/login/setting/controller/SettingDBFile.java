@@ -22,11 +22,17 @@ public class SettingDBFile {
 
 	// file write SettingController class
 	protected static void writeDB(String url, String name, String password) {
-		String allSetting = url + PER_R_N + name + PER_R_N + password;
 		try {
 			BufferedWriter output = new BufferedWriter(
 					new FileWriter(System.getProperty("user.home") + "\\PcVipService\\" + "output.txt"));
-			output.write(allSetting);
+			if (password != null) {
+				String allSetting = url + PER_R_N + name + PER_R_N + password;
+				output.write(allSetting);
+			}
+			if (password == null) {
+				String allSetting = url + PER_R_N + name;
+				output.write(allSetting);
+			}
 			output.close();
 
 		} catch (IOException e) {
@@ -64,42 +70,45 @@ public class SettingDBFile {
 		name = null;
 		password = null;
 		StringBuilder sb = new StringBuilder();
-		sb.append(SettingDBFile.outputDB());
-		sb.deleteCharAt(0);
-		String s1 = sb.toString();
-		String[] s = s1.split(",");
-		String u = null;
-		String n = null;
-		String p = null;
-		for (int i = 0; i < s.length; i++) {
-			u = s[0];
-			n = s[1];
-			if (s.length == 3) {
-				p = s[2];
+		if (SettingDBFile.outputDB().size() != 0) {
+			sb.append(SettingDBFile.outputDB());
+			sb.deleteCharAt(0);
+			String s1 = sb.toString();
+			String[] s = s1.split(",");
+			String u = null;
+			String n = null;
+			String p = null;
+			for (int i = 0; i < s.length; i++) {
+				u = s[0];
+				n = s[1];
+				if (s.length == 3) {
+					p = s[2];
+				}
+			}
+			url = u;
+			if (p == null) {
+				name = n.substring(1, n.length() - 1);
+			}
+			if (p != null) {
+				name = n.substring(1);
+				password = p.substring(1, p.length() - 1);
 			}
 		}
-		url = u;
-		if (p == null) {
-			name = n.substring(1, n.length() - 1);
-		}
-		if (p != null) {
-			name = n.substring(1);
-			password = p.substring(1, p.length() - 1);
-		}
+
 	}
 
 	// set textfield SettingController class
-	protected static String getDBOutput() {
+	public static String getDBOutput() {
 		return url;
 	}
 
 	// set textfield SettingController class
-	protected static String getNameOutput() {
+	public static String getNameOutput() {
 		return name;
 	}
 
 	// set textfield SettingController class
-	protected static String getPasswordOutput() {
+	public static String getPasswordOutput() {
 		return password;
 	}
 
