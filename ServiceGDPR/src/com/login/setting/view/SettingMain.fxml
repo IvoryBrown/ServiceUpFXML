@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -20,7 +21,7 @@
       </AnchorPane>
       <SplitPane fx:id="loginSPane" dividerPositions="0.21603563474387527" layoutX="194.0" layoutY="135.0" prefHeight="700.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane maxWidth="200.0" minHeight="0.0" minWidth="200.0" prefHeight="160.0" prefWidth="200.0">
+          <AnchorPane maxWidth="250.0" minHeight="0.0" minWidth="150.0" prefHeight="160.0" prefWidth="200.0">
                <children>
                   <StackPane fx:id="settingTrheePane" layoutX="-6.0" layoutY="162.0" prefHeight="698.0" prefWidth="208.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children></AnchorPane>
@@ -28,23 +29,26 @@
                <children>
                   <AnchorPane prefHeight="698.0" prefWidth="692.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label fx:id="messageLbl" alignment="CENTER" prefHeight="30.0" prefWidth="544.0" />
                         <HBox fx:id="hBox" layoutX="83.0" layoutY="264.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="698.0" prefWidth="692.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <Button fx:id="exitButton" mnemonicParsing="false" onAction="#setExitButton" prefHeight="30.0" prefWidth="33.0" stylesheets="@SettingButton.css" text="X">
                                  <HBox.margin>
-                                    <Insets right="5.0" />
+                                    <Insets right="10.0" />
                                  </HBox.margin></Button>
                               <Button fx:id="maxSizeButton" mnemonicParsing="false" onAction="#maxSizeButton" prefHeight="30.0" prefWidth="33.0" stylesheets="@SettingButton.css" text="&lt;&gt;">
                                  <HBox.margin>
-                                    <Insets right="5.0" />
+                                    <Insets right="10.0" />
                                  </HBox.margin></Button>
-                              <Button fx:id="minSizeButton1" mnemonicParsing="false" onAction="#minSizeButton" prefHeight="30.0" prefWidth="33.0" stylesheets="@SettingButton.css" text="&gt;&lt;" />
+                              <Button fx:id="minSizeButton" mnemonicParsing="false" onAction="#minSizeButton" prefHeight="30.0" prefWidth="33.0" stylesheets="@SettingButton.css" text="&gt;&lt;">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin></Button>
                            </children>
                         </HBox>
+                        <Label fx:id="messageLbl" alignment="CENTER" prefHeight="30.0" prefWidth="563.0" textAlignment="CENTER" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="settingDatabase" layoutX="115.0" layoutY="149.0" prefHeight="698.0" prefWidth="680.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
+                  <AnchorPane fx:id="settingDatabase" layoutX="115.0" layoutY="149.0" prefHeight="698.0" prefWidth="680.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
                      <children>
                         <VBox layoutX="14.0" layoutY="49.0" prefHeight="401.0" prefWidth="128.0">
                            <children>
@@ -87,7 +91,10 @@
                         <Button layoutX="546.0" layoutY="618.0" mnemonicParsing="false" onAction="#saveDBButton" prefHeight="30.0" prefWidth="98.0" text="Mentés" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="settingAdministrator" layoutX="294.0" layoutY="177.0" prefHeight="698.0" prefWidth="682.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0" />
+                  <AnchorPane fx:id="settingAdministrator" layoutX="294.0" layoutY="177.0" prefHeight="698.0" prefWidth="682.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
+                     <children>
+                        <TableView fx:id="tableAndministrator" layoutX="161.0" layoutY="222.0" prefHeight="665.0" prefWidth="701.0" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children></AnchorPane>
                </children></AnchorPane>
         </items>
       </SplitPane>
