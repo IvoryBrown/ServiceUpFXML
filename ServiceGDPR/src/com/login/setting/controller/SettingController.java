@@ -1,32 +1,32 @@
 package com.login.setting.controller;
 
-import java.awt.PopupMenu;
-import java.awt.SystemTray;
-import java.awt.TrayIcon;
-import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.administrator.database.AdministratorDataBase;
+import com.administrator.pojo.Administrator;
 import com.fxdialog.controller.Message;
 import com.fxdialog.main.FXDialogMain;
 import com.login.setting.main.SettingMain;
 import com.setting.tooltip.Popup;
-import com.sun.javafx.tk.Toolkit;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.scene.image.Image;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -47,9 +47,15 @@ public class SettingController implements Initializable {
 	@FXML
 	private Label messageLbl;
 	@FXML
-	private Button exitButton, maxSizeButton;
+	private Button exitButton, maxSizeButton, minSizeButton;
 	@FXML
 	private HBox hBox;
+	@FXML
+	private TableView<Administrator> tableAndministrator;
+	private TableColumn<Administrator, Integer> administratorId;
+	private TableColumn<Administrator, String> administratorName, administratorEmail, administratorPost;
+	private FXDialogMain main = new FXDialogMain();
+	private final ObservableList<Administrator> dataAdministrator = FXCollections.observableArrayList();
 
 	private final String MENU_DATABASE = "Adatbázis";
 	private final String MENU_WORKERS = "Dolgozok";
@@ -69,13 +75,6 @@ public class SettingController implements Initializable {
 		}
 	}
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		setDBtextField();
-		setTooltipButton();
-		setMenuIttem();
-	}
-
 	// SettingDBFile
 	private void setDBtextField() {
 		SettingDBFile.setDataBaseOutput();
@@ -90,7 +89,8 @@ public class SettingController implements Initializable {
 		exitButton.setTooltip(tt);
 		Popup tz = new Popup("Teljes Méret");
 		maxSizeButton.setTooltip(tz);
-
+		Popup tr = new Popup("Normál Méret");
+		minSizeButton.setTooltip(tr);
 	}
 
 	// Menu
@@ -130,11 +130,13 @@ public class SettingController implements Initializable {
 			if (name.equals(MENU_DATABASE)) {
 				settingDatabase.setVisible(true);
 				settingAdministrator.setVisible(false);
+				setDBtextField();
 				return;
 			}
 			if (name.equals(MENU_ADMINSITRATOR)) {
 				settingDatabase.setVisible(false);
 				settingAdministrator.setVisible(true);
+				setAdministratorTableData();
 				return;
 			}
 
@@ -152,9 +154,9 @@ public class SettingController implements Initializable {
 			messageLbl.setText("Sikertelen beállítás!!");
 		} else {
 			SettingDBFile.writeDB(urlTxt.getText(), nameTxt.getText(), passwordTxt.getText());
-			messageLbl.setStyle("-fx-text-fill: green;");
+			messageLbl.setStyle("-fx-text-fill: #2A5058;");
 			messageLbl.setText("Sikeres beállítás!!");
-
+			setDBtextField();
 		}
 	}
 
@@ -178,8 +180,44 @@ public class SettingController implements Initializable {
 
 	private void getExitButton() {
 		Message.setMesssage("Biztos kilépsz?");
-		FXDialogMain main = new FXDialogMain();
+
 		main.start();
 		Message.setStage(SettingMain.primaryStageSettingMain);
+	}
+
+	// admin. table
+	@SuppressWarnings("unchecked")
+	private void setAdministratorTableData() {
+		tableAndministrator.getColumns().clear();
+		dataAdministrator.clear();
+
+		administratorId = new TableColumn<>("ID");
+		administratorId.setMinWidth(70);
+		administratorId.setCellValueFactory(new PropertyValueFactory<Administrator, Integer>("administratorId"));
+
+		administratorName = new TableColumn<>("Név");
+		administratorName.setMinWidth(150);
+		administratorName.setCellValueFactory(new PropertyValueFactory<Administrator, String>("administratorName"));
+
+		administratorEmail = new TableColumn<>("Email");
+		administratorEmail.setMinWidth(350);
+		administratorEmail.setCellValueFactory(new PropertyValueFactory<Administrator, String>("administratorEmail"));
+
+		administratorPost = new TableColumn<>("Beosztás");
+		administratorPost.setMinWidth(150);
+		administratorPost.setCellValueFactory(new PropertyValueFactory<Administrator, String>("administratorPost"));
+
+		tableAndministrator.setItems(dataAdministrator);
+		tableAndministrator.getColumns().addAll(administratorId, administratorName, administratorEmail,
+				administratorPost);
+		dataAdministrator.addAll(AdministratorDataBase.getAllAdministratorDataBase());
+
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		setDBtextField();
+		setTooltipButton();
+		setMenuIttem();
 	}
 }
