@@ -5,6 +5,7 @@
 .lblg{
 	 -fx-background-color:  #616161;
 }
+
 .split-pane{
 	-fx-background-image: url("/com/setting/image/background.jpg");
     -fx-background-color:whitesmoke;
@@ -29,14 +30,15 @@
 .tree-cell:selected {
 	-fx-background-color: linear-gradient(#61a2b1, #2A5058)
 		radial-gradient(center 50.0% 50.0%, radius 100.0%, #61a2b1, #2A5058);
-
 	-fx-text-fill:  whitesmoke;
 	-fx-font-size: 25.0;
 	-fx-font-weight: bold;
 }
+
 .label{
 	-fx-font-size: 20.0;
 }
+
 .button {
     -fx-text-fill: whitesmoke;
     -fx-font-size: 15.0;
@@ -45,6 +47,71 @@
     -fx-background-radius: 30.0;
      -fx-background-color: linear-gradient(#2A5058, #61a2b1);
 }
+
 .button:hover {
    -fx-background-color: linear-gradient( #61a2b1, #2A5058);
+}
+
+.table-view{
+   -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+}
+
+.table-view .column-header-background .label{
+    -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+    -fx-text-fill: whitesmoke;
+}
+
+.table-view .column-header {
+    -fx-background-color: gray;
+    -fx-text-fill: whitesmoke;
+}
+
+.table-view .table-cell{
+   -fx-text-fill: whitesmoke;
+   -fx-font-size: 15.0;
+   -fx-font-weight: bold;
+}
+
+.table-view{
+   -fx-background-color: transparent;
+}
+
+.table-view:focused{
+    -fx-background-color: transparent;
+}
+
+.table-view .filler{
+	-fx-background-color: linear-gradient(#61a2b1, #2A5058);
+}
+
+.table-row-cell{
+    -fx-background-color: -fx-table-cell-border-color, #616161;
+    -fx-background-insets: 0.0, 0.0 0.0 1.0 0.0;
+    -fx-padding: 0.0em; /* 0 */
+}
+
+.table-row-cell:odd{
+    -fx-background-color: -fx-table-cell-border-color, #424242;
+    -fx-background-insets: 0.0, 0.0 0.0 1.0 0.0;
+    -fx-padding: 0.0em; /* 0 */  
+}
+
+.table-row-cell:selected {
+    -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+    -fx-background-insets: 0.0;
+    -fx-background-radius: 1.0;
+}
+
+.table-view > .virtual-flow > .scroll-bar:vertical,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track-background, 
+.table-view > .virtual-flow > .scroll-bar:horizontal,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track-background {
+    -fx-background-color: transparent;
+}
+
+.table-view > .virtual-flow > .scroll-bar > .increment-button, 
+.table-view > .virtual-flow > .scroll-bar > .decrement-button {
+    -fx-opacity: 0.0;
 }
