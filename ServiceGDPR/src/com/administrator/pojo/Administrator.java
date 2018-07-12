@@ -17,6 +17,13 @@ public class Administrator {
 		this.administratorPost = new SimpleStringProperty(administratorPost);
 	}
 
+	public Administrator(String administratorName, String administratorEmail, String administratorPost) {
+		this.administratorName = new SimpleStringProperty(administratorName);
+		this.administratorEmail = new SimpleStringProperty(administratorEmail);
+		this.administratorPost = new SimpleStringProperty(administratorPost);
+		this.administratorId = new SimpleStringProperty("");
+	}
+
 	public String getAdministratorId() {
 		return this.administratorId.get();
 	}
