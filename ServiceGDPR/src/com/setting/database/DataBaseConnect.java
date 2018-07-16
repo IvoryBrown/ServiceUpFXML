@@ -5,10 +5,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.login.setting.controller.SettingDBFile;
+import com.login.setting.setting.database.controller.SettingDBFile;
 import com.setting.showinfo.ShowInfo;
 
 public class DataBaseConnect {
+
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	// static final String DB_URL =
 	// "jdbc:mysql://localhost/iriszholding_hu_service?useUnicode=true&characterEncoding=UTF-8";
@@ -24,11 +25,10 @@ public class DataBaseConnect {
 			conn = DriverManager.getConnection("jdbc:mysql://"+SettingDBFile.getDBOutput()+"?useUnicode=true&characterEncoding=UTF-8", SettingDBFile.getNameOutput(),
 					SettingDBFile.getPasswordOutput());
 		} catch (SQLException ex) {
-			System.out.println("Valami baj van a connection." + ex);
-			ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "", ex.getMessage());
+			new ShowInfo("Adatbázis Hiba", "", ex.getMessage());
 			return null;
 		} catch (ClassNotFoundException e) {
-			
+			new ShowInfo("Adatbázis Hiba", "", e.getMessage());
 			return null;
 		}
 		if (conn != null) {
@@ -36,7 +36,7 @@ public class DataBaseConnect {
 				createStatement = conn.createStatement();
 				return conn;
 			} catch (SQLException ex) {
-				
+				new ShowInfo("Adatbázis Hiba", "", ex.getMessage());
 				return null;
 			}
 		}
