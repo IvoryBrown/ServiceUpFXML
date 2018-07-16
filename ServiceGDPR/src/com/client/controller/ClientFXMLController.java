@@ -148,7 +148,7 @@ public class ClientFXMLController implements Initializable {
 					tray = new TrayNotification("Remek!", "Sikeres Felvétel", NotificationType.SUCCESS);
 					tray.showAndDismiss(Duration.seconds(1));
 				} catch (SQLException ex) {
-					ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", ex.getMessage());
+					new ShowInfo("Adatbázis Hiba", "", ex.getMessage());
 				}
 			} else {
 				tray = new TrayNotification("HIBA", "Nem megfelelő Irányítószám!", NotificationType.ERROR);
