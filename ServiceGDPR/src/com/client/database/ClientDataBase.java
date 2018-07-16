@@ -31,8 +31,8 @@ public class ClientDataBase {
 						rs.getString("ugyfel_email"), rs.getString("csomag_tipus"), rs.getString("ugyfel_megjegyzes"));
 				client.add(actualCLient);
 			}
-		} catch (SQLException e) {
-			ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
+		} catch (SQLException ex) {
+			new ShowInfo("Adatbázis Hiba", "", ex.getMessage());
 		} finally {
 			try {
 				if (rs != null) {
@@ -44,8 +44,8 @@ public class ClientDataBase {
 				if (con != null) {
 					con.close();
 				}
-			} catch (SQLException e) {
-				ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
+			} catch (SQLException ex) {
+				new ShowInfo("Adatbázis Hiba", "", ex.getMessage());
 			}
 		}
 		return client;
@@ -72,8 +72,8 @@ public class ClientDataBase {
 						rs.getString("ugyfel_email"), rs.getString("csomag_tipus"), rs.getString("ugyfel_megjegyzes"));
 				client.add(actualCLient);
 			}
-		} catch (SQLException e) {
-			ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
+		} catch (SQLException ex) {
+			new ShowInfo("Adatbázis Hiba", "", ex.getMessage());
 		} finally {
 			try {
 				if (rs != null) {
@@ -85,8 +85,8 @@ public class ClientDataBase {
 				if (con != null) {
 					con.close();
 				}
-			} catch (SQLException e) {
-				ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
+			} catch (SQLException ex) {
+				new ShowInfo("Adatbázis Hiba", "", ex.getMessage());
 			}
 		}
 		return client;
