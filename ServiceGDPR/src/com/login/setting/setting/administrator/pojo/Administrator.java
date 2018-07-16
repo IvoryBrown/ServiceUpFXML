@@ -1,4 +1,4 @@
-package com.administrator.pojo;
+package com.login.setting.setting.administrator.pojo;
 
 import javafx.beans.property.SimpleStringProperty;
 
