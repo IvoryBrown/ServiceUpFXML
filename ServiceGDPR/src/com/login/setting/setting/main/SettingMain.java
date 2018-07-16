@@ -1,4 +1,4 @@
-package com.login.setting.main;
+package com.login.setting.setting.main;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,7 +14,7 @@ public class SettingMain  {
 	public void start() {
 
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/com/login/setting/view/SettingMain.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/com/login/setting/setting/view/SettingMain.fxml"));
 			Stage stage = new Stage();
 			this.primaryStageSettingMain = stage;
 			stage.initStyle(StageStyle.TRANSPARENT);

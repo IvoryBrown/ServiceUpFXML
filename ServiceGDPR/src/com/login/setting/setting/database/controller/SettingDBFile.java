@@ -1,4 +1,4 @@
-package com.login.setting.controller;
+package com.login.setting.setting.database.controller;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -21,7 +21,7 @@ public class SettingDBFile {
 	static String password;
 
 	// file write SettingController class
-	protected static void writeDB(String url, String name, String password) {
+	public static void writeDB(String url, String name, String password) {
 		try {
 			BufferedWriter output = new BufferedWriter(
 					new FileWriter(System.getProperty("user.home") + "\\PcVipService\\" + "output.txt"));
@@ -65,7 +65,7 @@ public class SettingDBFile {
 	}
 
 	// file outputdb data
-	protected static void setDataBaseOutput() {
+	public static void setDataBaseOutput() {
 		url = null;
 		name = null;
 		password = null;

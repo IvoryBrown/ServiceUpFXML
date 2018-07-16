@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="700.0" prefWidth="900.0" stylesheets="@Setting.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.login.setting.controller.SettingController">
+<AnchorPane prefHeight="700.0" prefWidth="900.0" stylesheets="@Setting.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.login.setting.setting.menuitem.controller.MenuItemController">
    <children>
       <AnchorPane fx:id="loginAPane" prefHeight="700.0" prefWidth="900.0" stylesheets="@Setting.css" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -95,7 +95,7 @@
                   <AnchorPane fx:id="settingAdministrator" layoutX="294.0" layoutY="177.0" prefHeight="698.0" prefWidth="682.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
                      <children>
                         <TableView fx:id="tableAndministrator" editable="true" layoutX="161.0" layoutY="222.0" prefHeight="665.0" prefWidth="701.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="200.0" />
-                        <VBox layoutX="14.0" layoutY="14.0" prefHeight="171.0" prefWidth="224.0">
+                        <VBox layoutX="14.0" layoutY="14.0" prefHeight="171.0" prefWidth="85.0">
                            <children>
                               <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="204.0" text="Név">
                                  <VBox.margin>
@@ -104,17 +104,17 @@
                               </Label>
                               <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="204.0" text="Email">
                                  <VBox.margin>
-                                    <Insets top="5.0" />
+                                    <Insets top="6.0" />
                                  </VBox.margin>
                               </Label>
                               <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="204.0" text="Beosztás">
                                  <VBox.margin>
-                                    <Insets top="5.0" />
+                                    <Insets top="7.0" />
                                  </VBox.margin>
                               </Label>
                            </children>
                         </VBox>
-                        <VBox layoutX="249.0" layoutY="14.0" prefHeight="171.0" prefWidth="224.0">
+                        <VBox layoutX="105.0" layoutY="14.0" prefHeight="171.0" prefWidth="224.0">
                            <children>
                               <TextField fx:id="administratorNameTxt" prefHeight="35.0" promptText="Név">
                                  <VBox.margin>
@@ -136,6 +136,34 @@
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </Button>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="329.0" layoutY="14.0" prefHeight="171.0" prefWidth="85.0">
+                           <children>
+                              <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="204.0" text="Jelszó">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="204.0" text="Jogkör">
+                                 <VBox.margin>
+                                    <Insets top="6.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="421.0" layoutY="14.0" prefHeight="171.0" prefWidth="224.0">
+                           <children>
+                              <TextField fx:id="administratorPasswordTxt" prefHeight="35.0" promptText="Jelszó">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <ComboBox fx:id="administratorAuthorityTxt" prefHeight="35.0" prefWidth="224.0">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </ComboBox>
                            </children>
                         </VBox>
                      </children></AnchorPane>
