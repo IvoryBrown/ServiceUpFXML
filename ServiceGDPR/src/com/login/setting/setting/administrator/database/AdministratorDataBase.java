@@ -1,4 +1,4 @@
-package com.administrator.database;
+package com.login.setting.setting.administrator.database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import com.administrator.pojo.Administrator;
+import com.login.setting.setting.administrator.pojo.Administrator;
 import com.setting.database.DataBaseConnect;
 import com.setting.showinfo.ShowInfo;
 
@@ -28,8 +28,8 @@ public class AdministratorDataBase {
 						rs.getString("ugyintezo_email"), rs.getString("beosztas"));
 				administrator.add(actualDevice);
 			}
-		} catch (SQLException e) {
-			ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "", e.getMessage());
+		} catch (SQLException ex) {
+			new ShowInfo("Adatbázis Hiba", "", ex.getMessage());
 		} finally {
 			try {
 				if (rs != null) {
@@ -41,8 +41,8 @@ public class AdministratorDataBase {
 				if (con != null) {
 					con.close();
 				}
-			} catch (SQLException e) {
-				ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "", e.getMessage());
+			} catch (SQLException ex) {
+				new ShowInfo("Adatbázis Hiba", "", ex.getMessage());
 			}
 		}
 		return administrator;
@@ -59,14 +59,14 @@ public class AdministratorDataBase {
 			preparedStatement.execute();
 		} catch (SQLException ex) {
 			System.out.println("Valami baj van a contact hozzáadásakor");
-			ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "", ex.getMessage());
+			new ShowInfo("Adatbázis Hiba", "", ex.getMessage());
 		} finally {
 			try {
 				if (con != null) {
 					con.close();
 				}
-			} catch (SQLException e) {
-				ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "", e.getMessage());
+			} catch (SQLException ex) {
+				new ShowInfo("Adatbázis Hiba", "", ex.getMessage());
 			}
 		}
 	}
@@ -83,7 +83,7 @@ public class AdministratorDataBase {
 			preparedStatement.execute();
 		} catch (SQLException ex) {
 			System.out.println("Valami baj van a contact hozzáadásakor");
-			ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "", ex.getMessage());
+			new ShowInfo("Adatbázis Hiba", "", ex.getMessage());
 		}
 	}
 
@@ -96,14 +96,14 @@ public class AdministratorDataBase {
 			preparedStatement.execute();
 		} catch (SQLException ex) {
 			System.out.println("Valami baj van a contact törlésekor");
-			ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "", ex.getMessage());
+			new ShowInfo("Adatbázis Hiba", "", ex.getMessage());
 		} finally {
 			try {
 				if (con != null) {
 					con.close();
 				}
-			} catch (SQLException e) {
-				ShowInfo.errorInfoMessengeException("Adatbázis Hiba", "", e.getMessage());
+			} catch (SQLException ex) {
+				new ShowInfo("Adatbázis Hiba", "", ex.getMessage());
 			}
 		}
 	}
