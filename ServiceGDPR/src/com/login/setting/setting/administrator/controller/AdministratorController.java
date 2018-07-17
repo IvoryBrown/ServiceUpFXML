@@ -23,17 +23,18 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.Callback;
 
-public class AdministratorController extends DataBaseController{
-	
+public class AdministratorController extends DataBaseController {
+
 	@FXML
-	private TextField administratorNameTxt, administratorEmailTxt;
+	private TextField administratorNameTxt, administratorEmailTxt, administratorPasswordTxt;
 	@FXML
-	private ComboBox<String> administratorPostTxt;
-	
+	private ComboBox<String> administratorPostTxt, administratorAuthorityTxt;
+
 	@FXML
 	private TableView<Administrator> tableAndministrator;
 	private TableColumn<Administrator, Integer> administratorId;
-	private TableColumn<Administrator, String> administratorName, administratorEmail, administratorPost, removeCol;
+	private TableColumn<Administrator, String> administratorName, administratorEmail, administratorPost,
+			administratorPassword, administratorAuthority, removeCol;
 	protected FXDialogMain main = new FXDialogMain();
 	private final ObservableList<Administrator> dataAdministrator = FXCollections.observableArrayList();
 
@@ -95,6 +96,53 @@ public class AdministratorController extends DataBaseController{
 			}
 		});
 
+		administratorPassword = new TableColumn<>("Jelszó");
+		administratorPassword.setMinWidth(150);
+		administratorPassword
+				.setCellValueFactory(new PropertyValueFactory<Administrator, String>("administratorPassword"));
+		administratorPassword.setCellFactory(TextFieldTableCell.forTableColumn());
+		administratorPassword.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Administrator, String>>() {
+			@Override
+			public void handle(TableColumn.CellEditEvent<Administrator, String> t) {
+				Administrator actualAdministrator = (Administrator) t.getTableView().getItems()
+						.get(t.getTablePosition().getRow());
+				if (t.getNewValue().length() > 6 && t.getNewValue().length() < 13) {
+					actualAdministrator.setAdministratorPassword(t.getNewValue());
+					AdministratorDataBase.updateAdministrator(actualAdministrator);
+					messageLbl.setStyle("-fx-text-fill: #2A5058;");
+					messageLbl.setText("Sikeres beállítás!!");
+				} else {
+					messageLbl.setStyle("-fx-text-fill: red;");
+					messageLbl.setText("Sikertelen beállítás!! Jelszó min. 7 max. 12 karakter");
+				}
+				setAdministratorTableData();
+			}
+		});
+
+		administratorAuthority = new TableColumn<>("Jogkör");
+		administratorAuthority.setMinWidth(150);
+		administratorAuthority
+				.setCellValueFactory(new PropertyValueFactory<Administrator, String>("administratorAuthority"));
+		administratorAuthority.setCellValueFactory(i -> {
+			final String value = i.getValue().getAdministratorAuthority();
+			return Bindings.createObjectBinding(() -> value);
+		});
+		administratorAuthority
+				.setCellFactory(ComboBoxTableCell.forTableColumn(ComboBoxSet.getAdministratorAuthority()));
+		administratorAuthority.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Administrator, String>>() {
+			@Override
+			public void handle(TableColumn.CellEditEvent<Administrator, String> d) {
+				Administrator actualAdministrator = (Administrator) d.getTableView().getItems()
+						.get(d.getTablePosition().getRow());
+				actualAdministrator.setAdministratorAuthority(d.getNewValue());
+				AdministratorDataBase.updateAdministrator(actualAdministrator);
+				messageLbl.setStyle("-fx-text-fill: #2A5058;");
+				messageLbl.setText("Sikeres beállítás!!");
+				setAdministratorTableData();
+
+			}
+		});
+
 		removeCol = new TableColumn<>("Törlés");
 		removeCol.setMinWidth(100);
 		Callback<TableColumn<Administrator, String>, TableCell<Administrator, String>> cellFactory = new Callback<TableColumn<Administrator, String>, TableCell<Administrator, String>>() {
@@ -130,7 +178,7 @@ public class AdministratorController extends DataBaseController{
 
 		tableAndministrator.setItems(dataAdministrator);
 		tableAndministrator.getColumns().addAll(administratorId, administratorName, administratorEmail,
-				administratorPost, removeCol);
+				administratorPost, administratorPassword, administratorAuthority, removeCol);
 		dataAdministrator.addAll(AdministratorDataBase.getAllAdministratorDataBase());
 		setAdministartorCombobox();
 	}
@@ -140,13 +188,21 @@ public class AdministratorController extends DataBaseController{
 		if (checkAdministratorTxField()) {
 			String email = administratorEmailTxt.getText();
 			if (email.length() > 3 && email.contains("@") && email.contains(".")) {
-				Administrator newadministrator = new Administrator(administratorNameTxt.getText(), email,
-						administratorPostTxt.getSelectionModel().getSelectedItem());
-				AdministratorDataBase.addContact(newadministrator);
-				messageLbl.setStyle("-fx-text-fill: #2A5058;");
-				messageLbl.setText("Sikeres beállítás!!");
-				setAdministratorClear();
-				setAdministratorTableData();
+				if (administratorPasswordTxt.getText().length() > 6
+						&& administratorPasswordTxt.getText().length() < 13) {
+					Administrator newadministrator = new Administrator(administratorNameTxt.getText(), email,
+							administratorPostTxt.getSelectionModel().getSelectedItem(),
+							administratorPasswordTxt.getText(),
+							administratorAuthorityTxt.getSelectionModel().getSelectedItem());
+					AdministratorDataBase.addContact(newadministrator);
+					messageLbl.setStyle("-fx-text-fill: #2A5058;");
+					messageLbl.setText("Sikeres beállítás!!");
+					setAdministratorClear();
+					setAdministratorTableData();
+				} else {
+					messageLbl.setStyle("-fx-text-fill: red;");
+					messageLbl.setText("Sikertelen beállítás!! Jelszó min. 7 max. 12 karakter");
+				}
 			} else {
 				messageLbl.setStyle("-fx-text-fill: red;");
 				messageLbl.setText("Sikertelen beállítás!! Email nem megfelelő!!");
@@ -160,19 +216,30 @@ public class AdministratorController extends DataBaseController{
 	private void setAdministartorCombobox() {
 		administratorPostTxt.getItems().clear();
 		administratorPostTxt.getItems().addAll(ComboBoxSet.getAdministratorpost());
+		administratorAuthorityTxt.getItems().clear();
+		administratorAuthorityTxt.getItems().addAll(ComboBoxSet.getAdministratorAuthority());
+
 	}
 
 	// administrator texfield check
 	private boolean checkAdministratorTxField() {
 		if (administratorNameTxt.getText().trim().isEmpty() || administratorEmailTxt.getText().trim().isEmpty()
-				|| administratorPostTxt.getValue() == null) {
+				|| administratorPostTxt.getValue() == null || administratorPasswordTxt.getText().trim().isEmpty()
+				|| administratorAuthorityTxt.getValue() == null) {
 			administratorNameTxt.setStyle("-fx-prompt-text-fill: #CC0033");
 			administratorEmailTxt.setStyle("-fx-prompt-text-fill: #CC0033");
 			administratorPostTxt.setPromptText("Kérlek válasz!");
+			administratorPasswordTxt.setStyle("-fx-prompt-text-fill: #CC0033");
+			administratorAuthorityTxt.setPromptText("Kérlek válasz!");
 			messageLbl.setStyle("-fx-text-fill: red;");
 			messageLbl.setText("Sikertelen beállítás!! Üresek a mezők!!");
 			return false;
 		} else {
+			administratorNameTxt.setStyle("-fx-prompt-text-fill: #61a2b1");
+			administratorEmailTxt.setStyle("-fx-prompt-text-fill: #61a2b1");
+			administratorPostTxt.setPromptText(null);
+			administratorPasswordTxt.setStyle("-fx-prompt-text-fill: #61a2b1");
+			administratorAuthorityTxt.setPromptText(null);
 			return true;
 		}
 
@@ -183,5 +250,7 @@ public class AdministratorController extends DataBaseController{
 		administratorNameTxt.clear();
 		administratorEmailTxt.clear();
 		administratorPostTxt.getSelectionModel().clearSelection();
+		administratorPasswordTxt.clear();
+		administratorAuthorityTxt.getSelectionModel().clearSelection();
 	}
 }

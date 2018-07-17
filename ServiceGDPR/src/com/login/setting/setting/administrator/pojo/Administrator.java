@@ -8,19 +8,26 @@ public class Administrator {
 	private final SimpleStringProperty administratorName;
 	private final SimpleStringProperty administratorEmail;
 	private final SimpleStringProperty administratorPost;
+	private final SimpleStringProperty administratorPassword;
+	private final SimpleStringProperty administratorAuthority;
 
 	public Administrator(Integer administratorId, String administratorName, String administratorEmail,
-			String administratorPost) {
+			String administratorPost, String administratorPassword, String administratorAuthority) {
 		this.administratorId = new SimpleStringProperty(String.valueOf(administratorId));
 		this.administratorName = new SimpleStringProperty(administratorName);
 		this.administratorEmail = new SimpleStringProperty(administratorEmail);
 		this.administratorPost = new SimpleStringProperty(administratorPost);
+		this.administratorPassword = new SimpleStringProperty(administratorPassword);
+		this.administratorAuthority = new SimpleStringProperty(administratorAuthority);
 	}
 
-	public Administrator(String administratorName, String administratorEmail, String administratorPost) {
+	public Administrator(String administratorName, String administratorEmail, String administratorPost,
+			String administratorPassword, String administratorAuthority) {
 		this.administratorName = new SimpleStringProperty(administratorName);
 		this.administratorEmail = new SimpleStringProperty(administratorEmail);
 		this.administratorPost = new SimpleStringProperty(administratorPost);
+		this.administratorPassword = new SimpleStringProperty(administratorPassword);
+		this.administratorAuthority = new SimpleStringProperty(administratorAuthority);
 		this.administratorId = new SimpleStringProperty("");
 	}
 
@@ -54,5 +61,21 @@ public class Administrator {
 
 	public void setAdministratorPost(String administratorPost) {
 		this.administratorPost.set(administratorPost);
+	}
+
+	public String getAdministratorPassword() {
+		return this.administratorPassword.get();
+	}
+
+	public void setAdministratorPassword(String administratorPassword) {
+		this.administratorPassword.set(administratorPassword);
+	}
+
+	public String getAdministratorAuthority() {
+		return this.administratorAuthority.get();
+	}
+
+	public void setAdministratorAuthority(String administratorAuthority) {
+		this.administratorAuthority.set(administratorAuthority);
 	}
 }
