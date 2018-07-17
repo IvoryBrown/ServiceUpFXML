@@ -1,4 +1,4 @@
-package com.login.setting.setting.database.controller;
+package com.login.setting.setting.database.filewrite;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

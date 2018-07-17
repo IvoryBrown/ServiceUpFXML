@@ -27,7 +27,7 @@ public class MenuItemController extends AdministratorController implements Initi
 	@FXML
 	private StackPane settingTrheePane;
 	@FXML
-	private AnchorPane loginAPane, settingMenuPane, settingDatabase, settingAdministrator;
+	private AnchorPane loginAPane, settingMenuPane, settingDatabase, settingAdministrator, settingSetting;
 	@FXML
 	private SplitPane loginSPane;
 	@FXML
@@ -37,7 +37,8 @@ public class MenuItemController extends AdministratorController implements Initi
 
 	private final String MENU_DATABASE = "Adatbázis";
 	private final String MENU_WORKERS = "Dolgozok";
-	private final String MENU_STOCK = "Raktár";
+	private final String MENU_SETTING = "Beállítások";
+	private final String MENU_DEVICE_NAME = "Eszközök";
 	private final String MENU_EXIT = "Kilépés";
 	private TreeView<String> treeView;
 
@@ -50,16 +51,17 @@ public class MenuItemController extends AdministratorController implements Initi
 			SettingMain.primaryStageSettingMain.close();
 		}
 	}
-	
+
 	// set button popup
-		protected void setTooltipButton() {
-			Popup tt = new Popup("Kilépés");
-			exitButton.setTooltip(tt);
-			Popup tz = new Popup("Teljes Méret");
-			maxSizeButton.setTooltip(tz);
-			Popup tr = new Popup("Normál Méret");
-			minSizeButton.setTooltip(tr);
-		}
+	protected void setTooltipButton() {
+		Popup tt = new Popup("Kilépés");
+		exitButton.setTooltip(tt);
+		Popup tz = new Popup("Teljes Méret");
+		maxSizeButton.setTooltip(tz);
+		Popup tr = new Popup("Normál Méret");
+		minSizeButton.setTooltip(tr);
+	}
+
 	// Menu
 	@SuppressWarnings("unchecked")
 	protected void setMenuIttem() {
@@ -71,7 +73,9 @@ public class MenuItemController extends AdministratorController implements Initi
 
 		TreeItem<String> nodeItemB = new TreeItem<>(MENU_WORKERS);
 
-		TreeItem<String> nodeItemC = new TreeItem<>(MENU_STOCK);
+		TreeItem<String> nodeItemC = new TreeItem<>(MENU_SETTING);
+		TreeItem<String> nodeItemC1 = new TreeItem<>(MENU_DEVICE_NAME);
+		nodeItemC.getChildren().addAll(nodeItemC1);
 		TreeItem<String> nodeItemE = new TreeItem<>(MENU_EXIT);
 		treeItemRoot1.getChildren().addAll(nodeItemA, nodeItemB, nodeItemC, nodeItemE);
 
@@ -92,14 +96,23 @@ public class MenuItemController extends AdministratorController implements Initi
 
 			if (name.equals(MENU_DATABASE)) {
 				settingDatabase.setVisible(true);
+				settingSetting.setVisible(false);
 				settingAdministrator.setVisible(false);
 				setDBtextField();
 				return;
 			}
 			if (name.equals(MENU_WORKERS)) {
 				settingDatabase.setVisible(false);
+				settingSetting.setVisible(false);
 				settingAdministrator.setVisible(true);
 				setAdministratorTableData();
+				return;
+			}
+			if (name.equals(MENU_DEVICE_NAME)) {
+				settingDatabase.setVisible(false);
+				settingAdministrator.setVisible(false);
+				settingSetting.setVisible(true);
+				setDeviceNameTableData();
 				return;
 			}
 

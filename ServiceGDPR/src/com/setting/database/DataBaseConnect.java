@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.login.setting.setting.database.controller.SettingDBFile;
+import com.login.setting.setting.database.filewrite.SettingDBFile;
 import com.setting.showinfo.ShowInfo;
 
 public class DataBaseConnect {
