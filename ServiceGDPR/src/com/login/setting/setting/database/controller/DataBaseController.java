@@ -4,14 +4,12 @@ import com.login.setting.setting.database.filewrite.SettingDBFile;
 import com.login.setting.setting.devicename.controller.SettingDeviceNameController;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class DataBaseController extends SettingDeviceNameController{
 	@FXML
 	private TextField urlTxt, nameTxt, passwordTxt;
-	@FXML
-	protected Label messageLbl;
+	
 	
 	// SettingDBFile
 	protected void setDBtextField() {

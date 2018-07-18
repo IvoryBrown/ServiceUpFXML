@@ -15,12 +15,12 @@
 
 <AnchorPane prefHeight="700.0" prefWidth="900.0" stylesheets="@Setting.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.login.setting.setting.menuitem.controller.MenuItemController">
    <children>
-      <AnchorPane fx:id="loginAPane" prefHeight="700.0" prefWidth="900.0" stylesheets="@Setting.css" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="loginAPane" prefHeight="700.0" prefWidth="900.0" stylesheets="@Setting.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <PasswordField fx:id="loginTxt" layoutX="311.0" layoutY="329.0" onAction="#loginTxt" />
          </children>
       </AnchorPane>
-      <SplitPane fx:id="loginSPane" dividerPositions="0.21603563474387527" layoutX="194.0" layoutY="135.0" prefHeight="700.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane fx:id="loginSPane" dividerPositions="0.21603563474387527" layoutX="194.0" layoutY="135.0" prefHeight="700.0" prefWidth="900.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane maxWidth="250.0" minHeight="0.0" minWidth="150.0" prefHeight="160.0" prefWidth="200.0">
                <children>
@@ -167,9 +167,9 @@
                            </children>
                         </VBox>
                      </children></AnchorPane>
-                  <AnchorPane fx:id="settingSetting" prefHeight="698.0" prefWidth="701.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
+                  <AnchorPane fx:id="settingDeviceName" prefHeight="698.0" prefWidth="701.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
                      <children>
-                        <TableView fx:id="tableDeviceSetting" layoutX="122.0" layoutY="256.0" prefHeight="663.0" prefWidth="701.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <TableView fx:id="tableDeviceSetting" editable="true" layoutX="122.0" layoutY="256.0" prefHeight="663.0" prefWidth="701.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                         <VBox layoutX="6.0" layoutY="13.0" prefHeight="522.0" prefWidth="75.0">
                            <children>
                               <Label alignment="CENTER_RIGHT" prefHeight="39.0" prefWidth="118.0" text="Eszköz">
@@ -186,7 +186,7 @@
                         </VBox>
                         <VBox layoutX="83.0" layoutY="13.0" prefHeight="522.0" prefWidth="266.0">
                            <children>
-                              <TextField fx:id="deviceNameSettingTxt">
+                              <TextField fx:id="deviceNameSettingTxt" promptText="Eszköz">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>
@@ -197,6 +197,44 @@
                                  </VBox.margin>
                               </ComboBox>
                               <Button mnemonicParsing="false" onAction="#deviceNameSave" prefHeight="35.0" prefWidth="266.0" text="Mentés">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="settingLocation" layoutX="10.0" layoutY="10.0" prefHeight="698.0" prefWidth="701.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
+                     <children>
+                        <TableView fx:id="tableLocationSetting" editable="true" layoutX="122.0" layoutY="256.0" prefHeight="663.0" prefWidth="701.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <VBox layoutX="6.0" layoutY="13.0" prefHeight="522.0" prefWidth="75.0">
+                           <children>
+                              <Label alignment="CENTER_RIGHT" prefHeight="39.0" prefWidth="118.0" text="Helyszín">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" prefHeight="39.0" prefWidth="118.0" text="Kinézet">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="83.0" layoutY="13.0" prefHeight="522.0" prefWidth="266.0">
+                           <children>
+                              <TextField fx:id="locationSettingTxt" promptText="Helyszín">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <ComboBox fx:id="locationSettingCmb" prefHeight="35.0" prefWidth="266.0">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </ComboBox>
+                              <Button mnemonicParsing="false" onAction="#locationSave" prefHeight="35.0" prefWidth="266.0" text="Mentés">
                                  <VBox.margin>
                                     <Insets top="5.0" />
                                  </VBox.margin>

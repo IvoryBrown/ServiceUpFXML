@@ -34,7 +34,7 @@ public class AdministratorController extends DataBaseController {
 	private TableView<Administrator> tableAndministrator;
 	private TableColumn<Administrator, Integer> administratorId;
 	private TableColumn<Administrator, String> administratorName, administratorEmail, administratorPost,
-			administratorPassword, administratorAuthority, removeCol;
+			administratorPassword, administratorAuthority, removeColAdministrator;
 	protected FXDialogMain main = new FXDialogMain();
 	private final ObservableList<Administrator> dataAdministrator = FXCollections.observableArrayList();
 
@@ -143,8 +143,8 @@ public class AdministratorController extends DataBaseController {
 			}
 		});
 
-		removeCol = new TableColumn<>("Törlés");
-		removeCol.setMinWidth(100);
+		removeColAdministrator = new TableColumn<>("Törlés");
+		removeColAdministrator.setMinWidth(100);
 		Callback<TableColumn<Administrator, String>, TableCell<Administrator, String>> cellFactory = new Callback<TableColumn<Administrator, String>, TableCell<Administrator, String>>() {
 			@Override
 			public TableCell<Administrator, String> call(final TableColumn<Administrator, String> param) {
@@ -174,11 +174,11 @@ public class AdministratorController extends DataBaseController {
 				return cell;
 			}
 		};
-		removeCol.setCellFactory(cellFactory);
+		removeColAdministrator.setCellFactory(cellFactory);
 
 		tableAndministrator.setItems(dataAdministrator);
 		tableAndministrator.getColumns().addAll(administratorId, administratorName, administratorEmail,
-				administratorPost, administratorPassword, administratorAuthority, removeCol);
+				administratorPost, administratorPassword, administratorAuthority, removeColAdministrator);
 		dataAdministrator.addAll(AdministratorDataBase.getAllAdministratorDataBase());
 		setAdministartorCombobox();
 	}

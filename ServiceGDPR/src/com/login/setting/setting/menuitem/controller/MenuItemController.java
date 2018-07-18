@@ -27,7 +27,8 @@ public class MenuItemController extends AdministratorController implements Initi
 	@FXML
 	private StackPane settingTrheePane;
 	@FXML
-	private AnchorPane loginAPane, settingMenuPane, settingDatabase, settingAdministrator, settingSetting;
+	private AnchorPane loginAPane, settingMenuPane, settingDatabase, settingAdministrator, settingDeviceName,
+			settingLocation;
 	@FXML
 	private SplitPane loginSPane;
 	@FXML
@@ -39,6 +40,7 @@ public class MenuItemController extends AdministratorController implements Initi
 	private final String MENU_WORKERS = "Dolgozok";
 	private final String MENU_SETTING = "Beállítások";
 	private final String MENU_DEVICE_NAME = "Eszközök";
+	private final String MENU_LOCATION = "Helyszínek";
 	private final String MENU_EXIT = "Kilépés";
 	private TreeView<String> treeView;
 
@@ -75,7 +77,8 @@ public class MenuItemController extends AdministratorController implements Initi
 
 		TreeItem<String> nodeItemC = new TreeItem<>(MENU_SETTING);
 		TreeItem<String> nodeItemC1 = new TreeItem<>(MENU_DEVICE_NAME);
-		nodeItemC.getChildren().addAll(nodeItemC1);
+		TreeItem<String> nodeItemC2 = new TreeItem<>(MENU_LOCATION);
+		nodeItemC.getChildren().addAll(nodeItemC1, nodeItemC2);
 		TreeItem<String> nodeItemE = new TreeItem<>(MENU_EXIT);
 		treeItemRoot1.getChildren().addAll(nodeItemA, nodeItemB, nodeItemC, nodeItemE);
 
@@ -96,23 +99,34 @@ public class MenuItemController extends AdministratorController implements Initi
 
 			if (name.equals(MENU_DATABASE)) {
 				settingDatabase.setVisible(true);
-				settingSetting.setVisible(false);
+				settingDeviceName.setVisible(false);
 				settingAdministrator.setVisible(false);
+				settingLocation.setVisible(false);
 				setDBtextField();
 				return;
 			}
 			if (name.equals(MENU_WORKERS)) {
 				settingDatabase.setVisible(false);
-				settingSetting.setVisible(false);
+				settingDeviceName.setVisible(false);
 				settingAdministrator.setVisible(true);
+				settingLocation.setVisible(false);
 				setAdministratorTableData();
 				return;
 			}
 			if (name.equals(MENU_DEVICE_NAME)) {
 				settingDatabase.setVisible(false);
 				settingAdministrator.setVisible(false);
-				settingSetting.setVisible(true);
+				settingDeviceName.setVisible(true);
+				settingLocation.setVisible(false);
 				setDeviceNameTableData();
+				return;
+			}
+			if (name.equals(MENU_LOCATION)) {
+				settingDatabase.setVisible(false);
+				settingAdministrator.setVisible(false);
+				settingDeviceName.setVisible(false);
+				settingLocation.setVisible(true);
+				setLocationTableData();
 				return;
 			}
 
