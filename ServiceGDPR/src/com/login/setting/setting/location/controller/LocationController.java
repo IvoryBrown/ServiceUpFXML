@@ -2,6 +2,7 @@ package com.login.setting.setting.location.controller;
 
 import com.login.setting.setting.location.database.LocationDataBase;
 import com.login.setting.setting.location.pojo.Location;
+import com.login.setting.setting.operatingsystem.controller.OperatingSystemController;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,7 +11,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -19,9 +19,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.Callback;
 
-public class LocationController {
-	@FXML
-	public Label messageLbl;
+public class LocationController extends OperatingSystemController{
 	@FXML
 	private TableView<Location> tableLocationSetting;
 	private TableColumn<Location, Integer> locationId;

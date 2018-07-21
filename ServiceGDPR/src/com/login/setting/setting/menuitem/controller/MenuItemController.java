@@ -28,7 +28,7 @@ public class MenuItemController extends AdministratorController implements Initi
 	private StackPane settingTrheePane;
 	@FXML
 	private AnchorPane loginAPane, settingMenuPane, settingDatabase, settingAdministrator, settingDeviceName,
-			settingLocation;
+			settingLocation,settingOperatingSystem;
 	@FXML
 	private SplitPane loginSPane;
 	@FXML
@@ -41,6 +41,7 @@ public class MenuItemController extends AdministratorController implements Initi
 	private final String MENU_SETTING = "Beállítások";
 	private final String MENU_DEVICE_NAME = "Eszközök";
 	private final String MENU_LOCATION = "Helyszínek";
+	private final String MENU_OPERATING_SYSTEM = "Operációs Rendszer";
 	private final String MENU_EXIT = "Kilépés";
 	private TreeView<String> treeView;
 
@@ -78,7 +79,8 @@ public class MenuItemController extends AdministratorController implements Initi
 		TreeItem<String> nodeItemC = new TreeItem<>(MENU_SETTING);
 		TreeItem<String> nodeItemC1 = new TreeItem<>(MENU_DEVICE_NAME);
 		TreeItem<String> nodeItemC2 = new TreeItem<>(MENU_LOCATION);
-		nodeItemC.getChildren().addAll(nodeItemC1, nodeItemC2);
+		TreeItem<String> nodeItemC3 = new TreeItem<>(MENU_OPERATING_SYSTEM);
+		nodeItemC.getChildren().addAll(nodeItemC1, nodeItemC2,nodeItemC3);
 		TreeItem<String> nodeItemE = new TreeItem<>(MENU_EXIT);
 		treeItemRoot1.getChildren().addAll(nodeItemA, nodeItemB, nodeItemC, nodeItemE);
 
@@ -102,6 +104,7 @@ public class MenuItemController extends AdministratorController implements Initi
 				settingDeviceName.setVisible(false);
 				settingAdministrator.setVisible(false);
 				settingLocation.setVisible(false);
+				settingOperatingSystem.setVisible(false);
 				setDBtextField();
 				return;
 			}
@@ -110,6 +113,7 @@ public class MenuItemController extends AdministratorController implements Initi
 				settingDeviceName.setVisible(false);
 				settingAdministrator.setVisible(true);
 				settingLocation.setVisible(false);
+				settingOperatingSystem.setVisible(false);
 				setAdministratorTableData();
 				return;
 			}
@@ -118,6 +122,7 @@ public class MenuItemController extends AdministratorController implements Initi
 				settingAdministrator.setVisible(false);
 				settingDeviceName.setVisible(true);
 				settingLocation.setVisible(false);
+				settingOperatingSystem.setVisible(false);
 				setDeviceNameTableData();
 				return;
 			}
@@ -126,7 +131,17 @@ public class MenuItemController extends AdministratorController implements Initi
 				settingAdministrator.setVisible(false);
 				settingDeviceName.setVisible(false);
 				settingLocation.setVisible(true);
+				settingOperatingSystem.setVisible(false);
 				setLocationTableData();
+				return;
+			}
+			if (name.equals(MENU_OPERATING_SYSTEM)) {
+				settingDatabase.setVisible(false);
+				settingAdministrator.setVisible(false);
+				settingDeviceName.setVisible(false);
+				settingLocation.setVisible(false);
+				settingOperatingSystem.setVisible(true);
+				setOperatingSystemTableData();
 				return;
 			}
 
