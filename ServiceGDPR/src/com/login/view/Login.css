@@ -3,7 +3,7 @@
 
 .root{
 	-fx-background-image: url("login.jpg");
-    -fx-font-size: 19.0;
+    -fx-font-size: 18.0;
 }
 
 .button {
@@ -58,4 +58,10 @@
 .combo-box .arrow, .combo-box .arrow-button{
     -fx-background-color: linear-gradient(#61a2b1, #2A5058);
     -fx-background-radius: 30;
+}
+.check-box .box {
+	 -fx-background-radius: 30;
+}
+.check-box:selected .box {
+	 -fx-background-radius: 30;
 }

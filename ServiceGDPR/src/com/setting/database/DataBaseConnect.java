@@ -20,6 +20,7 @@ public class DataBaseConnect {
 	static Statement createStatement = null;
 
 	public static Connection getConnection() {
+		SettingDBFile.setDataBaseOutput();
 		try {
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection("jdbc:mysql://"+SettingDBFile.getDBOutput()+"?useUnicode=true&characterEncoding=UTF-8", SettingDBFile.getNameOutput(),
