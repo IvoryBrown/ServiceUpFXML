@@ -22,8 +22,8 @@
                         <Font size="40.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="36.0" promptText="User" />
-                  <PasswordField id="loginText" prefHeight="36.0" promptText="Jelszó">
+                  <TextField fx:id="userTxt" prefHeight="36.0" promptText="User" />
+                  <PasswordField id="loginText" fx:id="passwordTxt" prefHeight="36.0" promptText="Jelszó">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin></PasswordField>
@@ -47,7 +47,7 @@
                   </Button>
                </children>
             </VBox>
-            <Label id="errorLb" fx:id="errorLb" alignment="CENTER" layoutX="153.0" layoutY="21.0" prefHeight="58.0" prefWidth="425.0" textFill="#f20606">
+            <Label id="errorLb" fx:id="errorLb" alignment="CENTER" layoutX="90.0" layoutY="21.0" prefHeight="58.0" prefWidth="567.0" textFill="#f20606">
                <font>
                   <Font size="40.0" />
                </font>

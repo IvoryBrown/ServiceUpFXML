@@ -1,11 +1,13 @@
 package com.login.controller;
 
+import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-import com.login.database.LoginDatabsae;
+import com.login.database.LoginDataBase;
+import com.login.filewrite.LoginFile;
 import com.login.main.LoginMain;
 import com.login.setting.setting.main.SettingMain;
 import com.main.normalsize.Main;
@@ -13,27 +15,47 @@ import com.main.normalsize.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 
 public class LoginController implements Initializable {
 	private LocalDate localDate;
-	private String localDateSub;
+	private String localDateSumma;
 	private Integer locadInteger;
 	private Integer dbInteger;
 	private String dbDate;
 	@FXML
 	private Label errorLb;
+	@FXML
+	private TextField userTxt;
+	@FXML
+	private PasswordField passwordTxt;
 
 	@FXML
-	private void btnLogin() {
+	private void btnLogin() throws InterruptedException {
 		dateLinc();
-		 if (locadInteger < dbInteger) {
-			 Main main = new Main();
-				main.startEnd();
-				LoginMain.primaryStageLoginMain.close();
-		 }else {
-		 errorLb.setText("Hozzáférése lejárt");
-		 }
-		
+		if (locadInteger < dbInteger) {
+			if (checkLoginTxtField()) {
+				LoginDataBase.getGetLogin(userTxt.getText());
+				for (int i = 0; i < LoginDataBase.user.size(); i++) {
+					for (int j = 0; j < LoginDataBase.password.size(); j++) {
+						if (userTxt.getText().equals(LoginDataBase.user.get(i))
+								&& passwordTxt.getText().equals(LoginDataBase.password.get(j))) {
+							LoginFile.writeDB(userTxt.getText().toString());
+							Main main = new Main();
+							main.startEnd();
+							LoginMain.primaryStageLoginMain.close();
+						} else {
+							errorLb.setText("Ismeretlen User&Password!!");
+						}
+					}
+				}
+
+			}
+		} else {
+			errorLb.setText("Hozzáférése lejárt");
+		}
+
 	}
 
 	@FXML
@@ -53,19 +75,36 @@ public class LoginController implements Initializable {
 		localDate = LocalDate.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		String formattedString = localDate.format(formatter);
-		localDateSub = formattedString.substring(0, 4) + formattedString.substring(5, 7)
+		localDateSumma = formattedString.substring(0, 4) + formattedString.substring(5, 7)
 				+ formattedString.substring(8, 10);
-		System.out.println(localDateSub);
-		for (int i = 0; i < LoginDatabsae.setGetDateLin().size(); i++) {
-			dbDate = LoginDatabsae.setGetDateLin().get(i);
+		for (int i = 0; i < LoginDataBase.setGetDateLin().size(); i++) {
+			dbDate = LoginDataBase.setGetDateLin().get(i);
 		}
 		dbDate = dbDate.substring(0, 4) + dbDate.substring(5, 7) + dbDate.substring(8, 10);
-		locadInteger = Integer.parseInt(localDateSub);
+		locadInteger = Integer.parseInt(localDateSumma);
 		dbInteger = Integer.parseInt(dbDate);
+	}
+
+	private boolean checkLoginTxtField() {
+		if (userTxt.getText().trim().isEmpty() || passwordTxt.getText().trim().isEmpty()) {
+			userTxt.setStyle("-fx-prompt-text-fill: #CC0033");
+			passwordTxt.setStyle("-fx-prompt-text-fill: #CC0033");
+			errorLb.setStyle("-fx-text-fill: red;");
+			errorLb.setText("Sikertelen bejelenkezés!!");
+			return false;
+		} else {
+			userTxt.setStyle("-fx-prompt-text-fill: #61a2b1");
+			passwordTxt.setStyle("-fx-prompt-text-fill: #61a2b1");
+			return true;
+		}
+	}
+private  void checkFloder() {
+		
+		new File(System.getProperty("user.home") + "\\PcVipService\\Name").mkdirs();
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		btnLogin();
+		checkFloder();
 	}
 }

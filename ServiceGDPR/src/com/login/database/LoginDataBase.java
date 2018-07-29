@@ -11,7 +11,9 @@ import com.setting.showinfo.ShowInfo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class LoginDatabsae {
+public class LoginDataBase {
+	public static ObservableList<String> user = FXCollections.observableArrayList();
+	public static ObservableList<String> password = FXCollections.observableArrayList();
 
 	public static ObservableList<String> setGetDateLin() {
 		ObservableList<String> dateLincList = FXCollections.observableArrayList();
@@ -44,4 +46,39 @@ public class LoginDatabsae {
 		}
 		return dateLincList;
 	}
+	
+	public static void getGetLogin(String adminsitrator) {
+		Connection con = DataBaseConnect.getConnection();
+		String	sql = "SELECT ugyintezo_neve, jelszo FROM `dolgozok`  WHERE CONCAT"
+					+ "(`" + "ugyintezo_neve" + "`) LIKE '%" + adminsitrator +"%'";
+		
+		Statement createStatement = null;
+		ResultSet rs = null;
+		try {
+			createStatement = con.createStatement();
+			rs = createStatement.executeQuery(sql);
+		
+			while (rs.next()) {
+				user.add(rs.getString("ugyintezo_neve"));
+				password.add(rs.getString("jelszo"));
+			}
+		} catch (SQLException ex) {
+			new ShowInfo("Adatbázis Hiba", "", ex.getMessage());
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (createStatement != null) {
+					createStatement.close();
+				}
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException ex) {
+				new ShowInfo("Adatbázis Hiba", "", ex.getMessage());
+			}
+		}
+	}
+
 }

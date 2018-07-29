@@ -127,8 +127,8 @@ public class LocationController extends OperatingSystemController{
 			return false;
 		} else {
 			locationSettingTxt.setStyle("-fx-prompt-text-fill: #61a2b1");
+			return true;
 		}
-		return true;
 	}
 
 	private void setLocationClear() {
