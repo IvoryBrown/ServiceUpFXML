@@ -1,4 +1,4 @@
-package com.login.setting.setting.location.pojo;
+ package com.login.setting.setting.location.pojo;
 
 import javafx.beans.property.SimpleStringProperty;
 

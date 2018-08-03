@@ -52,7 +52,7 @@
                   <Font size="40.0" />
                </font>
             </Label>
-            <CheckBox layoutX="270.0" layoutY="418.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="335.0" text=" Emlékezz rám" textFill="#00fffb">
+            <CheckBox fx:id="saveChBox" layoutX="270.0" layoutY="418.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="335.0" text=" Emlékezz rám" textFill="#00fffb">
                <font>
                   <Font name="Arial Black" size="18.0" />
                </font></CheckBox>

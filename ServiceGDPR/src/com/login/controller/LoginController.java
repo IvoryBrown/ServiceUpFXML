@@ -12,8 +12,11 @@ import com.login.main.LoginMain;
 import com.login.setting.setting.main.SettingMain;
 import com.main.normalsize.Main;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -30,25 +33,63 @@ public class LoginController implements Initializable {
 	private TextField userTxt;
 	@FXML
 	private PasswordField passwordTxt;
+	@FXML
+	private CheckBox saveChBox;
+
+	private void getSaveUserName() {
+		saveChBox.setVisible(false);
+		userTxt.focusedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue,
+					Boolean newPropertyValue) {
+				if (newPropertyValue) {
+					saveChBox.setVisible(true);
+
+				} else {
+					saveChBox.setVisible(false);
+				}
+			}
+		});
+
+	}
+
+	private void setSaveUserName() {
+		if (saveChBox.isSelected() != false) {
+			LoginFile.writeDB(userTxt.getText().toString(), saveChBox.isSelected());
+		} else {
+
+			LoginFile.writeDB(null, saveChBox.isSelected());
+
+		}
+
+	}
+
+	private boolean checkUserPassword() {
+		boolean success = false;
+		for (int i = 0; i < LoginDataBase.user.size(); i++) {
+			for (int j = 0; j < LoginDataBase.password.size(); j++) {
+				if (userTxt.getText().equals(LoginDataBase.user.get(i))
+						&& passwordTxt.getText().equals(LoginDataBase.password.get(j))) {
+					success = true;
+				}
+			}
+		}
+		return success;
+	}
 
 	@FXML
-	private void btnLogin() throws InterruptedException {
+	private void btnLogin() {
 		dateLinc();
 		if (locadInteger < dbInteger) {
 			if (checkLoginTxtField()) {
 				LoginDataBase.getGetLogin(userTxt.getText());
-				for (int i = 0; i < LoginDataBase.user.size(); i++) {
-					for (int j = 0; j < LoginDataBase.password.size(); j++) {
-						if (userTxt.getText().equals(LoginDataBase.user.get(i))
-								&& passwordTxt.getText().equals(LoginDataBase.password.get(j))) {
-							LoginFile.writeDB(userTxt.getText().toString());
-							Main main = new Main();
-							main.startEnd();
-							LoginMain.primaryStageLoginMain.close();
-						} else {
-							errorLb.setText("Ismeretlen User&Password!!");
-						}
-					}
+				if (checkUserPassword()) {
+					setSaveUserName();
+					Main main = new Main();
+					main.startEnd();
+					LoginMain.primaryStageLoginMain.close();
+				} else {
+					errorLb.setText("Ismeretlen User&Password!!");
 				}
 
 			}
@@ -98,13 +139,22 @@ public class LoginController implements Initializable {
 			return true;
 		}
 	}
-private  void checkFloder() {
-		
+
+	private void checkFloder() {
+
 		new File(System.getProperty("user.home") + "\\PcVipService\\Name").mkdirs();
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		checkFloder();
+		getSaveUserName();
+		LoginFile.setDataBaseOutput();
+		userTxt.setText(LoginFile.userName);
+		if (LoginFile.booleanChBox.equals("true")) {
+			saveChBox.setSelected(true);
+		}else {
+			userTxt.clear();
+		}
 	}
 }
