@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="710.0" prefWidth="1350.0" stylesheets="@Statistics.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.statistics.controller.StatisticsController">
+   <children>
+      <PieChart id="piechart" fx:id="piechart" layoutX="8.0" layoutY="342.0" prefHeight="347.0" prefWidth="925.0" />
+      <VBox layoutX="946.0" layoutY="342.0" prefHeight="137.0" prefWidth="247.0" AnchorPane.bottomAnchor="231.0" AnchorPane.topAnchor="342.0">
+         <children>
+            <DatePicker id="startDate" fx:id="startDate" prefHeight="36.0" prefWidth="650.0">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </DatePicker>
+            <DatePicker id="endDate" fx:id="endDate" prefHeight="36.0" prefWidth="653.0">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </DatePicker>
+            <Button mnemonicParsing="false" onAction="#btnStatistics" prefHeight="36.0" prefWidth="654.0" text="Szűrés">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+      <TableView id="tableStatistics" fx:id="tableStatistics" layoutX="946.0" layoutY="15.0" prefHeight="310.0" prefWidth="272.0" />
+      <BarChart id="barChar" fx:id="barChar" layoutX="10.0" layoutY="10.0" prefHeight="314.0" prefWidth="938.0">
+         <xAxis>
+            <CategoryAxis side="BOTTOM" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis side="LEFT" />
+         </yAxis>
+      </BarChart>
+      <Button fx:id="exitButton" layoutX="1303.0" layoutY="10.0" mnemonicParsing="false" onAction="#setExitButton" prefHeight="30.0" prefWidth="33.0" stylesheets="@../../login/setting/setting/view/SettingButton.css" text="X" />
+   </children>
+</AnchorPane>

@@ -1,7 +1,6 @@
 .root {
 	-fx-background-color: #616161;
 	-fx-font-size: 18.0;
-	
 }
 
 
@@ -21,4 +20,7 @@
 	-fx-text-fill:  whitesmoke;
 	-fx-font-size: 25.0;
 	-fx-font-weight: bold;
+}
+.label{
+	-fx-text-fill:  whitesmoke;
 }

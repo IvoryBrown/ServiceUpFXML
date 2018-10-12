@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import com.client.main.ClientNewMain;
 import com.main.minsize.MainMin;
+import com.statistics.main.StatisticsMain;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -44,7 +45,7 @@ public class MainController implements Initializable {
 
 	private final String MENU_EXIT = "Kilépés";
 
-	Main main;
+	
 
 	@SuppressWarnings("unchecked")
 	private void setMenuTree() {
@@ -95,20 +96,25 @@ public class MainController implements Initializable {
 		Node node = event.getPickResult().getIntersectedNode();
 		if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
 			String name = (String) ((TreeItem) treeView.getSelectionModel().getSelectedItem()).getValue();
-			
+
+			if (name.equals(MENU_STASTIC)) {
+				StatisticsMain fxdialog =new StatisticsMain();
+				fxdialog.start();
+				return;
+			}
 			if (name.equals(MENU_NEW_CLIENT)) {
 				ClientNewMain clientNewMain = new ClientNewMain();
 				clientNewMain.newClientBtn();
 				return;
 			}
-			
+
 			if (name.equals(MENU_MINIMAL_SIZE)) {
 				Main.primaryStage.close();
 				MainMin mainMin = new MainMin();
 				mainMin.start();
 				return;
 			}
-			
+
 			if (name.equals(MENU_EXIT)) {
 				System.exit(0);
 				return;
@@ -119,6 +125,7 @@ public class MainController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		setMenuTree();
+		
 
 	}
 }

@@ -14,12 +14,15 @@ import com.main.normalsize.Main;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class LoginController implements Initializable {
 	private LocalDate localDate;
@@ -57,9 +60,7 @@ public class LoginController implements Initializable {
 		if (saveChBox.isSelected() != false) {
 			LoginFile.writeDB(userTxt.getText().toString(), saveChBox.isSelected());
 		} else {
-
 			LoginFile.writeDB(null, saveChBox.isSelected());
-
 		}
 
 	}
@@ -79,6 +80,10 @@ public class LoginController implements Initializable {
 
 	@FXML
 	private void btnLogin() {
+		login();
+	}
+
+	private void login() {
 		dateLinc();
 		if (locadInteger < dbInteger) {
 			if (checkLoginTxtField()) {
@@ -91,12 +96,10 @@ public class LoginController implements Initializable {
 				} else {
 					errorLb.setText("Ismeretlen User&Password!!");
 				}
-
 			}
 		} else {
 			errorLb.setText("Hozzáférése lejárt");
 		}
-
 	}
 
 	@FXML
@@ -141,7 +144,6 @@ public class LoginController implements Initializable {
 	}
 
 	private void checkFloder() {
-
 		new File(System.getProperty("user.home") + "\\PcVipService\\Name").mkdirs();
 	}
 
@@ -153,8 +155,24 @@ public class LoginController implements Initializable {
 		userTxt.setText(LoginFile.userName);
 		if (LoginFile.booleanChBox.equals("true")) {
 			saveChBox.setSelected(true);
-		}else {
+		} else {
 			userTxt.clear();
 		}
+		passwordTxt.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent ke) {
+				if (ke.getCode().equals(KeyCode.ENTER)) {
+					login();
+				}
+			}
+		});
+		userTxt.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent ke) {
+				if (ke.getCode().equals(KeyCode.ENTER)) {
+					login();
+				}
+			}
+		});
 	}
 }
