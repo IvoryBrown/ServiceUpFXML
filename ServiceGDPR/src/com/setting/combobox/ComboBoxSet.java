@@ -12,4 +12,8 @@ public class ComboBoxSet {
 		return administratorAuthority;
 	}
 
+	public static String[] setErrorStatusCombobox() {
+		final String CMBERRORSTATUSZ[] = { "Kész", "Folyamatba", "Nem lehet" };
+		return CMBERRORSTATUSZ;
+	}
 }

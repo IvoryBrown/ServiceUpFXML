@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.client.main.ClientNewMain;
+import com.error.main.ErrorMain;
 import com.login.database.LoginDataBase;
 import com.login.filewrite.LoginFile;
 import com.main.minsize.MainMin;
@@ -103,10 +104,17 @@ public class MainController implements Initializable {
 			String name = (String) ((TreeItem) treeView.getSelectionModel().getSelectedItem()).getValue();
 
 			if (name.equals(MENU_STASTIC)) {
-				StatisticsMain fxdialog =new StatisticsMain();
-				fxdialog.start();
+				StatisticsMain statistic =new StatisticsMain();
+				statistic.start();
 				return;
 			}
+			
+			if (name.equals(MENU_ERROR_PAGE)) {
+				ErrorMain error =new ErrorMain();
+				error.start();
+				return;
+			}
+			
 			if (name.equals(MENU_NEW_CLIENT)) {
 				ClientNewMain clientNewMain = new ClientNewMain();
 				clientNewMain.newClientBtn();
