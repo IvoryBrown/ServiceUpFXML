@@ -8,24 +8,28 @@ public class Administrator {
 	private final SimpleStringProperty administratorName;
 	private final SimpleStringProperty administratorEmail;
 	private final SimpleStringProperty administratorPost;
+	private final SimpleStringProperty administratorUserName;
 	private final SimpleStringProperty administratorPassword;
 	private final SimpleStringProperty administratorAuthority;
 
 	public Administrator(Integer administratorId, String administratorName, String administratorEmail,
-			String administratorPost, String administratorPassword, String administratorAuthority) {
+			String administratorPost, String administratorUserName, String administratorPassword,
+			String administratorAuthority) {
 		this.administratorId = new SimpleStringProperty(String.valueOf(administratorId));
 		this.administratorName = new SimpleStringProperty(administratorName);
 		this.administratorEmail = new SimpleStringProperty(administratorEmail);
 		this.administratorPost = new SimpleStringProperty(administratorPost);
+		this.administratorUserName = new SimpleStringProperty(administratorUserName);
 		this.administratorPassword = new SimpleStringProperty(administratorPassword);
 		this.administratorAuthority = new SimpleStringProperty(administratorAuthority);
 	}
 
 	public Administrator(String administratorName, String administratorEmail, String administratorPost,
-			String administratorPassword, String administratorAuthority) {
+			String administratorUserName, String administratorPassword, String administratorAuthority) {
 		this.administratorName = new SimpleStringProperty(administratorName);
 		this.administratorEmail = new SimpleStringProperty(administratorEmail);
 		this.administratorPost = new SimpleStringProperty(administratorPost);
+		this.administratorUserName = new SimpleStringProperty(administratorUserName);
 		this.administratorPassword = new SimpleStringProperty(administratorPassword);
 		this.administratorAuthority = new SimpleStringProperty(administratorAuthority);
 		this.administratorId = new SimpleStringProperty("");
@@ -61,6 +65,14 @@ public class Administrator {
 
 	public void setAdministratorPost(String administratorPost) {
 		this.administratorPost.set(administratorPost);
+	}
+
+	public String getAdministratorUserName() {
+		return this.administratorUserName.get();
+	}
+
+	public void setAdministratorUserName(String administratorUserName) {
+		this.administratorUserName.set(administratorUserName);
 	}
 
 	public String getAdministratorPassword() {

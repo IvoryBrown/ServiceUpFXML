@@ -4,6 +4,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.client.main.ClientNewMain;
+import com.login.database.LoginDataBase;
+import com.login.filewrite.LoginFile;
 import com.main.minsize.MainMin;
 import com.statistics.main.StatisticsMain;
 
@@ -11,6 +13,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
@@ -21,6 +24,8 @@ public class MainController implements Initializable {
 
 	@FXML
 	private TreeView<String> treeView;
+	@FXML
+	private Label nameLabel;
 
 	private final String MENU_HOME = "Kezdőlap";
 	private final String MENU_STASTIC = "Statisztika";
@@ -125,7 +130,10 @@ public class MainController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		setMenuTree();
-		
+		LoginFile.setDataBaseOutput();
+		nameLabel.setText(LoginDataBase.name);
+		nameLabel.setStyle("-fx-text-fill: #00FF7F; -fx-font-weight: bold;");
+	
 
 	}
 }

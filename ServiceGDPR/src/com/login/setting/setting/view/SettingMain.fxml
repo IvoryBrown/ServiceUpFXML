@@ -140,6 +140,7 @@
                         </VBox>
                         <VBox layoutX="329.0" layoutY="14.0" prefHeight="171.0" prefWidth="85.0">
                            <children>
+                              <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="204.0" text="User" />
                               <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="204.0" text="Jelszó">
                                  <VBox.margin>
                                     <Insets top="5.0" />
@@ -154,6 +155,7 @@
                         </VBox>
                         <VBox layoutX="421.0" layoutY="14.0" prefHeight="171.0" prefWidth="224.0">
                            <children>
+                              <TextField fx:id="administratorUserNameTxt" prefHeight="35.0" promptText="User" />
                               <TextField fx:id="administratorPasswordTxt" prefHeight="35.0" promptText="Jelszó">
                                  <VBox.margin>
                                     <Insets top="5.0" />

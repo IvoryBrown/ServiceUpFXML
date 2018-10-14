@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 public class LoginDataBase {
 	public static ObservableList<String> user = FXCollections.observableArrayList();
 	public static ObservableList<String> password = FXCollections.observableArrayList();
+	public static String name;
 
 	public static ObservableList<String> setGetDateLin() {
 		ObservableList<String> dateLincList = FXCollections.observableArrayList();
@@ -49,8 +50,8 @@ public class LoginDataBase {
 	
 	public static void getGetLogin(String adminsitrator) {
 		Connection con = DataBaseConnect.getConnection();
-		String	sql = "SELECT ugyintezo_neve, jelszo FROM `dolgozok`  WHERE CONCAT"
-					+ "(`" + "ugyintezo_neve" + "`) LIKE '%" + adminsitrator +"%'";
+		String	sql = "SELECT username, jelszo, ugyintezo_neve FROM `dolgozok`  WHERE CONCAT"
+					+ "(`" + "username" + "`) LIKE '%" + adminsitrator +"%'";
 		
 		Statement createStatement = null;
 		ResultSet rs = null;
@@ -59,8 +60,9 @@ public class LoginDataBase {
 			rs = createStatement.executeQuery(sql);
 		
 			while (rs.next()) {
-				user.add(rs.getString("ugyintezo_neve"));
+				user.add(rs.getString("username"));
 				password.add(rs.getString("jelszo"));
+				name = rs.getString("ugyintezo_neve");
 			}
 		} catch (SQLException ex) {
 			new ShowInfo("Adatbázis Hiba", "", ex.getMessage());
