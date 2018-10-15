@@ -3,7 +3,10 @@ package com.main.normalsize;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.calendar.main.CalendarMain;
 import com.client.main.ClientNewMain;
+import com.device.actual.controller.DeviceActualController;
+import com.device.main.DeviceMain;
 import com.error.main.ErrorMain;
 import com.login.database.LoginDataBase;
 import com.login.filewrite.LoginFile;
@@ -50,8 +53,6 @@ public class MainController implements Initializable {
 	private final String MENU_MINIMAL_SIZE = "Minimál Méret";
 
 	private final String MENU_EXIT = "Kilépés";
-
-	
 
 	@SuppressWarnings("unchecked")
 	private void setMenuTree() {
@@ -104,20 +105,37 @@ public class MainController implements Initializable {
 			String name = (String) ((TreeItem) treeView.getSelectionModel().getSelectedItem()).getValue();
 
 			if (name.equals(MENU_STASTIC)) {
-				StatisticsMain statistic =new StatisticsMain();
+				StatisticsMain statistic = new StatisticsMain();
 				statistic.start();
 				return;
 			}
-			
 			if (name.equals(MENU_ERROR_PAGE)) {
-				ErrorMain error =new ErrorMain();
+				ErrorMain error = new ErrorMain();
 				error.start();
 				return;
 			}
-			
+			if (name.equals(MENU_CALENDAR)) {
+				CalendarMain calendar = new CalendarMain();
+				calendar.start();
+				return;
+			}
+
 			if (name.equals(MENU_NEW_CLIENT)) {
 				ClientNewMain clientNewMain = new ClientNewMain();
 				clientNewMain.newClientBtn();
+				return;
+			}
+			if (name.equals(MENU_DEVICE_NEW)) {
+
+				return;
+			}
+			if (name.equals(MENU_DEVICE_AVAILABLE)) {
+
+				return;
+			}
+			if (name.equals(MENU_DEVICE_TABLE_ACTUAL)) {
+				DeviceMain device =new DeviceMain();
+				device.start();
 				return;
 			}
 
@@ -141,7 +159,6 @@ public class MainController implements Initializable {
 		LoginFile.setDataBaseOutput();
 		nameLabel.setText(LoginDataBase.name);
 		nameLabel.setStyle("-fx-text-fill: #00FF7F; -fx-font-weight: bold;");
-	
 
 	}
 }

@@ -15,6 +15,7 @@ public class CalendarPane extends AnchorPane {
 	private LocalDate date;
 	private Integer number;
 	public static String sDate;
+	ObservableList<Device> calendarNameList = FXCollections.observableArrayList();
 
 	public CalendarPane(Node... children) {
 		super(children);
@@ -24,16 +25,13 @@ public class CalendarPane extends AnchorPane {
 
 	private void setCalendarController() {
 		sDate = String.valueOf(getDate());
-		calendarNameList();
-		DeviceMain statistic =new DeviceMain();
-		statistic.start();
+		DeviceMain device =new DeviceMain();
+		device.start();
 	}
 
-	public ObservableList<Device> calendarNameList(){
-		ObservableList<Device> calendarNameList = FXCollections.observableArrayList();
+	public  ObservableList<Device> calendarNameList(){
 		CalendarDataBase data = new CalendarDataBase();
 		calendarNameList.addAll(data.getDeviceNameCalendar(sDate));
-		System.out.println(calendarNameList.size());
 		return calendarNameList;
 		
 	}
