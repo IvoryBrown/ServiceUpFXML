@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.device.table.controller.DeviceTableController">
+<AnchorPane prefHeight="700.0" prefWidth="1300.0" stylesheets="@DeviceTable.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.device.table.controller.DeviceTableController">
    <children>
       <AnchorPane layoutX="650.0" layoutY="290.0" prefHeight="700.0" prefWidth="1300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -51,15 +51,6 @@
                </VBox.margin>
             </Button>
             <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="206.0" text="Meglévő Eszköz">
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </Button>
-         </children>
-      </VBox>
-      <VBox layoutX="665.0" layoutY="13.0" prefHeight="89.0" prefWidth="206.0">
-         <children>
-            <Button fx:id="sendMail" mnemonicParsing="false" prefHeight="36.0" prefWidth="206.0" text="Email küldés">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>

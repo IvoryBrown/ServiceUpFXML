@@ -11,7 +11,6 @@ public class DeviceMain {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/com/device/view/DeviceTable.fxml"));
 			Stage stage = new Stage();
-			stage.setResizable(false);
 			stage.setTitle("Eszköz");
 			stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/setting/icon/icon-it.png")));
 			stage.setScene(new Scene(root, 1300, 700));

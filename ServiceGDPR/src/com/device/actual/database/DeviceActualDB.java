@@ -14,7 +14,8 @@ public class DeviceActualDB {
 
 	public ArrayList<Device> getActualDevice() {
 		Connection con = DataBaseConnect.getConnection();
-		String sql = "SELECT * FROM `gepadatok1`";
+		String sql = "SELECT * FROM `gepadatok1` WHERE CONCAT"+ "(`" + "allapot" + "`) LIKE '%"
+				+ "Bevételezve" + "%'";
 		ArrayList<Device> device = null;
 		Statement createStatement = null;
 		ResultSet rs = null;

@@ -134,6 +134,7 @@ public class MainController implements Initializable {
 				return;
 			}
 			if (name.equals(MENU_DEVICE_TABLE_ACTUAL)) {
+				DeviceActualController.actual = true;
 				DeviceMain device =new DeviceMain();
 				device.start();
 				return;
