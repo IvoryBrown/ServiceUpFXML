@@ -12,6 +12,8 @@ import com.device.table.DeviceButtonCell;
 import com.device.table.database.DeviceDataBase;
 import com.login.database.LoginDataBase;
 import com.login.setting.setting.devicename.database.DeviceNameDataBase;
+import com.login.setting.setting.location.database.LocationDataBase;
+import com.setting.combobox.ComboBoxSet;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -30,6 +32,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.Callback;
 import javafx.util.Duration;
+import tray.animations.AnimationType;
 import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
 
@@ -53,7 +56,8 @@ public class DeviceTableController implements Initializable {
 	private TableColumn<Device, String> setDeviceTablePerson;
 	private TableColumn<Device, Boolean> setDeviceTableNewDevice;
 	private TableColumn<Device, Date> setDeviceAllDate;
-	private DeviceDataBase deviceDb  = new DeviceDataBase();
+	private DeviceDataBase deviceDb = new DeviceDataBase();
+	TrayNotification tray = new TrayNotification();
 
 	@SuppressWarnings("unchecked")
 	private void setDeviceTableData() {
@@ -110,16 +114,18 @@ public class DeviceTableController implements Initializable {
 				final String value = i.getValue().getDeviceName();
 				return Bindings.createObjectBinding(() -> value);
 			});
-			deviceTableName.setCellFactory(ComboBoxTableCell.forTableColumn(DeviceNameDataBase.administratorListComboBox));
+			deviceTableName
+					.setCellFactory(ComboBoxTableCell.forTableColumn(DeviceNameDataBase.administratorListComboBox));
 			deviceTableName.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
 				@Override
 				public void handle(TableColumn.CellEditEvent<Device, String> d) {
 					Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
 					actualDevice.setDeviceName(d.getNewValue());
-//					deviceDb.updateDevice(actualDevice);
-//					tray = new TrayNotification("Eszköz!", "Sikeres Frissítése", NotificationType.SUCCESS);
-//					tray.showAndDismiss(Duration.seconds(1));
-//					updateDeviceTableDate();
+					deviceDb.updateDevice(actualDevice);
+					tray = new TrayNotification("Eszköz!", "Sikeres Frissítése", NotificationType.SUCCESS);
+					tray.setAnimationType(AnimationType.POPUP);
+					tray.showAndDismiss(Duration.seconds(2));
+					// setDeviceTableData();
 				}
 			});
 		}
@@ -127,6 +133,21 @@ public class DeviceTableController implements Initializable {
 		deviceTabelManufacturer = new TableColumn<>("Gyártó*");
 		deviceTabelManufacturer.setMinWidth(150);
 		deviceTabelManufacturer.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceManufacturer"));
+		if (LoginDataBase.authority.equals("Admin")) {
+			deviceTabelManufacturer.setCellFactory(TextFieldTableCell.forTableColumn());
+			deviceTabelManufacturer.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, String> d) {
+					Device actualDvice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDvice.setDeviceManufacturer(d.getNewValue());
+					deviceDb.updateDevice(actualDvice);
+					tray = new TrayNotification("Gyártó!", "Sikeres Frissítése", NotificationType.SUCCESS);
+					tray.setAnimationType(AnimationType.POPUP);
+					tray.showAndDismiss(Duration.seconds(2));
+					// setDeviceTableData();
+				}
+			});
+		}
 
 		deviceTabelSerialNumber = new TableColumn<>("Serial no.");
 		deviceTabelSerialNumber.setMinWidth(120);
@@ -135,14 +156,77 @@ public class DeviceTableController implements Initializable {
 		deviceTableRepairLocation = new TableColumn<>("Javítás helye*");
 		deviceTableRepairLocation.setMinWidth(130);
 		deviceTableRepairLocation.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceRepairLocation"));
+		if (LoginDataBase.authority.equals("Admin") || LoginDataBase.authority.equals("SuperUser")) {
+			deviceTableRepairLocation.setCellValueFactory(i -> {
+				final String value = i.getValue().getDeviceRepairLocation();
+				return Bindings.createObjectBinding(() -> value);
+			});
+			deviceTableRepairLocation
+					.setCellFactory(ComboBoxTableCell.forTableColumn(LocationDataBase.locationListComboBox));
+			deviceTableRepairLocation.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, String> d) {
+					Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDevice.setDeviceRepairLocation(d.getNewValue());
+					deviceDb.updateDevice(actualDevice);
+					tray = new TrayNotification("Javítás helye!", "Sikeres Frissítése", NotificationType.SUCCESS);
+					tray.setAnimationType(AnimationType.POPUP);
+					tray.showAndDismiss(Duration.seconds(2));
+					// setDeviceTableData();
+				}
+			});
+		}
 
 		deviceTableStatus = new TableColumn<>("Állapot*");
 		deviceTableStatus.setMinWidth(100);
 		deviceTableStatus.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceStatus"));
-
+		if (LoginDataBase.authority.equals("Admin") || LoginDataBase.authority.equals("SuperUser")
+				|| LoginDataBase.authority.equals("User")) {
+			deviceTableStatus.setCellValueFactory(i -> {
+				final String value = i.getValue().getDeviceStatus();
+				return Bindings.createObjectBinding(() -> value);
+			});
+			deviceTableStatus.setCellFactory(ComboBoxTableCell.forTableColumn(ComboBoxSet.setDeviceStaCombobox()));
+			deviceTableStatus.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, String> d) {
+					Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDevice.setDeviceStatus(d.getNewValue());
+					if (actualDevice.getDeviceStatusz().equals("Bevizsgálva")) {
+						deviceDb.updateDevice(actualDevice);
+						tray = new TrayNotification("Állapot!", "Sikeres Frissítése", NotificationType.SUCCESS);
+						tray.setAnimationType(AnimationType.POPUP);
+						tray.showAndDismiss(Duration.seconds(2));
+					} else {
+						tray = new TrayNotification("HIBA", "Nincs minden mező kitöltve", NotificationType.ERROR);
+						tray.setAnimationType(AnimationType.POPUP);
+						tray.showAndDismiss(Duration.seconds(2));
+					}
+					setDeviceTableData();
+				}
+			});
+		}
 		deviceTableStatusz = new TableColumn<>("Státusz*");
 		deviceTableStatusz.setMinWidth(140);
 		deviceTableStatusz.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceStatusz"));
+		if (LoginDataBase.authority.equals("Admin") || LoginDataBase.authority.equals("SuperUser")) {
+			deviceTableStatusz.setCellValueFactory(i -> {
+				final String value = i.getValue().getDeviceStatusz();
+				return Bindings.createObjectBinding(() -> value);
+			});
+			deviceTableStatusz.setCellFactory(ComboBoxTableCell.forTableColumn(ComboBoxSet.setDeviceStatusCombobox()));
+			deviceTableStatusz.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, String> d) {
+					Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDevice.setDeviceStatusz(d.getNewValue());
+					deviceDb.updateDevice(actualDevice);
+					tray.setAnimationType(AnimationType.POPUP);
+					tray.showAndDismiss(Duration.seconds(2));
+					// setDeviceTableData();
+				}
+			});
+		}
 
 		deviceTableNewMachine = new TableColumn<>("Új gép");
 		deviceTableNewMachine.setMinWidth(30);
@@ -497,10 +581,18 @@ public class DeviceTableController implements Initializable {
 				deviceTableReferences, deviceTableAccesssory, deviceTableInjury, deviceTableErrorDescription,
 				deviceTableErrorCorrection, deviceTableComment, setDeviceAllDate, deviceTableDataRecovery,
 				deviceTableSoftver, deviceTableOperatingSystem, deviceTableSoftverComment, setDeviceTableNewDevice);
+
 	}
 
 	private void setDataTable() {
-
+		System.out.println(CalendarPane.calander);
+		System.out.println(DeviceActualController.actual);
+		boolean a.;
+		boolean b;
+		a = CalendarPane.calander;
+		b = DeviceActualController.actual;
+		System.out.println(a);
+		System.out.println(b);
 		if (CalendarPane.calander) {
 			CalendarPane pane = new CalendarPane();
 			deviceTable.setItems(pane.calendarNameList());
@@ -520,6 +612,7 @@ public class DeviceTableController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		setDeviceTableData();
 		DeviceNameDataBase.getAllDeviceNameDataBase();
+		LocationDataBase.getAllLocationDataBase();
 	}
 
 }
