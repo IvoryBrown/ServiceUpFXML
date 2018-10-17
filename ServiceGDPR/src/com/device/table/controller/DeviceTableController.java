@@ -9,10 +9,14 @@ import com.device.actual.controller.DeviceActualController;
 import com.device.pojo.Device;
 import com.device.table.DateEditingCellDevice;
 import com.device.table.DeviceButtonCell;
+import com.device.table.database.DeviceDataBase;
+import com.login.database.LoginDataBase;
+import com.login.setting.setting.devicename.database.DeviceNameDataBase;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -21,9 +25,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.Callback;
+import javafx.util.Duration;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 public class DeviceTableController implements Initializable {
 	@FXML
@@ -45,6 +53,7 @@ public class DeviceTableController implements Initializable {
 	private TableColumn<Device, String> setDeviceTablePerson;
 	private TableColumn<Device, Boolean> setDeviceTableNewDevice;
 	private TableColumn<Device, Date> setDeviceAllDate;
+	private DeviceDataBase deviceDb  = new DeviceDataBase();
 
 	@SuppressWarnings("unchecked")
 	private void setDeviceTableData() {
@@ -75,7 +84,10 @@ public class DeviceTableController implements Initializable {
 		deviceTableClientID = new TableColumn<>("ID CLient");
 		deviceTableClientID.setMinWidth(50);
 		deviceTableClientID.setCellValueFactory(new PropertyValueFactory<Device, Integer>("deviceClientID"));
-		// deviceTableClientID.setVisible(false);
+		deviceTableClientID.setVisible(false);
+		if (LoginDataBase.authority.equals("Admin")) {
+			deviceTableClientID.setVisible(true);
+		}
 
 		deviceTableNumber = new TableColumn<>("Azonosító");
 		deviceTableNumber.setMinWidth(50);
@@ -92,6 +104,25 @@ public class DeviceTableController implements Initializable {
 		deviceTableName = new TableColumn<>("Eszköz*");
 		deviceTableName.setMinWidth(150);
 		deviceTableName.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceName"));
+		if (LoginDataBase.authority.equals("Admin")) {
+
+			deviceTableName.setCellValueFactory(i -> {
+				final String value = i.getValue().getDeviceName();
+				return Bindings.createObjectBinding(() -> value);
+			});
+			deviceTableName.setCellFactory(ComboBoxTableCell.forTableColumn(DeviceNameDataBase.administratorListComboBox));
+			deviceTableName.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, String> d) {
+					Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDevice.setDeviceName(d.getNewValue());
+//					deviceDb.updateDevice(actualDevice);
+//					tray = new TrayNotification("Eszköz!", "Sikeres Frissítése", NotificationType.SUCCESS);
+//					tray.showAndDismiss(Duration.seconds(1));
+//					updateDeviceTableDate();
+				}
+			});
+		}
 
 		deviceTabelManufacturer = new TableColumn<>("Gyártó*");
 		deviceTabelManufacturer.setMinWidth(150);
@@ -459,13 +490,13 @@ public class DeviceTableController implements Initializable {
 
 		setDataTable();
 
-		deviceTable.getColumns().addAll(colDeviceAction,deviceTableId, deviceTableClientID, deviceTableNumber, deviceTableClientName,
-				deviceTableCompanyName, deviceTableName, deviceTabelManufacturer, deviceTabelSerialNumber,
-				deviceTableRepairLocation, deviceTableStatus, deviceTableStatusz, deviceTableNewMachine,
-				setDeviceTablePerson, deviceTablePriorit, deviceTablePassword, deviceTableReferences,
-				deviceTableAccesssory, deviceTableInjury, deviceTableErrorDescription, deviceTableErrorCorrection,
-				deviceTableComment, setDeviceAllDate, deviceTableDataRecovery, deviceTableSoftver,
-				deviceTableOperatingSystem, deviceTableSoftverComment, setDeviceTableNewDevice);
+		deviceTable.getColumns().addAll(colDeviceAction, deviceTableId, deviceTableClientID, deviceTableNumber,
+				deviceTableClientName, deviceTableCompanyName, deviceTableName, deviceTabelManufacturer,
+				deviceTabelSerialNumber, deviceTableRepairLocation, deviceTableStatus, deviceTableStatusz,
+				deviceTableNewMachine, setDeviceTablePerson, deviceTablePriorit, deviceTablePassword,
+				deviceTableReferences, deviceTableAccesssory, deviceTableInjury, deviceTableErrorDescription,
+				deviceTableErrorCorrection, deviceTableComment, setDeviceAllDate, deviceTableDataRecovery,
+				deviceTableSoftver, deviceTableOperatingSystem, deviceTableSoftverComment, setDeviceTableNewDevice);
 	}
 
 	private void setDataTable() {
@@ -488,7 +519,7 @@ public class DeviceTableController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		setDeviceTableData();
-
+		DeviceNameDataBase.getAllDeviceNameDataBase();
 	}
 
 }
