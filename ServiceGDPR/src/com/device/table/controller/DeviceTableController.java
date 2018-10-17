@@ -1,12 +1,14 @@
 package com.device.table.controller;
 
 import java.net.URL;
-import java.sql.Date;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import com.calendar.setting.CalendarPane;
 import com.device.actual.controller.DeviceActualController;
 import com.device.pojo.Device;
+import com.device.table.DateEditingCellDevice;
+import com.device.table.DeviceButtonCell;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -46,6 +48,26 @@ public class DeviceTableController implements Initializable {
 
 	@SuppressWarnings("unchecked")
 	private void setDeviceTableData() {
+		Callback<TableColumn<Device, Date>, TableCell<Device, Date>> dateCellFactory = (
+				TableColumn<Device, Date> param) -> new DateEditingCellDevice();
+
+		colDeviceAction = new TableColumn<>("+");
+		colDeviceAction.setSortable(false);
+		colDeviceAction.setPrefWidth(40);
+		colDeviceAction.setCellValueFactory(
+				new Callback<TableColumn.CellDataFeatures<Device, Boolean>, ObservableValue<Boolean>>() {
+					@Override
+					public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Device, Boolean> p) {
+						return new SimpleBooleanProperty(p.getValue() != null);
+					}
+				});
+		colDeviceAction.setCellFactory(new Callback<TableColumn<Device, Boolean>, TableCell<Device, Boolean>>() {
+			@Override
+			public TableCell<Device, Boolean> call(TableColumn<Device, Boolean> p) {
+				return new DeviceButtonCell(deviceTable);
+			}
+		});
+
 		deviceTableId = new TableColumn<>("ID");
 		deviceTableId.setMinWidth(50);
 		deviceTableId.setCellValueFactory(new PropertyValueFactory<Device, Integer>("deviceID"));
@@ -53,7 +75,7 @@ public class DeviceTableController implements Initializable {
 		deviceTableClientID = new TableColumn<>("ID CLient");
 		deviceTableClientID.setMinWidth(50);
 		deviceTableClientID.setCellValueFactory(new PropertyValueFactory<Device, Integer>("deviceClientID"));
-//		deviceTableClientID.setVisible(false);
+		// deviceTableClientID.setVisible(false);
 
 		deviceTableNumber = new TableColumn<>("Azonosító");
 		deviceTableNumber.setMinWidth(50);
@@ -154,6 +176,7 @@ public class DeviceTableController implements Initializable {
 
 		deviceTableEndDate = new TableColumn<>("Határidő*");
 		deviceTableEndDate.setMinWidth(140);
+		deviceTableEndDate.setCellValueFactory(cellData -> cellData.getValue().getDeviceEndDateObject());
 
 		deviceTableDeliveryDate = new TableColumn<>("Kiszállás*");
 		deviceTableDeliveryDate.setMinWidth(140);
@@ -436,7 +459,7 @@ public class DeviceTableController implements Initializable {
 
 		setDataTable();
 
-		deviceTable.getColumns().addAll(deviceTableId, deviceTableClientID, deviceTableNumber, deviceTableClientName,
+		deviceTable.getColumns().addAll(colDeviceAction,deviceTableId, deviceTableClientID, deviceTableNumber, deviceTableClientName,
 				deviceTableCompanyName, deviceTableName, deviceTabelManufacturer, deviceTabelSerialNumber,
 				deviceTableRepairLocation, deviceTableStatus, deviceTableStatusz, deviceTableNewMachine,
 				setDeviceTablePerson, deviceTablePriorit, deviceTablePassword, deviceTableReferences,
