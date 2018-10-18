@@ -1,11 +1,7 @@
 package com.device.table.controller;
 
-import java.net.URL;
 import java.util.Date;
-import java.util.ResourceBundle;
 
-import com.calendar.setting.CalendarPane;
-import com.device.actual.controller.DeviceActualController;
 import com.device.pojo.Device;
 import com.device.table.DateEditingCellDevice;
 import com.device.table.DeviceButtonCell;
@@ -20,7 +16,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -30,15 +25,18 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import tray.animations.AnimationType;
 import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
 
-public class DeviceTableController implements Initializable {
+public class DeviceTableController {
 	@FXML
-	private TableView<Device> deviceTable;
+	protected TableView<Device> deviceTable;
+	@FXML
+	protected AnchorPane anc;
 	private TableColumn<Device, Integer> deviceTableId, deviceTableClientID, deviceTableNumber;
 	private TableColumn<Device, Boolean> deviceTableNewHouse, deviceTablePowerSupply, deviceTableProcessor,
 			deviceTableBaseBoard, deviceTableMemory, deviceTableVideoCard, deviceTableSSDDrive, deviceTableHardDrive,
@@ -60,7 +58,7 @@ public class DeviceTableController implements Initializable {
 	TrayNotification tray = new TrayNotification();
 
 	@SuppressWarnings("unchecked")
-	private void setDeviceTableData() {
+	protected void setDeviceTableData() {
 		Callback<TableColumn<Device, Date>, TableCell<Device, Date>> dateCellFactory = (
 				TableColumn<Device, Date> param) -> new DateEditingCellDevice();
 
@@ -572,7 +570,6 @@ public class DeviceTableController implements Initializable {
 				deviceTableHardDrive, deviceTableCoolingFan, deviceTableOpticalDrive, deviceTableExpansionCard,
 				deviceTableLaptop);
 
-		setDataTable();
 
 		deviceTable.getColumns().addAll(colDeviceAction, deviceTableId, deviceTableClientID, deviceTableNumber,
 				deviceTableClientName, deviceTableCompanyName, deviceTableName, deviceTabelManufacturer,
@@ -584,35 +581,11 @@ public class DeviceTableController implements Initializable {
 
 	}
 
-	private void setDataTable() {
-		System.out.println(CalendarPane.calander);
-		System.out.println(DeviceActualController.actual);
-		boolean a.;
-		boolean b;
-		a = CalendarPane.calander;
-		b = DeviceActualController.actual;
-		System.out.println(a);
-		System.out.println(b);
-		if (CalendarPane.calander) {
-			CalendarPane pane = new CalendarPane();
-			deviceTable.setItems(pane.calendarNameList());
-			pane.calendarNameList().clear();
-			return;
-		}
-		if (DeviceActualController.actual) {
-			DeviceActualController actual = new DeviceActualController();
-			deviceTable.setItems(actual.calendarNameList());
-			actual.calendarNameList().clear();
-			return;
-		}
+	protected void setDataTable() {
+		System.out.println("Ös");
 
 	}
 
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		setDeviceTableData();
-		DeviceNameDataBase.getAllDeviceNameDataBase();
-		LocationDataBase.getAllLocationDataBase();
-	}
+
 
 }

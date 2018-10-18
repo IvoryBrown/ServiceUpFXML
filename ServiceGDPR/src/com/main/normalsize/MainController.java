@@ -5,8 +5,7 @@ import java.util.ResourceBundle;
 
 import com.calendar.main.CalendarMain;
 import com.client.main.ClientNewMain;
-import com.device.actual.controller.DeviceActualController;
-import com.device.main.DeviceMain;
+import com.device.actual.main.DeviceActualMain;
 import com.error.main.ErrorMain;
 import com.login.database.LoginDataBase;
 import com.login.filewrite.LoginFile;
@@ -134,8 +133,7 @@ public class MainController implements Initializable {
 				return;
 			}
 			if (name.equals(MENU_DEVICE_TABLE_ACTUAL)) {
-				DeviceActualController.actual = true;
-				DeviceMain device =new DeviceMain();
+				DeviceActualMain device =new DeviceActualMain();
 				device.start();
 				return;
 			}
