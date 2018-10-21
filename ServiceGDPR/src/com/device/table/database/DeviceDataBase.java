@@ -15,30 +15,34 @@ public class DeviceDataBase {
 		PreparedStatement pr = null;
 		try {
 			String sqlDevice = null;
-		
-				sqlDevice = "UPDATE `gepadatok1` set eszkoz = ?, eszkoz_gyarto = ?, javitas_helye = ?, allapot = ?, tartozekok = ?,"
-						+ "hiba_leirasa = ?, eszkoz_megjegyzes = ?, bejelentes_datuma = ?, hatarido_datuma = ?, kiszallas_datuma = ?, softver_megjegyzés = ?,"
-						+ " elkeszult_datuma = ?, hibajavitas_leirasa = ?, technikus = ?, statusz = ?"
-						+ " WHERE id_gepadatok = ?";
-			
-			
+
+			sqlDevice = "UPDATE `gepadatok1` SET eszkoz_azonosito = ?, ceg_nev_gep = ?, ugyfél_nev_gep = ?, eszkoz = ?, eszkoz_gyarto = ?, 	eszkoz_gyari_szama = ?, "
+					+ "javitas_helye = ?, allapot = ?, tartozekok = ?,"
+					+ "hiba_leirasa = ?, eszkoz_megjegyzes = ?, bejelentes_datuma = ?, hatarido_datuma = ?, kiszallas_datuma = ?, softver_megjegyzés = ?,"
+					+ " elkeszult_datuma = ?, hibajavitas_leirasa = ?, technikus = ?, statusz = ?"
+					+ " WHERE id_gepadatok = ?";
+
 			pr = conn.prepareStatement(sqlDevice);
-			pr.setString(1, device.getDeviceName());
-			pr.setString(2, device.getDeviceManufacturer());
-			pr.setString(3, device.getDeviceRepairLocation());
-			pr.setString(4, device.getDeviceStatus());
-			pr.setString(5, device.getDeviceAccesssory());
-			pr.setString(6, device.getDeviceErrorDescription());
-			pr.setString(7, device.getDeviceComment());
-			pr.setObject(8, device.getDeviceAddDate());
-			pr.setObject(9, device.getDeviceEndDate());
-			pr.setObject(10, device.getDeviceDeliveryDate());
-			pr.setString(11, device.getDeviceSoftverComment());
-			pr.setObject(12, device.getDeviceCompletedDate());
-			pr.setString(13, device.getDeviceErrorCorrection());
-			pr.setString(14, device.getDeviceTechnicalPerson());
-			pr.setString(15, device.getDeviceStatusz());
-			pr.setString(16, device.getDeviceID());
+			pr.setString(1, device.getDeviceNumber());
+			pr.setString(2, device.getDeviceCompanyName());
+			pr.setString(3, device.getDeviceClientName());
+			pr.setString(4, device.getDeviceName());
+			pr.setString(5, device.getDeviceManufacturer());
+			pr.setString(6, device.getDeviceSerialNumber());
+			pr.setString(7, device.getDeviceRepairLocation());
+			pr.setString(8, device.getDeviceStatus());
+			pr.setString(9, device.getDeviceAccesssory());
+			pr.setString(10, device.getDeviceErrorDescription());
+			pr.setString(11, device.getDeviceComment());
+			pr.setObject(12, device.getDeviceAddDate());
+			pr.setObject(13, device.getDeviceEndDate());
+			pr.setObject(14, device.getDeviceDeliveryDate());
+			pr.setString(15, device.getDeviceSoftverComment());
+			pr.setObject(16, device.getDeviceCompletedDate());
+			pr.setString(17, device.getDeviceErrorCorrection());
+			pr.setString(18, device.getDeviceTechnicalPerson());
+			pr.setString(19, device.getDeviceStatusz());
+			pr.setString(20, device.getDeviceID());
 
 			pr.execute();
 		} catch (SQLException e) {

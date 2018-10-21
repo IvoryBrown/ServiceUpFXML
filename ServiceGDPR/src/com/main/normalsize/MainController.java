@@ -115,7 +115,7 @@ public class MainController implements Initializable {
 			}
 			if (name.equals(MENU_CALENDAR)) {
 				CalendarMain calendar = new CalendarMain();
-				calendar.start();
+				calendar.startCalendar();
 				return;
 			}
 
@@ -133,7 +133,7 @@ public class MainController implements Initializable {
 				return;
 			}
 			if (name.equals(MENU_DEVICE_TABLE_ACTUAL)) {
-				DeviceActualMain device =new DeviceActualMain();
+				DeviceActualMain device = new DeviceActualMain();
 				device.start();
 				return;
 			}

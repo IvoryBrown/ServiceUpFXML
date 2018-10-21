@@ -5,6 +5,7 @@ import com.device.actual.controller.ActualDeviceController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class DeviceActualMain {
@@ -17,6 +18,8 @@ public class DeviceActualMain {
 			Parent root = (Parent) loader.load();
 			primaryStage.setWidth(1300);
 			primaryStage.setHeight(700);
+			primaryStage.setTitle("Aktuális");
+			primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/setting/icon/icon-it.png")));
 			primaryStage.setScene(new Scene(root));
 			primaryStage.show();
 		} catch (Exception e) {

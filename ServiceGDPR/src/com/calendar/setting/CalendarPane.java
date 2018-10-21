@@ -3,7 +3,7 @@ package com.calendar.setting;
 import java.time.LocalDate;
 
 import com.calendar.database.CalendarDataBase;
-import com.device.actual.main.DeviceActualMain;
+import com.calendar.main.CalendarMain;
 import com.device.pojo.Device;
 
 import javafx.collections.FXCollections;
@@ -15,7 +15,6 @@ public class CalendarPane extends AnchorPane {
 	private LocalDate date;
 	private Integer number;
 	public static String sDate;
-	public static boolean calander = false;
 
 	public CalendarPane(Node... children) {
 		super(children);
@@ -24,11 +23,10 @@ public class CalendarPane extends AnchorPane {
 	}
 
 	private void setCalendarController() {
-		calander = true;
 		sDate = String.valueOf(getDate());
-		DeviceActualMain device = new DeviceActualMain();
-		device.start();
-		calander = false;
+		calendarNameList();
+		CalendarMain device = new CalendarMain();
+		device.startTable();
 	}
 
 	public ObservableList<Device> calendarNameList() {

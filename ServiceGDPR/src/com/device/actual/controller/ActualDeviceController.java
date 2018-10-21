@@ -23,6 +23,8 @@ public class ActualDeviceController extends DeviceTableController implements Ini
 	
 	@Override
 	protected void setDataTable() {
+		deviceTable.getItems().clear();
+		dataActualDevice.clear();
 		dataActualDevice.addAll(db.getActualDevice());
 		deviceTable.setItems(dataActualDevice);
 		super.setDataTable();
