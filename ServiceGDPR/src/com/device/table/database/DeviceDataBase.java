@@ -61,4 +61,31 @@ public class DeviceDataBase {
 			}
 		}
 	}
+
+	public void removeContact(Device device) {
+		Connection conn = DataBaseConnect.getConnection();
+		PreparedStatement preparedStatement = null;
+		try {
+			String sql = null;
+			sql = "DELETE FROM `gepadatok1` WHERE id_gepadatok = ?";
+
+			preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setInt(1, Integer.parseInt(device.getDeviceID()));
+			preparedStatement.execute();
+		} catch (SQLException ex) {
+			System.out.println("Valami baj van a eszköz törlésekor");
+			System.out.println("" + ex);
+		} finally {
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				new ShowInfo("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
+			}
+		}
+	}
 }

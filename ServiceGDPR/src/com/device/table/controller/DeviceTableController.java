@@ -13,13 +13,18 @@ import com.setting.combobox.ComboBoxSet;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.ComboBoxTableCell;
@@ -54,6 +59,8 @@ public class DeviceTableController {
 	private TableColumn<Device, String> setDeviceTablePerson;
 	private TableColumn<Device, Boolean> setDeviceTableNewDevice;
 	private TableColumn<Device, Date> setDeviceAllDate;
+	@FXML
+	private Label blackDeviceNumberT, backDeviceNumber, backClientNameT, backClientName;
 	private DeviceDataBase deviceDb = new DeviceDataBase();
 	TrayNotification tray = new TrayNotification();
 
@@ -249,8 +256,12 @@ public class DeviceTableController {
 				@Override
 				public void handle(TableColumn.CellEditEvent<Device, String> d) {
 					Device device = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
-					System.out.println(device.getDeviceTechnicalPerson());
-					if (device.getDeviceStatusz().equals("Bevizsgálva")|| device.get) {
+					String setTechnicalPerson;
+					String setErrorCorrection;
+					setTechnicalPerson = device.getDeviceTechnicalPerson();
+					setErrorCorrection = device.getDeviceErrorCorrection();
+					if (device.getDeviceStatusz().equals("Bevizsgálva") && setTechnicalPerson != null
+							&& setErrorCorrection != null) {
 						device.setDeviceStatus(d.getNewValue());
 						deviceDb.updateDevice(device);
 						tray = new TrayNotification("Állapot!", "Sikeres Frissítése", NotificationType.SUCCESS);
@@ -346,17 +357,61 @@ public class DeviceTableController {
 		deviceTableErrorDescription.setMinWidth(370);
 		deviceTableErrorDescription
 				.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceErrorDescription"));
+		if (LoginDataBase.authority.equals("Admin")) {
+			deviceTableErrorDescription.setCellFactory(TextFieldTableCell.forTableColumn());
+			deviceTableErrorDescription.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, String> d) {
+					Device actualDvice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDvice.setDeviceErrorDescription(d.getNewValue());
+					deviceDb.updateDevice(actualDvice);
+					tray = new TrayNotification("Hiba leírás!", "Sikeres Frissítése", NotificationType.SUCCESS);
+					tray.setAnimationType(AnimationType.POPUP);
+					tray.showAndDismiss(Duration.seconds(2));
+					setDeviceTableData();
+				}
+			});
+		}
 
 		deviceTableErrorCorrection = new TableColumn<>("Valós hiba*");
 		deviceTableErrorCorrection.setMinWidth(370);
 		deviceTableErrorCorrection
 				.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceErrorCorrection"));
+		if (LoginDataBase.authority.equals("Admin") || LoginDataBase.authority.equals("SuperUser")) {
+			deviceTableErrorCorrection.setCellFactory(TextFieldTableCell.forTableColumn());
+			deviceTableErrorCorrection.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, String> d) {
+					Device actualDvice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDvice.setDeviceErrorCorrection(d.getNewValue());
+					deviceDb.updateDevice(actualDvice);
+					tray = new TrayNotification("Valós hiba!", "Sikeres Frissítése", NotificationType.SUCCESS);
+					tray.setAnimationType(AnimationType.POPUP);
+					tray.showAndDismiss(Duration.seconds(2));
+					setDeviceTableData();
+				}
+			});
+		}
 
 		deviceTableComment = new TableColumn<>("Eszközről megjegyzés*");
 		deviceTableComment.setMinWidth(370);
 		deviceTableComment.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceComment"));
-		deviceTableComment.setCellFactory(TextFieldTableCell.forTableColumn());
-
+		if (LoginDataBase.authority.equals("Admin") || LoginDataBase.authority.equals("SuperUser")
+				|| LoginDataBase.authority.equals("User")) {
+			deviceTableComment.setCellFactory(TextFieldTableCell.forTableColumn());
+			deviceTableComment.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, String> d) {
+					Device actualDvice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDvice.setDeviceComment(d.getNewValue());
+					deviceDb.updateDevice(actualDvice);
+					tray = new TrayNotification("Eszközről megjegyzés", "Sikeres Frissítése", NotificationType.SUCCESS);
+					tray.setAnimationType(AnimationType.POPUP);
+					tray.showAndDismiss(Duration.seconds(2));
+					setDeviceTableData();
+				}
+			});
+		}
 		deviceTableSalesBuying = new TableColumn<>("Vásárlási");
 		deviceTableSalesBuying.setMinWidth(70);
 		deviceTableSalesBuying.setCellValueFactory(new PropertyValueFactory<Device, Date>("deviceSalesBuying"));
@@ -368,12 +423,59 @@ public class DeviceTableController {
 		deviceTableEndDate = new TableColumn<>("Határidő*");
 		deviceTableEndDate.setMinWidth(140);
 		deviceTableEndDate.setCellValueFactory(cellData -> cellData.getValue().getDeviceEndDateObject());
+		if (LoginDataBase.authority.equals("Admin")) {
+			deviceTableEndDate.setCellFactory(dateCellFactory);
+			deviceTableEndDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, Date>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, Date> d) {
+					Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDevice.setDeviceEndDate(d.getNewValue());
+					deviceDb.updateDevice(actualDevice);
+					tray = new TrayNotification("Határidő", "Sikeres Frissítése", NotificationType.SUCCESS);
+					tray.setAnimationType(AnimationType.POPUP);
+					tray.showAndDismiss(Duration.seconds(2));
+					setDeviceTableData();
+				}
+			});
+		}
 
 		deviceTableDeliveryDate = new TableColumn<>("Kiszállás*");
 		deviceTableDeliveryDate.setMinWidth(140);
-
+		deviceTableDeliveryDate.setCellValueFactory(cellData -> cellData.getValue().getDeviceDeliveryDateObject());
+		if (LoginDataBase.authority.equals("Admin") || LoginDataBase.authority.equals("SuperUser")
+				|| LoginDataBase.authority.equals("User")) {
+			deviceTableDeliveryDate.setCellFactory(dateCellFactory);
+			deviceTableDeliveryDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, Date>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, Date> d) {
+					Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDevice.setDeviceDeliveryDate(d.getNewValue());
+					deviceDb.updateDevice(actualDevice);
+					tray = new TrayNotification("Kiszállás", "Sikeres Frissítése", NotificationType.SUCCESS);
+					tray.setAnimationType(AnimationType.POPUP);
+					tray.showAndDismiss(Duration.seconds(2));
+					setDeviceTableData();
+				}
+			});
+		}
 		deviceTbaleCompletedDate = new TableColumn<>("Elkészült*");
 		deviceTbaleCompletedDate.setMinWidth(140);
+		deviceTbaleCompletedDate.setCellValueFactory(cellData -> cellData.getValue().getDeviceCompletedDateObject());
+		if (LoginDataBase.authority.equals("Admin") || LoginDataBase.authority.equals("SuperUser")) {
+			deviceTbaleCompletedDate.setCellFactory(dateCellFactory);
+			deviceTbaleCompletedDate.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, Date>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, Date> d) {
+					Device actualDevice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDevice.setDeviceCompletedDate(d.getNewValue());
+					deviceDb.updateDevice(actualDevice);
+					tray = new TrayNotification("Elkészült", "Sikeres Frissítése", NotificationType.SUCCESS);
+					tray.setAnimationType(AnimationType.POPUP);
+					tray.showAndDismiss(Duration.seconds(2));
+					setDeviceTableData();
+				}
+			});
+		}
 
 		setDeviceAllDate = new TableColumn<>("Dátumok");
 		setDeviceAllDate.getColumns().addAll(deviceTableSalesBuying, deviceTableAddDate, deviceTableEndDate,
@@ -395,6 +497,22 @@ public class DeviceTableController {
 		deviceTableSoftverComment = new TableColumn<>("Szoftver Megjegyzés*");
 		deviceTableSoftverComment.setMinWidth(170);
 		deviceTableSoftverComment.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceSoftverComment"));
+		if (LoginDataBase.authority.equals("Admin") || LoginDataBase.authority.equals("SuperUser")
+				|| LoginDataBase.authority.equals("User")) {
+			deviceTableSoftverComment.setCellFactory(TextFieldTableCell.forTableColumn());
+			deviceTableSoftverComment.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
+				@Override
+				public void handle(TableColumn.CellEditEvent<Device, String> d) {
+					Device actualDvice = (Device) d.getTableView().getItems().get(d.getTablePosition().getRow());
+					actualDvice.setDeviceSoftverComment(d.getNewValue());
+					deviceDb.updateDevice(actualDvice);
+					tray = new TrayNotification("Szoftver Megjegyzés", "Sikeres Frissítése", NotificationType.SUCCESS);
+					tray.setAnimationType(AnimationType.POPUP);
+					tray.showAndDismiss(Duration.seconds(2));
+					setDeviceTableData();
+				}
+			});
+		}
 
 		deviceTableNewHouse = new TableColumn<>("Ház");
 		deviceTableNewHouse.setEditable(false);
@@ -642,6 +760,90 @@ public class DeviceTableController {
 						return booleanProp;
 					}
 				});
+
+		removeCol = new TableColumn<>("Törlés");
+		removeCol.setMinWidth(100);
+		Callback<TableColumn<Device, String>, TableCell<Device, String>> cellFactory = new Callback<TableColumn<Device, String>, TableCell<Device, String>>() {
+			@Override
+			public TableCell<Device, String> call(final TableColumn<Device, String> param) {
+				final TableCell<Device, String> cell = new TableCell<Device, String>() {
+					final Button btn = new Button("Törlés");
+
+					@Override
+					public void updateItem(String item, boolean empty) {
+						btn.setDisable(true);
+						if (LoginDataBase.authority.equals("Admin")) {
+							btn.setDisable(false);
+						}
+						super.updateItem(item, empty);
+						if (empty) {
+							setGraphic(null);
+							setText(null);
+						} else {
+							btn.setOnAction((ActionEvent event) -> {
+								Device device = getTableView().getItems().get(getIndex());
+								deviceDb.removeContact(device);
+								setDataTable();
+								tray = new TrayNotification("Törlés!", "Sikeres Törlés", NotificationType.SUCCESS);
+								tray.showAndDismiss(Duration.seconds(1));
+							});
+							setGraphic(btn);
+							setText(null);
+						}
+					}
+				};
+				return cell;
+			}
+		};
+		removeCol.setCellFactory(cellFactory);
+		
+		deviceTable.setRowFactory(ts -> new TableRow<Device>() {
+			@Override
+			public void updateItem(Device item, boolean empty) {
+				super.updateItem(item, empty);
+
+				if (item == null) {
+					setStyle("");
+				} else {
+					setStyle("");
+					if (item.getDeviceStatus().equals("Bevételezve")) {
+						setStyle("-fx-text-background-color: tomato;");
+					} else {
+						setStyle("-fx-text-background-color: white;");
+					}
+					if (item.getDeviceStatusz() != null) {
+						if (item.getDeviceStatusz().equals("Bevizsgálás alatt")
+								|| item.getDeviceStatusz().equals("Akkatrészre vár")
+								|| item.getDeviceStatusz().equals("Garanciális")
+								|| item.getDeviceStatusz().equals("Továbbküldve")) {
+
+							setStyle("-fx-text-background-color: #40e0d0;");
+						} else if (item.getDeviceStatus().equals("Bevételezve")
+								&& item.getDeviceStatusz().equals("Bevizsgálva")) {
+							setStyle("-fx-text-background-color: #7cfc00;");
+						} else {
+							setStyle("-fx-text-background-color: white;");
+						}
+					}
+
+				}
+			}
+		});
+
+		blackDeviceNumberT.setStyle(" -fx-font-size: 15pt ;");
+		backClientNameT.setStyle("-fx-font-size: 15pt ;");
+		deviceTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Device>() {
+			@Override
+			public void changed(ObservableValue<? extends Device> observable, Device oldValue, Device newValue) {
+				if (oldValue == null || newValue != null) {
+					backClientName.setText(newValue.getDeviceClientName());
+					backClientName.setStyle(" -fx-font-size: 15pt ;");
+					backDeviceNumber.setText(newValue.getDeviceNumber());
+					backDeviceNumber.setStyle(" -fx-font-size: 15pt ;");
+				}
+			}
+		});
+
 		setDeviceTableNewDevice = new TableColumn<>("Új gép");
 		setDeviceTableNewDevice.getColumns().addAll(deviceTableNewHouse, deviceTablePowerSupply, deviceTableProcessor,
 				deviceTableBaseBoard, deviceTableMemory, deviceTableVideoCard, deviceTableSSDDrive,
@@ -654,7 +856,8 @@ public class DeviceTableController {
 				deviceTableNewMachine, setDeviceTablePerson, deviceTablePriorit, deviceTablePassword,
 				deviceTableReferences, deviceTableAccesssory, deviceTableInjury, deviceTableErrorDescription,
 				deviceTableErrorCorrection, deviceTableComment, setDeviceAllDate, deviceTableDataRecovery,
-				deviceTableSoftver, deviceTableOperatingSystem, deviceTableSoftverComment, setDeviceTableNewDevice);
+				deviceTableSoftver, deviceTableOperatingSystem, deviceTableSoftverComment, setDeviceTableNewDevice,
+				removeCol);
 
 	}
 
