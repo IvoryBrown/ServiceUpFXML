@@ -1,0 +1,85 @@
+.root {
+	-fx-background-image: url("/com/setting/image/background.jpg");
+		-fx-font-size: 16.0;
+}
+
+.button {
+	-fx-text-fill: whitesmoke;
+	-fx-font-family: "Arial Narrow";
+	-fx-font-weight: bold;
+	-fx-background-color: linear-gradient(#61a2b1, #2A5058);
+	-fx-effect: dropshadow(three-pass-box, rgba(0.0, 0.0, 0.0, 0.6), 5.0,
+		0.0, 0.0, 1.0);
+}
+
+.label {
+	-fx-font-size: 15.0px;
+	-fx-font-weight: bold;
+	-fx-text-fill: whitesmoke;
+	-fx-font-family: "Arial Narrow";
+}
+
+.button:hover {
+	-fx-background-color: linear-gradient(#2A5058, #61a2b1);
+}
+
+
+.text-field {
+	-fx-background-color: #616161;
+	-fx-font-size: 14.0;
+	-fx-text-fill: white;
+	-fx-prompt-text-fill: #61a2b1;
+}
+
+.text-area {
+    -fx-background-color:  #616161;
+    -fx-font-size: 14.0;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #61a2b1 ;
+}
+
+.text-area .content {
+    -fx-background-color: #616161;
+}
+
+.combo-box .list-cell {
+    -fx-background-color: #616161;
+    -fx-text-fill: white;
+ }
+
+.combo-box-popup .list-view .list-cell {
+	-fx-background-color: #616161;
+	-fx-text-fill: white;
+}
+
+.combo-box-popup .list-view .list-cell:filled:hover {
+    -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+}
+
+.combo-box .arrow, .combo-box .arrow-button{
+    -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+}
+
+ .scroll-pane {
+  -fx-background-color: #616161;
+}
+
+ .scroll-bar .increment-button {
+  visibility: hidden;
+}
+
+ .scroll-bar .decrement-button {
+  visibility: hidden;
+}
+
+.scroll-bar:vertical {
+  -fx-background-color: #616161;
+}
+
+ .scroll-bar:vertical .track-background {
+  visibility: hidden;
+}
+
+ .scroll-bar:vertical .track {
+  visibility: hidden;
+}

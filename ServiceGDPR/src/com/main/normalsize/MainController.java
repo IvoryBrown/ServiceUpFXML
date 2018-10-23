@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import com.calendar.main.CalendarMain;
 import com.client.main.ClientNewMain;
+import com.company.main.CompanyMain;
 import com.device.actual.main.DeviceActualMain;
 import com.error.main.ErrorMain;
 import com.login.database.LoginDataBase;
@@ -122,6 +123,11 @@ public class MainController implements Initializable {
 			if (name.equals(MENU_NEW_CLIENT)) {
 				ClientNewMain clientNewMain = new ClientNewMain();
 				clientNewMain.newClientBtn();
+				return;
+			}
+			if (name.equals(MENU_NEW_COMPANY)) {
+				CompanyMain companyMain = new CompanyMain();
+				companyMain.start();
 				return;
 			}
 			if (name.equals(MENU_DEVICE_NEW)) {

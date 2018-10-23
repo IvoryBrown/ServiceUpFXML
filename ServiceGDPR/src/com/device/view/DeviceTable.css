@@ -1,5 +1,6 @@
 .root {
 	-fx-background-image: url("/com/setting/image/background.jpg");
+
 }
 
 .button {
@@ -88,6 +89,17 @@
 	-fx-font-size: 14.0;
 	-fx-text-fill: white;
 	-fx-prompt-text-fill: #61a2b1;
+}
+
+.text-area {
+    -fx-background-color:  #616161;
+    -fx-font-size: 14.0;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #61a2b1 ;
+}
+
+.text-area .content {
+    -fx-background-color: #616161;
 }
 
  .scroll-pane {
