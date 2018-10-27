@@ -2,23 +2,16 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane prefHeight="700.0" prefWidth="1300.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="com.clientcompany.table.controller.ClientCompanyController">
+<AnchorPane prefHeight="700.0" prefWidth="1300.0" stylesheets="@ClientCompany.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.clientcompany.table.controller.ClientCompanyController">
    <children>
       <AnchorPane prefHeight="700.0" prefWidth="1300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TableView fx:id="clientConpanyTable" layoutX="125.0" layoutY="138.0" prefHeight="700.0" prefWidth="1300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
-              <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
-              </columns>
-            </TableView>
+            <TableView fx:id="clientConpanyTable" editable="true" layoutX="125.0" layoutY="138.0" prefHeight="700.0" prefWidth="1300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
             <VBox layoutX="14.0" layoutY="4.0" prefHeight="89.0" prefWidth="343.0">
                <children>
                   <TextField fx:id="clientNameFilteringTxt" prefHeight="36.0" prefWidth="201.0" promptText="Név, Cég">
@@ -26,7 +19,7 @@
                         <Insets top="5.0" />
                      </VBox.margin>
                   </TextField>
-                  <Button mnemonicParsing="false" onAction="#filterCompanytBtn" prefHeight="36.0" prefWidth="344.0" text="Button">
+                  <Button mnemonicParsing="false" onAction="#filterCompanytBtn" prefHeight="36.0" prefWidth="344.0" text="Frissítés">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>

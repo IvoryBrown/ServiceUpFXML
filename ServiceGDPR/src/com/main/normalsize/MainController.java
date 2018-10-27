@@ -40,7 +40,7 @@ public class MainController implements Initializable {
 	private final String MENU_CLIENT = "Ügyfelek";
 	private final String MENU_NEW_CLIENT = "Új Ügyfél";
 	private final String MENU_NEW_COMPANY = "Új Cég";
-	private final String MENU_CLIENT_TABLE = "Ügyfelek";
+	private final String MENU_CLIENT_TABLE = "Ügyfelek Tábla";
 
 	private final String MENU_DEVICE = "Eszköz";
 	private final String MENU_DEVICE_NEW = "Új Felvétel";

@@ -62,7 +62,7 @@ public class DeviceTableController {
 	@FXML
 	private Label blackDeviceNumberT, backDeviceNumber, backClientNameT, backClientName;
 	private DeviceDataBase deviceDb = new DeviceDataBase();
-	TrayNotification tray = new TrayNotification();
+	private TrayNotification tray = new TrayNotification();
 
 	@SuppressWarnings("unchecked")
 	protected void setDeviceTableData() {

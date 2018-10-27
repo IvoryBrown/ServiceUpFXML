@@ -27,7 +27,7 @@ public class ClientDataBase {
 						rs.getString("cegnev"), rs.getString("ugyfel_nev"), rs.getString("megye"),
 						rs.getString("telepules"), rs.getString("iranyitoszam"), rs.getString("cim"),
 						rs.getString("ceg_telefon"), rs.getString("ceg_email"), rs.getString("ugyfel_telefon"),
-						rs.getString("ugyfel_email"), rs.getString("csomag_tipus"), rs.getString("ugyfel_megjegyzes"));
+						rs.getString("ugyfel_email"), rs.getString("csomag_tipus"), rs.getString("ugyfel_megjegyzes"), rs.getString("felvetel_datum"));
 				client.add(actualCLient);
 			}
 		} catch (SQLException ex) {
@@ -68,7 +68,7 @@ public class ClientDataBase {
 						rs.getString("cegnev"), rs.getString("ugyfel_nev"), rs.getString("megye"),
 						rs.getString("telepules"), rs.getString("iranyitoszam"), rs.getString("cim"),
 						rs.getString("ceg_telefon"), rs.getString("ceg_email"), rs.getString("ugyfel_telefon"),
-						rs.getString("ugyfel_email"), rs.getString("csomag_tipus"), rs.getString("ugyfel_megjegyzes"));
+						rs.getString("ugyfel_email"), rs.getString("csomag_tipus"), rs.getString("ugyfel_megjegyzes"), rs.getString("felvetel_datum"));
 				client.add(actualCLient);
 			}
 		} catch (SQLException ex) {

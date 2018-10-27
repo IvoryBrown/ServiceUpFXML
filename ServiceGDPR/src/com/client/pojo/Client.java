@@ -17,11 +17,13 @@ public class Client {
 	private final SimpleStringProperty clientEmail;
 	private final SimpleStringProperty clientPackage;
 	private final SimpleStringProperty clientComment;
+	private final SimpleStringProperty clientDate;
+
 
 	public Client(Integer cClientId, String cClientNumber, String cClientCompanyName, String cClientName,
 			String cClientCounty, String cClientSettlement, String cClientZipCode, String cClientAddress,
 			String cClientCompanyPhone, String cClientCompanyEmail, String cClientPhone, String cClientEmail,
-			String cClientPackage, String cClientComment) {
+			String cClientPackage, String cClientComment, String clientDate) {
 		this.clientId = new SimpleStringProperty(String.valueOf(cClientId));
 		this.clientNumber = new SimpleStringProperty(cClientNumber);
 		this.clientCompanyName = new SimpleStringProperty(cClientCompanyName);
@@ -36,6 +38,7 @@ public class Client {
 		this.clientEmail = new SimpleStringProperty(cClientEmail);
 		this.clientPackage = new SimpleStringProperty(cClientPackage);
 		this.clientComment = new SimpleStringProperty(cClientComment);
+		this.clientDate = new SimpleStringProperty(clientDate);
 	}
 
 	public String getClientId() {
@@ -148,5 +151,13 @@ public class Client {
 
 	public void setClientComment(String cClientComment) {
 		this.clientComment.set(cClientComment);
+	}
+
+	public String getClientDate() {
+		return this.clientDate.get();
+	}
+
+	public void setClientDate(String clientDate) {
+		this.clientDate.set(clientDate);
 	}
 }
