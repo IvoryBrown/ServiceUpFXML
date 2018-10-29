@@ -31,7 +31,7 @@
                   <Insets right="5.0" top="2.0" />
                </HBox.margin>
             </TextField>
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="206.0" text="Új Eszköz">
+            <Button mnemonicParsing="false" onAction="#newDevice" prefHeight="36.0" prefWidth="206.0" text="Új Eszköz">
                <HBox.margin>
                   <Insets right="5.0" top="2.0" />
                </HBox.margin>
@@ -114,21 +114,21 @@
                   <Insets top="5.0" />
                </VBox.margin>
             </ComboBox>
-            <ComboBox id="deviceStatus" fx:id="deviceStatus" prefHeight="36.0" prefWidth="265.0">
+            <TextField id="deviceStatus" fx:id="deviceStatus" editable="false" prefHeight="36.0" promptText="Bevételezve" text="Bevételezve">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
-            </ComboBox>
+            </TextField>
             <ComboBox id="deviceNewMachine" fx:id="deviceNewMachine" prefHeight="36.0" prefWidth="265.0">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </ComboBox>
-            <ComboBox id="deviceAdministrator" fx:id="deviceAdministrator" prefHeight="36.0" prefWidth="265.0">
+            <TextField id="devicePassword" fx:id="deviceAdministrator" editable="false" prefHeight="36.0" promptText="Ügyintéző">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
-            </ComboBox>
+            </TextField>
             <ComboBox id="devicePriorit" fx:id="devicePriorit" prefHeight="36.0" prefWidth="265.0">
                <VBox.margin>
                   <Insets top="5.0" />
@@ -209,17 +209,17 @@
       </VBox>
       <HBox layoutX="22.0" layoutY="455.0" prefHeight="40.0" prefWidth="1055.0">
          <children>
-            <Button id="deviceBtnDate" fx:id="deviceBtnDate" mnemonicParsing="false" onAction="#setButtonPaneDate" prefHeight="36.0" prefWidth="206.0" text="Dátum">
+            <Button id="deviceBtnDate" mnemonicParsing="false" onAction="#setButtonPaneDate" prefHeight="36.0" prefWidth="206.0" text="Dátum">
                <HBox.margin>
                   <Insets right="5.0" />
                </HBox.margin>
             </Button>
-            <Button id="deviceBtnSoftver" fx:id="deviceBtnSoftver" mnemonicParsing="false" onAction="#setButtonPaneSoftver" prefHeight="36.0" prefWidth="206.0" text="Softver">
+            <Button id="deviceBtnSoftver" mnemonicParsing="false" onAction="#setButtonPaneSoftver" prefHeight="36.0" prefWidth="206.0" text="Softver">
                <HBox.margin>
                   <Insets right="5.0" />
                </HBox.margin>
             </Button>
-            <Button id="deviceBtnHardver" fx:id="deviceBtnHardver" mnemonicParsing="false" onAction="#setButtonPaneHardver" prefHeight="36.0" prefWidth="206.0" text="Hardver">
+            <Button id="deviceBtnHardver" mnemonicParsing="false" onAction="#setButtonPaneHardver" prefHeight="36.0" prefWidth="206.0" text="Hardver">
                <HBox.margin>
                   <Insets right="5.0" />
                </HBox.margin>

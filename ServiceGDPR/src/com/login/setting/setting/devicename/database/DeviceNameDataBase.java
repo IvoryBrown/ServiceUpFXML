@@ -15,7 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class DeviceNameDataBase {
-	public static ObservableList<String> administratorListComboBox = FXCollections.observableArrayList();
+	public static ObservableList<String> deviceNameList = FXCollections.observableArrayList();
 
 	public static ArrayList<DeviceName> getAllDeviceNameDataBase() {
 		ArrayList<DeviceName> deviceName = null;
@@ -30,7 +30,7 @@ public class DeviceNameDataBase {
 			while (rs.next()) {
 				DeviceName actualDevice = new DeviceName(rs.getInt("id_eszkoz_nevek"), rs.getString("eszkoz_nev"));
 				deviceName.add(actualDevice);
-				administratorListComboBox.add(rs.getString("eszkoz_nev"));
+				deviceNameList.add(rs.getString("eszkoz_nev"));
 			}
 		} catch (SQLException ex) {
 			new ShowInfo("Adatbázis Hiba", "", ex.getMessage());

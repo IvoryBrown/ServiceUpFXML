@@ -116,8 +116,8 @@ public class SettingDeviceNameController extends LocationController{
 
 	private void setDeviceNameCombobox() {
 		deviceNameSettingCmb.getItems().clear();
-		deviceNameSettingCmb.getItems().addAll(DeviceNameDataBase.administratorListComboBox);
-		DeviceNameDataBase.administratorListComboBox.clear();
+		deviceNameSettingCmb.getItems().addAll(DeviceNameDataBase.deviceNameList);
+		DeviceNameDataBase.deviceNameList.clear();
 
 	}
 

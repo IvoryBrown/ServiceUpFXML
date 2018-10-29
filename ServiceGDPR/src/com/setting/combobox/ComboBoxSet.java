@@ -16,15 +16,25 @@ public class ComboBoxSet {
 		final String CMBERRORSTATUSZ[] = { "Kész", "Folyamatba", "Nem lehet" };
 		return CMBERRORSTATUSZ;
 	}
-	
+
 	public static String[] setDeviceStaCombobox() {
 		final String CMBDEVICESTATUSS[] = { "Bevételezve", "Kiadva" };
 		return CMBDEVICESTATUSS;
 	}
-	
+
 	public static String[] setDeviceStatusCombobox() {
 		final String CMBDEVICESTATUSZ[] = { "Bevizsgálás alatt", "Alkatrészre vár", "Garanciális", "Továbbküldve",
 				"Bevizsgálva" };
 		return CMBDEVICESTATUSZ;
+	}
+
+	public static String[] setYesNoCombobox() {
+		final String CMBDEVICE[] = { "Igen", "Nem" };
+		return CMBDEVICE;
+	}
+
+	public static String[] setNewPrioritCombobox() {
+		final String CMDDEVICEPRIORIT[] = { "Alap", "Szerződött", "Sűrgős" };
+		return CMDDEVICEPRIORIT;
 	}
 }

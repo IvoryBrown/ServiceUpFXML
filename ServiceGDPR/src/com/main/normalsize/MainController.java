@@ -8,6 +8,7 @@ import com.client.main.ClientNewMain;
 import com.clientcompany.table.main.ClientCompanyMain;
 import com.company.main.CompanyMain;
 import com.device.actual.main.DeviceActualMain;
+import com.device.newmain.DeviceNewMain;
 import com.error.main.ErrorMain;
 import com.login.database.LoginDataBase;
 import com.login.filewrite.LoginFile;
@@ -137,7 +138,8 @@ public class MainController implements Initializable {
 				return;
 			}
 			if (name.equals(MENU_DEVICE_NEW)) {
-
+				DeviceNewMain newDevice =new DeviceNewMain();
+				newDevice.start();
 				return;
 			}
 			if (name.equals(MENU_DEVICE_AVAILABLE)) {

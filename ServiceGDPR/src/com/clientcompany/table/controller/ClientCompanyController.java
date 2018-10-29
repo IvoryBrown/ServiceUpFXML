@@ -7,6 +7,8 @@ import com.client.pojo.Client;
 import com.clientcompany.table.database.ClientCompanyDB;
 import com.login.database.LoginDataBase;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -340,6 +342,17 @@ public class ClientCompanyController implements Initializable {
 				}
 			};
 			removeCol.setCellFactory(cellFactory);
+			
+			clientConpanyTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Client>() {
+				@Override
+				public void changed(ObservableValue<? extends Client> observable, Client oldValue, Client newValue) {
+					if (oldValue == null || newValue != null) {
+						Device.(newValue.getClientId());
+						deviceClientName.setText(newValue.getClientName());
+						deviceCompanyName.setText(newValue.getClientCompanyName());
+					}
+				}
+			});
 
 			clientConpanyTable.setItems(dataClient);
 

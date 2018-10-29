@@ -165,7 +165,7 @@ public class DeviceTableController {
 				return Bindings.createObjectBinding(() -> value);
 			});
 			deviceTableName
-					.setCellFactory(ComboBoxTableCell.forTableColumn(DeviceNameDataBase.administratorListComboBox));
+					.setCellFactory(ComboBoxTableCell.forTableColumn(DeviceNameDataBase.deviceNameList));
 			deviceTableName.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
 				@Override
 				public void handle(TableColumn.CellEditEvent<Device, String> d) {
