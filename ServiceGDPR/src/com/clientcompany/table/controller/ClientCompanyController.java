@@ -380,6 +380,9 @@ public class ClientCompanyController implements Initializable {
 	@FXML
 	private void filterCompanytBtn() {
 		updateClientTable();
+		tray = new TrayNotification("Tábla!", "Sikeres Frissítése", NotificationType.SUCCESS);
+		tray.setAnimationType(AnimationType.POPUP);
+		tray.showAndDismiss(Duration.seconds(2));
 	}
 
 	@Override

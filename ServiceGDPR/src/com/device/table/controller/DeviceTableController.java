@@ -49,12 +49,12 @@ public class DeviceTableController {
 			deviceTableCoolingFan, deviceTableOpticalDrive, deviceTableExpansionCard, deviceTableLaptop,
 			colDeviceAction;
 	private TableColumn<Device, String> deviceTableCompanyName, deviceTableClientName, deviceTableName,
-			deviceTableNumber, deviceTabelManufacturer, deviceTabelSerialNumber, deviceTableRepairLocation,
-			deviceTableStatus, deviceTableNewMachine, deviceTableAdministrator, deviceTablePriorit, deviceTablePassword,
-			deviceTableReferences, deviceTableAccesssory, deviceTableInjury, deviceTableErrorDescription,
-			deviceTableComment, deviceTableDataRecovery, deviceTableSoftver, deviceTableOperatingSystem,
-			deviceTableSoftverComment, deviceTableErrorCorrection, deviceTableTechnicalPerson, deviceTableStatusz,
-			removeCol;
+			deviceTableNumber, deviceTabelManufacturer, deviceTabelSerialNumber, deviceTableAdministratorLocation,
+			deviceTableRepairLocation, deviceTableStatus, deviceTableNewMachine, deviceTableAdministrator,
+			deviceTablePriorit, deviceTablePassword, deviceTableReferences, deviceTableAccesssory, deviceTableInjury,
+			deviceTableErrorDescription, deviceTableComment, deviceTableDataRecovery, deviceTableSoftver,
+			deviceTableOperatingSystem, deviceTableSoftverComment, deviceTableErrorCorrection,
+			deviceTableTechnicalPerson, deviceTableStatusz, removeCol;
 	private TableColumn<Device, Date> deviceTableSalesBuying, deviceTableAddDate, deviceTableEndDate,
 			deviceTableDeliveryDate, deviceTbaleCompletedDate;
 	private TableColumn<Device, String> setDeviceTablePerson;
@@ -165,8 +165,7 @@ public class DeviceTableController {
 				final String value = i.getValue().getDeviceName();
 				return Bindings.createObjectBinding(() -> value);
 			});
-			deviceTableName
-					.setCellFactory(ComboBoxTableCell.forTableColumn(DeviceNameDataBase.deviceNameList));
+			deviceTableName.setCellFactory(ComboBoxTableCell.forTableColumn(DeviceNameDataBase.deviceNameList));
 			deviceTableName.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {
 				@Override
 				public void handle(TableColumn.CellEditEvent<Device, String> d) {
@@ -218,6 +217,11 @@ public class DeviceTableController {
 				}
 			});
 		}
+
+		deviceTableAdministratorLocation = new TableColumn<>("Felvétel helye");
+		deviceTableAdministratorLocation.setMinWidth(130);
+		deviceTableAdministratorLocation
+				.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceAdministratorLocation"));
 
 		deviceTableRepairLocation = new TableColumn<>("Javítás helye*");
 		deviceTableRepairLocation.setMinWidth(130);
@@ -797,7 +801,7 @@ public class DeviceTableController {
 			}
 		};
 		removeCol.setCellFactory(cellFactory);
-		
+
 		deviceTable.setRowFactory(ts -> new TableRow<Device>() {
 			@Override
 			public void updateItem(Device item, boolean empty) {
@@ -856,12 +860,12 @@ public class DeviceTableController {
 
 		deviceTable.getColumns().addAll(colDeviceAction, deviceTableId, deviceTableClientID, deviceTableNumber,
 				deviceTableClientName, deviceTableCompanyName, deviceTableName, deviceTabelManufacturer,
-				deviceTabelSerialNumber, deviceTableRepairLocation, deviceTableStatus, deviceTableStatusz,
-				deviceTableNewMachine, setDeviceTablePerson, deviceTablePriorit, deviceTablePassword,
-				deviceTableReferences, deviceTableAccesssory, deviceTableInjury, deviceTableErrorDescription,
-				deviceTableErrorCorrection, deviceTableComment, setDeviceAllDate, deviceTableDataRecovery,
-				deviceTableSoftver, deviceTableOperatingSystem, deviceTableSoftverComment, setDeviceTableNewDevice,
-				removeCol);
+				deviceTabelSerialNumber, deviceTableAdministratorLocation, deviceTableRepairLocation, deviceTableStatus,
+				deviceTableStatusz, deviceTableNewMachine, setDeviceTablePerson, deviceTablePriorit,
+				deviceTablePassword, deviceTableReferences, deviceTableAccesssory, deviceTableInjury,
+				deviceTableErrorDescription, deviceTableErrorCorrection, deviceTableComment, setDeviceAllDate,
+				deviceTableDataRecovery, deviceTableSoftver, deviceTableOperatingSystem, deviceTableSoftverComment,
+				setDeviceTableNewDevice, removeCol);
 
 	}
 

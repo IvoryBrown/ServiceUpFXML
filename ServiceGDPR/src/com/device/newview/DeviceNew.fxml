@@ -460,7 +460,7 @@
                         <Insets top="5.0" />
                      </VBox.margin>
                   </DatePicker>
-                  <DatePicker id="deviceAddDate" fx:id="deviceAddDate" prefHeight="36.0" prefWidth="265.0">
+                  <DatePicker id="deviceAddDate" fx:id="deviceAddDate" editable="false" prefHeight="36.0" prefWidth="265.0">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>

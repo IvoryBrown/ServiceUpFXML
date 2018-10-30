@@ -140,7 +140,10 @@
                         </VBox>
                         <VBox layoutX="329.0" layoutY="14.0" prefHeight="171.0" prefWidth="85.0">
                            <children>
-                              <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="204.0" text="User" />
+                              <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="204.0" text="User">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin></Label>
                               <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="204.0" text="Jelszó">
                                  <VBox.margin>
                                     <Insets top="5.0" />
@@ -148,7 +151,12 @@
                               </Label>
                               <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="204.0" text="Jogkör">
                                  <VBox.margin>
-                                    <Insets top="6.0" />
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="204.0" text="Helység">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
                                  </VBox.margin>
                               </Label>
                            </children>
@@ -166,6 +174,11 @@
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </ComboBox>
+                              <TextField fx:id="administratorLocationTxt" prefHeight="35.0" promptText="Helység">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </TextField>
                            </children>
                         </VBox>
                      </children></AnchorPane>

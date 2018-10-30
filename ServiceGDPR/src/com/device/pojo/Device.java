@@ -19,6 +19,7 @@ public class Device {
 	private final SimpleStringProperty deviceName;
 	private final SimpleStringProperty deviceManufacturer;
 	private final SimpleStringProperty deviceSerialNumber;
+	private final SimpleStringProperty deviceAdministratorLocation;
 	private final SimpleStringProperty deviceRepairLocation;
 	private final SimpleStringProperty deviceStatus;
 	private final SimpleStringProperty deviceNewMachine;
@@ -82,6 +83,7 @@ public class Device {
 		this.deviceManufacturer = new SimpleStringProperty("");
 		this.deviceSerialNumber = new SimpleStringProperty("");
 		this.deviceRepairLocation = new SimpleStringProperty("");
+		this.deviceAdministratorLocation = new SimpleStringProperty("");
 		this.deviceStatus = new SimpleStringProperty("");
 		this.deviceNewMachine = new SimpleStringProperty("");
 		this.deviceAdministrator = new SimpleStringProperty("");
@@ -119,7 +121,7 @@ public class Device {
 	}
 
 	public Device(String deviceID,String deviceClientID, String deviceNumber, String deviceCompanyName, String deviceClientName,
-			String deviceName, String deviceManufacturer, String deviceSerialNumber, String deviceRepairLocation,
+			String deviceName, String deviceManufacturer, String deviceSerialNumber,String deviceAdministratorLocation, String deviceRepairLocation,
 			String deviceStatus, String deviceNewMachine, String deviceAdministrator, String devicePriorit,
 			String devicePassword, String deviceReferences, String deviceAccesssory, String deviceInjury,
 			String deviceErrorDescription, String deviceComment, Date deviceSalesBuying, Date deviceAddDate,
@@ -137,6 +139,7 @@ public class Device {
 		this.deviceName = new SimpleStringProperty(deviceName);
 		this.deviceManufacturer = new SimpleStringProperty(deviceManufacturer);
 		this.deviceSerialNumber = new SimpleStringProperty(deviceSerialNumber);
+		this.deviceAdministratorLocation = new SimpleStringProperty(deviceAdministratorLocation);
 		this.deviceRepairLocation = new SimpleStringProperty(deviceRepairLocation);
 		this.deviceStatus = new SimpleStringProperty(deviceStatus);
 		this.deviceNewMachine = new SimpleStringProperty(deviceNewMachine);
@@ -237,10 +240,17 @@ public class Device {
 		this.deviceSerialNumber.set(deviceSerialNumber);
 	}
 
+	public String getDeviceAdministratorLocation() {
+		return this.deviceAdministratorLocation.get();
+	}
+
+	public void setDeviceAdministratorLocation(String deviceAdministratorLocation) {
+		this.deviceAdministratorLocation.set(deviceAdministratorLocation);
+	}
 	public String getDeviceRepairLocation() {
 		return this.deviceRepairLocation.get();
 	}
-
+	
 	public void setDeviceRepairLocation(String deviceRepairLocation) {
 		this.deviceRepairLocation.set(deviceRepairLocation);
 	}

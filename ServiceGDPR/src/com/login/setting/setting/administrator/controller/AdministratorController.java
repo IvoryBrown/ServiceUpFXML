@@ -26,15 +26,17 @@ import javafx.util.Callback;
 public class AdministratorController extends DataBaseController {
 
 	@FXML
-	private TextField administratorNameTxt, administratorEmailTxt, administratorUserNameTxt, administratorPasswordTxt;
+	private TextField administratorNameTxt, administratorEmailTxt, administratorUserNameTxt, administratorPasswordTxt,
+			administratorLocationTxt;
 	@FXML
 	private ComboBox<String> administratorPostTxt, administratorAuthorityTxt;
 
 	@FXML
 	private TableView<Administrator> tableAndministrator;
 	private TableColumn<Administrator, Integer> administratorId;
-	private TableColumn<Administrator, String> administratorName, administratorEmail, administratorPost,
-			administratorUserName, administratorPassword, administratorAuthority, removeColAdministrator;
+	private TableColumn<Administrator, String> administratorName, administratorLocation, administratorEmail,
+			administratorPost, administratorUserName, administratorPassword, administratorAuthority,
+			removeColAdministrator;
 	protected FXDialogMain main = new FXDialogMain();
 	private final ObservableList<Administrator> dataAdministrator = FXCollections.observableArrayList();
 
@@ -51,6 +53,24 @@ public class AdministratorController extends DataBaseController {
 		administratorName = new TableColumn<>("Név");
 		administratorName.setMinWidth(150);
 		administratorName.setCellValueFactory(new PropertyValueFactory<Administrator, String>("administratorName"));
+
+		administratorLocation = new TableColumn<>("Név");
+		administratorLocation.setMinWidth(150);
+		administratorLocation
+				.setCellValueFactory(new PropertyValueFactory<Administrator, String>("administratorLocation"));
+		administratorLocation.setCellFactory(TextFieldTableCell.forTableColumn());
+		administratorLocation.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Administrator, String>>() {
+			@Override
+			public void handle(TableColumn.CellEditEvent<Administrator, String> t) {
+				Administrator actualAdministrator = (Administrator) t.getTableView().getItems()
+						.get(t.getTablePosition().getRow());
+				actualAdministrator.setAdministratorLocation(t.getNewValue());
+				AdministratorDataBase.updateAdministrator(actualAdministrator);
+				messageLbl.setStyle("-fx-text-fill: #2A5058;");
+				messageLbl.setText("Sikeres beállítás!!");
+				setAdministratorTableData();
+			}
+		});
 
 		administratorEmail = new TableColumn<>("Email");
 		administratorEmail.setMinWidth(450);
@@ -200,7 +220,7 @@ public class AdministratorController extends DataBaseController {
 		removeColAdministrator.setCellFactory(cellFactory);
 
 		tableAndministrator.setItems(dataAdministrator);
-		tableAndministrator.getColumns().addAll(administratorId, administratorName, administratorEmail,
+		tableAndministrator.getColumns().addAll(administratorId, administratorName, administratorLocation, administratorEmail,
 				administratorPost, administratorUserName, administratorPassword, administratorAuthority,
 				removeColAdministrator);
 		dataAdministrator.addAll(AdministratorDataBase.getAllAdministratorDataBase());
@@ -214,7 +234,8 @@ public class AdministratorController extends DataBaseController {
 			if (email.length() > 3 && email.contains("@") && email.contains(".")) {
 				if (administratorPasswordTxt.getText().length() > 6
 						&& administratorPasswordTxt.getText().length() < 13) {
-					Administrator newadministrator = new Administrator(administratorNameTxt.getText(), email,
+					Administrator newadministrator = new Administrator(administratorNameTxt.getText(),
+							administratorLocationTxt.getText(), email,
 							administratorPostTxt.getSelectionModel().getSelectedItem(),
 							administratorUserNameTxt.getText(), administratorPasswordTxt.getText(),
 							administratorAuthorityTxt.getSelectionModel().getSelectedItem());
