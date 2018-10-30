@@ -7,9 +7,12 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import com.device.pojo.DeviceBackAllText;
+import com.device.pojo.DeviceClient;
 import com.login.database.LoginDataBase;
 import com.login.setting.setting.devicename.database.DeviceNameDataBase;
 import com.login.setting.setting.location.database.LocationDataBase;
+import com.login.setting.setting.operatingsystem.database.OperatingSystemDataBase;
 import com.setting.combobox.ComboBoxSet;
 import com.setting.database.DataBaseConnect;
 import com.setting.identification.DeviceIdentificationGenereator;
@@ -31,13 +34,14 @@ import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
 
 public class DeviceNewController implements Initializable {
+	private String deviceClientId;
 	@FXML
 	private DatePicker deviceSalesBuying, deviceAddDate, deviceEndDate, deviceDeliveryDate;
 	@FXML
 	private AnchorPane deviceAnchorPDate, deviceAncorPSoftver, deviceAncorPHardver;
 	@FXML
 	private TextField deviceNumber, deviceSerialNumber, deviceManufacturer, deviceAdministrator, devicePassword,
-			deviceReferences, deviceClientName, deviceCompanyName, deviceStatus, deviceClientId;
+			deviceReferences, deviceClientName, deviceCompanyName, deviceStatus;
 	@FXML
 	private TextArea deviceAccesssory, deviceInjury, deviceErrorDescription, deviceComment, deviceSoftverComment;
 	@FXML
@@ -45,8 +49,7 @@ public class DeviceNewController implements Initializable {
 			deviceOperatingSystem, deviceDataRecovery;
 	@FXML
 	private CheckBox deviceNewHouse, devicePowerSupply, deviceProcessor, deviceBaseBoard, deviceMemory, deviceVideoCard,
-			deviceSSDDrive, deviceHardDrive, deviceCoolingFan, deviceOpticalDrive, deviceExpansionCard, deviceLaptop,
-			emailCeckBox;
+			deviceSSDDrive, deviceHardDrive, deviceCoolingFan, deviceOpticalDrive, deviceExpansionCard, deviceLaptop;
 	private Callback<DatePicker, DateCell> dayCellFactory;
 	private TrayNotification tray = new TrayNotification();
 
@@ -73,6 +76,7 @@ public class DeviceNewController implements Initializable {
 	}
 
 	private void setCombobox() {
+		deviceAdministrator.setText(LoginDataBase.name);
 		DeviceNameDataBase.getAllDeviceNameDataBase();
 		deviceName.getItems().addAll(DeviceNameDataBase.deviceNameList);
 		LocationDataBase.getAllLocationDataBase();
@@ -81,6 +85,11 @@ public class DeviceNewController implements Initializable {
 		devicePriorit.getItems().addAll(ComboBoxSet.setNewPrioritCombobox());
 		deviceSoftver.getItems().addAll(ComboBoxSet.setYesNoCombobox());
 		deviceDataRecovery.getItems().addAll(ComboBoxSet.setYesNoCombobox());
+		OperatingSystemDataBase.getAllOperatingSystem();
+		deviceOperatingSystem.getItems().addAll(OperatingSystemDataBase.operatingSystemListComboBox);
+		DeviceNameDataBase.deviceNameList.clear();
+		LocationDataBase.locationListComboBox.clear();
+		OperatingSystemDataBase.operatingSystemListComboBox.clear();
 	}
 
 	@FXML
@@ -102,7 +111,7 @@ public class DeviceNewController implements Initializable {
 							Connection con = DataBaseConnect.getConnection();
 							PreparedStatement insertDevice = con.prepareStatement(SQL);
 							deviceNumber.setText(DeviceIdentificationGenereator.random());
-							insertDevice.setString(1, deviceClientId.getText());
+							insertDevice.setString(1, deviceClientId);
 							insertDevice.setString(2, deviceNumber.getText());
 							insertDevice.setString(3, deviceCompanyName.getText());
 							insertDevice.setString(4, deviceClientName.getText());
@@ -149,6 +158,10 @@ public class DeviceNewController implements Initializable {
 							insertDevice.setBoolean(37, deviceOpticalDrive.isSelected());
 							insertDevice.setBoolean(38, deviceExpansionCard.isSelected());
 							insertDevice.executeUpdate();
+							setBackAllText();
+							setClearAllText();
+							tray = new TrayNotification("Remek!", "Sikeres Felvétel", NotificationType.SUCCESS);
+							tray.showAndDismiss(Duration.seconds(1));
 						} catch (SQLException ex) {
 							System.out.println(ex);
 							new ShowInfo("Adatbázis Hiba", "Szerver válasza: ", ex.getMessage());
@@ -200,8 +213,9 @@ public class DeviceNewController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		setDate();
 		setCombobox();
-		deviceAdministrator.setText(LoginDataBase.name);
-
+		deviceClientId = DeviceClient.getDeviceClientID();
+		deviceClientName.setText(DeviceClient.getDeviceClientName());
+		deviceCompanyName.setText(DeviceClient.getDeviceCompanyName());
 	}
 
 	private boolean setDeviceCheck() {
@@ -251,7 +265,7 @@ public class DeviceNewController implements Initializable {
 	}
 
 	private boolean setDeviceClientCheck() {
-		if (deviceClientName.getText().trim().isEmpty() || deviceClientId.getText().trim().isEmpty()) {
+		if (deviceClientName.getText().trim().isEmpty()) {
 			deviceCompanyName.setPromptText("Kérlek válasz a táblából!");
 			deviceClientName.setPromptText("Kérlek válasz a táblából!");
 			return false;
@@ -273,8 +287,7 @@ public class DeviceNewController implements Initializable {
 				return true;
 			}
 		} else {
-			deviceOperatingSystem.setPromptText("Softver megjegyzés!");
-			deviceOperatingSystem.setStyle(null);
+			deviceSoftver.setPromptText("Softver!");
 			return true;
 		}
 	}
@@ -294,8 +307,87 @@ public class DeviceNewController implements Initializable {
 		}
 	}
 
+	private void setBackAllText() {
+		DeviceBackAllText.setDeviceClientId(deviceClientId);
+		DeviceBackAllText.setDeviceCompanyName(deviceCompanyName.getText());
+		DeviceBackAllText.setDeviceClientName(deviceClientName.getText());
+		DeviceBackAllText.setDeviceName(deviceName.getValue());
+		DeviceBackAllText.setDeviceManufacturer(deviceManufacturer.getText());
+		DeviceBackAllText.setDeviceSerialNumber(deviceSerialNumber.getText());
+		DeviceBackAllText.setDeviceRepairLocation(deviceRepairLocation.getValue());
+		DeviceBackAllText.setDeviceNewMachine(deviceNewMachine.getValue());
+		DeviceBackAllText.setDevicePriorit(devicePriorit.getValue());
+		DeviceBackAllText.setDevicePassword(devicePassword.getText());
+		DeviceBackAllText.setDeviceReferences(deviceReferences.getText());
+		DeviceBackAllText.setDeviceAccesssory(deviceAccesssory.getText());
+		DeviceBackAllText.setDeviceInjury(deviceInjury.getText());
+		DeviceBackAllText.setDeviceErrorDescription(deviceErrorDescription.getText());
+		DeviceBackAllText.setDeviceComment(deviceComment.getText());
+		DeviceBackAllText.setDeviceSalesBuying(deviceSalesBuying.getValue());
+		DeviceBackAllText.setDeviceAddDate(deviceAddDate.getValue());
+		DeviceBackAllText.setDeviceEndDate(deviceEndDate.getValue());
+		DeviceBackAllText.setDeviceDeliveryDate(deviceDeliveryDate.getValue());
+		DeviceBackAllText.setDeviceDataRecovery(deviceDataRecovery.getValue());
+		DeviceBackAllText.setDeviceSoftver(deviceSoftver.getValue());
+		DeviceBackAllText.setDeviceOperatingSystem(deviceOperatingSystem.getValue());
+		DeviceBackAllText.setDeviceSoftverComment(deviceSoftverComment.getText());
+		DeviceBackAllText.setDeviceLaptop(deviceLaptop.isSelected());
+		DeviceBackAllText.setDeviceNewHouse(deviceNewHouse.isSelected());
+		DeviceBackAllText.setDevicePowerSupply(devicePowerSupply.isSelected());
+		DeviceBackAllText.setDeviceProcessor(deviceProcessor.isSelected());
+		DeviceBackAllText.setDeviceBaseBoard(deviceBaseBoard.isSelected());
+		DeviceBackAllText.setDeviceMemory(deviceMemory.isSelected());
+		DeviceBackAllText.setDeviceVideoCard(deviceVideoCard.isSelected());
+		DeviceBackAllText.setDeviceSSDDrive(deviceSSDDrive.isSelected());
+		DeviceBackAllText.setDeviceHardDrive(deviceHardDrive.isSelected());
+		DeviceBackAllText.setDeviceCoolingFan(deviceCoolingFan.isSelected());
+		DeviceBackAllText.setDeviceOpticalDrive(deviceOpticalDrive.isSelected());
+		DeviceBackAllText.setDeviceExpansionCard(deviceExpansionCard.isSelected());
+	}
+
+	@FXML
+	private void getBackAllText() {
+		deviceClientId = DeviceBackAllText.getDeviceClientId();
+		deviceCompanyName.setText(DeviceBackAllText.getDeviceCompanyName());
+		deviceClientName.setText(DeviceBackAllText.getDeviceClientName());
+		deviceName.setValue(DeviceBackAllText.getDeviceName());
+		deviceManufacturer.setText(DeviceBackAllText.getDeviceManufacturer());
+		deviceSerialNumber.setText(DeviceBackAllText.getDeviceSerialNumber());
+		deviceRepairLocation.setValue(DeviceBackAllText.getDeviceRepairLocation());
+		deviceNewMachine.setValue(DeviceBackAllText.getDeviceNewMachine());
+		devicePriorit.setValue(DeviceBackAllText.getDevicePriorit());
+		devicePassword.setText(DeviceBackAllText.getDevicePassword());
+		deviceReferences.setText(DeviceBackAllText.getDeviceReferences());
+		deviceAccesssory.setText(DeviceBackAllText.getDeviceAccesssory());
+		deviceInjury.setText(DeviceBackAllText.getDeviceInjury());
+		deviceErrorDescription.setText(DeviceBackAllText.getDeviceErrorDescription());
+		deviceComment.setText(DeviceBackAllText.getDeviceComment());
+		deviceSalesBuying.setValue(DeviceBackAllText.getDeviceSalesBuying());
+		deviceAddDate.setValue(DeviceBackAllText.getDeviceAddDate());
+		deviceEndDate.setValue(DeviceBackAllText.getDeviceEndDate());
+		deviceDeliveryDate.setValue(DeviceBackAllText.getDeviceDeliveryDate());
+		deviceDataRecovery.setValue(DeviceBackAllText.getDeviceDataRecovery());
+		deviceSoftver.setValue(DeviceBackAllText.getDeviceSoftver());
+		deviceOperatingSystem.setValue(DeviceBackAllText.getDeviceOperatingSystem());
+		deviceSoftverComment.setText(DeviceBackAllText.getDeviceSoftverComment());
+		deviceLaptop.setSelected(DeviceBackAllText.isDeviceLaptop());
+		deviceNewHouse.setSelected(DeviceBackAllText.isDeviceNewHouse());
+		devicePowerSupply.setSelected(DeviceBackAllText.isDevicePowerSupply());
+		deviceProcessor.setSelected(DeviceBackAllText.isDeviceProcessor());
+		deviceBaseBoard.setSelected(DeviceBackAllText.isDeviceBaseBoard());
+		deviceMemory.setSelected(DeviceBackAllText.isDeviceMemory());
+		deviceVideoCard.setSelected(DeviceBackAllText.isDeviceVideoCard());
+		deviceSSDDrive.setSelected(DeviceBackAllText.isDeviceSSDDrive());
+		deviceHardDrive.setSelected(DeviceBackAllText.isDeviceHardDrive());
+		deviceCoolingFan.setSelected(DeviceBackAllText.isDeviceCoolingFan());
+		deviceOpticalDrive.setSelected(DeviceBackAllText.isDeviceOpticalDrive());
+		deviceExpansionCard.setSelected(DeviceBackAllText.isDeviceExpansionCard());
+
+	}
+
+	@FXML
 	private void setClearAllText() {
-		deviceClientId.clear();
+		deviceClientId = null;
 		deviceNumber.clear();
 		deviceCompanyName.clear();
 		deviceClientName.clear();
@@ -331,7 +423,6 @@ public class DeviceNewController implements Initializable {
 		deviceCoolingFan.setSelected(false);
 		deviceOpticalDrive.setSelected(false);
 		deviceExpansionCard.setSelected(false);
-		emailCeckBox.setSelected(false);
 		setDate();
 	}
 }

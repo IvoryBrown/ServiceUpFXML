@@ -3,6 +3,7 @@ package com.device.table.controller;
 import java.util.Date;
 
 import com.device.pojo.Device;
+import com.device.pojo.DeviceClient;
 import com.device.table.DateEditingCellDevice;
 import com.device.table.DeviceButtonCell;
 import com.device.table.database.DeviceDataBase;
@@ -840,6 +841,9 @@ public class DeviceTableController {
 					backClientName.setStyle(" -fx-font-size: 15pt ;");
 					backDeviceNumber.setText(newValue.getDeviceNumber());
 					backDeviceNumber.setStyle(" -fx-font-size: 15pt ;");
+					DeviceClient.setDeviceClientID(newValue.getDeviceClientID());
+					DeviceClient.setDeviceClientName(newValue.getDeviceClientName());
+					DeviceClient.setDeviceCompanyName(newValue.getDeviceCompanyName());
 				}
 			}
 		});

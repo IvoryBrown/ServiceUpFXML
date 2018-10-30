@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import com.client.pojo.Client;
 import com.clientcompany.table.database.ClientCompanyDB;
+import com.device.pojo.DeviceClient;
 import com.login.database.LoginDataBase;
 
 import javafx.beans.value.ChangeListener;
@@ -342,14 +343,14 @@ public class ClientCompanyController implements Initializable {
 				}
 			};
 			removeCol.setCellFactory(cellFactory);
-			
+
 			clientConpanyTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Client>() {
 				@Override
 				public void changed(ObservableValue<? extends Client> observable, Client oldValue, Client newValue) {
 					if (oldValue == null || newValue != null) {
-						Device.(newValue.getClientId());
-						deviceClientName.setText(newValue.getClientName());
-						deviceCompanyName.setText(newValue.getClientCompanyName());
+						DeviceClient.setDeviceClientID(newValue.getClientId());
+						DeviceClient.setDeviceClientName(newValue.getClientName());
+						DeviceClient.setDeviceCompanyName(newValue.getClientCompanyName());
 					}
 				}
 			});

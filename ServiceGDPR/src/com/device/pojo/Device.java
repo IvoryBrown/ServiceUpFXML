@@ -71,6 +71,52 @@ public class Device {
 	private String converterOpticalDrive;
 	private String converterExpansionCard;
 	private String converterLaptop;
+	
+	public Device() {
+		this.deviceID = new SimpleStringProperty("");
+		this.deviceClientID = new SimpleStringProperty("");
+		this.deviceNumber = new SimpleStringProperty("");
+		this.deviceCompanyName = new SimpleStringProperty("");
+		this.deviceClientName = new SimpleStringProperty("");
+		this.deviceName = new SimpleStringProperty("");
+		this.deviceManufacturer = new SimpleStringProperty("");
+		this.deviceSerialNumber = new SimpleStringProperty("");
+		this.deviceRepairLocation = new SimpleStringProperty("");
+		this.deviceStatus = new SimpleStringProperty("");
+		this.deviceNewMachine = new SimpleStringProperty("");
+		this.deviceAdministrator = new SimpleStringProperty("");
+		this.devicePriorit = new SimpleStringProperty("");
+		this.devicePassword = new SimpleStringProperty("");
+		this.deviceReferences = new SimpleStringProperty("");
+		this.deviceAccesssory = new SimpleStringProperty("");
+		this.deviceInjury = new SimpleStringProperty("");
+		this.deviceErrorDescription = new SimpleStringProperty("");
+		this.deviceComment = new SimpleStringProperty("");
+		this.deviceSalesBuying = new SimpleObjectProperty<>(null);
+		this.deviceAddDate = new SimpleObjectProperty<>(null);
+		this.deviceEndDate = new SimpleObjectProperty<>(null);
+		this.deviceDeliveryDate = new SimpleObjectProperty<>(null);
+		this.deviceDataRecovery = new SimpleStringProperty("");
+		this.deviceSoftver = new SimpleStringProperty("");
+		this.deviceOperatingSystem = new SimpleStringProperty("");
+		this.deviceSoftverComment = new SimpleStringProperty("");
+		this.deviceNewHouse = new SimpleBooleanProperty();
+		this.devicePowerSupply = new SimpleBooleanProperty();
+		this.deviceProcessor = new SimpleBooleanProperty();
+		this.deviceBaseBoard = new SimpleBooleanProperty();
+		this.deviceMemory = new SimpleBooleanProperty();
+		this.deviceVideoCard = new SimpleBooleanProperty();
+		this.deviceSSDDrive = new SimpleBooleanProperty();
+		this.deviceHardDrive = new SimpleBooleanProperty();
+		this.deviceCoolingFan = new SimpleBooleanProperty();
+		this.deviceOpticalDrive = new SimpleBooleanProperty();
+		this.deviceExpansionCard = new SimpleBooleanProperty();
+		this.deviceLaptop = new SimpleBooleanProperty();
+		this.deviceCompletedDate = new SimpleObjectProperty<>(null);
+		this.deviceErrorCorrection = new SimpleStringProperty("");
+		this.deviceTechnicalPerson = new SimpleStringProperty("");
+		this.deviceStatusz = new SimpleStringProperty("");
+	}
 
 	public Device(String deviceID,String deviceClientID, String deviceNumber, String deviceCompanyName, String deviceClientName,
 			String deviceName, String deviceManufacturer, String deviceSerialNumber, String deviceRepairLocation,

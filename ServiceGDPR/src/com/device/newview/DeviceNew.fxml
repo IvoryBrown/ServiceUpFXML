@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1150.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.device.newcontroller.DeviceNewController">
+<AnchorPane prefHeight="700.0" prefWidth="1150.0" stylesheets="@DeviceNewcss.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.device.newcontroller.DeviceNewController">
    <children>
       <HBox layoutX="24.0" layoutY="24.0" prefHeight="40.0" prefWidth="1109.0">
          <children>
@@ -31,14 +31,19 @@
                   <Insets right="5.0" top="2.0" />
                </HBox.margin>
             </TextField>
-            <Button mnemonicParsing="false" onAction="#newDevice" prefHeight="36.0" prefWidth="206.0" text="Új Eszköz">
+            <Button mnemonicParsing="false" onAction="#newDevice" prefHeight="36.0" prefWidth="145.0" text="Új Eszköz">
                <HBox.margin>
                   <Insets right="5.0" top="2.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="206.0" text="Adatok Nullázása">
+            <Button mnemonicParsing="false" onAction="#setClearAllText" prefHeight="36.0" prefWidth="145.0" text="Adatok Nullázása">
                <HBox.margin>
                   <Insets top="2.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#getBackAllText" prefHeight="36.0" prefWidth="145.0" text="Vissza">
+               <HBox.margin>
+                  <Insets left="5.0" top="2.0" />
                </HBox.margin>
             </Button>
          </children>
