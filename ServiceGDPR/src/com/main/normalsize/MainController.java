@@ -45,8 +45,8 @@ public class MainController implements Initializable {
 
 	private final String MENU_DEVICE = "Eszköz";
 	private final String MENU_DEVICE_NEW = "Új Felvétel";
+	private final String MENU_DEVICE_TABLE_ACTUAL = "Folyamatba lévő";
 	private final String MENU_DEVICE_AVAILABLE = "Meglévő Felvétel";
-	private final String MENU_DEVICE_TABLE_ACTUAL = "Aktuális";
 	private final String MENU_DEVICE_TABLE_ALL = "Összes";
 	private final String MENU_DEVICE_INFORMATION = "Eszköz Információk";
 
@@ -79,8 +79,8 @@ public class MainController implements Initializable {
 		TreeItem<String> nodeItemD = new TreeItem<String>(MENU_DEVICE);
 		nodeItemD.setExpanded(false);
 		TreeItem<String> nodeItemD1 = new TreeItem<String>(MENU_DEVICE_NEW);
-		TreeItem<String> nodeItemD2 = new TreeItem<String>(MENU_DEVICE_AVAILABLE);
-		TreeItem<String> nodeItemD3 = new TreeItem<String>(MENU_DEVICE_TABLE_ACTUAL);
+		TreeItem<String> nodeItemD2 = new TreeItem<String>(MENU_DEVICE_TABLE_ACTUAL);
+		TreeItem<String> nodeItemD3 = new TreeItem<String>(MENU_DEVICE_AVAILABLE);
 		TreeItem<String> nodeItemD4 = new TreeItem<String>(MENU_DEVICE_TABLE_ALL);
 		TreeItem<String> nodeItemD5 = new TreeItem<String>(MENU_DEVICE_INFORMATION);
 		nodeItemD.getChildren().addAll(nodeItemD1, nodeItemD2, nodeItemD3, nodeItemD4, nodeItemD5);
@@ -138,12 +138,8 @@ public class MainController implements Initializable {
 				return;
 			}
 			if (name.equals(MENU_DEVICE_NEW)) {
-				DeviceNewMain newDevice =new DeviceNewMain();
+				DeviceNewMain newDevice = new DeviceNewMain();
 				newDevice.start();
-				return;
-			}
-			if (name.equals(MENU_DEVICE_AVAILABLE)) {
-
 				return;
 			}
 			if (name.equals(MENU_DEVICE_TABLE_ACTUAL)) {
@@ -151,7 +147,10 @@ public class MainController implements Initializable {
 				device.start();
 				return;
 			}
+			if (name.equals(MENU_DEVICE_AVAILABLE)) {
 
+				return;
+			}
 			if (name.equals(MENU_MINIMAL_SIZE)) {
 				Main.primaryStage.close();
 				MainMin mainMin = new MainMin();

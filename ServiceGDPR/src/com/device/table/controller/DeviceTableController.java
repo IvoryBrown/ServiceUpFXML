@@ -31,7 +31,6 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import tray.animations.AnimationType;
@@ -41,9 +40,7 @@ import tray.notification.TrayNotification;
 public class DeviceTableController {
 	@FXML
 	protected TableView<Device> deviceTable;
-	@FXML
-	protected AnchorPane anc;
-	private TableColumn<Device, Integer> deviceTableId, deviceTableClientID;
+	private TableColumn<Device, Integer>  deviceTableId, deviceTableClientID;
 	private TableColumn<Device, Boolean> deviceTableNewHouse, deviceTablePowerSupply, deviceTableProcessor,
 			deviceTableBaseBoard, deviceTableMemory, deviceTableVideoCard, deviceTableSSDDrive, deviceTableHardDrive,
 			deviceTableCoolingFan, deviceTableOpticalDrive, deviceTableExpansionCard, deviceTableLaptop,
@@ -63,7 +60,9 @@ public class DeviceTableController {
 	@FXML
 	private Label blackDeviceNumberT, backDeviceNumber, backClientNameT, backClientName;
 	private DeviceDataBase deviceDb = new DeviceDataBase();
-	private TrayNotification tray = new TrayNotification();
+	protected TrayNotification tray = new TrayNotification();
+	
+	
 
 	@SuppressWarnings("unchecked")
 	protected void setDeviceTableData() {
@@ -90,6 +89,10 @@ public class DeviceTableController {
 		deviceTableId = new TableColumn<>("ID");
 		deviceTableId.setMinWidth(50);
 		deviceTableId.setCellValueFactory(new PropertyValueFactory<Device, Integer>("deviceID"));
+		deviceTableId.setVisible(false);
+		if (LoginDataBase.authority.equals("Admin")) {
+			deviceTableId.setVisible(true);
+		}
 
 		deviceTableClientID = new TableColumn<>("ID CLient");
 		deviceTableClientID.setMinWidth(50);
@@ -848,6 +851,23 @@ public class DeviceTableController {
 					DeviceClient.setDeviceClientID(newValue.getDeviceClientID());
 					DeviceClient.setDeviceClientName(newValue.getDeviceClientName());
 					DeviceClient.setDeviceCompanyName(newValue.getDeviceCompanyName());
+					clientName = newValue.getDeviceClientName();
+					clientZipCode = newValue.getClientZipCode();
+					clientAddress = newValue.getClientAddress();
+					clientSettlement = newValue.getClientSettlement();
+					clientPhone = newValue.getClientPhone();
+					clientNumber = newValue.getClientNumber();
+					deviceName = newValue.getDeviceName();
+					deviceNumber = newValue.getDeviceNumber();
+					deviceManufacturer = newValue.getDeviceManufacturer();
+					deviceSalesBuying = newValue.getDeviceSalesBuyingConverter();
+					deviceAddDate = newValue.getDeviceAddDateConverter();
+					deviceEndDate = newValue.getDeviceEndDateConverter();
+					devicePassword = newValue.getDevicePassword();
+					deviceAccesssory = newValue.getDeviceAccesssory();
+					deviceInjury = newValue.getDeviceInjury();
+					deviceErrorDescription = newValue.getDeviceErrorDescription();
+					deviceDataRecovery = newValue.getDeviceDataRecovery();
 				}
 			}
 		});
@@ -868,9 +888,19 @@ public class DeviceTableController {
 				setDeviceTableNewDevice, removeCol);
 
 	}
+	
+	@FXML
+	private void exportList(ActionEvent event) {
+		if (LoginDataBase.authority.equals("Admin") || LoginDataBase.authority.equals("SuperUser")
+				|| LoginDataBase.authority.equals("User")) {
+			
+		}
+	}
 
+	@FXML
 	protected void setDataTable() {
 
 	}
+	
 
 }
