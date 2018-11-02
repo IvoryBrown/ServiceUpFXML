@@ -10,6 +10,9 @@ import com.device.table.database.DeviceDataBase;
 import com.login.database.LoginDataBase;
 import com.login.setting.setting.devicename.database.DeviceNameDataBase;
 import com.login.setting.setting.location.database.LocationDataBase;
+import com.printer.database.PrinterDataBase;
+import com.printer.pojo.Printer;
+import com.printer.printerPdf.CreatingPdf;
 import com.setting.combobox.ComboBoxSet;
 
 import javafx.beans.binding.Bindings;
@@ -61,6 +64,7 @@ public class DeviceTableController {
 	private Label blackDeviceNumberT, backDeviceNumber, backClientNameT, backClientName;
 	private DeviceDataBase deviceDb = new DeviceDataBase();
 	protected TrayNotification tray = new TrayNotification();
+	private String deivceClientIdExportList;
 	
 	
 
@@ -851,23 +855,7 @@ public class DeviceTableController {
 					DeviceClient.setDeviceClientID(newValue.getDeviceClientID());
 					DeviceClient.setDeviceClientName(newValue.getDeviceClientName());
 					DeviceClient.setDeviceCompanyName(newValue.getDeviceCompanyName());
-					clientName = newValue.getDeviceClientName();
-					clientZipCode = newValue.getClientZipCode();
-					clientAddress = newValue.getClientAddress();
-					clientSettlement = newValue.getClientSettlement();
-					clientPhone = newValue.getClientPhone();
-					clientNumber = newValue.getClientNumber();
-					deviceName = newValue.getDeviceName();
-					deviceNumber = newValue.getDeviceNumber();
-					deviceManufacturer = newValue.getDeviceManufacturer();
-					deviceSalesBuying = newValue.getDeviceSalesBuyingConverter();
-					deviceAddDate = newValue.getDeviceAddDateConverter();
-					deviceEndDate = newValue.getDeviceEndDateConverter();
-					devicePassword = newValue.getDevicePassword();
-					deviceAccesssory = newValue.getDeviceAccesssory();
-					deviceInjury = newValue.getDeviceInjury();
-					deviceErrorDescription = newValue.getDeviceErrorDescription();
-					deviceDataRecovery = newValue.getDeviceDataRecovery();
+					deivceClientIdExportList = newValue.getDeviceClientID();
 				}
 			}
 		});
@@ -890,10 +878,18 @@ public class DeviceTableController {
 	}
 	
 	@FXML
-	private void exportList(ActionEvent event) {
+	private void exportList() {
 		if (LoginDataBase.authority.equals("Admin") || LoginDataBase.authority.equals("SuperUser")
 				|| LoginDataBase.authority.equals("User")) {
-			
+			if (deivceClientIdExportList !=null && !deivceClientIdExportList.equals("")) {
+				PrinterDataBase.getAllDeviceClient(deivceClientIdExportList);
+				CreatingPdf print = new CreatingPdf();
+				print.creating();
+				
+			}else {
+				tray = new TrayNotification("HIBA", "Nincs kiválasztva semmi", NotificationType.ERROR);
+				tray.showAndDismiss(Duration.seconds(2));
+			}
 		}
 	}
 

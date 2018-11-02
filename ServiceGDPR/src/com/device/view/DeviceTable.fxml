@@ -31,7 +31,7 @@
       </VBox>
       <VBox layoutX="232.0" layoutY="13.0" prefHeight="89.0" prefWidth="206.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="211.0" text="Nyomtatás">
+            <Button mnemonicParsing="false" onAction="#exportList" prefHeight="36.0" prefWidth="211.0" text="Nyomtatás">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
