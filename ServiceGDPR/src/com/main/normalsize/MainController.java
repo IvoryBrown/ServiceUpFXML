@@ -15,8 +15,11 @@ import com.device.newmain.DeviceNewMain;
 import com.error.main.ErrorMain;
 import com.login.database.LoginDataBase;
 import com.login.filewrite.LoginFile;
+import com.login.setting.setting.main.SettingMain;
 import com.main.minsize.MainMin;
 import com.statistics.main.StatisticsMain;
+import com.stock.newmain.StockNewMain;
+import com.stock.table.main.StockMain;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -54,6 +57,10 @@ public class MainController implements Initializable {
 	private final String MENU_DEVICE_INFORMATION = "Eszköz Információk";
 
 	private final String MENU_STOCK = "Raktár";
+	private final String MENU_NEW_STOCK = "Új Eszköz";
+	private final String MENU_TABLE_STOCK = "Raktáron";
+
+	private final String MENU_SETTING = "Beállítás";
 
 	private final String MENU_MINIMAL_SIZE = "Minimál Méret";
 
@@ -89,12 +96,17 @@ public class MainController implements Initializable {
 		nodeItemD.getChildren().addAll(nodeItemD1, nodeItemD2, nodeItemD3, nodeItemD4, nodeItemD5);
 
 		TreeItem<String> nodeItemC = new TreeItem<String>(MENU_STOCK);
+		nodeItemC.setExpanded(false);
+		TreeItem<String> nodeItemC1 = new TreeItem<String>(MENU_NEW_STOCK);
+		TreeItem<String> nodeItemC2 = new TreeItem<String>(MENU_TABLE_STOCK);
+		nodeItemC.getChildren().addAll(nodeItemC1, nodeItemC2);
+		TreeItem<String> nodeItemE = new TreeItem<String>(MENU_SETTING);
 
-		TreeItem<String> nodeItemE = new TreeItem<String>(MENU_MINIMAL_SIZE);
+		TreeItem<String> nodeItemF = new TreeItem<String>(MENU_MINIMAL_SIZE);
 
-		TreeItem<String> nodeItemF = new TreeItem<String>(MENU_EXIT);
+		TreeItem<String> nodeItemG = new TreeItem<String>(MENU_EXIT);
 
-		treeItemRoot1.getChildren().addAll(nodeItemA, nodeItemB, nodeItemD, nodeItemC, nodeItemE, nodeItemF);
+		treeItemRoot1.getChildren().addAll(nodeItemA, nodeItemB, nodeItemD, nodeItemC, nodeItemE, nodeItemF, nodeItemG);
 
 		EventHandler<MouseEvent> mouseEventHandle = (MouseEvent event) -> {
 			handleMouseClicked(event);
@@ -163,6 +175,21 @@ public class MainController implements Initializable {
 			if (name.equals(MENU_DEVICE_INFORMATION)) {
 				DeviceInformationMain infoDevice = new DeviceInformationMain();
 				infoDevice.start();
+				return;
+			}
+			if (name.equals(MENU_NEW_STOCK)) {
+				StockNewMain newStock = new StockNewMain();
+				newStock.start();
+				return;
+			}
+			if (name.equals(MENU_TABLE_STOCK)) {
+				StockMain stockDevice = new StockMain();
+				stockDevice.start();
+				return;
+			}
+			if (name.equals(MENU_SETTING)) {
+				SettingMain main = new SettingMain();
+				main.start();
 				return;
 			}
 			if (name.equals(MENU_MINIMAL_SIZE)) {

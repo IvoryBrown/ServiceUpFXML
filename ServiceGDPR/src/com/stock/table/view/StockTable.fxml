@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="750.0" prefWidth="1300.0" stylesheets="@StockTable.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.stock.table.controller.StockTableController">
+   <children>
+      <TableView fx:id="stockTable" editable="true" layoutX="202.0" layoutY="199.0" prefHeight="750.0" prefWidth="1300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
+      <VBox layoutX="14.0" layoutY="13.0" prefHeight="89.0" prefWidth="206.0">
+         <children>
+            <TextField id="stockDeviceNameFilteringTxt" fx:id="stockDeviceNameFilteringTxt" prefHeight="36.0" prefWidth="206.0" promptText="Keresés">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </TextField>
+         </children>
+      </VBox>
+      <VBox layoutX="232.0" layoutY="13.0" prefHeight="89.0" prefWidth="206.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#updateClientTable" prefHeight="36.0" prefWidth="206.0" text="Tábla Frissités">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+   </children>
+</AnchorPane>

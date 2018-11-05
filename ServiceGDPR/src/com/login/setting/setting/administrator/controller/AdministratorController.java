@@ -1,5 +1,7 @@
 package com.login.setting.setting.administrator.controller;
 
+import java.util.Optional;
+
 import com.fxdialog.main.FXDialogMain;
 import com.login.setting.setting.administrator.database.AdministratorDataBase;
 import com.login.setting.setting.administrator.pojo.Administrator;
@@ -12,15 +14,19 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 
 public class AdministratorController extends DataBaseController {
@@ -54,7 +60,7 @@ public class AdministratorController extends DataBaseController {
 		administratorName.setMinWidth(150);
 		administratorName.setCellValueFactory(new PropertyValueFactory<Administrator, String>("administratorName"));
 
-		administratorLocation = new TableColumn<>("Név");
+		administratorLocation = new TableColumn<>("Helység");
 		administratorLocation.setMinWidth(150);
 		administratorLocation
 				.setCellValueFactory(new PropertyValueFactory<Administrator, String>("administratorLocation"));
@@ -203,11 +209,21 @@ public class AdministratorController extends DataBaseController {
 							setText(null);
 						} else {
 							btn.setOnAction((ActionEvent event) -> {
-								Administrator device = getTableView().getItems().get(getIndex());
-								dataAdministrator.remove(device);
-								AdministratorDataBase.removeAdministrator(device);
-								messageLbl.setStyle("-fx-text-fill: #2A5058;");
-								messageLbl.setText("Sikeres törlés!!");
+								Alert alert = new Alert(AlertType.CONFIRMATION);
+								alert.setTitle("Törlés");
+								alert.setHeaderText("");
+								alert.getDialogPane().getStylesheets().add("/com/setting/showinfo/ShowInfo.css");
+								alert.initStyle(StageStyle.TRANSPARENT);
+								String s = "Biztos törölni szeretnéd ?";
+								alert.setContentText(s);
+								Optional<ButtonType> result = alert.showAndWait();
+								if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
+									Administrator device = getTableView().getItems().get(getIndex());
+									dataAdministrator.remove(device);
+									AdministratorDataBase.removeAdministrator(device);
+									messageLbl.setStyle("-fx-text-fill: #2A5058;");
+									messageLbl.setText("Sikeres törlés!!");
+								}
 							});
 							setGraphic(btn);
 							setText(null);

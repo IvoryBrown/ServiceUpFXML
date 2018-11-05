@@ -1,0 +1,148 @@
+.root {
+	-fx-background-image: url("/com/setting/image/background.jpg");
+		-fx-font-size: 16.0;
+}
+
+.button {
+	-fx-text-fill: whitesmoke;
+	-fx-font-family: "Arial Narrow";
+	-fx-font-weight: bold;
+	-fx-background-color: linear-gradient(#61a2b1, #2A5058);
+	-fx-effect: dropshadow(three-pass-box, rgba(0.0, 0.0, 0.0, 0.6), 5.0,
+		0.0, 0.0, 1.0);
+}
+
+.label {
+	-fx-font-size: 15.0px;
+	-fx-font-weight: bold;
+	-fx-text-fill: whitesmoke;
+	-fx-font-family: "Arial Narrow";
+}
+
+.button:hover {
+	-fx-background-color: linear-gradient(#2A5058, #61a2b1);
+}
+
+
+.text-field {
+	-fx-background-color: #616161;
+	-fx-font-size: 14.0;
+	-fx-text-fill: white;
+	-fx-prompt-text-fill: #61a2b1;
+}
+
+.text-area {
+    -fx-background-color:  #616161;
+    -fx-font-size: 14.0;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #61a2b1 ;
+}
+
+.text-area .content {
+    -fx-background-color: #616161;
+}
+
+.combo-box .list-cell {
+    -fx-background-color: #616161;
+    -fx-text-fill: white;
+ }
+
+.combo-box-popup .list-view .list-cell {
+	-fx-background-color: #616161;
+	-fx-text-fill: white;
+}
+
+.combo-box-popup .list-view .list-cell:filled:hover {
+    -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+}
+
+.combo-box .arrow, .combo-box .arrow-button{
+    -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+}
+
+ .scroll-pane {
+  -fx-background-color: #616161;
+}
+
+ .scroll-bar .increment-button {
+  visibility: hidden;
+}
+
+ .scroll-bar .decrement-button {
+  visibility: hidden;
+}
+
+.scroll-bar:vertical {
+  -fx-background-color: #616161;
+}
+
+ .scroll-bar:vertical .track-background {
+  visibility: hidden;
+}
+
+ .scroll-bar:vertical .track {
+  visibility: hidden;
+}
+.date-picker .arrow-button{
+	-fx-background-radius:0.0px ;
+	-fx-background-color: #616161;
+}
+
+.date-picker .arrow-button .arrow{
+	-fx-background-radius:0.0px ;
+	-fx-background-color: linear-gradient(#61a2b1, #2A5058);
+}
+
+.date-picker .arrow-button:hover .arrow{
+	-fx-background-radius:0.0px ;
+	-fx-background-color: linear-gradient(#61a2b1, #2A5058);
+ }
+
+.date-picker .button {
+	-fx-background-color: linear-gradient(#61a2b1, #2A5058);
+	-fx-border-color:linear-gradient(#61a2b1, #2A5058);
+	-fx-pref-height: 35.0px;
+	-fx-pref-width: 35.0px;
+ }
+ 
+.date-picker .button:hover {
+	-fx-border-color:transparent;
+	-fx-pref-height: 35.0px;
+	-fx-pref-width: 35.0px;
+ }
+ 
+.date-picker .button .arrow:pressed {
+	-fx-border-color:transparent;
+	-fx-pref-height: 35.0px;
+	-fx-pref-width: 35.0px;
+ }
+ 
+.date-picker .cell {
+	-fx-background-color: #616161;
+	-fx-text-fill: white;
+	-fx-pref-width:20.0px ;
+	-fx-pref-height:25.0px ;
+ }
+ 
+.date-picker .cell:hover {
+	-fx-background-color: linear-gradient(#2A5058, #61a2b1);
+	-fx-pref-width:20.0px ;
+	-fx-pref-height:25.0px ;
+}
+
+.date-picker .cell:focused {
+	-fx-background-color: linear-gradient(#61a2b1, #2A5058);
+	-fx-pref-width:20.0px ;
+	-fx-pref-height:25.0px ;
+ }
+ 
+ .date-picker-popup  {
+	-fx-border-color: #61a2b1;
+	-fx-background-color: black;
+ }
+ 
+ .date-picker-popup > .month-year-pane {
+    -fx-padding: 0.588883em 0.5em 0.666667em 0.5em;
+    -fx-background-color: #616161;
+    -fx-background-insets: 0.0 0.0 0.0 0.0, 0.0 0.0 1.0 0.0;
+}

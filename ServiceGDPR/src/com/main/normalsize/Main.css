@@ -24,3 +24,27 @@
 .label{
 	-fx-text-fill:  whitesmoke;
 }
+
+ .scroll-pane {
+  -fx-background-color: #616161;
+}
+
+ .scroll-bar .increment-button {
+  visibility: hidden;
+}
+
+ .scroll-bar .decrement-button {
+  visibility: hidden;
+}
+
+.scroll-bar:vertical {
+  -fx-background-color: #616161;
+}
+
+ .scroll-bar:vertical .track-background {
+  visibility: hidden;
+}
+
+ .scroll-bar:vertical .track {
+  visibility: hidden;
+}

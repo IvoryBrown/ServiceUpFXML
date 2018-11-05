@@ -1,6 +1,7 @@
 package com.device.table.controller;
 
 import java.util.Date;
+import java.util.Optional;
 
 import com.device.pojo.Device;
 import com.device.pojo.DeviceClient;
@@ -22,17 +23,21 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import tray.animations.AnimationType;
@@ -811,11 +816,21 @@ public class DeviceTableController {
 							setText(null);
 						} else {
 							btn.setOnAction((ActionEvent event) -> {
-								Device device = getTableView().getItems().get(getIndex());
-								deviceDb.removeContact(device);
-								setDataTable();
-								tray = new TrayNotification("Törlés!", "Sikeres Törlés", NotificationType.SUCCESS);
-								tray.showAndDismiss(Duration.seconds(1));
+								Alert alert = new Alert(AlertType.CONFIRMATION);
+								alert.setTitle("Törlés");
+								alert.setHeaderText("");
+								alert.getDialogPane().getStylesheets().add("/com/setting/showinfo/ShowInfo.css");
+								alert.initStyle(StageStyle.TRANSPARENT);
+								String s = "Biztos törölni szeretnéd ?";
+								alert.setContentText(s);
+								Optional<ButtonType> result = alert.showAndWait();
+								if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
+									Device device = getTableView().getItems().get(getIndex());
+									deviceDb.removeContact(device);
+									setDataTable();
+									tray = new TrayNotification("Törlés!", "Sikeres Törlés", NotificationType.SUCCESS);
+									tray.showAndDismiss(Duration.seconds(1));
+								}
 							});
 							setGraphic(btn);
 							setText(null);

@@ -1,6 +1,7 @@
 package com.clientcompany.table.controller;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import com.client.pojo.Client;
@@ -16,15 +17,19 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import tray.animations.AnimationType;
@@ -328,11 +333,22 @@ public class ClientCompanyController implements Initializable {
 								setText(null);
 							} else {
 								btn.setOnAction((ActionEvent event) -> {
-									Client device = getTableView().getItems().get(getIndex());
-									clientCompanyDB.removeContact(device);
-									tray = new TrayNotification("Törlés!", "Sikeres Törlés", NotificationType.SUCCESS);
-									tray.showAndDismiss(Duration.seconds(1));
-									updateClientTable();
+									Alert alert = new Alert(AlertType.CONFIRMATION);
+									alert.setTitle("Törlés");
+									alert.setHeaderText("");
+									alert.getDialogPane().getStylesheets().add("/com/setting/showinfo/ShowInfo.css");
+									alert.initStyle(StageStyle.TRANSPARENT);
+									String s = "Biztos törölni szeretnéd ?";
+									alert.setContentText(s);
+									Optional<ButtonType> result = alert.showAndWait();
+									if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
+										Client device = getTableView().getItems().get(getIndex());
+										clientCompanyDB.removeContact(device);
+										tray = new TrayNotification("Törlés!", "Sikeres Törlés",
+												NotificationType.SUCCESS);
+										tray.showAndDismiss(Duration.seconds(1));
+										updateClientTable();
+									}
 								});
 								setGraphic(btn);
 								setText(null);
