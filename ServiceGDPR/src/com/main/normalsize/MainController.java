@@ -8,6 +8,9 @@ import com.client.main.ClientNewMain;
 import com.clientcompany.table.main.ClientCompanyMain;
 import com.company.main.CompanyMain;
 import com.device.actual.main.DeviceActualMain;
+import com.device.all.main.DeviceAllMain;
+import com.device.finished.main.DeviceFinishedMain;
+import com.device.information.main.DeviceInformationMain;
 import com.device.newmain.DeviceNewMain;
 import com.error.main.ErrorMain;
 import com.login.database.LoginDataBase;
@@ -46,7 +49,7 @@ public class MainController implements Initializable {
 	private final String MENU_DEVICE = "Eszköz";
 	private final String MENU_DEVICE_NEW = "Új Felvétel";
 	private final String MENU_DEVICE_TABLE_ACTUAL = "Folyamatba lévő";
-	private final String MENU_DEVICE_AVAILABLE = "Meglévő Felvétel";
+	private final String MENU_DEVICE_AVAILABLE = "Befejezett";
 	private final String MENU_DEVICE_TABLE_ALL = "Összes";
 	private final String MENU_DEVICE_INFORMATION = "Eszköz Információk";
 
@@ -148,7 +151,18 @@ public class MainController implements Initializable {
 				return;
 			}
 			if (name.equals(MENU_DEVICE_AVAILABLE)) {
-
+				DeviceFinishedMain finsihedDevice = new DeviceFinishedMain();
+				finsihedDevice.start();
+				return;
+			}
+			if (name.equals(MENU_DEVICE_TABLE_ALL)) {
+				DeviceAllMain allDevice = new DeviceAllMain();
+				allDevice.start();
+				return;
+			}
+			if (name.equals(MENU_DEVICE_INFORMATION)) {
+				DeviceInformationMain infoDevice = new DeviceInformationMain();
+				infoDevice.start();
 				return;
 			}
 			if (name.equals(MENU_MINIMAL_SIZE)) {

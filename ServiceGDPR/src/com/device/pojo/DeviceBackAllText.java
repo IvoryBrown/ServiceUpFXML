@@ -9,6 +9,7 @@ public final class DeviceBackAllText {
 	private static String deviceName;
 	private static String deviceManufacturer;
 	private static String deviceSerialNumber;
+	private static boolean deviceGuarantee;
 	private static String deviceRepairLocation;
 	private static String deviceNewMachine;
 	private static String devicePriorit;
@@ -85,6 +86,14 @@ public final class DeviceBackAllText {
 
 	public static final void setDeviceSerialNumber(String deviceSerialNumber) {
 		DeviceBackAllText.deviceSerialNumber = deviceSerialNumber;
+	}
+
+	public static boolean isDeviceGuarantee() {
+		return deviceGuarantee;
+	}
+
+	public static void setDeviceGuarantee(boolean deviceGuarantee) {
+		DeviceBackAllText.deviceGuarantee = deviceGuarantee;
 	}
 
 	public static final String getDeviceRepairLocation() {

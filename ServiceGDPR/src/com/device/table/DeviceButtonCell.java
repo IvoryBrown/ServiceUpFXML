@@ -41,6 +41,7 @@ public class DeviceButtonCell extends TableCell<Device, Boolean> {
 						new DeviceSubRecord("Eszköz", selectedRecord.getDeviceName()),
 						new DeviceSubRecord("Gyártó", selectedRecord.getDeviceManufacturer()),
 						new DeviceSubRecord("Serial no.", selectedRecord.getDeviceSerialNumber()),
+						new DeviceSubRecord("Garancia", selectedRecord.getDeviceGuaranteeConverter()),
 						new DeviceSubRecord("Felvétel helye", selectedRecord.getDeviceAdministratorLocation()),
 						new DeviceSubRecord("Javítás helye", selectedRecord.getDeviceRepairLocation()),
 						new DeviceSubRecord("Állapot", selectedRecord.getDeviceStatus()),

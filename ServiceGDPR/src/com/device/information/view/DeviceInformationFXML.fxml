@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.web.WebView?>
+
+<AnchorPane onDragDetected="#updateDeviceTable" prefHeight="650.0" prefWidth="1300.0" stylesheets="@../desing/desing.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.device.information.controller.DeviceInformationController">
+   <children>
+      <WebView fx:id="webView" prefHeight="650.0" prefWidth="1300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="192.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="93.0" />
+      <VBox layoutX="4.0" layoutY="3.0" prefHeight="89.0" prefWidth="206.0">
+         <children>
+            <Label fx:id="fileText" prefHeight="36.0" prefWidth="206.0">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#fileOpen" prefHeight="36.0" prefWidth="206.0" text="Fájl Megnyitása">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+      <TableView fx:id="deviceTableInfo" layoutX="4.0" layoutY="92.0" prefHeight="557.0" prefWidth="189.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="93.0" />
+      <VBox layoutX="219.0" layoutY="3.0" prefHeight="89.0" prefWidth="206.0">
+         <children>
+            <TextField id="txtDeviceNumber" fx:id="txtDeviceNumber" prefHeight="36.0" prefWidth="168.0" promptText="Eszköz azonosító">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </TextField>
+            <Button mnemonicParsing="false" onAction="#buttonDatabese" prefHeight="36.0" prefWidth="206.0" text="Tábla Bevételezve">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+      <VBox layoutX="430.0" layoutY="3.0" prefHeight="89.0" prefWidth="206.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#filteringDeviceBtn" prefHeight="36.0" prefWidth="206.0" text="Keresés">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#updateDeviceTable" prefHeight="36.0" prefWidth="206.0" text="Tábla Fríssités">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

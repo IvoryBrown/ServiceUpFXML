@@ -11,7 +11,6 @@ import com.login.database.LoginDataBase;
 import com.login.setting.setting.devicename.database.DeviceNameDataBase;
 import com.login.setting.setting.location.database.LocationDataBase;
 import com.printer.database.PrinterDataBase;
-import com.printer.pojo.Printer;
 import com.printer.printerPdf.CreatingPdf;
 import com.setting.combobox.ComboBoxSet;
 
@@ -43,11 +42,11 @@ import tray.notification.TrayNotification;
 public class DeviceTableController {
 	@FXML
 	protected TableView<Device> deviceTable;
-	private TableColumn<Device, Integer>  deviceTableId, deviceTableClientID;
+	private TableColumn<Device, Integer> deviceTableId, deviceTableClientID;
 	private TableColumn<Device, Boolean> deviceTableNewHouse, deviceTablePowerSupply, deviceTableProcessor,
 			deviceTableBaseBoard, deviceTableMemory, deviceTableVideoCard, deviceTableSSDDrive, deviceTableHardDrive,
 			deviceTableCoolingFan, deviceTableOpticalDrive, deviceTableExpansionCard, deviceTableLaptop,
-			colDeviceAction;
+			deviceGuarantee, colDeviceAction;
 	private TableColumn<Device, String> deviceTableCompanyName, deviceTableClientName, deviceTableName,
 			deviceTableNumber, deviceTabelManufacturer, deviceTabelSerialNumber, deviceTableAdministratorLocation,
 			deviceTableRepairLocation, deviceTableStatus, deviceTableNewMachine, deviceTableAdministrator,
@@ -65,8 +64,6 @@ public class DeviceTableController {
 	private DeviceDataBase deviceDb = new DeviceDataBase();
 	protected TrayNotification tray = new TrayNotification();
 	private String deivceClientIdExportList;
-	
-	
 
 	@SuppressWarnings("unchecked")
 	protected void setDeviceTableData() {
@@ -205,6 +202,27 @@ public class DeviceTableController {
 				}
 			});
 		}
+
+		deviceGuarantee = new TableColumn<>("Garncia");
+		deviceGuarantee.setEditable(false);
+		deviceGuarantee.setMinWidth(48);
+		deviceGuarantee.setCellFactory(new Callback<TableColumn<Device, Boolean>, TableCell<Device, Boolean>>() {
+			@Override
+			public TableCell<Device, Boolean> call(TableColumn<Device, Boolean> p) {
+				CheckBoxTableCell<Device, Boolean> cell = new CheckBoxTableCell<Device, Boolean>();
+				cell.setAlignment(Pos.CENTER);
+				return cell;
+			}
+		});
+		deviceGuarantee
+				.setCellValueFactory(new Callback<CellDataFeatures<Device, Boolean>, ObservableValue<Boolean>>() {
+					@Override
+					public ObservableValue<Boolean> call(CellDataFeatures<Device, Boolean> param) {
+						Device device = param.getValue();
+						SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(device.getDeviceGuarantee());
+						return booleanProp;
+					}
+				});
 
 		deviceTabelSerialNumber = new TableColumn<>("Serial no.");
 		deviceTabelSerialNumber.setMinWidth(120);
@@ -868,25 +886,25 @@ public class DeviceTableController {
 
 		deviceTable.getColumns().addAll(colDeviceAction, deviceTableId, deviceTableClientID, deviceTableNumber,
 				deviceTableClientName, deviceTableCompanyName, deviceTableName, deviceTabelManufacturer,
-				deviceTabelSerialNumber, deviceTableAdministratorLocation, deviceTableRepairLocation, deviceTableStatus,
-				deviceTableStatusz, deviceTableNewMachine, setDeviceTablePerson, deviceTablePriorit,
+				deviceTabelSerialNumber, deviceGuarantee, deviceTableAdministratorLocation, deviceTableRepairLocation,
+				deviceTableStatus, deviceTableStatusz, deviceTableNewMachine, setDeviceTablePerson, deviceTablePriorit,
 				deviceTablePassword, deviceTableReferences, deviceTableAccesssory, deviceTableInjury,
 				deviceTableErrorDescription, deviceTableErrorCorrection, deviceTableComment, setDeviceAllDate,
 				deviceTableDataRecovery, deviceTableSoftver, deviceTableOperatingSystem, deviceTableSoftverComment,
 				setDeviceTableNewDevice, removeCol);
 
 	}
-	
+
 	@FXML
 	private void exportList() {
 		if (LoginDataBase.authority.equals("Admin") || LoginDataBase.authority.equals("SuperUser")
 				|| LoginDataBase.authority.equals("User")) {
-			if (deivceClientIdExportList !=null && !deivceClientIdExportList.equals("")) {
+			if (deivceClientIdExportList != null && !deivceClientIdExportList.equals("")) {
 				PrinterDataBase.getAllDeviceClient(deivceClientIdExportList);
 				CreatingPdf print = new CreatingPdf();
 				print.creating();
-				
-			}else {
+
+			} else {
 				tray = new TrayNotification("HIBA", "Nincs kiválasztva semmi", NotificationType.ERROR);
 				tray.showAndDismiss(Duration.seconds(2));
 			}
@@ -897,6 +915,5 @@ public class DeviceTableController {
 	protected void setDataTable() {
 
 	}
-	
 
 }

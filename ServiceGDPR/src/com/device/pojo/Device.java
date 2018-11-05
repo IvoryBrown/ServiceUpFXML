@@ -19,6 +19,7 @@ public class Device {
 	private final SimpleStringProperty deviceName;
 	private final SimpleStringProperty deviceManufacturer;
 	private final SimpleStringProperty deviceSerialNumber;
+	private final SimpleBooleanProperty deviceGuarantee;
 	private final SimpleStringProperty deviceAdministratorLocation;
 	private final SimpleStringProperty deviceRepairLocation;
 	private final SimpleStringProperty deviceStatus;
@@ -55,6 +56,7 @@ public class Device {
 	private final SimpleStringProperty deviceErrorCorrection;
 	private final SimpleStringProperty deviceTechnicalPerson;
 	private final SimpleStringProperty deviceStatusz;
+	private String converterdeviceGuarantee;
 	private String converterSalesBuyingsDate;
 	private String converterAddDate;
 	private String converterEndDate;
@@ -72,7 +74,7 @@ public class Device {
 	private String converterOpticalDrive;
 	private String converterExpansionCard;
 	private String converterLaptop;
-	
+
 	public Device() {
 		this.deviceID = new SimpleStringProperty("");
 		this.deviceClientID = new SimpleStringProperty("");
@@ -82,6 +84,7 @@ public class Device {
 		this.deviceName = new SimpleStringProperty("");
 		this.deviceManufacturer = new SimpleStringProperty("");
 		this.deviceSerialNumber = new SimpleStringProperty("");
+		this.deviceGuarantee = new SimpleBooleanProperty();
 		this.deviceRepairLocation = new SimpleStringProperty("");
 		this.deviceAdministratorLocation = new SimpleStringProperty("");
 		this.deviceStatus = new SimpleStringProperty("");
@@ -120,8 +123,9 @@ public class Device {
 		this.deviceStatusz = new SimpleStringProperty("");
 	}
 
-	public Device(String deviceID,String deviceClientID, String deviceNumber, String deviceCompanyName, String deviceClientName,
-			String deviceName, String deviceManufacturer, String deviceSerialNumber,String deviceAdministratorLocation, String deviceRepairLocation,
+	public Device(String deviceID, String deviceClientID, String deviceNumber, String deviceCompanyName,
+			String deviceClientName, String deviceName, String deviceManufacturer, String deviceSerialNumber,
+			boolean deviceGuarantee, String deviceAdministratorLocation, String deviceRepairLocation,
 			String deviceStatus, String deviceNewMachine, String deviceAdministrator, String devicePriorit,
 			String devicePassword, String deviceReferences, String deviceAccesssory, String deviceInjury,
 			String deviceErrorDescription, String deviceComment, Date deviceSalesBuying, Date deviceAddDate,
@@ -139,6 +143,7 @@ public class Device {
 		this.deviceName = new SimpleStringProperty(deviceName);
 		this.deviceManufacturer = new SimpleStringProperty(deviceManufacturer);
 		this.deviceSerialNumber = new SimpleStringProperty(deviceSerialNumber);
+		this.deviceGuarantee = new SimpleBooleanProperty(deviceGuarantee);
 		this.deviceAdministratorLocation = new SimpleStringProperty(deviceAdministratorLocation);
 		this.deviceRepairLocation = new SimpleStringProperty(deviceRepairLocation);
 		this.deviceStatus = new SimpleStringProperty(deviceStatus);
@@ -184,10 +189,11 @@ public class Device {
 	public void setDeviceID(String deviceID) {
 		this.deviceID.set(deviceID);
 	}
+
 	public String getDeviceClientID() {
 		return this.deviceClientID.get();
 	}
-	
+
 	public void setDeviceClientID(String deviceClientID) {
 		this.deviceClientID.set(deviceClientID);
 	}
@@ -240,6 +246,23 @@ public class Device {
 		this.deviceSerialNumber.set(deviceSerialNumber);
 	}
 
+	public Boolean getDeviceGuarantee() {
+		return this.deviceGuarantee.get();
+	}
+
+	public String getDeviceGuaranteeConverter() {
+		if (deviceGuarantee.getValue() == true) {
+			converterdeviceGuarantee = "Igen";
+		} else {
+			converterdeviceGuarantee = "Nem";
+		}
+		return this.converterdeviceGuarantee;
+	}
+
+	public void setDeviceGuarantee(boolean deviceGuarantee) {
+		this.deviceMemory.set(deviceGuarantee);
+	}
+
 	public String getDeviceAdministratorLocation() {
 		return this.deviceAdministratorLocation.get();
 	}
@@ -247,10 +270,11 @@ public class Device {
 	public void setDeviceAdministratorLocation(String deviceAdministratorLocation) {
 		this.deviceAdministratorLocation.set(deviceAdministratorLocation);
 	}
+
 	public String getDeviceRepairLocation() {
 		return this.deviceRepairLocation.get();
 	}
-	
+
 	public void setDeviceRepairLocation(String deviceRepairLocation) {
 		this.deviceRepairLocation.set(deviceRepairLocation);
 	}
@@ -390,7 +414,7 @@ public class Device {
 	public ObjectProperty<Date> getDeviceEndDateObject() {
 		return deviceEndDate;
 	}
- 
+
 	public Date getDeviceEndDate() {
 		return (Date) this.deviceEndDate.get();
 	}
@@ -716,10 +740,11 @@ public class Device {
 	public void setDeviceTechnicalPerson(String deviceTechnicalPerson) {
 		this.deviceTechnicalPerson.set(deviceTechnicalPerson);
 	}
+
 	public String getDeviceStatusz() {
 		return this.deviceStatusz.get();
 	}
-	
+
 	public void setDeviceStatusz(String deviceStatusz) {
 		this.deviceStatusz.set(deviceStatusz);
 	}

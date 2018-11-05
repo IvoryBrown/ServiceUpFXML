@@ -186,9 +186,14 @@
                   <Insets top="55.0" />
                </VBox.margin>
             </Label>
+            <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="139.0" text="Garancia">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
          </children>
       </VBox>
-      <VBox layoutX="591.0" layoutY="116.0" prefHeight="291.0" prefWidth="467.0">
+      <VBox layoutX="591.0" layoutY="116.0" prefHeight="334.0" prefWidth="467.0">
          <children>
             <TextArea id="deviceAccesssory" fx:id="deviceAccesssory" prefHeight="65.0" prefWidth="467.0" promptText="Tartozékok" wrapText="true">
                <VBox.margin>
@@ -210,6 +215,11 @@
                   <Insets top="5.0" />
                </VBox.margin>
             </TextArea>
+            <CheckBox fx:id="deviceGuarantee" mnemonicParsing="false">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </CheckBox>
          </children>
       </VBox>
       <HBox layoutX="22.0" layoutY="455.0" prefHeight="40.0" prefWidth="1055.0">

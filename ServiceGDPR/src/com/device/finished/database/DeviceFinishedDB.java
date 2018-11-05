@@ -1,4 +1,4 @@
-package com.device.actual.database;
+package com.device.finished.database;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -10,11 +10,11 @@ import com.device.pojo.Device;
 import com.setting.database.DataBaseConnect;
 import com.setting.showinfo.ShowInfo;
 
-public class DeviceActualDB {
-
-	public ArrayList<Device> getActualDevice() {
+public class DeviceFinishedDB {
+	
+	public ArrayList<Device> getFinishedDevice() {
 		Connection con = DataBaseConnect.getConnection();
-		String sql = "SELECT * FROM `gepadatok1` WHERE CONCAT" + "(`" + "allapot" + "`) LIKE '%" + "Bevételezve" + "%'";
+		String sql = "SELECT * FROM `gepadatok1` WHERE CONCAT" + "(`" + "allapot" + "`) LIKE '%" + "Kiadva" + "%'";
 		ArrayList<Device> device = null;
 		Statement createStatement = null;
 		ResultSet rs = null;
@@ -62,12 +62,12 @@ public class DeviceActualDB {
 		}
 		return device;
 	}
-
+	
 	public ArrayList<Device> getClientNameFilltering(String clientName) {
 		Connection con = DataBaseConnect.getConnection();
 		String sql = null;
-		sql = "SELECT * FROM `gepadatok1` WHERE" + " allapot = 'Bevételezve' " + "AND" + " (`" + "ugyfél_nev_gep"
-				+ "`) LIKE '%" + clientName + "%' OR" + " allapot = 'Bevételezve' " + "AND" + " (`" + "ceg_nev_gep"
+		sql = "SELECT * FROM `gepadatok1` WHERE" + " allapot = 'Kiadva' " + "AND" + " (`" + "ugyfél_nev_gep"
+				+ "`) LIKE '%" + clientName + "%' OR" + " allapot = 'Kiadva' " + "AND" + " (`" + "ceg_nev_gep"
 				+ "`) LIKE '%" + clientName + "%'";
 		ArrayList<Device> device = null;
 		Statement createStatement = null;
@@ -115,4 +115,5 @@ public class DeviceActualDB {
 		}
 		return device;
 	}
+
 }

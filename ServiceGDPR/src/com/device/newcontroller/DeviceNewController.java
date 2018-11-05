@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import com.device.pojo.DeviceBackAllText;
@@ -13,6 +14,8 @@ import com.login.database.LoginDataBase;
 import com.login.setting.setting.devicename.database.DeviceNameDataBase;
 import com.login.setting.setting.location.database.LocationDataBase;
 import com.login.setting.setting.operatingsystem.database.OperatingSystemDataBase;
+import com.printer.database.PrinterDataBase;
+import com.printer.printerPdf.CreatingPdf;
 import com.setting.combobox.ComboBoxSet;
 import com.setting.database.DataBaseConnect;
 import com.setting.identification.DeviceIdentificationGenereator;
@@ -20,13 +23,17 @@ import com.setting.showinfo.ShowInfo;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import tray.animations.AnimationType;
@@ -49,14 +56,15 @@ public class DeviceNewController implements Initializable {
 			deviceOperatingSystem, deviceDataRecovery;
 	@FXML
 	private CheckBox deviceNewHouse, devicePowerSupply, deviceProcessor, deviceBaseBoard, deviceMemory, deviceVideoCard,
-			deviceSSDDrive, deviceHardDrive, deviceCoolingFan, deviceOpticalDrive, deviceExpansionCard, deviceLaptop;
+			deviceSSDDrive, deviceHardDrive, deviceCoolingFan, deviceOpticalDrive, deviceExpansionCard, deviceLaptop,
+			deviceGuarantee;
 	private Callback<DatePicker, DateCell> dayCellFactory;
 	private TrayNotification tray = new TrayNotification();
 
 	private void setDate() {
 		deviceAddDate.setOnMouseClicked(e -> {
-		     if(!deviceAddDate.isEditable())
-		    	 deviceAddDate.hide();
+			if (!deviceAddDate.isEditable())
+				deviceAddDate.hide();
 		});
 		deviceAddDate.setValue(LocalDate.now());
 		dayCellFactory = new Callback<DatePicker, DateCell>() {
@@ -105,12 +113,12 @@ public class DeviceNewController implements Initializable {
 					if (setDeviceSoftverCheck()) {
 
 						String SQL = "INSERT INTO gepadatok1(ugyfel_adatok_id_ugyfel, eszkoz_azonosito, ceg_nev_gep, ugyfél_nev_gep,"
-								+ " eszkoz, eszkoz_gyarto, felvetel_helye,  eszkoz_gyari_szama, javitas_helye, allapot, uj_gep, ugyintezo, prioritas,"
+								+ " eszkoz, eszkoz_gyarto, felvetel_helye,  eszkoz_gyari_szama, garancia, javitas_helye, allapot, uj_gep, ugyintezo, prioritas,"
 								+ "jelszo, hivatkozasi_szam, tartozekok, serules, hiba_leirasa, eszkoz_megjegyzes, vasarlasi_datuma,"
 								+ " bejelentes_datuma, hatarido_datuma, kiszallas_datuma, adatmentes, softver, operacios_rendszer, "
 								+ "softver_megjegyzés, laptop, haz, tapegyseg, processzor, alaplap, memoria, videokartya, ssd, meghajto,"
 								+ " hutoventilator, optikai_meghajto, bovitokartya)"
-								+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+								+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
 
 						try {
 							Connection con = DataBaseConnect.getConnection();
@@ -124,47 +132,49 @@ public class DeviceNewController implements Initializable {
 							insertDevice.setString(6, deviceManufacturer.getText());
 							insertDevice.setString(7, deviceAdministratorLocation);
 							insertDevice.setString(8, deviceSerialNumber.getText());
-							insertDevice.setString(9, deviceRepairLocation.getSelectionModel().getSelectedItem());
-							insertDevice.setString(10, deviceStatus.getText());
-							insertDevice.setString(11, deviceNewMachine.getSelectionModel().getSelectedItem());
-							insertDevice.setString(12, deviceAdministrator.getText());
-							insertDevice.setString(13, devicePriorit.getSelectionModel().getSelectedItem());
-							insertDevice.setString(14, devicePassword.getText());
-							insertDevice.setString(15, deviceReferences.getText());
-							insertDevice.setString(16, deviceAccesssory.getText());
-							insertDevice.setString(17, deviceInjury.getText());
-							insertDevice.setString(18, deviceErrorDescription.getText());
-							insertDevice.setString(19, deviceComment.getText());
+							insertDevice.setBoolean(9, deviceGuarantee.isSelected());
+							insertDevice.setString(10, deviceRepairLocation.getSelectionModel().getSelectedItem());
+							insertDevice.setString(11, deviceStatus.getText());
+							insertDevice.setString(12, deviceNewMachine.getSelectionModel().getSelectedItem());
+							insertDevice.setString(13, deviceAdministrator.getText());
+							insertDevice.setString(14, devicePriorit.getSelectionModel().getSelectedItem());
+							insertDevice.setString(15, devicePassword.getText());
+							insertDevice.setString(16, deviceReferences.getText());
+							insertDevice.setString(17, deviceAccesssory.getText());
+							insertDevice.setString(18, deviceInjury.getText());
+							insertDevice.setString(19, deviceErrorDescription.getText());
+							insertDevice.setString(20, deviceComment.getText());
 							if (deviceSalesBuying.getValue() != null) {
-								insertDevice.setString(20, ((TextField) deviceSalesBuying.getEditor()).getText());
+								insertDevice.setString(21, ((TextField) deviceSalesBuying.getEditor()).getText());
 							} else {
-								insertDevice.setDate(20, null);
+								insertDevice.setDate(21, null);
 							}
-							insertDevice.setString(21, ((TextField) deviceAddDate.getEditor()).getText());
-							insertDevice.setString(22, ((TextField) deviceEndDate.getEditor()).getText());
+							insertDevice.setString(22, ((TextField) deviceAddDate.getEditor()).getText());
+							insertDevice.setString(23, ((TextField) deviceEndDate.getEditor()).getText());
 							if (deviceDeliveryDate.getValue() != null) {
-								insertDevice.setString(23, ((TextField) deviceDeliveryDate.getEditor()).getText());
+								insertDevice.setString(24, ((TextField) deviceDeliveryDate.getEditor()).getText());
 							} else {
-								insertDevice.setDate(23, null);
+								insertDevice.setDate(24, null);
 							}
-							insertDevice.setString(24, deviceDataRecovery.getSelectionModel().getSelectedItem());
-							insertDevice.setString(25, deviceSoftver.getSelectionModel().getSelectedItem());
-							insertDevice.setString(26, deviceOperatingSystem.getSelectionModel().getSelectedItem());
-							insertDevice.setString(27, deviceSoftverComment.getText());
-							insertDevice.setBoolean(28, deviceLaptop.isSelected());
-							insertDevice.setBoolean(29, deviceNewHouse.isSelected());
-							insertDevice.setBoolean(30, devicePowerSupply.isSelected());
-							insertDevice.setBoolean(31, deviceProcessor.isSelected());
-							insertDevice.setBoolean(32, deviceBaseBoard.isSelected());
-							insertDevice.setBoolean(33, deviceMemory.isSelected());
-							insertDevice.setBoolean(34, deviceVideoCard.isSelected());
-							insertDevice.setBoolean(35, deviceSSDDrive.isSelected());
-							insertDevice.setBoolean(36, deviceHardDrive.isSelected());
-							insertDevice.setBoolean(37, deviceCoolingFan.isSelected());
-							insertDevice.setBoolean(38, deviceOpticalDrive.isSelected());
-							insertDevice.setBoolean(39, deviceExpansionCard.isSelected());
+							insertDevice.setString(25, deviceDataRecovery.getSelectionModel().getSelectedItem());
+							insertDevice.setString(26, deviceSoftver.getSelectionModel().getSelectedItem());
+							insertDevice.setString(27, deviceOperatingSystem.getSelectionModel().getSelectedItem());
+							insertDevice.setString(28, deviceSoftverComment.getText());
+							insertDevice.setBoolean(29, deviceLaptop.isSelected());
+							insertDevice.setBoolean(30, deviceNewHouse.isSelected());
+							insertDevice.setBoolean(31, devicePowerSupply.isSelected());
+							insertDevice.setBoolean(32, deviceProcessor.isSelected());
+							insertDevice.setBoolean(33, deviceBaseBoard.isSelected());
+							insertDevice.setBoolean(34, deviceMemory.isSelected());
+							insertDevice.setBoolean(35, deviceVideoCard.isSelected());
+							insertDevice.setBoolean(36, deviceSSDDrive.isSelected());
+							insertDevice.setBoolean(37, deviceHardDrive.isSelected());
+							insertDevice.setBoolean(38, deviceCoolingFan.isSelected());
+							insertDevice.setBoolean(39, deviceOpticalDrive.isSelected());
+							insertDevice.setBoolean(40, deviceExpansionCard.isSelected());
 							insertDevice.executeUpdate();
 							setBackAllText();
+							exportList();
 							setClearAllText();
 							tray = new TrayNotification("Remek!", "Sikeres Felvétel", NotificationType.SUCCESS);
 							tray.showAndDismiss(Duration.seconds(1));
@@ -313,6 +323,33 @@ public class DeviceNewController implements Initializable {
 		}
 	}
 
+	private void exportList() {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Nyomatás");
+		alert.setHeaderText("");
+		alert.getDialogPane().getStylesheets().add("/com/setting/showinfo/ShowInfo.css");
+		alert.initStyle(StageStyle.TRANSPARENT);
+		String s = "Ki szeretnéd nyomtatni ?";
+		alert.setContentText(s);
+		Optional<ButtonType> result = alert.showAndWait();
+		if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
+			if (LoginDataBase.authority.equals("Admin") || LoginDataBase.authority.equals("SuperUser")
+					|| LoginDataBase.authority.equals("User")) {
+				if (deviceClientId != null && !deviceClientId.equals("")) {
+					PrinterDataBase.getAllDeviceClient(deviceClientId);
+					CreatingPdf print = new CreatingPdf();
+					print.creating();
+
+				} else {
+					tray = new TrayNotification("HIBA", "Nincs kiválasztva semmi", NotificationType.ERROR);
+					tray.showAndDismiss(Duration.seconds(2));
+				}
+			}
+
+		}
+
+	}
+
 	private void setBackAllText() {
 		DeviceBackAllText.setDeviceClientId(deviceClientId);
 		DeviceBackAllText.setDeviceCompanyName(deviceCompanyName.getText());
@@ -320,6 +357,7 @@ public class DeviceNewController implements Initializable {
 		DeviceBackAllText.setDeviceName(deviceName.getValue());
 		DeviceBackAllText.setDeviceManufacturer(deviceManufacturer.getText());
 		DeviceBackAllText.setDeviceSerialNumber(deviceSerialNumber.getText());
+		DeviceBackAllText.setDeviceGuarantee(deviceGuarantee.isSelected());
 		DeviceBackAllText.setDeviceRepairLocation(deviceRepairLocation.getValue());
 		DeviceBackAllText.setDeviceNewMachine(deviceNewMachine.getValue());
 		DeviceBackAllText.setDevicePriorit(devicePriorit.getValue());
@@ -359,6 +397,7 @@ public class DeviceNewController implements Initializable {
 		deviceName.setValue(DeviceBackAllText.getDeviceName());
 		deviceManufacturer.setText(DeviceBackAllText.getDeviceManufacturer());
 		deviceSerialNumber.setText(DeviceBackAllText.getDeviceSerialNumber());
+		deviceGuarantee.setSelected(DeviceBackAllText.isDeviceGuarantee());
 		deviceRepairLocation.setValue(DeviceBackAllText.getDeviceRepairLocation());
 		deviceNewMachine.setValue(DeviceBackAllText.getDeviceNewMachine());
 		devicePriorit.setValue(DeviceBackAllText.getDevicePriorit());
@@ -403,6 +442,7 @@ public class DeviceNewController implements Initializable {
 		deviceRepairLocation.setValue(null);
 		deviceNewMachine.setValue(null);
 		devicePriorit.setValue(null);
+		deviceGuarantee.setSelected(false);
 		devicePassword.clear();
 		deviceReferences.clear();
 		deviceAccesssory.clear();
