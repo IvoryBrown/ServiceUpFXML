@@ -6,6 +6,8 @@ import java.util.ResourceBundle;
 import com.device.all.database.DeviceAllDB;
 import com.device.pojo.Device;
 import com.device.table.controller.DeviceTableController;
+import com.log.filewriter.FileWriterLog;
+import com.login.database.LoginDataBase;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -56,6 +58,7 @@ public class AllDeviceController extends DeviceTableController implements Initia
 	}
 
 	private void checkClient() {
+		new FileWriterLog(LoginDataBase.name + " Eszköz keresés az összesbe: " + deviceClientNameFilteringTxt.getText());
 		deviceTable.getItems().clear();
 		dataAllDevice.clear();
 		dataAllDevice.addAll(db.getClientNameFilltering(deviceClientNameFilteringTxt.getText()));

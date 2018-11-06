@@ -6,6 +6,8 @@ import java.util.ResourceBundle;
 import com.device.finished.database.DeviceFinishedDB;
 import com.device.pojo.Device;
 import com.device.table.controller.DeviceTableController;
+import com.log.filewriter.FileWriterLog;
+import com.login.database.LoginDataBase;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -56,6 +58,7 @@ public class FinishedDeviceController extends DeviceTableController implements I
 	}
 
 	private void checkClient() {
+		new FileWriterLog(LoginDataBase.name + " Eszköz keresés a befejezettbe: " + deviceClientNameFilteringTxt.getText());
 		deviceTable.getItems().clear();
 		dataFinishedDevice.clear();
 		dataFinishedDevice.addAll(db.getClientNameFilltering(deviceClientNameFilteringTxt.getText()));

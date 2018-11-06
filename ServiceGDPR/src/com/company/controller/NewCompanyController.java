@@ -3,21 +3,32 @@ package com.company.controller;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
+import com.company.main.CompanyMain;
+import com.device.newmain.DeviceNewMain;
+import com.device.pojo.DeviceClient;
+import com.log.filewriter.FileWriterLog;
+import com.login.database.LoginDataBase;
 import com.setting.database.DataBaseConnect;
 import com.setting.identification.ClientIdentficationGenerator;
 import com.setting.showinfo.ShowInfo;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
@@ -34,6 +45,7 @@ public class NewCompanyController implements Initializable {
 	private Label txtClientInputNumber;
 	@FXML
 	private TextArea txtClientInputComment;
+	private String clientNumber;
 
 	private final String COUNTRYCOUNTIES[] = { "Bács-Kiskun", "Baranya", "Békés", " Borsod-Abaúj-Zemplén", "Csongrád",
 			" Fejér", " Győr-Moson-Sopron", "Hajdú-Bihar", "Heves", "Jász-Nagykun-Szolnok", " Komárom-Esztergom ",
@@ -124,9 +136,12 @@ public class NewCompanyController implements Initializable {
 					insertCompany.setString(13, txtClientInputComment.getText());
 					insertCompany.setString(14, formattedString);
 					insertCompany.executeUpdate();
+					setClientCompanyController();
+					new FileWriterLog(LoginDataBase.name + " Új Cég felvétele azonosító: " + txtClientInputNumber.getText());
 					tray = new TrayNotification("Remek!", "Sikeres Felvétel", NotificationType.SUCCESS);
 					tray.showAndDismiss(Duration.seconds(1));
 					setCompanyInputText();
+					setNewDevice();
 				} catch (SQLException ex) {
 					new ShowInfo("Adatbázis Hiba", "Szerver válasza: ", ex.getMessage());
 				}
@@ -138,6 +153,61 @@ public class NewCompanyController implements Initializable {
 			tray = new TrayNotification("HIBA", "Nincs minden mező kitöltve", NotificationType.ERROR);
 			tray.showAndDismiss(Duration.seconds(2));
 		}
+	}
+
+	private void setNewDevice() {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Új Eszköz!");
+		alert.setHeaderText("");
+		alert.getDialogPane().getStylesheets().add("/com/setting/showinfo/ShowInfo.css");
+		alert.initStyle(StageStyle.TRANSPARENT);
+		String s = "Szeretnél új eszközt is felvenni?";
+		alert.setContentText(s);
+		Optional<ButtonType> result = alert.showAndWait();
+		if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
+			DeviceNewMain newDevice = new DeviceNewMain();
+			newDevice.start();
+			CompanyMain.primaryStageLoginMain.close();
+		}
+
+	}
+
+	private void setClientCompanyControllerDataBase() {
+		String sql = "SELECT * FROM `ugyfel_adatok` WHERE" + " ugyfel_azonosito = '" + txtClientInputNumber.getText()
+				+ "' ";
+		Connection con = DataBaseConnect.getConnection();
+		PreparedStatement pstStn = null;
+		ResultSet stnRS = null;
+		try {
+			pstStn = con.prepareStatement(sql);
+			stnRS = pstStn.executeQuery(sql);
+			while (stnRS.next()) {
+				clientNumber = stnRS.getString("id_ugyfel");
+			}
+		} catch (SQLException ex) {
+			new ShowInfo("Adatbázis Hiba", "Szerver válasza: ", ex.getMessage());
+		} finally {
+			try {
+				if (pstStn != null) {
+					pstStn.close();
+				}
+				if (stnRS != null) {
+					stnRS.close();
+				}
+				if (con != null) {
+					con.close();
+				}
+			} catch (SQLException e) {
+				new ShowInfo("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
+			}
+		}
+	}
+
+	private void setClientCompanyController() {
+		setClientCompanyControllerDataBase();
+		DeviceClient.setDeviceClientID(clientNumber);
+		DeviceClient.setDeviceClientName(txtClientInputClientName.getText());
+		DeviceClient.setDeviceCompanyName(txtClientCompany.getText());
 	}
 
 	private void setCompanyInputText() {

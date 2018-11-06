@@ -4,10 +4,13 @@ import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import com.log.filewriter.FileWriterLog;
 import com.login.database.LoginDataBase;
 import com.stock.pojo.Stock;
 import com.stock.table.database.StockTableDB;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -132,6 +135,16 @@ public class StockTableController implements Initializable {
 				}
 			});
 		}
+
+		stockTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Stock>() {
+			@Override
+			public void changed(ObservableValue<? extends Stock> observable, Stock oldValue, Stock newValue) {
+				if (oldValue == null || newValue != null) {
+					new FileWriterLog(
+							LoginDataBase.name + " Raktár kijelőlve: " + String.valueOf(newValue.getStockDeviceId()));
+				}
+			}
+		});
 		stockTable.setItems(dataStock);
 		stockTable.getColumns().addAll(stockDeviceId, stockDeviceName, stockDeviceDate, stockDeviceSalesDate,
 				stockDeviceQuantity, stockDeviceInStock, stockDeviceDescription, stockDeviceAccountIdentity);
@@ -155,6 +168,7 @@ public class StockTableController implements Initializable {
 			public void handle(KeyEvent ke) {
 				if (ke.getCode().equals(KeyCode.ENTER)) {
 					updateClientTable();
+					new FileWriterLog(LoginDataBase.name + " Raktárba keresés:" + stockDeviceNameFilteringTxt.getText());
 				}
 			}
 		});

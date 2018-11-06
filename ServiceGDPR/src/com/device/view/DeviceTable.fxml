@@ -22,11 +22,6 @@
                   <Insets top="5.0" />
                </VBox.margin>
             </TextField>
-            <Button mnemonicParsing="false" onAction="#setDataTable" prefHeight="36.0" prefWidth="206.0" text="Tábla Frissités">
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </Button>
          </children>
       </VBox>
       <VBox layoutX="232.0" layoutY="13.0" prefHeight="89.0" prefWidth="206.0">
@@ -36,21 +31,12 @@
                   <Insets top="5.0" />
                </VBox.margin>
             </Button>
+            <Button mnemonicParsing="false" onAction="#setDataTable" prefHeight="36.0" prefWidth="206.0" text="Tábla Frissités">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Button>
          </children></VBox>
-      <VBox layoutX="448.0" layoutY="13.0" prefHeight="89.0" prefWidth="206.0">
-         <children>
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="206.0" text="Eszköz Információk">
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="206.0" text="Meglévő Eszköz">
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </Button>
-         </children>
-      </VBox>
       <Label id="backClientName" fx:id="backDeviceNumber" layoutX="122.0" layoutY="102.0" prefHeight="30.0" prefWidth="141.0" />
       <Label id="backClientName" fx:id="blackDeviceNumberT" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="102.0" prefHeight="30.0" prefWidth="108.0" text="Azonosító:" />
       <Label id="backClientName" fx:id="backClientNameT" alignment="CENTER_RIGHT" layoutX="263.0" layoutY="102.0" prefHeight="30.0" prefWidth="51.0" text="Név:" />

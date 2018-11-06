@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane onDragDetected="#updateDeviceTable" prefHeight="650.0" prefWidth="1300.0" stylesheets="@../desing/desing.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.device.information.controller.DeviceInformationController">
+<AnchorPane onDragDetected="#updateDeviceTable" prefHeight="650.0" prefWidth="1300.0" stylesheets="@DeviceInformation.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.device.information.controller.DeviceInformationController">
    <children>
       <WebView fx:id="webView" prefHeight="650.0" prefWidth="1300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="192.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="93.0" />
       <VBox layoutX="4.0" layoutY="3.0" prefHeight="89.0" prefWidth="206.0">

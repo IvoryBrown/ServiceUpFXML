@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 
 import com.device.pojo.DeviceBackAllText;
 import com.device.pojo.DeviceClient;
+import com.log.filewriter.FileWriterLog;
 import com.login.database.LoginDataBase;
 import com.login.setting.setting.devicename.database.DeviceNameDataBase;
 import com.login.setting.setting.location.database.LocationDataBase;
@@ -175,6 +176,7 @@ public class DeviceNewController implements Initializable {
 							insertDevice.executeUpdate();
 							setBackAllText();
 							exportList();
+							new FileWriterLog(LoginDataBase.name + " Új eszköz felvétele azonosító: " + deviceNumber.getText());
 							setClearAllText();
 							tray = new TrayNotification("Remek!", "Sikeres Felvétel", NotificationType.SUCCESS);
 							tray.showAndDismiss(Duration.seconds(1));
@@ -427,11 +429,13 @@ public class DeviceNewController implements Initializable {
 		deviceCoolingFan.setSelected(DeviceBackAllText.isDeviceCoolingFan());
 		deviceOpticalDrive.setSelected(DeviceBackAllText.isDeviceOpticalDrive());
 		deviceExpansionCard.setSelected(DeviceBackAllText.isDeviceExpansionCard());
+		new FileWriterLog(LoginDataBase.name + " Eszköz vissza állítás azonosító: " + deviceClientName.getText());
 
 	}
 
 	@FXML
 	private void setClearAllText() {
+		new FileWriterLog(LoginDataBase.name + " Eszköz nullázás azonosító: " + deviceNumber.getText());
 		deviceClientId = null;
 		deviceNumber.clear();
 		deviceCompanyName.clear();

@@ -8,6 +8,7 @@ import com.device.pojo.DeviceClient;
 import com.device.table.DateEditingCellDevice;
 import com.device.table.DeviceButtonCell;
 import com.device.table.database.DeviceDataBase;
+import com.log.filewriter.FileWriterLog;
 import com.login.database.LoginDataBase;
 import com.login.setting.setting.devicename.database.DeviceNameDataBase;
 import com.login.setting.setting.location.database.LocationDataBase;
@@ -889,6 +890,7 @@ public class DeviceTableController {
 					DeviceClient.setDeviceClientName(newValue.getDeviceClientName());
 					DeviceClient.setDeviceCompanyName(newValue.getDeviceCompanyName());
 					deivceClientIdExportList = newValue.getDeviceClientID();
+					new FileWriterLog(LoginDataBase.name + " Eszköz kijelőlve: " + newValue.getDeviceNumber());
 				}
 			}
 		});
@@ -928,7 +930,7 @@ public class DeviceTableController {
 
 	@FXML
 	protected void setDataTable() {
-
+		new FileWriterLog(LoginDataBase.name + " Eszköz frissités ");
 	}
 
 }

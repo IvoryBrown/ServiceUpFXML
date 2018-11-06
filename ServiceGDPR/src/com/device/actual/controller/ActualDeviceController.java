@@ -6,6 +6,8 @@ import java.util.ResourceBundle;
 import com.device.actual.database.DeviceActualDB;
 import com.device.pojo.Device;
 import com.device.table.controller.DeviceTableController;
+import com.log.filewriter.FileWriterLog;
+import com.login.database.LoginDataBase;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -55,6 +57,7 @@ public class ActualDeviceController extends DeviceTableController implements Ini
 	}
 
 	private void checkClient() {
+		new FileWriterLog(LoginDataBase.name + " Eszköz keresés a folyamatba lévőbe: " + deviceClientNameFilteringTxt.getText());
 		deviceTable.getItems().clear();
 		dataActualDevice.clear();
 		dataActualDevice.addAll(db.getClientNameFilltering(deviceClientNameFilteringTxt.getText()));

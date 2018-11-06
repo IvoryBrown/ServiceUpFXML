@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="750.0" prefWidth="1300.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="com.log.controller.LogController">
+   <children>
+      <AnchorPane layoutX="550.0" layoutY="308.0" prefHeight="750.0" prefWidth="352.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="948.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <TreeView fx:id="treeViewLog" layoutX="286.0" layoutY="326.0" prefHeight="750.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="352.0" layoutY="201.0" prefHeight="750.0" prefWidth="948.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="352.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <TextArea fx:id="areaLog" layoutX="158.0" layoutY="275.0" prefHeight="750.0" prefWidth="948.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

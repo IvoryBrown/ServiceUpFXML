@@ -1,4 +1,6 @@
-package com.company.main;
+package com.log.main;
+
+import com.company.main.CompanyMain;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -6,12 +8,12 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-public class CompanyMain {
+public class LogMain {
 	public static Stage primaryStageLoginMain;
 
 	public void start() {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/com/company/view/Company.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/com/log/view/Log.fxml"));
 			Stage stage = new Stage();
 			CompanyMain.primaryStageLoginMain = stage;
 			stage.setTitle("Cég");

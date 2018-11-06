@@ -13,6 +13,9 @@ import com.device.finished.main.DeviceFinishedMain;
 import com.device.information.main.DeviceInformationMain;
 import com.device.newmain.DeviceNewMain;
 import com.error.main.ErrorMain;
+import com.log.filedelete.FileDelete;
+import com.log.filewriter.FileWriterLog;
+import com.log.newlogdatabase.NewLogDatabase;
 import com.login.database.LoginDataBase;
 import com.login.filewrite.LoginFile;
 import com.login.setting.setting.main.SettingMain;
@@ -122,77 +125,92 @@ public class MainController implements Initializable {
 			String name = (String) ((TreeItem) treeView.getSelectionModel().getSelectedItem()).getValue();
 
 			if (name.equals(MENU_STASTIC)) {
+				new FileWriterLog(LoginDataBase.name + " Főmenü Statisztika");
 				StatisticsMain statistic = new StatisticsMain();
 				statistic.start();
 				return;
 			}
 			if (name.equals(MENU_ERROR_PAGE)) {
+				new FileWriterLog(LoginDataBase.name + " Főmenü Hibajelentés");
 				ErrorMain error = new ErrorMain();
 				error.start();
 				return;
 			}
 			if (name.equals(MENU_CALENDAR)) {
+				new FileWriterLog(LoginDataBase.name + " Főmenü Naptár");
 				CalendarMain calendar = new CalendarMain();
 				calendar.startCalendar();
 				return;
 			}
 
 			if (name.equals(MENU_NEW_CLIENT)) {
+				new FileWriterLog(LoginDataBase.name + " Főmenü Új Ügyfél");
 				ClientNewMain clientNewMain = new ClientNewMain();
 				clientNewMain.newClientBtn();
 				return;
 			}
 			if (name.equals(MENU_NEW_COMPANY)) {
+				new FileWriterLog(LoginDataBase.name + " Főmenü Új Cég");
 				CompanyMain companyMain = new CompanyMain();
 				companyMain.start();
 				return;
 			}
 			if (name.equals(MENU_CLIENT_TABLE)) {
+				new FileWriterLog(LoginDataBase.name + " Főmenü Ügyfelek Tábla");
 				ClientCompanyMain clientCompanyMain = new ClientCompanyMain();
 				clientCompanyMain.start();
 				return;
 			}
 			if (name.equals(MENU_DEVICE_NEW)) {
+				new FileWriterLog(LoginDataBase.name + " Főmenü Új Felvétel Eszköz");
 				DeviceNewMain newDevice = new DeviceNewMain();
 				newDevice.start();
 				return;
 			}
 			if (name.equals(MENU_DEVICE_TABLE_ACTUAL)) {
+				new FileWriterLog(LoginDataBase.name + " Főmenü Folyamatba lévő Eszkőz");
 				DeviceActualMain device = new DeviceActualMain();
 				device.start();
 				return;
 			}
 			if (name.equals(MENU_DEVICE_AVAILABLE)) {
+				new FileWriterLog(LoginDataBase.name + " Főmenü Befejezett Eszkőz");
 				DeviceFinishedMain finsihedDevice = new DeviceFinishedMain();
 				finsihedDevice.start();
 				return;
 			}
 			if (name.equals(MENU_DEVICE_TABLE_ALL)) {
+				new FileWriterLog(LoginDataBase.name + " Főmenü Összes Eszkőz");
 				DeviceAllMain allDevice = new DeviceAllMain();
 				allDevice.start();
 				return;
 			}
 			if (name.equals(MENU_DEVICE_INFORMATION)) {
+				new FileWriterLog(LoginDataBase.name + " Főmenü Eszköz Információk");
 				DeviceInformationMain infoDevice = new DeviceInformationMain();
 				infoDevice.start();
 				return;
 			}
 			if (name.equals(MENU_NEW_STOCK)) {
+				new FileWriterLog(LoginDataBase.name + " Főmenü Új Eszköz");
 				StockNewMain newStock = new StockNewMain();
 				newStock.start();
 				return;
 			}
 			if (name.equals(MENU_TABLE_STOCK)) {
+				new FileWriterLog(LoginDataBase.name + " Főmenü Raktár");
 				StockMain stockDevice = new StockMain();
 				stockDevice.start();
 				return;
 			}
 			if (name.equals(MENU_SETTING)) {
+				new FileWriterLog(LoginDataBase.name + " Főmenü Beállítás");
 				SettingMain main = new SettingMain();
 				main.start();
 				return;
 			}
 			if (name.equals(MENU_MINIMAL_SIZE)) {
+				new FileWriterLog(LoginDataBase.name + " Főmenü Minimál méret");
 				Main.primaryStage.close();
 				MainMin mainMin = new MainMin();
 				mainMin.start();
@@ -200,6 +218,9 @@ public class MainController implements Initializable {
 			}
 
 			if (name.equals(MENU_EXIT)) {
+				new FileWriterLog(LoginDataBase.name + " Program kilép");
+				new NewLogDatabase().newLog();
+				new FileDelete();
 				System.exit(0);
 				return;
 			}

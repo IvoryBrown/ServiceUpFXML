@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
+import com.log.filewriter.FileWriterLog;
 import com.login.database.LoginDataBase;
 import com.login.filewrite.LoginFile;
 import com.login.main.LoginMain;
@@ -93,6 +94,7 @@ public class LoginController implements Initializable {
 					Main main = new Main();
 					main.startEnd();
 					LoginMain.primaryStageLoginMain.close();
+					new FileWriterLog(LoginDataBase.name + " Belépet");
 				} else {
 					errorLb.setText("Ismeretlen User&Password!!");
 				}

@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 
 import com.error.database.ErrorFillteringDB;
 import com.error.pojo.Error;
+import com.log.filewriter.FileWriterLog;
 import com.login.database.LoginDataBase;
 import com.setting.combobox.ComboBoxSet;
 import com.setting.database.DataBaseConnect;
@@ -102,6 +103,7 @@ public class ErrorController implements Initializable {
 				insertError.setString(2, errorComment.getText());
 				insertError.executeUpdate();
 				tray = new TrayNotification("Remek!", "Sikeres Felvétel", NotificationType.SUCCESS);
+				new FileWriterLog(LoginDataBase.name + " Új Hibajegyzék");
 				tray.showAndDismiss(Duration.seconds(1));
 				dataError.clear();
 				dataError.addAll(ErrorFillteringDB.getAllError());

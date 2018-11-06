@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import com.calendar.database.CalendarDataBase;
 import com.calendar.main.CalendarMain;
 import com.device.pojo.Device;
+import com.log.filewriter.FileWriterLog;
+import com.login.database.LoginDataBase;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,11 +21,11 @@ public class CalendarPane extends AnchorPane {
 	public CalendarPane(Node... children) {
 		super(children);
 		this.setOnMouseClicked(e -> setCalendarController());
-
 	}
 
 	private void setCalendarController() {
 		sDate = String.valueOf(getDate());
+		new FileWriterLog(LoginDataBase.name + " Naptárból lekérte ezt a napot: " + sDate);
 		calendarNameList();
 		CalendarMain device = new CalendarMain();
 		device.startTable();

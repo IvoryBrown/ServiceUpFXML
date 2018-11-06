@@ -8,8 +8,9 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class LoginMain extends Application { 
+public class LoginMain extends Application {
 	public static Stage primaryStageLoginMain;
+
 	@SuppressWarnings("static-access")
 	@Override
 	public void start(Stage primaryStage) {

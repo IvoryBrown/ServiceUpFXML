@@ -14,6 +14,7 @@ import java.sql.SQLException;
 
 import com.device.information.database.DeviceInformationDB;
 import com.device.information.pojo.DeviceInfo;
+import com.log.filewriter.FileWriterLog;
 import com.login.database.LoginDataBase;
 import com.setting.database.DataBaseConnect;
 import com.setting.showinfo.ShowInfo;
@@ -141,6 +142,7 @@ public class DeviceInformationController {
 	@FXML
 	private void fileOpen() {
 		if (LoginDataBase.authority.equals("Admin") || LoginDataBase.authority.equals("SuperUser")) {
+			new FileWriterLog(LoginDataBase.name + " EszkőzInformáció mappa megnyitás!");
 			fileText.setStyle("   -fx-font-size: 12.0;");
 			fileChooser = new FileChooser();
 			fileChooser.setTitle("Report beillesztés");
@@ -228,6 +230,7 @@ public class DeviceInformationController {
 					insertDeviceInf.setBlob(2, htm);
 					insertDeviceInf.executeUpdate();
 					htm.close();
+					new FileWriterLog(LoginDataBase.name + " Új EszkőzInformáció felvétele");
 					clearText();
 					updateDeviceTable();
 					tray = new TrayNotification("Remek!", "Sikeres Felvétel", NotificationType.SUCCESS);

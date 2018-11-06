@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import com.client.pojo.Client;
 import com.clientcompany.table.database.ClientCompanyDB;
 import com.device.pojo.DeviceClient;
+import com.log.filewriter.FileWriterLog;
 import com.login.database.LoginDataBase;
 
 import javafx.beans.value.ChangeListener;
@@ -367,6 +368,7 @@ public class ClientCompanyController implements Initializable {
 						DeviceClient.setDeviceClientID(newValue.getClientId());
 						DeviceClient.setDeviceClientName(newValue.getClientName());
 						DeviceClient.setDeviceCompanyName(newValue.getClientCompanyName());
+						new FileWriterLog(LoginDataBase.name + " Ügyfél kijelőlve: " + newValue.getClientName());
 					}
 				}
 			});
@@ -388,6 +390,7 @@ public class ClientCompanyController implements Initializable {
 	}
 
 	private void checkClient() {
+		new FileWriterLog(LoginDataBase.name + " Ügyfél keresés: " + clientNameFilteringTxt.getText());
 		dataClient.clear();
 		clientConpanyTable.getItems().clear();
 		dataClient.addAll(clientCompanyDB.getClientNameFilltering(clientNameFilteringTxt.getText()));
@@ -395,6 +398,7 @@ public class ClientCompanyController implements Initializable {
 
 	@FXML
 	private void filterCompanytBtn() {
+		new FileWriterLog(LoginDataBase.name + " Ügyfél tábla frissitve");
 		updateClientTable();
 		tray = new TrayNotification("Tábla!", "Sikeres Frissítése", NotificationType.SUCCESS);
 		tray.setAnimationType(AnimationType.POPUP);

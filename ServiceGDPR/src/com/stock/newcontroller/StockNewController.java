@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import com.log.filewriter.FileWriterLog;
+import com.login.database.LoginDataBase;
 import com.setting.database.DataBaseConnect;
 import com.setting.showinfo.ShowInfo;
 
@@ -70,6 +72,7 @@ public class StockNewController implements Initializable {
 				insertStock.executeUpdate();
 				tray = new TrayNotification("Remek!", "Sikeres Felvétel", NotificationType.SUCCESS);
 				tray.showAndDismiss(Duration.seconds(1));
+				new FileWriterLog(LoginDataBase.name + " Új Raktár felvétel: " + stockDeviceName.getText());
 			} catch (SQLException e) {
 				new ShowInfo("Adatbázis Hiba", "Szerver válasza: ", e.getMessage());
 			}
