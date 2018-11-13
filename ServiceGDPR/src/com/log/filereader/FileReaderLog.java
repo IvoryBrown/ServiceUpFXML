@@ -34,7 +34,6 @@ public class FileReaderLog {
 
 			}
 		}
-		
 		return everything;
 		
 	}

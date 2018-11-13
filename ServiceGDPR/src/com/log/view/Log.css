@@ -29,20 +29,17 @@
 
 .table-view .column-header-background .label {
 	-fx-background-color: linear-gradient(#61a2b1, #2A5058);
-	/*  -fx-text-fill: white;*/
-		-fx-font-size: 15.0;
+	 -fx-text-fill: white;
 }
 
 .table-view .table-cell {
-	/*  -fx-text-fill: white;*/
-		-fx-font-size: 15.0;
+	 -fx-text-fill: white;
 	
 }
 
 .table-view .column-header {
 	-fx-background-color: gray;
-	/*  -fx-text-fill: white;*/
-		-fx-font-size: 15.0;
+	 -fx-text-fill: white;
 }
 
 .table-view {
@@ -133,80 +130,8 @@
 	-fx-background-insets:0.0px ;
 	-fx-border-width: 0.0px;
   }
-
-.date-picker .text-field{
-	-fx-background-color:  #616161;
-}
-
-.spinner-label {
-	-fx-text-fill: white;
-}
-
-.date-picker .arrow-button{
-	-fx-background-radius:0.0px ;
-	-fx-background-color: #616161;
-}
-
-.date-picker .arrow-button .arrow{
-	-fx-background-radius:0.0px ;
-	-fx-background-color: linear-gradient(#61a2b1, #2A5058);
-}
-
-.date-picker .arrow-button:hover .arrow{
-	-fx-background-radius:0.0px ;
-	-fx-background-color: linear-gradient(#61a2b1, #2A5058);
- }
-
-.date-picker .button {
-	-fx-background-color: linear-gradient(#61a2b1, #2A5058);
-	-fx-border-color:linear-gradient(#61a2b1, #2A5058);
-	-fx-pref-height: 35.0px;
-	-fx-pref-width: 35.0px;
- }
- 
-.date-picker .button:hover {
-	-fx-border-color:transparent;
-	-fx-pref-height: 35.0px;
-	-fx-pref-width: 35.0px;
- }
- 
-.date-picker .button .arrow:pressed {
-	-fx-border-color:transparent;
-	-fx-pref-height: 35.0px;
-	-fx-pref-width: 35.0px;
- }
- 
-.date-picker .cell {
-	-fx-background-color: #616161;
-	-fx-text-fill: white;
-	-fx-pref-width:20.0px ;
-	-fx-pref-height:25.0px ;
- }
- 
-.date-picker .cell:hover {
-	-fx-background-color: linear-gradient(#2A5058, #61a2b1);
-	-fx-pref-width:20.0px ;
-	-fx-pref-height:25.0px ;
-}
-
-.date-picker .cell:focused {
-	-fx-background-color: linear-gradient(#61a2b1, #2A5058);
-	-fx-pref-width:20.0px ;
-	-fx-pref-height:25.0px ;
- }
- 
- .date-picker-popup  {
-	-fx-border-color: #61a2b1;
-	-fx-background-color: black;
- }
- 
- .date-picker-popup > .month-year-pane {
-    -fx-padding: 0.588883em 0.5em 0.666667em 0.5em;
-    -fx-background-color: #616161;
-    -fx-background-insets: 0.0 0.0 0.0 0.0, 0.0 0.0 1.0 0.0;
-}
-
-.combo-box .list-cell {
+  
+  .combo-box .list-cell {
     -fx-background-color: #616161;
     -fx-text-fill: white;
  }
@@ -222,21 +147,4 @@
 
 .combo-box .arrow, .combo-box .arrow-button{
     -fx-background-color: linear-gradient(#61a2b1, #2A5058);
-}
- 
-.check-box .box {
-
--fx-background-color: #616161;
--fx-border-color:#61a2b1;
--fx-border-radius:3.0px; 
-
-}
-.check-box:selected .mark {
-
--fx-background-color: white;
-
-}
-
-.check-box:selected .box {
--fx-background-color: linear-gradient(#61a2b1, #2A5058);
 }

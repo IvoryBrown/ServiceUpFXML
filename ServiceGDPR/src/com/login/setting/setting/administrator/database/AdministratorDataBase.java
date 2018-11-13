@@ -13,6 +13,7 @@ import com.setting.showinfo.ShowInfo;
 
 public class AdministratorDataBase {
 
+
 	public static ArrayList<Administrator> getAllAdministratorDataBase() {
 		ArrayList<Administrator> administrator = null;
 		Statement createStatement = null;

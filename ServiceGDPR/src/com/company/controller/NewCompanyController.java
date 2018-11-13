@@ -167,7 +167,7 @@ public class NewCompanyController implements Initializable {
 		if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
 			DeviceNewMain newDevice = new DeviceNewMain();
 			newDevice.start();
-			CompanyMain.primaryStageLoginMain.close();
+			CompanyMain.primaryStageCompanyMain.close();
 		}
 
 	}

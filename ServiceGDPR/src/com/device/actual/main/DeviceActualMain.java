@@ -9,6 +9,8 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class DeviceActualMain {
+	public static Stage primaryStageDeviceActualMain;
+
 
 	public void start() {
 		try {
@@ -16,6 +18,7 @@ public class DeviceActualMain {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/device/view/DeviceTable.fxml"));
 			loader.setController(new ActualDeviceController());
 			Parent root = (Parent) loader.load();
+			primaryStageDeviceActualMain = primaryStage;
 			primaryStage.setWidth(1300);
 			primaryStage.setHeight(700);
 			primaryStage.setTitle("Aktuális");

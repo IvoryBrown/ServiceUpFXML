@@ -1,6 +1,7 @@
 package com.main.normalsize;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import com.calendar.main.CalendarMain;
@@ -15,6 +16,7 @@ import com.device.newmain.DeviceNewMain;
 import com.error.main.ErrorMain;
 import com.log.filedelete.FileDelete;
 import com.log.filewriter.FileWriterLog;
+import com.log.main.LogMain;
 import com.log.newlogdatabase.NewLogDatabase;
 import com.login.database.LoginDataBase;
 import com.login.filewrite.LoginFile;
@@ -28,12 +30,20 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
+import tray.animations.AnimationType;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 public class MainController implements Initializable {
 
@@ -41,6 +51,7 @@ public class MainController implements Initializable {
 	private TreeView<String> treeView;
 	@FXML
 	private Label nameLabel;
+	private TrayNotification tray;
 
 	private final String MENU_HOME = "Kezdőlap";
 	private final String MENU_STASTIC = "Statisztika";
@@ -64,6 +75,8 @@ public class MainController implements Initializable {
 	private final String MENU_TABLE_STOCK = "Raktáron";
 
 	private final String MENU_SETTING = "Beállítás";
+
+	private final String MENU_LOG = "Log";
 
 	private final String MENU_MINIMAL_SIZE = "Minimál Méret";
 
@@ -105,11 +118,14 @@ public class MainController implements Initializable {
 		nodeItemC.getChildren().addAll(nodeItemC1, nodeItemC2);
 		TreeItem<String> nodeItemE = new TreeItem<String>(MENU_SETTING);
 
-		TreeItem<String> nodeItemF = new TreeItem<String>(MENU_MINIMAL_SIZE);
+		TreeItem<String> nodeItemF = new TreeItem<String>(MENU_LOG);
 
-		TreeItem<String> nodeItemG = new TreeItem<String>(MENU_EXIT);
+		TreeItem<String> nodeItemG = new TreeItem<String>(MENU_MINIMAL_SIZE);
 
-		treeItemRoot1.getChildren().addAll(nodeItemA, nodeItemB, nodeItemD, nodeItemC, nodeItemE, nodeItemF, nodeItemG);
+		TreeItem<String> nodeItemI = new TreeItem<String>(MENU_EXIT);
+
+		treeItemRoot1.getChildren().addAll(nodeItemA, nodeItemB, nodeItemD, nodeItemC, nodeItemE, nodeItemF, nodeItemG,
+				nodeItemI);
 
 		EventHandler<MouseEvent> mouseEventHandle = (MouseEvent event) -> {
 			handleMouseClicked(event);
@@ -205,8 +221,27 @@ public class MainController implements Initializable {
 			}
 			if (name.equals(MENU_SETTING)) {
 				new FileWriterLog(LoginDataBase.name + " Főmenü Beállítás");
-				SettingMain main = new SettingMain();
-				main.start();
+				if (LoginDataBase.authority.equals("Admin")) {
+					SettingMain main = new SettingMain();
+					main.start();
+				} else {
+					tray = new TrayNotification("Butuska!", "Kérj hozzáférést", NotificationType.ERROR);
+					tray.setAnimationType(AnimationType.POPUP);
+					tray.showAndDismiss(Duration.seconds(2));
+				}
+
+				return;
+			}
+			if (name.equals(MENU_LOG)) {
+				new FileWriterLog(LoginDataBase.name + " Főmenü Log");
+				if (LoginDataBase.authority.equals("Admin")) {
+					LogMain log = new LogMain();
+					log.start();
+				} else {
+					tray = new TrayNotification("Butuska!", "Kérj hozzáférést", NotificationType.ERROR);
+					tray.setAnimationType(AnimationType.POPUP);
+					tray.showAndDismiss(Duration.seconds(2));
+				}
 				return;
 			}
 			if (name.equals(MENU_MINIMAL_SIZE)) {
@@ -217,11 +252,22 @@ public class MainController implements Initializable {
 				return;
 			}
 
+
 			if (name.equals(MENU_EXIT)) {
 				new FileWriterLog(LoginDataBase.name + " Program kilép");
-				new NewLogDatabase().newLog();
-				new FileDelete();
-				System.exit(0);
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("Kilépés");
+				alert.setHeaderText("");
+				alert.getDialogPane().getStylesheets().add("/com/setting/showinfo/ShowInfo.css");
+				alert.initStyle(StageStyle.TRANSPARENT);
+				String s = "Biztos kilépsz?";
+				alert.setContentText(s);
+				Optional<ButtonType> result = alert.showAndWait();
+				if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
+					new NewLogDatabase().newLog();
+					new FileDelete();
+					System.exit(0);
+				}
 				return;
 			}
 		}

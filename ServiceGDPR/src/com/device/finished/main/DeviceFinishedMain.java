@@ -9,12 +9,15 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class DeviceFinishedMain {
+	public static Stage primaryStageDeviceFinishedMain;
+
 	public void start() {
 		try {
 			Stage primaryStage = new Stage();
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/device/view/DeviceTable.fxml"));
 			loader.setController(new FinishedDeviceController());
 			Parent root = (Parent) loader.load();
+			primaryStageDeviceFinishedMain = primaryStage;
 			primaryStage.setWidth(1300);
 			primaryStage.setHeight(700);
 			primaryStage.setTitle("Befejezett");

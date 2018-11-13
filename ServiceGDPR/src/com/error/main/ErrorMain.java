@@ -7,10 +7,12 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class ErrorMain {
+	public static Stage primaryStageErrorMain;
 	public void start() {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/com/error/view/FxmlError.fxml"));
 			Stage stage = new Stage();
+			primaryStageErrorMain = stage;
 			stage.setResizable(false);
 			stage.setTitle("Hibabejelentés");
 			stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/setting/icon/icon-it.png")));

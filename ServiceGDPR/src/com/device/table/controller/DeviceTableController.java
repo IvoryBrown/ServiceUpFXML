@@ -262,6 +262,7 @@ public class DeviceTableController {
 				final String value = i.getValue().getDeviceRepairLocation();
 				return Bindings.createObjectBinding(() -> value);
 			});
+			LocationDataBase.getAllLocationDataBase();
 			deviceTableRepairLocation
 					.setCellFactory(ComboBoxTableCell.forTableColumn(LocationDataBase.locationListComboBox));
 			deviceTableRepairLocation.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Device, String>>() {

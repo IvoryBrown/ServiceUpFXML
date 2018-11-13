@@ -15,7 +15,7 @@ public class LogMain {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/com/log/view/Log.fxml"));
 			Stage stage = new Stage();
-			CompanyMain.primaryStageLoginMain = stage;
+			CompanyMain.primaryStageCompanyMain = stage;
 			stage.setTitle("Cég");
 			stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/setting/icon/icon-it.png")));
 			stage.setScene(new Scene(root, 1300, 650));

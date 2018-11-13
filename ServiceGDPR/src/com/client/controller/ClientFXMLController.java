@@ -173,7 +173,7 @@ public class ClientFXMLController implements Initializable {
 		if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
 			DeviceNewMain newDevice = new DeviceNewMain();
 			newDevice.start();
-			ClientNewMain.primaryStageLoginMain.close();
+			ClientNewMain.primaryStageNewClientMain.close();
 		}
 
 	}

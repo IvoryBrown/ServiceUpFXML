@@ -7,12 +7,13 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class DeviceInformationMain {
-	
+	public static Stage primaryStageDeviceInformationMain;
 	public void start() {
 		try {
 			Parent root = FXMLLoader
 					.load(getClass().getResource("/com/device/information/view/DeviceInformationFXML.fxml"));
 			Stage stage = new Stage();
+			primaryStageDeviceInformationMain = stage;
 			stage.setWidth(1300);
 			stage.setHeight(650);
 			stage.setTitle("Információ");

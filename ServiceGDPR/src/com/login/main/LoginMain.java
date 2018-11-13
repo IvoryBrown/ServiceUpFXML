@@ -14,11 +14,11 @@ public class LoginMain extends Application {
 	@SuppressWarnings("static-access")
 	@Override
 	public void start(Stage primaryStage) {
-		this.primaryStageLoginMain = primaryStage;
 		try {
 
 			Parent root = FXMLLoader.load(getClass().getResource("/com/login/view/LoginFxml.fxml"));
 			Scene scene = new Scene(root);
+			this.primaryStageLoginMain = primaryStage;
 			primaryStage.setWidth(764);
 			primaryStage.setHeight(513);
 			primaryStage.initStyle(StageStyle.TRANSPARENT);
@@ -30,6 +30,7 @@ public class LoginMain extends Application {
 			e.printStackTrace();
 		}
 	}
+	
 
 	public static void main(String[] args) {
 		launch(args);

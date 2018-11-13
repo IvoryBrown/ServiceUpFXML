@@ -9,13 +9,14 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class DeviceAllMain {
-	
+	public static Stage primaryStageDeviceAllMain;
 	public void start() {
 		try {
 			Stage primaryStage = new Stage();
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/device/view/DeviceTable.fxml"));
 			loader.setController(new AllDeviceController());
 			Parent root = (Parent) loader.load();
+			primaryStageDeviceAllMain = primaryStage;
 			primaryStage.setWidth(1300);
 			primaryStage.setHeight(700);
 			primaryStage.setTitle("Összes");
