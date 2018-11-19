@@ -30,17 +30,17 @@ public class ActualDeviceController extends DeviceTableController implements Ini
 
 	@Override
 	protected void setDeviceTableData() {
-		this.setDataTable();
 		super.setDeviceTableData();
+		this.setDataTable();
 	}
 
 	@Override
 	protected void setDataTable() {
-		deviceTable.getItems().clear();
+		super.setDataTable();
+		super.deviceTable.getItems().clear();
 		dataActualDevice.clear();
 		dataActualDevice.addAll(db.getActualDevice());
 		deviceTable.setItems(dataActualDevice);
-		super.setDataTable();
 	}
 
 	@Override
@@ -57,7 +57,8 @@ public class ActualDeviceController extends DeviceTableController implements Ini
 	}
 
 	private void checkClient() {
-		new FileWriterLog(LoginDataBase.name + " Eszköz keresés a folyamatba lévőbe: " + deviceClientNameFilteringTxt.getText());
+		new FileWriterLog(
+				LoginDataBase.name + " Eszköz keresés a folyamatba lévőbe: " + deviceClientNameFilteringTxt.getText());
 		deviceTable.getItems().clear();
 		dataActualDevice.clear();
 		dataActualDevice.addAll(db.getClientNameFilltering(deviceClientNameFilteringTxt.getText()));

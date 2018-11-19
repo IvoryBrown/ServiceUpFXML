@@ -73,6 +73,7 @@ public class DeviceTableController {
 
 	@SuppressWarnings("unchecked")
 	protected void setDeviceTableData() {
+		deviceTable.getColumns().clear();
 		Callback<TableColumn<Device, Date>, TableCell<Device, Date>> dateCellFactory = (
 				TableColumn<Device, Date> param) -> new DateEditingCellDevice();
 
@@ -928,6 +929,8 @@ public class DeviceTableController {
 			}
 		}
 	}
+	
+	
 
 	@FXML
 	protected void setDataTable() {

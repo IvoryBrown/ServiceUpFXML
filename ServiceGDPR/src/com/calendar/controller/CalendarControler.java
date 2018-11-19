@@ -128,5 +128,6 @@ public class CalendarControler implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		currentYearMonth = YearMonth.now();
 		FullCalendarView(currentYearMonth);
+	
 	}
 }
