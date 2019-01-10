@@ -30,12 +30,14 @@ public class ActualDeviceController extends DeviceTableController implements Ini
 
 	@Override
 	protected void setDeviceTableData() {
+		System.out.println("Gyerek setDeviceTableData");
 		super.setDeviceTableData();
 		this.setDataTable();
 	}
 
 	@Override
 	protected void setDataTable() {
+		System.out.println("Gyerek setDataTable");
 		super.setDataTable();
 		super.deviceTable.getItems().clear();
 		dataActualDevice.clear();
